@@ -1,0 +1,26 @@
+{
+    "name": "TECHUTOPIA 2026",
+    "short_name": "TECHUTOPIA",
+    "description": "India's premier Greek mythology themed hackathon at UEM Jaipur.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0d0d0d",
+    "theme_color": "#d4af37",
+    "icons": [
+        {
+            "src": "/owl-logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "any",
+            "type": "image/png"
+        }
+    ]
+}

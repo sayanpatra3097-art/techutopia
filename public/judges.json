@@ -1,0 +1,115 @@
+[
+    {
+      "role": "SDE-II at Microsoft",
+      "name": "Pranav M",
+      "photo": "/judges/pranav.webp",
+      "linkedin": "https://www.linkedin.com/in/candidatepstx-95adfsdk23/",
+      "color": "#FF5733",
+      "animation": {
+        "type": "slide-in-left",
+        "duration": "1.5s"
+      }
+
+    },
+    
+    {
+      "role": "Head CSE at IIT Ropar",
+      "name": "Sudarshan Iyengar",
+      "photo": "/judges/profiyengar.webp",
+      "linkedin": "https://www.linkedin.com/in/sudarshan-iyengar-3560b8145/",
+      "color": "#33FF57",
+      "animation": {
+        "type": "slide-in-right",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Founder at Hygge",
+      "name": "Sandhita Agarwal",
+      "photo": "/judges/sandhitaagarwal.webp",
+      "linkedin": "https://www.linkedin.com/in/sandhitaagarwal/",
+      "color": "#3357FF",
+      "animation": {
+        "type": "slide-in-left",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Founder at Ecovia",
+      "name": "Aman",
+      "photo": "/judges/aman.webp",
+      "linkedin": "https://ecovia-pro.com/",
+      "color": "#FF33A1",
+      "animation": {
+        "type": "slide-in-right",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Co-Founder at Humanli AI",
+      "name": "Rishabh Nag",
+      "photo": "/judges/rishabhnag.webp",
+      "linkedin": "https://www.linkedin.com/in/rishabh-nag-founder03/",
+      "color": "#A133FF",
+      "animation": {
+        "type": "slide-in-left",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Lead Data Scientist at KainSkep",
+      "name": "Devendra Parihar",
+      "photo": "/judges/devendraparihar.webp",
+      "linkedin": "https://www.linkedin.com/in/devendra-parihar/",
+      "color": "#33FFA1",
+      "animation": {
+        "type": "slide-in-right",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Head of Quality and Automation Testing",
+      "name": "Rohit Mehta",
+      "photo": "/judges/rohitmehta.webp",
+      "linkedin": "https://www.linkedin.com/in/rohitmehta086/",
+      "color": "#FF5733",
+      "animation": {
+        "type": "slide-in-left",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Remote Sensing Engineer at BharatRohan",
+      "name": "Harshaditya Gaur",
+      "photo": "/judges/harshadityagaur.webp",
+      "linkedin": "https://www.linkedin.com/in/harshadityagaur/",
+      "color": "#33FF57",
+      "animation": {
+        "type": "slide-in-right",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Associate Software Engineer at Celebal Technologies",
+      "name": "Vineet Sharma",
+      "photo": "/judges/vineetsharma.webp",
+      "linkedin": "https://www.linkedin.com/in/vineetsharma-24/",
+      "color": "#3357FF",
+      "animation": {
+        "type": "slide-in-left",
+        "duration": "1.5s"
+      }
+    },
+    {
+      "role": "Associate Software Engineer at CoinDCX",
+      "name": "Sparsh Agarwal",
+      "photo": "/judges/sparshagarwal.webp",
+      "linkedin": "https://linkedin.com/in/akathecoder",
+      "color": "#FF33A1",
+      "animation": {
+        "type": "slide-in-right",
+        "duration": "1.5s"
+      }
+    }
+    
+  ]
