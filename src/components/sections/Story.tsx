@@ -40,7 +40,7 @@ export function Story() {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="w-full lg:w-3/5 order-1 lg:order-1"
+          className="w-full lg:w-3/5 order-1 lg:order-1 bg-[#06060c]/60 border border-amber-500/20 backdrop-blur-md p-6 sm:p-8 md:p-10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
         >
           <h1
             className="font-heading font-bold text-amber-500 mb-4 xs:mb-5 sm:mb-6 md:mb-8 drop-shadow-md text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center lg:text-left"
@@ -52,7 +52,7 @@ export function Story() {
           </h1>
 
           <div
-            className="text-stone-300 font-subheading leading-relaxed tracking-wide text-left sm:text-justify text-sm xs:text-base sm:text-base md:text-lg lg:text-lg xl:text-xl"
+            className="text-stone-200 font-subheading leading-relaxed tracking-wide text-left sm:text-justify text-sm xs:text-base sm:text-base md:text-lg lg:text-lg xl:text-xl"
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -60,7 +60,7 @@ export function Story() {
             }}
           >
             {aboutText.paragraphs.map((para, index) => (
-              <p key={index} className="drop-shadow-sm">
+              <p key={index} className="drop-shadow-md">
                 {para}
               </p>
             ))}

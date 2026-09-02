@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         canonical: '/',
     },
     icons: {
-        icon: '/owl-logo.png',
+        icon: '/logo.png',
     },
     other: {
         'theme-color': '#6f1c16',

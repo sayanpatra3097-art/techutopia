@@ -22,17 +22,18 @@ export default function AboutPage() {
         <div className="relative min-h-screen">
             <CloudTransition type="uncover" />
             <PageScrollbar thumbColor="rgba(255, 69, 0, 0.4)" hoverColor="rgba(255, 69, 0, 0.9)" />
-            {/* Fixed Background Image */}
-            <div className="fixed inset-0 z-0">
+            {/* Fixed 3D High-Contrast Background Image */}
+            <div className="fixed inset-0 z-0 bg-[#050508]">
                 <Image
                     src="/About_bg.webp"
                     alt="Background"
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center contrast-[1.2] saturate-[1.15] brightness-[0.85] opacity-100 scale-105 transition-transform duration-1000"
                     priority
                 />
-                {/* Soft black overlay - darker on mobile for text readability */}
-                <div className="absolute inset-0 bg-black/40 sm:bg-black/30 md:bg-black/20" />
+                {/* 3D Depth Spotlight Vignette & Lightened Dark Gradients */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.65)_100%)] pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 pointer-events-none" />
             </div>
 
             {/* Content */}

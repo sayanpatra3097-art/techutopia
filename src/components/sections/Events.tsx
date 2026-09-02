@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
 import { QRCodeCanvas } from 'qrcode.react';
-import { ShoppingCart, CheckCircle, Clock, MapPin, X, Loader2, User, Ticket as TicketIcon, Gamepad2, Music, Map, Mic, Cpu, Zap, Star, Camera, Code2, Search, SlidersHorizontal, Sparkles, Flame, Bot, Palette, Glasses, Download, Linkedin } from 'lucide-react';
+import { ShoppingCart, CheckCircle, Clock, MapPin, X, Loader2, User, Ticket as TicketIcon, Gamepad2, Music, Map, Mic, Cpu, Zap, Star, Camera, Code2, Search, SlidersHorizontal, Sparkles, Flame, Bot, Palette, Glasses, Download, Linkedin, Utensils } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import BoardingPass from '@/components/ui/BoardingPass';
 
@@ -15,8 +15,7 @@ const iconMap: Record<number, any> = {
   2: Code2,
   3: Mic,
   4: Gamepad2,
-  13: Gamepad2,
-  5: Zap,
+  5: Utensils,
   6: Bot,
   7: Camera,
   8: Cpu,
@@ -458,6 +457,53 @@ export function Events() {
                   </p>
                 </motion.div>
 
+                {/* Sub-Events & Competitions Included */}
+                {/* @ts-ignore */}
+                {selectedEvent.subEvents && selectedEvent.subEvents.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="mb-8 sm:mb-12"
+                  >
+                    <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                      <div className="h-0.5 w-8 sm:w-12 bg-[#d4af37]/30" />
+                      <span className="text-[#d4af37] font-[Cinzel] text-xs sm:text-sm font-black tracking-widest uppercase">
+                        Competitions & Sub-Events Included
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* @ts-ignore */}
+                      {selectedEvent.subEvents.map((sub: any, sIdx: number) => (
+                        <div key={sIdx} className="bg-[#0e0f14] border border-[#d4af37]/20 p-4 rounded-2xl flex flex-col gap-2 hover:border-[#d4af37]/60 transition-all duration-300 group overflow-hidden shadow-lg">
+                          {sub.image && (
+                            <div className="relative w-full h-40 rounded-xl overflow-hidden mb-1 bg-black">
+                              <img
+                                src={sub.image}
+                                alt={sub.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                              <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between pointer-events-none">
+                                <span className="text-[#d4af37] font-[Cinzel] text-[10px] font-black uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md border border-[#d4af37]/30">
+                                  Sub-Event {sIdx + 1}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <Sparkles size={14} className="text-[#d4af37] shrink-0" />
+                            <h5 className="text-white font-[Cinzel] font-black text-sm sm:text-base uppercase tracking-wider">{sub.title}</h5>
+                          </div>
+                          {sub.desc && (
+                            <p className="text-stone-300 text-xs sm:text-sm not-italic font-sans leading-relaxed">{sub.desc}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
                 <div className="flex flex-col gap-3 sm:gap-4">
                   {showRsvpForm ? (
                     <div className="bg-[#1A1C23]/60 p-4 sm:p-5 rounded-2xl border border-[#d4af37]/20 mt-2">
@@ -551,13 +597,13 @@ export function Events() {
                             className="w-full bg-black/40 border border-[#d4af37]/20 rounded-xl px-4 py-3 text-white placeholder-stone-600 focus:outline-none focus:border-[#d4af37] font-[Cinzel] text-sm"
                             required
                           />
-                          <div className="flex gap-3">
+                          <div className="flex flex-col sm:flex-row gap-3">
                             <input
                               type="tel"
                               placeholder="Phone"
                               value={rsvpForm.phone}
                               onChange={e => setRsvpForm(prev => ({ ...prev, phone: e.target.value }))}
-                              className="w-1/2 bg-black/40 border border-[#d4af37]/20 rounded-xl px-4 py-3 text-white placeholder-stone-600 focus:outline-none focus:border-[#d4af37] font-[Cinzel] text-sm"
+                              className="w-full sm:w-1/2 bg-black/40 border border-[#d4af37]/20 rounded-xl px-4 py-3 text-white placeholder-stone-600 focus:outline-none focus:border-[#d4af37] font-[Cinzel] text-sm"
                               required
                             />
                             <input
@@ -565,7 +611,7 @@ export function Events() {
                               placeholder="College"
                               value={rsvpForm.college}
                               onChange={e => setRsvpForm(prev => ({ ...prev, college: e.target.value }))}
-                              className="w-1/2 bg-black/40 border border-[#d4af37]/20 rounded-xl px-4 py-3 text-white placeholder-stone-600 focus:outline-none focus:border-[#d4af37] font-[Cinzel] text-sm"
+                              className="w-full sm:w-1/2 bg-black/40 border border-[#d4af37]/20 rounded-xl px-4 py-3 text-white placeholder-stone-600 focus:outline-none focus:border-[#d4af37] font-[Cinzel] text-sm"
                               required
                             />
                           </div>
@@ -892,9 +938,30 @@ function EventCard({ evt, onClick }: { evt: typeof events[0], onClick: () => voi
           <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#d4af37]/30 to-transparent" />
         </div>
 
+        {/* Segment Tag */}
+        {evt.segment && (
+          <span className="text-[#d4af37] text-[10px] sm:text-[11px] font-bold tracking-widest uppercase mb-1">
+            {evt.segment}
+          </span>
+        )}
+
         <h3 className="text-sm sm:text-lg lg:text-xl font-[Cinzel] font-black text-white mb-1 sm:mb-2 tracking-tight group-hover:text-[#d4af37] transition-all duration-300 uppercase line-clamp-2">
           {evt.title}
         </h3>
+
+        {/* Sub-events list preview */}
+        {evt.subEvents && evt.subEvents.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 my-2">
+            {evt.subEvents.map((sub: any, sIdx: number) => (
+              <span
+                key={sIdx}
+                className="text-[9px] sm:text-[10px] bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 px-2 py-0.5 rounded-md font-sans not-italic font-medium"
+              >
+                {sub.title}
+              </span>
+            ))}
+          </div>
+        )}
 
 
         <div className="mt-auto flex items-center justify-between py-2 sm:py-3 border-t border-[#d4af37]/10">

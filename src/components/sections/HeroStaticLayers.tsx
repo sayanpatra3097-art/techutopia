@@ -62,9 +62,9 @@ export const HeroStaticLayers = memo(function HeroStaticLayers() {
                     style={{ filter: 'brightness(0.8) contrast(1.1)' }}
                 />
 
-                {/* Flash Layer 1 (Deep) */}
+                {/* Flash Layer 1 (Deep Red Lightning) */}
                 <div className="absolute inset-0" style={{
-                    background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), transparent 60%)',
+                    background: 'radial-gradient(circle at 30% 30%, rgba(255, 80, 80, 0.35), transparent 60%)',
                     animation: 'cloudFlash 2s infinite',
                     animationDelay: '1s',
                     opacity: 0,
@@ -72,9 +72,9 @@ export const HeroStaticLayers = memo(function HeroStaticLayers() {
                     willChange: 'opacity' // Keep on large layers
                 }} />
 
-                {/* Flash Layer 2 (Bright/Center) */}
+                {/* Flash Layer 2 (Bright Red Lightning/Center) */}
                 <div className="absolute inset-0" style={{
-                    background: 'radial-gradient(circle at 50% 40%, rgba(200, 200, 255, 0.4), transparent 50%)',
+                    background: 'radial-gradient(circle at 50% 40%, rgba(255, 100, 100, 0.45), transparent 50%)',
                     animation: 'cloudFlash 3s infinite',
                     animationDelay: '0.5s',
                     opacity: 0,

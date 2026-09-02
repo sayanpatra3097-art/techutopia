@@ -15,26 +15,18 @@ export default function LoadingScreen({
     duration = 13000,
 }: LoadingScreenProps) {
     const { finishLoading } = useLoading();
-    // Start visible by default - will hide if already shown
     const [isVisible, setIsVisible] = useState(true);
     const [shouldRender, setShouldRender] = useState(true);
 
     useEffect(() => {
-        // Check if loading screen has already been shown this session
         const alreadyShown = sessionStorage.getItem('loadingScreenShown');
-
-        // DEV: Uncomment to force loader every time for testing
-        // const alreadyShown = null; 
-
         if (alreadyShown) {
-            // Already shown - hide immediately
             setIsVisible(false);
             setShouldRender(false);
             finishLoading();
             return;
         }
 
-        // Mark as shown and start timer
         sessionStorage.setItem('loadingScreenShown', 'true');
         const timer = setTimeout(() => {
             setIsVisible(false);
@@ -50,17 +42,17 @@ export default function LoadingScreen({
     if (!shouldRender) return null;
 
     // Timeline:
-    // 0s - 3.5s: Owl Construction (Draws)
-    // 3.5s - 5.5s: Owl Move & Shrink
-    // 5.5s - 8.5s: Text Construction (Draws Lines)
-    // 8.5s - 9.5s: Full Fill (Color fills in)
+    // 0s - 3.5s: TU Lightning Logo Construction (Red Stroke Line Drawing)
+    // 3.5s - 5.5s: Logo Move & Shrink to Position
+    // 5.5s - 8.5s: Text Construction ("TECHUTOPIA 2026")
+    // 8.5s - 9.5s: Full Color Fill (Red & Black Shading)
     // 9.5s - 13.0s: Hold
 
-    const owlGroupVariants: Variants = {
+    const logoGroupVariants: Variants = {
         initial: {
-            scale: 2.5,
-            x: 750, // Center owl horizontally in SVG viewBox
-            y: 50,  // Center owl vertically in SVG viewBox
+            scale: 2.2,
+            x: 750,
+            y: 50,
         },
         move: {
             scale: 1,
@@ -74,12 +66,17 @@ export default function LoadingScreen({
         }
     };
 
+    const outerD = "M481 4L477 20L468 42L449 75L449 82L441 105L409 168L412 170L451 161L400 271L366 333L339 370L317 391L293 406L272 414L254 418L221 417L205 412L188 402L178 391L172 378L169 360L169 339L163 352L157 374L156 404L161 423L167 434L172 441L187 455L173 449L161 441L145 424L130 399L125 379L125 359L131 333L128 332L96 346L117 280L121 261L120 260L96 270L84 273L126 175L70 184L52 163L74 113L80 103L259 90L312 84L362 75L393 66L429 49L458 28L481 5Z";
+    const innerD = "M327 152L323 151L303 159L278 174L266 187L238 241L241 242L260 238L244 280L235 322L235 334L239 347L246 352L255 350L265 339L277 320L322 227L323 224L320 223L288 233L326 153Z";
+    const facetsD = "M480 9L471 35L456 65L438 89L420 107L392 127L354 203L356 205L389 196L391 196L389 200L390 198L388 197L382 201L333 217L310 227L302 227L290 233L297 226L304 211L306 212L311 205L336 160L345 152L349 150L350 152L354 147L359 148L360 152L372 155L374 149L379 148L380 145L378 145L381 144L387 129L331 155L332 148L312 155L274 174L272 171L262 171L302 148L302 146L240 153L194 161L176 196L178 197L216 183L198 202L197 205L202 208L207 200L164 282L167 283L202 272L190 301L182 328L179 345L179 372L187 396L203 411L188 402L178 391L173 381L169 359L170 340L166 341L166 347L160 353L156 352L155 357L164 327L180 290L175 290L139 303L143 297L146 300L153 297L190 230L181 223L177 230L192 203L191 201L188 203L183 202L184 204L182 205L176 205L173 208L167 209L192 160L186 153L182 153L178 157L182 147L321 132L354 126L384 117L415 99L441 74L460 48L480 10Z M464 29L463 30Z M138 151L129 174L71 184L53 163L137 152Z M385 208L353 275L358 265L357 263L361 259L359 256L354 262L355 266L351 269L327 321L309 347L285 367L270 374L254 378L239 378L230 375L222 368L218 355L219 357L222 354L226 355L226 357L232 357L240 362L254 353L276 324L281 321L296 292L299 290L302 292L326 242L330 244L347 243L349 246L354 246L355 244L355 247L361 244L361 247L368 233L369 235L371 233L369 230L375 224L375 221L373 221L375 217L379 216L380 218L383 213L382 209L384 209Z M132 243L135 242L127 251L112 262L99 262L96 264L94 261L131 244Z M134 330L130 357L130 390L137 412L129 396L125 379L125 359L133 331Z";
+
     return (
         <AnimatePresence>
             {isVisible && (
                 <motion.div
                     key="loading-container"
                     className='loading-screen'
+                    style={{ backgroundColor: '#050508' }}
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, transition: { duration: 1.0 } }}
                 >
@@ -94,86 +91,55 @@ export default function LoadingScreen({
                             overflow: 'visible'
                         }}
                     >
-                        {/* Owl Group - Centered Animation */}
+                        {/* TU Logo Group - Centered Red & Black Animation */}
                         <motion.g
-                            variants={owlGroupVariants}
+                            variants={logoGroupVariants}
                             initial='initial'
                             animate='move'
-                            style={{ transformOrigin: '310px 270px', willChange: 'transform' }}
+                            style={{ transformOrigin: '265px 230px', willChange: 'transform' }}
                         >
-                            <g transform="scale(1.86641 1.86559)">
+                            <g transform="scale(1.2) translate(10, 10)">
+                                {/* Facets & 3D Shading (Black / Dark Metallic) */}
                                 <motion.path
-                                    key="owl-0"
-                                    d="M220.69 120.2C231.718 120.366 234.391 123.831 243.915 127.497C245.234 128.005 250.518 122.144 253.398 121.407C257.311 124.394 253.924 135.701 252.32 139.685L254.625 145.456C251.757 143.379 248.693 141.348 245.76 139.344C239.146 142.074 228.021 154.174 222.473 159.631C218.422 161.976 203.54 139.75 196.188 140.5C193.093 140.816 192.113 142.308 189.659 144.491L189.047 144.45C188.396 133.968 186.876 130.094 189.128 119.952C199.466 129.881 199.025 128.113 211.074 122.259C212.413 121.609 218.819 120.544 220.69 120.2Z"
-
-                                    stroke="#E31B23"   /* Lighter Red Stroke */
-                                    strokeWidth="2"
-                                    strokeLinejoin="miter"
-                                    strokeLinecap="square"
-                                    fill="#E31B23"     /* Lighter Red Fill */
-
-                                    initial={{ pathLength: 0, fillOpacity: 0 }}
-                                    animate={{ pathLength: 1, fillOpacity: 1 }}
-                                    transition={{
-                                        pathLength: { delay: 0.7621133667911443, duration: 2.5, ease: "easeInOut" },
-                                        fillOpacity: { delay: 9.0, duration: 1.0 }
-                                    }}
-                                />
-                                <motion.path
-                                    key="owl-1"
-                                    d="M246.752 142.523L247.141 142.893C247.794 144.918 247.39 149.226 247.286 151.54C239.172 161.354 235.939 154.916 228.482 163.97C223.749 158.553 238.449 147.157 242.536 145.322C243.607 144.841 245.694 143.222 246.752 142.523Z"
-
-                                    stroke="#E31B23"   /* Lighter Red Stroke */
-                                    strokeWidth="2"
-                                    strokeLinejoin="miter"
-                                    strokeLinecap="square"
-                                    fill="#E31B23"     /* Lighter Red Fill */
-
-                                    initial={{ pathLength: 0, fillOpacity: 0 }}
-                                    animate={{ pathLength: 1, fillOpacity: 1 }}
-                                    transition={{
-                                        pathLength: { delay: 1.43147329221583, duration: 2.5, ease: "easeInOut" },
-                                        fillOpacity: { delay: 9.0, duration: 1.0 }
-                                    }}
-                                />
-                                <motion.path
-                                    key="owl-2"
-                                    d="M195.558 141.698C202.828 149.72 214.418 149.568 214.774 164.043C213.841 163.543 212.524 162.268 212.065 161.387C210.029 157.48 200.084 157.224 197.299 154.472C194.733 151.938 195.299 145.237 195.558 141.698Z"
-
-                                    stroke="#E31B23"   /* Lighter Red Stroke */
-                                    strokeWidth="2"
-                                    strokeLinejoin="miter"
-                                    strokeLinecap="square"
-                                    fill="#E31B23"     /* Lighter Red Fill */
-
-                                    initial={{ pathLength: 0, fillOpacity: 0 }}
-                                    animate={{ pathLength: 1, fillOpacity: 1 }}
-                                    transition={{
-                                        pathLength: { delay: 0.6102277849411286, duration: 2.5, ease: "easeInOut" },
-                                        fillOpacity: { delay: 9.0, duration: 1.0 }
-                                    }}
-                                />
-                                <motion.path
-                                    key="text-0"
-                                    d="M336.851 111.759L337.558 112.843C337.691 119.134 336.836 126.314 335.371 132.444C323.466 182.249 272.255 191.729 233.404 214.637C234.316 221.437 235.757 226.657 236.502 234.168C233.315 228.807 230.103 223.933 226.661 218.75C208.629 228.924 196.259 244.639 187.5 263.001C192.735 236.408 192.309 227.594 208.213 203.316C192.271 193.622 179.082 188.864 162.316 181.583C129.312 166.836 117.34 152.677 114.887 116.593C132.043 142.673 168.889 143.603 192.974 160.26C205.691 169.055 211.33 175.79 220.568 187.882C232.001 174.6 246.195 164.193 262.053 156.815C290.267 143.69 317.206 138.392 336.851 111.759Z"
-
-                                    stroke="#E31B23"   /* Lighter Red Stroke */
+                                    key="logo-facets"
+                                    d={facetsD}
+                                    stroke="#800000"
                                     strokeWidth="1.5"
-                                    strokeLinejoin="miter"
-                                    strokeLinecap="square"
-                                    fill="#E31B23"     /* Lighter Red Fill */
-
+                                    strokeLinejoin="round"
+                                    strokeLinecap="round"
+                                    fill="#121216"
                                     initial={{ pathLength: 0, fillOpacity: 0 }}
                                     animate={{ pathLength: 1, fillOpacity: 1 }}
                                     transition={{
-                                        pathLength: { delay: 0.6102277849411286, duration: 2.5, ease: "easeInOut" },
-                                        fillOpacity: { delay: 9.0, duration: 1.0 }
+                                        pathLength: { delay: 0.8, duration: 2.5, ease: "easeInOut" },
+                                        fillOpacity: { delay: 8.5, duration: 1.0 }
+                                    }}
+                                />
+
+                                {/* Main Logo Emblem (Red Neon Stroke & Red Metallic Fill) */}
+                                <motion.path
+                                    key="logo-main"
+                                    d={`${outerD} ${innerD}`}
+                                    fillRule="evenodd"
+                                    stroke="#E31B23"
+                                    strokeWidth="2.5"
+                                    strokeLinejoin="round"
+                                    strokeLinecap="round"
+                                    fill="#E31B23"
+                                    style={{
+                                        filter: 'drop-shadow(0 0 12px rgba(227, 27, 35, 0.7))'
+                                    }}
+                                    initial={{ pathLength: 0, fillOpacity: 0 }}
+                                    animate={{ pathLength: 1, fillOpacity: 1 }}
+                                    transition={{
+                                        pathLength: { delay: 0.5, duration: 2.5, ease: "easeInOut" },
+                                        fillOpacity: { delay: 8.5, duration: 1.0 }
                                     }}
                                 />
                             </g>
                         </motion.g>
 
-                        {/* Text Group - Line Following Animation */}
+                        {/* Text Group - Red/Gold Typography */}
                         <motion.g>
                             <motion.text
                                 x="1350"
@@ -184,6 +150,7 @@ export default function LoadingScreen({
                                     fontSize: '120px',
                                     letterSpacing: '0.1em',
                                     fontWeight: 'bold',
+                                    filter: 'drop-shadow(0 0 20px rgba(227, 27, 35, 0.6))'
                                 }}
                                 fill="#ffecd1"
                                 initial={{ opacity: 0 }}
@@ -195,7 +162,7 @@ export default function LoadingScreen({
                         </motion.g>
                     </svg>
 
-                    {/* Particles - empty on SSR, populated on client */}
+                    {/* Particles */}
                     <div className='particles' />
                 </motion.div>
             )}
@@ -206,7 +173,7 @@ export default function LoadingScreen({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: 2, duration: 0.5 }} // Delay to not overwhelm immediately
+                    transition={{ delay: 2, duration: 0.5 }}
                     onClick={() => {
                         setIsVisible(false);
                         setTimeout(() => {
@@ -219,22 +186,22 @@ export default function LoadingScreen({
                         position: 'fixed',
                         bottom: '5vh',
                         right: '5vw',
-                        zIndex: 10001, // Above everything
+                        zIndex: 10001,
                         background: 'transparent',
-                        border: '1px solid #d4af37',
-                        color: '#d4af37',
+                        border: '1px solid #E31B23',
+                        color: '#E31B23',
                         padding: '10px 24px',
                         fontFamily: 'Cinzel, serif',
                         fontSize: '1rem',
                         letterSpacing: '0.1rem',
                         cursor: 'pointer',
                         backdropFilter: 'blur(5px)',
-                        boxShadow: '0 0 15px rgba(212, 175, 55, 0.2)',
+                        boxShadow: '0 0 15px rgba(227, 27, 35, 0.3)',
                     }}
                     whileHover={{
                         scale: 1.05,
-                        backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                        boxShadow: '0 0 25px rgba(212, 175, 55, 0.4)'
+                        backgroundColor: 'rgba(227, 27, 35, 0.15)',
+                        boxShadow: '0 0 25px rgba(227, 27, 35, 0.6)'
                     }}
                     whileTap={{ scale: 0.95 }}
                 >

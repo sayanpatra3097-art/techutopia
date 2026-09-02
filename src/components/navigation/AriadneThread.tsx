@@ -92,7 +92,7 @@ export function AriadneThread() {
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
 
-                {/* Owl marker moving along thread */}
+                {/* Logo marker moving along thread */}
                 <motion.div
                     className="absolute left-1/2 -translate-x-1/2 w-8 h-8 flex items-center justify-center"
                     style={{
@@ -107,7 +107,7 @@ export function AriadneThread() {
                             boxShadow: `0 0 20px ${colors.gold.glow}`,
                         }}
                     >
-                        🦉
+                        ⚡
                     </div>
                 </motion.div>
             </div>

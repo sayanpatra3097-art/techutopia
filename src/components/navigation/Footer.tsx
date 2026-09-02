@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Instagram, Twitter, ArrowRight, MapPin, Heart, Phone, Mail, ExternalLink } from 'lucide-react';
-// import owlLogo from '@/assets/owl-logo.png';
-const owlLogo = '/owl-logo.png';
+const logoImage = '/owl-logo.png';
+
 
 const footerLinks = [
     { name: 'Home', path: '/' },
@@ -70,10 +70,10 @@ export function Footer({ className = '' }: FooterProps) {
                     <Link href="/" className="inline-flex items-center gap-4 group">
                         <div className="relative w-12 h-12">
                             <Image
-                                src={owlLogo}
-                                alt="TECHUTOPIA Owl"
+                                src={logoImage}
+                                alt="TECHUTOPIA"
                                 fill
-                                className="object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] group-hover:scale-110 transition-transform duration-500"
+                                className="object-contain drop-shadow-[0_0_15px_rgba(0,210,255,0.4)] group-hover:scale-110 transition-transform duration-500"
                             />
                         </div>
                         <div>

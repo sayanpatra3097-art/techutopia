@@ -132,9 +132,10 @@ export function Hero() {
               style={{
                 fontFamily: 'tech Origin, sans-serif',
                 // RESPONSIVE: Much larger on mobile/tablet (main focus), smaller on desktop
-                fontSize: 'clamp(3rem, 12vw, 4rem)', // Increased from 6.5vw to 12vw for mobile/tablet
+                fontSize: 'clamp(2.5rem, 10vw, 4rem)', // Adjusted for mobile to prevent horizontal scroll
                 fontWeight: 'normal',
-                whiteSpace: 'nowrap', // Force single line
+                whiteSpace: 'normal', // Allow wrapping on very small screens if necessary
+                wordWrap: 'break-word',
                 // High-contrast metallic gold gradient
                 background: 'linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #634f2c 27%,#ffecb3 40%,#3a2c0f 78%)',
                 WebkitBackgroundClip: 'text',
@@ -151,13 +152,13 @@ export function Hero() {
                 margin: 0,
                 marginTop: '0.5rem',
                 lineHeight: 1,
-                letterSpacing: 'clamp(0.02em, 0.5vw, 0.05em)',
+                letterSpacing: 'clamp(0.01em, 0.5vw, 0.05em)',
                 position: 'relative',
                 maxWidth: '95vw',
-                wordBreak: 'keep-all'
+                wordBreak: 'break-word', // Changed from keep-all to prevent overflow
               }}
             >
-              TECHUTOPIA <span style={{ fontFamily: 'inherit' }}>2026</span>
+              TECHUTOPIA <span style={{ fontFamily: 'inherit' }} className="whitespace-nowrap">2026</span>
             </h1>
 
             {/* Silver Partner + Devfolio Logo - Larger spacing on mobile/tablet */}

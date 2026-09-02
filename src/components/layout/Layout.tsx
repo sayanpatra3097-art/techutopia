@@ -1,8 +1,7 @@
 'use client';
 
 import { X } from 'lucide-react';
-// import owlLogo from '@/assets/owl-logo.png';
-const owlLogo = '/owl-logo.png';
+const logoImage = '/owl-logo.png';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -68,7 +67,7 @@ export function Layout({ children }: LayoutProps) {
               href="/"
               className="flex items-center transition-transform hover:scale-110 duration-300"
             >
-              <Image src={owlLogo} alt="TECHUTOPIA Owl" width={64} height={64} className="h-12 md:h-16 w-auto object-contain" priority />
+              <Image src={logoImage} alt="TECHUTOPIA" width={64} height={64} className="h-12 md:h-16 w-auto object-contain" priority />
             </Link>
           </div>
 

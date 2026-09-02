@@ -51,13 +51,13 @@ class ImageCloudSystem {
     // Ocean: #002b36 (0, 43, 54), Overlay: (0, 43, 54, 0.3)
     // Hades: #241600 (36, 22, 0), Overlay: (212, 175, 55, 0.25)
     colorSchemes: Record<string, ColorScheme> = {
-        sky: { background: [44, 62, 80], overlayColor: [44, 62, 80, 0.3] },
-        ocean: { background: [0, 43, 54], overlayColor: [0, 43, 54, 0.3] },
-        hades: { background: [36, 22, 0], overlayColor: [212, 175, 55, 0.25] }
+        sky: { background: [45, 12, 18], overlayColor: [220, 40, 50, 0.3] },
+        ocean: { background: [60, 15, 22], overlayColor: [240, 50, 60, 0.3] },
+        hades: { background: [35, 8, 12], overlayColor: [255, 60, 70, 0.25] }
     };
 
-    currentBg = '#2C3E50';
-    currentOverlay = 'rgba(44, 62, 80, 0.3)';
+    currentBg = '#2d0c12';
+    currentOverlay = 'rgba(220, 40, 50, 0.3)';
 
     worldDepth = 3000;
     fov = 800;
@@ -613,12 +613,14 @@ export default function CloudParallaxPage() {
                 }}>
                     <p style={{
                         fontFamily: 'Cinzel, serif',
-                        fontSize: '2.5rem',
+                        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
                         color: '#d4af37',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.2rem',
+                        letterSpacing: 'clamp(0.1rem, 0.4vw, 0.2rem)',
                         textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        maxWidth: '90vw',
+                        lineHeight: 1.2
                     }}>
                         — From MYTH to Main Frame —
                     </p>
@@ -664,7 +666,7 @@ export default function CloudParallaxPage() {
                     }}>
                         <h2 style={{
                             fontFamily: 'Cinzel, serif',
-                            fontSize: '4rem',
+                            fontSize: 'clamp(2rem, 8vw, 4rem)',
                             color: '#e0f7fa',
                             textShadow: '0 0 15px rgba(0, 255, 255, 0.5)',
                             marginBottom: '1rem'
@@ -673,7 +675,7 @@ export default function CloudParallaxPage() {
                         </h2>
                         <p style={{
                             fontFamily: 'Cinzel, serif',
-                            fontSize: '1.5rem',
+                            fontSize: 'clamp(1rem, 4vw, 1.5rem)',
                             color: '#b3e5fc',
                             letterSpacing: '0.1rem'
                         }}>
@@ -721,7 +723,7 @@ export default function CloudParallaxPage() {
                         className="apply-button"
                         data-hackathon-slug="techutopia-v5"
                         data-button-theme="dark"
-                        style={{ height: '44px', width: '312px', zIndex: 50, position: 'relative' }}
+                        style={{ height: '44px', width: 'min(312px, 85vw)', zIndex: 50, position: 'relative' }}
                     ></div>
                 </motion.div>
 
