@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import timerBg23 from '../assets/23.png'
+import timerBg23 from '../assets/23.webp'
 
 export default function ChamberOfTime() {
   const [isUnsealed, setIsUnsealed] = useState(false)

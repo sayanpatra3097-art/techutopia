@@ -1344,7 +1344,7 @@
   inset: 0;
   background-image: 
     radial-gradient(circle at 50% 30%, rgba(255, 107, 53, 0.25) 0%, rgba(16, 7, 3, 0.9) 85%),
-    url('/src/assets/23.png');
+    url('/src/assets/23.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.65;

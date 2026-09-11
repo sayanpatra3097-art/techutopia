@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
-import timerBg23 from '../assets/23.png'
+import timerBg23 from '../assets/23.webp'
 
 export default function Countdown() {
   // Target Fest Date: October 6 – 7, 2026

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import doorImg from '../assets/door.png'
+import doorImg from '../assets/door.webp'
 
 const artifacts = [
   {
@@ -173,6 +173,9 @@ export default function DoorEntryScene() {
                   src={doorImg}
                   alt="Ancient Dungeon Portal Gate Left"
                   className="sl-door__image"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
@@ -193,6 +196,9 @@ export default function DoorEntryScene() {
                   src={doorImg}
                   alt="Ancient Dungeon Portal Gate Right"
                   className="sl-door__image"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />

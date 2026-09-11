@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import TeamFlipCard from './TeamFlipCard'
 import useScrollReveal from '../hooks/useScrollReveal'
-import coreTeamBg from '../assets/core_team.png'
+import coreTeamBg from '../assets/core_team.webp'
 
 const teamMembers = [
   {

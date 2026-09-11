@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
-import doorImg from '../assets/door.png'
-import timerBg23 from '../assets/23.png'
+import doorImg from '../assets/door.webp'
+import timerBg23 from '../assets/23.webp'
 
-// Eagerly resolve all anime dimension backgrounds (1.png to 42.png) from the assets folder
-const bgModules = import.meta.glob('../assets/*.png', { eager: true, import: 'default' })
+// Eagerly resolve all anime dimension backgrounds (1.webp to 42.webp) from the assets folder
+const bgModules = import.meta.glob('../assets/*.webp', { eager: true, import: 'default' })
 
 const getAssetBg = (num) => {
   return (
-    bgModules[`../assets/${num}.png`] ||
-    bgModules[`../assets/${num}.jpg`] ||
-    bgModules[`../assets/${((num % 42) + 1)}.png`] ||
-    bgModules['../assets/1.png']
+    bgModules[`../assets/${num}.webp`] ||
+    bgModules[`../assets/${((num % 42) + 1)}.webp`] ||
+    bgModules['../assets/1.webp']
   )
 }
 
@@ -714,6 +713,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   src={doorImg}
                   alt="Ancient Dungeon Portal Gate Left"
                   className="sl-door__image"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
@@ -732,6 +734,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   src={doorImg}
                   alt="Ancient Dungeon Portal Gate Right"
                   className="sl-door__image"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />

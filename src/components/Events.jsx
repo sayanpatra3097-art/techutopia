@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
-import eventOutroImg from '../assets/event_outro.png'
-import eventInsideImg from '../assets/event_inside.png'
+import eventOutroImg from '../assets/event_outro.webp'
+import eventInsideImg from '../assets/event_inside.webp'
 
-import art1 from '../assets/1.png'
-import art2 from '../assets/2.png'
-import art3 from '../assets/3.png'
-import art4 from '../assets/4.png'
-import art5 from '../assets/5.png'
-import art6 from '../assets/6.png'
-import art7 from '../assets/7.png'
-import art8 from '../assets/8.png'
-import art9 from '../assets/9.png'
+import art1 from '../assets/1.webp'
+import art2 from '../assets/2.webp'
+import art3 from '../assets/3.webp'
+import art4 from '../assets/4.webp'
+import art5 from '../assets/5.webp'
+import art6 from '../assets/6.webp'
+import art7 from '../assets/7.webp'
+import art8 from '../assets/8.webp'
+import art9 from '../assets/9.webp'
 
 const eventsDataset = [
   {

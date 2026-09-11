@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
-import animeSkyBg from '../assets/anime_sky_bg.jpg'
+import animeSkyBg from '../assets/anime_sky_bg.webp'
 
 // Authentic Anime Constellation Timeline for TechUtopia '26
 const constellationDays = {

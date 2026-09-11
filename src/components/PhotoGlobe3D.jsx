@@ -3,10 +3,10 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import useScrollReveal from '../hooks/useScrollReveal'
-import universeBg from '../assets/anime_universe_bg.jpg'
+import universeBg from '../assets/anime_universe_bg.webp'
 
 // Dynamically import all 41 photos from src/assets/pastphotos
-const pastPhotosGlob = import.meta.glob('../assets/pastphotos/*.png', { eager: true, import: 'default' })
+const pastPhotosGlob = import.meta.glob('../assets/pastphotos/*.webp', { eager: true, import: 'default' })
 
 // Curated anime-themed lore captions for the memory fragments
 const memoryCaptions = [
@@ -27,7 +27,7 @@ const memoryCaptions = [
 const allPastPhotos = Object.entries(pastPhotosGlob)
   .map(([filepath, url]) => {
     const filename = filepath.split('/').pop() || ''
-    const match = filename.match(/^(\d+)\.png$/)
+    const match = filename.match(/^(\d+)\.(png|webp)$/)
     const num = match ? parseInt(match[1], 10) : 0
     const meta = memoryCaptions[(num - 1) % memoryCaptions.length]
     return {

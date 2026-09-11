@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import owlLogo from '../assets/owl-logo.png'
+import owlLogo from '../assets/owl-logo.webp'
 
 export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [scrolled, setScrolled] = useState(false)
