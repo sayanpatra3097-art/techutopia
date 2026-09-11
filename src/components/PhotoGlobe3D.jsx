@@ -4,7 +4,6 @@ import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import useScrollReveal from '../hooks/useScrollReveal'
 import universeBg from '../assets/anime_universe_bg.jpg'
-import { getAssetUrl } from '../utils/cloudinary'
 
 // Dynamically import all 41 photos from src/assets/pastphotos
 const pastPhotosGlob = import.meta.glob('../assets/pastphotos/*.png', { eager: true, import: 'default' })
@@ -35,7 +34,7 @@ const allPastPhotos = Object.entries(pastPhotosGlob)
       id: num || filename,
       num,
       filename,
-      url: getAssetUrl(`pastphotos/${filename}`, url),
+      url,
       title: `${meta.title} • #${String(num).padStart(2, '0')}`,
       caption: meta.caption
     }

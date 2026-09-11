@@ -7,8 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview",
-    "upload:cloudinary": "node scripts/upload_to_cloudinary.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

@@ -2,26 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 import eventOutroImg from '../assets/event_outro.png'
 import eventInsideImg from '../assets/event_inside.png'
 
-import art1Local from '../assets/1.png'
-import art2Local from '../assets/2.png'
-import art3Local from '../assets/3.png'
-import art4Local from '../assets/4.png'
-import art5Local from '../assets/5.png'
-import art6Local from '../assets/6.png'
-import art7Local from '../assets/7.png'
-import art8Local from '../assets/8.png'
-import art9Local from '../assets/9.png'
-import { getAssetUrl } from '../utils/cloudinary'
-
-const art1 = getAssetUrl('1.png', art1Local)
-const art2 = getAssetUrl('2.png', art2Local)
-const art3 = getAssetUrl('3.png', art3Local)
-const art4 = getAssetUrl('4.png', art4Local)
-const art5 = getAssetUrl('5.png', art5Local)
-const art6 = getAssetUrl('6.png', art6Local)
-const art7 = getAssetUrl('7.png', art7Local)
-const art8 = getAssetUrl('8.png', art8Local)
-const art9 = getAssetUrl('9.png', art9Local)
+import art1 from '../assets/1.png'
+import art2 from '../assets/2.png'
+import art3 from '../assets/3.png'
+import art4 from '../assets/4.png'
+import art5 from '../assets/5.png'
+import art6 from '../assets/6.png'
+import art7 from '../assets/7.png'
+import art8 from '../assets/8.png'
+import art9 from '../assets/9.png'
 
 const eventsDataset = [
   {
