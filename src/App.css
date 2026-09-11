@@ -4350,7 +4350,11 @@
 @media (max-width: 860px) {
   /* Snappy mobile scroll track (prevents endless tedious swiping on phones) */
   .zoom-hero-track {
-    height: 380vh;
+    height: 260vh;
+    touch-action: pan-y;
+  }
+  .zoom-hero-sticky {
+    touch-action: pan-y;
   }
 
   /* Navbar mobile adaptation */
@@ -4417,13 +4421,15 @@
 
   /* Royal King's Scroll & Countdown on Mobile */
   .royal-scroll-stage {
-    width: 95vw;
-    max-height: 87vh;
+    width: min(94vw, 420px);
+    max-height: 80vh;
+    touch-action: pan-y;
   }
   .anime-timer-shrine,
   .royal-scroll__parchment-letter.anime-timer-shrine {
-    padding: 1.05rem 0.5rem 1.15rem;
+    padding: 0.85rem 0.5rem 0.95rem;
     border-width: 1.5px;
+    max-height: 74vh;
   }
   .anime-timer__header {
     margin-bottom: 0.25rem;
@@ -4582,29 +4588,15 @@
   }
 
   /* Exhibit Duo on Mobile / Tablet */
+  .gallery-details-dossier,
+  .chain-bridge-container,
+  .dossier-backdrop-dismiss {
+    display: none !important; /* In-corridor 3D boxes hidden on mobile; dedicated mobile sheet handles it */
+  }
   .gallery-exhibit-duo {
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center;
-  }
-  .chain-bridge-container {
-    width: 100%;
-    max-width: 220px;
-    height: 44px;
-    padding: 4px 0;
-    flex-direction: row;
-  }
-  .chain-runic-text {
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-  }
-  .gallery-details-dossier {
-    width: 92vw;
-    max-width: 315px;
-    height: 375px;
-  }
-  .dossier-dismiss-banner {
-    font-size: 0.58rem;
-    padding: 4px 12px;
+    justify-content: center;
   }
   .events-walk-dock {
     bottom: 68px;
@@ -4643,7 +4635,7 @@
 
 @media (max-width: 480px) {
   .zoom-hero-track {
-    height: 360vh;
+    height: 240vh;
   }
   .door-landing__main-title {
     font-size: clamp(2rem, 10vw, 3rem);
@@ -4668,4 +4660,281 @@
     height: 32px;
     font-size: 0.95rem;
   }
+}
+
+/* ════════════ DEDICATED MOBILE MISSION DOSSIER (BOTTOM SHEET DRAWER) ════════════ */
+.mobile-quest-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(3, 4, 8, 0.86);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: mobileOverlayFadeIn 0.25s ease forwards;
+}
+
+@keyframes mobileOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mobile-quest-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 86vh;
+  background: linear-gradient(180deg, #101424 0%, #080a12 100%);
+  border-top: 2px solid var(--event-color, #ff0055);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px 22px 0 0;
+  box-shadow: 
+    0 -12px 45px rgba(0, 0, 0, 0.95),
+    0 0 40px rgba(255, 0, 85, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: mobileModalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mobileModalSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mobile-quest-modal__handle-bar {
+  width: 100%;
+  padding: 10px 0 4px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.mobile-quest-modal__drag-pill {
+  width: 44px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+}
+
+.mobile-quest-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 1.2rem 0.6rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.mobile-quest-modal__tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.mobile-quest-modal__tag-icon {
+  font-size: 0.85rem;
+}
+
+.mobile-quest-modal__close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-quest-modal__close-btn:active {
+  background: #ff0055;
+  border-color: #ff0055;
+}
+
+.mobile-quest-modal__body {
+  padding: 0.9rem 1.2rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.mobile-quest-modal__banner {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mobile-quest-modal__banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.mobile-quest-modal__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(8, 10, 18, 0.92) 100%);
+}
+
+.mobile-quest-modal__badge-row {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.mobile-quest-modal__rank-badge {
+  background: rgba(8, 10, 18, 0.85);
+  border: 1.5px solid;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-quest-modal__element-tag {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-quest-modal__title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mobile-quest-modal__cat {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--event-color, #ff6b35);
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mobile-quest-modal__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 5vw, 1.65rem);
+  line-height: 1.15;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+.mobile-quest-modal__briefing-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+}
+
+.mobile-quest-modal__section-label {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.35rem;
+}
+
+.mobile-quest-modal__desc {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #d1d5db;
+}
+
+.mobile-quest-modal__specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.55rem;
+}
+
+.mobile-quest-modal__spec-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.mobile-quest-modal__spec-card--bounty {
+  border-color: rgba(255, 215, 0, 0.35);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.mobile-quest-modal__spec-card .spec-label {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.mobile-quest-modal__spec-card .spec-val {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.mobile-quest-modal__footer {
+  padding: 0.8rem 1.2rem calc(0.8rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(8, 10, 18, 0.98);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-quest-modal__cta-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+  color: #000000;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  text-decoration: none;
 }

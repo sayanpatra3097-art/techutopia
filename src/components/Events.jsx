@@ -244,6 +244,16 @@ export default function Events() {
   const [pixelFadeProgress, setPixelFadeProgress] = useState(0) // 0 to 1
   const [walkProgress, setWalkProgress] = useState(0) // 0 to 1 inside room
   const [openedEventId, setOpenedEventId] = useState(null)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
+  const activeMobileEvent = eventsDataset.find((e) => e.id === openedEventId)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 860)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const outroTrackRef = useRef(null)
   const insideTrackRef = useRef(null)
@@ -264,8 +274,8 @@ export default function Events() {
     if (!openedEventId) return
 
     const handleGlobalTap = (e) => {
-      // Allow registration button click to proceed to Google Form
-      if (e.target.closest('.dossier-reg-btn')) {
+      // Allow registration button click or mobile modal interactions
+      if (e.target.closest('.dossier-reg-btn') || e.target.closest('.mobile-quest-modal')) {
         return
       }
       setOpenedEventId(null)
@@ -619,8 +629,8 @@ export default function Events() {
             </div>
           </div>
 
-          {/* Screen-wide Backdrop Dismiss Overlay when any event is opened */}
-          {openedEventId !== null && (
+          {/* Screen-wide Backdrop Dismiss Overlay for Desktop */}
+          {openedEventId !== null && !isMobile && (
             <div
               className="dossier-backdrop-dismiss"
               onClick={() => setOpenedEventId(null)}
@@ -690,8 +700,8 @@ export default function Events() {
                     {/* Exhibit Duo: Poster on its side, Connected Chain, and Middle Details Dossier */}
                     <div className={`gallery-exhibit-duo ${isLeft ? 'duo--left-to-center' : 'duo--right-to-center'} ${isOpened ? 'is-opened' : ''}`}>
 
-                      {/* If right-side poster, Details Dossier renders on left (in the middle of the screen) */}
-                      {!isLeft && isOpened && (
+                      {/* If right-side poster, Details Dossier renders on left (in the middle of the screen) - DESKTOP ONLY */}
+                      {!isLeft && isOpened && !isMobile && (
                         <div
                           className="gallery-details-dossier"
                           onClick={(e) => {
@@ -761,8 +771,8 @@ export default function Events() {
                         </div>
                       )}
 
-                      {/* If right-side poster, Chain connects between center dossier and right poster */}
-                      {!isLeft && isOpened && (
+                      {/* If right-side poster, Chain connects between center dossier and right poster - DESKTOP ONLY */}
+                      {!isLeft && isOpened && !isMobile && (
                         <ChainBridge direction="left" />
                       )}
 
@@ -818,13 +828,13 @@ export default function Events() {
                         </div>
                       </div>
 
-                      {/* If left-side poster, Chain connects from left poster into the center */}
-                      {isLeft && isOpened && (
+                      {/* If left-side poster, Chain connects from left poster into the center - DESKTOP ONLY */}
+                      {isLeft && isOpened && !isMobile && (
                         <ChainBridge direction="right" />
                       )}
 
-                      {/* If left-side poster, Details Dossier renders on right (in the middle of the screen) */}
-                      {isLeft && isOpened && (
+                      {/* If left-side poster, Details Dossier renders on right (in the middle of the screen) - DESKTOP ONLY */}
+                      {isLeft && isOpened && !isMobile && (
                         <div
                           className="gallery-details-dossier"
                           onClick={(e) => {
@@ -939,6 +949,113 @@ export default function Events() {
             </button>
           </div>
 
+        </div>
+      )}
+
+      {/* ════════════ DEDICATED MOBILE MISSION DOSSIER VIEW (FULLSCREEN BOTTOM SHEET) ════════════ */}
+      {isMobile && activeMobileEvent && (
+        <div 
+          className="mobile-quest-modal-overlay"
+          onClick={() => setOpenedEventId(null)}
+        >
+          <div 
+            className="mobile-quest-modal"
+            style={{ '--event-color': activeMobileEvent.color }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drag handle */}
+            <div className="mobile-quest-modal__handle-bar" onClick={() => setOpenedEventId(null)}>
+              <span className="mobile-quest-modal__drag-pill" />
+            </div>
+
+            {/* Top action header */}
+            <div className="mobile-quest-modal__header">
+              <div className="mobile-quest-modal__tag">
+                <span className="mobile-quest-modal__tag-icon">⛓️</span>
+                <span>MISSION DOSSIER</span>
+              </div>
+              <button
+                type="button"
+                className="mobile-quest-modal__close-btn"
+                onClick={() => setOpenedEventId(null)}
+                aria-label="Close quest details"
+              >
+                ✕ CLOSE
+              </button>
+            </div>
+
+            {/* Scrollable Quest Body */}
+            <div className="mobile-quest-modal__body">
+              {/* Banner with image and badges */}
+              <div className="mobile-quest-modal__banner">
+                <img
+                  src={activeMobileEvent.image}
+                  alt={activeMobileEvent.title}
+                  className="mobile-quest-modal__banner-img"
+                />
+                <div className="mobile-quest-modal__banner-overlay" />
+                <div className="mobile-quest-modal__badge-row">
+                  <span
+                    className="mobile-quest-modal__rank-badge"
+                    style={{ borderColor: activeMobileEvent.color, color: activeMobileEvent.color }}
+                  >
+                    {activeMobileEvent.rank}
+                  </span>
+                  <span className="mobile-quest-modal__element-tag">
+                    {activeMobileEvent.element}
+                  </span>
+                </div>
+              </div>
+
+              {/* Title and category */}
+              <div className="mobile-quest-modal__title-section">
+                <div className="mobile-quest-modal__cat">
+                  <span>{activeMobileEvent.icon}</span>
+                  <span>{activeMobileEvent.category}</span>
+                </div>
+                <h3 className="mobile-quest-modal__title">{activeMobileEvent.title}</h3>
+              </div>
+
+              {/* Mission Briefing */}
+              <div className="mobile-quest-modal__briefing-card">
+                <div className="mobile-quest-modal__section-label">MISSION BRIEFING // 任務概要</div>
+                <p className="mobile-quest-modal__desc">{activeMobileEvent.description}</p>
+              </div>
+
+              {/* Specification Grid */}
+              <div className="mobile-quest-modal__specs-grid">
+                <div className="mobile-quest-modal__spec-card">
+                  <span className="spec-label">📅 SCHEDULE</span>
+                  <span className="spec-val">{activeMobileEvent.date}</span>
+                </div>
+                <div className="mobile-quest-modal__spec-card">
+                  <span className="spec-label">📍 VENUE</span>
+                  <span className="spec-val">{activeMobileEvent.venue}</span>
+                </div>
+                <div className="mobile-quest-modal__spec-card">
+                  <span className="spec-label">👥 GUILD SQUAD</span>
+                  <span className="spec-val">{activeMobileEvent.team}</span>
+                </div>
+                <div className="mobile-quest-modal__spec-card mobile-quest-modal__spec-card--bounty">
+                  <span className="spec-label">🏆 BOUNTY</span>
+                  <span className="spec-val" style={{ color: '#ffd700' }}>{activeMobileEvent.prize}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Sticky Bottom Actions */}
+            <div className="mobile-quest-modal__footer">
+              <a
+                href={GOOGLE_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--primary mobile-quest-modal__cta-btn dossier-reg-btn"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span>⚡ REGISTER VIA GOOGLE FORM ↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       )}
     </div>

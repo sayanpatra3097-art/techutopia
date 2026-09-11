@@ -505,6 +505,16 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     return () => clearInterval(interval)
   }, [targetDate])
 
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 860)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   // High-performance rAF-throttled scroll handler for buttery-smooth 60-120fps on mobile
   useEffect(() => {
     let ticking = false
@@ -542,13 +552,13 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
   const pad = (n) => String(n).padStart(2, '0')
 
-  // 3D Solo Leveling Door Swing opening on initial scroll (0 to 0.18)
-  const doorAngle = Math.min(95, scrollProgress * 550)
-  const doorOpacity = Math.max(0, 1 - scrollProgress * 5.8)
+  // 3D Solo Leveling Door Swing opening on initial scroll
+  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 700 : 550))
+  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 7.2 : 5.8))
 
   // ───── CONTINUOUS 42-DIMENSION ZOOM-IN CALCULATION ─────
   const zoomStart = 0.02
-  const zoomEnd = 0.44
+  const zoomEnd = isMobile ? 0.28 : 0.44
   const totalLayers = animeLayers.length // 42
 
   const clampedProgress = Math.max(0, Math.min(1, (scrollProgress - zoomStart) / (zoomEnd - zoomStart)))
@@ -570,9 +580,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const activeColor = currentLayer.color
 
   // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (100% HARDWARE-SYNCED) ─────
-  const scrollStageStart = 0.38
-  const rollStart = 0.40
-  const rollEnd = 0.82
+  const scrollStageStart = isMobile ? 0.22 : 0.38
+  const rollStart = isMobile ? 0.24 : 0.40
+  const rollEnd = isMobile ? 0.58 : 0.82
 
   // For scrolling images: increase opacity and clarity with light vignette.
   // For the last image (before/during timer): keep original dark gradient so timer animation is clearly visible.
@@ -587,7 +597,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
     : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
 
-  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * 12) : 0
+  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 16 : 12)) : 0
   const timerScale = 0.90 + (scrollProgress > scrollStageStart ? Math.min(0.04, (scrollProgress - scrollStageStart) * 0.15) : 0)
 
   // Direct 1-to-1 scroll-driven roll calculation (zero lag, zero latency)
@@ -777,9 +787,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           onMouseDown={handleDragStart}
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
-          onTouchStart={handleDragStart}
-          onTouchMove={handleDragMove}
-          onTouchEnd={handleDragEnd}
         >
           {/* Authentic Anime Mana Scroll Apparatus */}
           <div
