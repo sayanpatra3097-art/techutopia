@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import owlLogo from '../assets/owl-logo.png'
 
 export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [scrolled, setScrolled] = useState(false)
@@ -37,10 +38,10 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
         {/* Left: Brand Logo with Anime Seal */}
         <div className="modern-navbar__left" onClick={() => handleNavClick(0)}>
           <div className="modern-navbar__emblem">
-            <span>天</span>
+            <img src={owlLogo} alt="TechUthopia Owl Logo" className="modern-navbar__emblem-img" />
           </div>
           <div className="modern-navbar__brand">
-            <span className="modern-navbar__brand-title">TECHUTOPIA</span>
+            <span className="modern-navbar__brand-title">TECHUTHOPIA</span>
             <span className="modern-navbar__brand-tag">UEM JAIPUR ’26</span>
           </div>
         </div>
@@ -88,7 +89,7 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
       {/* Fullscreen Mobile Drawer */}
       <div className={`modern-navbar__drawer ${mobileOpen ? 'is-open' : ''}`}>
         <div className="modern-navbar__drawer-header">
-          <div className="modern-navbar__brand-title">TECHUTOPIA 2026</div>
+          <div className="modern-navbar__brand-title">TECHUTHOPIA 2026</div>
           <button className="modern-navbar__drawer-close" onClick={() => setMobileOpen(false)}>✕</button>
         </div>
 

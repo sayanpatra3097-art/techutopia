@@ -184,7 +184,7 @@ const constellationDays = {
       y: 32,
       time: '05:00 PM',
       title: '【戴冠式】 SUPREME CONFERMENT & AWARDS GALA',
-      desc: 'Honoring victorious guilds with INR 10 Lakhs in bounties, gold medallions, and the eternal TechUtopia cup.',
+      desc: 'Honoring victorious guilds with INR 10 Lakhs in bounties, gold medallions, and the eternal TechUthopia cup.',
       venue: 'Imperial Auditorium • 栄光の殿堂',
       category: 'Royal Ceremony',
       rank: 'Legendary Rites',
@@ -275,7 +275,7 @@ export default function StarConstellation() {
         twinkleSpeed: Math.random() * 0.04 + 0.015,
         twinkleOffset: Math.random() * Math.PI * 2,
         isColored: Math.random() > 0.65,
-        color: Math.random() > 0.5 ? 'rgba(0, 212, 255,' : 'rgba(189, 0, 255,'
+        color: Math.random() > 0.5 ? 'rgba(255, 183, 3,' : 'rgba(255, 107, 53,'
       })
     }
 
@@ -302,8 +302,8 @@ export default function StarConstellation() {
       const gradX = canvas.width * 0.5 + m.currentX * 120
       const gradY = canvas.height * 0.5 + m.currentY * 80
       const radGrad = ctx.createRadialGradient(gradX, gradY, 10, gradX, gradY, canvas.width * 0.6)
-      radGrad.addColorStop(0, 'rgba(123, 47, 247, 0.12)')
-      radGrad.addColorStop(0.5, 'rgba(0, 212, 255, 0.06)')
+      radGrad.addColorStop(0, 'rgba(255, 107, 53, 0.14)')
+      radGrad.addColorStop(0.5, 'rgba(255, 209, 102, 0.07)')
       radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
       ctx.fillStyle = radGrad
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -323,7 +323,7 @@ export default function StarConstellation() {
         if (s.isColored) {
           ctx.fillStyle = `${s.color} ${alpha})`
           ctx.shadowBlur = 8
-          ctx.shadowColor = s.color.includes('212') ? '#00d4ff' : '#bd00ff'
+          ctx.shadowColor = s.color.includes('183') ? '#ffd166' : '#ff6b35'
         } else {
           ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
           ctx.shadowBlur = 4
@@ -364,8 +364,8 @@ export default function StarConstellation() {
         const tailX = cs.x - Math.cos(cs.angle) * cs.length
         const tailY = cs.y - Math.sin(cs.angle) * cs.length
         const cometGrad = ctx.createLinearGradient(tailX, tailY, cs.x, cs.y)
-        cometGrad.addColorStop(0, 'rgba(0, 212, 255, 0)')
-        cometGrad.addColorStop(0.8, `rgba(0, 212, 255, ${cs.alpha * 0.8})`)
+        cometGrad.addColorStop(0, 'rgba(255, 183, 3, 0)')
+        cometGrad.addColorStop(0.8, `rgba(255, 183, 3, ${cs.alpha * 0.8})`)
         cometGrad.addColorStop(1, `rgba(255, 255, 255, ${cs.alpha})`)
 
         ctx.strokeStyle = cometGrad
@@ -387,10 +387,10 @@ export default function StarConstellation() {
         // Outer glowing beam
         ctx.lineWidth = 3
         ctx.strokeStyle = activeDay === 'DAY 01'
-          ? 'rgba(255, 107, 53, 0.45)'
+          ? 'rgba(255, 107, 53, 0.65)'
           : activeDay === 'DAY 02'
-          ? 'rgba(0, 212, 255, 0.5)'
-          : 'rgba(181, 55, 242, 0.5)'
+          ? 'rgba(255, 183, 3, 0.65)'
+          : 'rgba(230, 57, 70, 0.65)'
         ctx.setLineDash([10, 6])
         ctx.lineDashOffset = -t * 22
         ctx.beginPath()
@@ -433,15 +433,9 @@ export default function StarConstellation() {
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
-          <div className="section__label" style={{ justifyContent: 'center' }}>
-            ✨ 悠久の星辰軌道 // DIMENSION 04 • CELESTIAL ANIME TIMELINE ✨
-          </div>
-          <h2 className="section__title anime-glow-text" style={{ textAlign: 'center' }}>
+          <h2 className="section__title anime-glow-text" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             THE CELESTIAL STARRY CHRONICLES
           </h2>
-          <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-md)', color: 'rgba(226, 232, 240, 0.85)' }}>
-            “Three epochs of destiny mapped across the starry firmament • Move your cursor across the sky to alter gravitational tides • Tap any star node to reveal the guild quest”
-          </p>
         </div>
 
         {/* Anime Day Selectors */}
@@ -556,7 +550,7 @@ export default function StarConstellation() {
                 <span>📍 領域:</span>
                 <strong>{selectedStar.venue}</strong>
               </div>
-              <div className="constellation__modal-meta-item" style={{ color: '#00d4ff' }}>
+              <div className="constellation__modal-meta-item" style={{ color: '#ffd166' }}>
                 <span>⚡ 魔力:</span>
                 <strong>{selectedStar.mana}</strong>
               </div>

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import TeamFlipCard from './TeamFlipCard'
 import useScrollReveal from '../hooks/useScrollReveal'
+import coreTeamBg from '../assets/core_team.png'
 
 const teamMembers = [
   {
@@ -8,7 +9,7 @@ const teamMembers = [
     role: 'Lead Convener',
     classTitle: 'Shadow Sovereign (S-Rank)',
     rank: 'S-RANK CONVENER',
-    color: '#00d4ff',
+    color: '#ff9e00',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     ability: 'Arise: Supreme Guild Orchestration',
     stats: { strategy: 98, tech: 92, leadership: 99 },
@@ -41,7 +42,7 @@ const teamMembers = [
     role: 'Design & Visual Director',
     classTitle: 'Domain Expansion Artist',
     rank: 'S-RANK CREATIVE',
-    color: '#b537f2',
+    color: '#ff6b35',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
     ability: 'Infinite Void: Spatial Web & 3D Shaders',
     stats: { strategy: 88, tech: 96, leadership: 90 },
@@ -52,7 +53,7 @@ const teamMembers = [
     role: 'Hackathon & Code Master',
     classTitle: 'Raid Master (Algorithms)',
     rank: 'SPECIAL GRADE CODER',
-    color: '#00f5d4',
+    color: '#ffd166',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
     ability: 'Shadow Extraction: Clean Codebase',
     stats: { strategy: 94, tech: 98, leadership: 89 },
@@ -85,7 +86,7 @@ const teamMembers = [
     role: 'Esports & Community Head',
     classTitle: 'Final Boss Coliseum Warden',
     rank: 'APEX WARDEN',
-    color: '#7b2ff7',
+    color: '#e63946',
     avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
     ability: 'Tactical Clutch: Grand Final Broadcast',
     stats: { strategy: 91, tech: 93, leadership: 94 },
@@ -99,21 +100,30 @@ export default function Team() {
 
   return (
     <section className="team-dimension section" id="team" ref={ref}>
+      {/* Fixed Background Image Layer */}
+      <div
+        className="team-dimension__backdrop"
+        style={{
+          backgroundImage: `url(${coreTeamBg})`
+        }}
+      />
+      <div className="team-dimension__backdrop-overlay" />
+
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
-          <div className="section__label" style={{ justifyContent: 'center' }}>
-            🛡️ DIMENSION 08 • S-RANK GUILD LEADERS & HASHIRAS
+          {/* Ornate Section Header */}
+          <div className="team-dimension__header">
+            <span className="team-dimension__header-gem">◆◆</span>
+            <h2 className="team-dimension__title">CORE MEMBERS</h2>
+            <span className="team-dimension__header-gem">◆</span>
           </div>
-          <h2 className="section__title" style={{ textAlign: 'center' }}>
-            THE SOVEREIGNS OF TECHUTOPIA [TAP TO FLIP]
-          </h2>
           <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-lg)' }}>
-            The conveners and architects leading UEM Jaipur's supreme festival. Tap each card to inspect combat stats, awakened power, and comms.
+            The conveners and architects leading UEM Jaipur's supreme festival.
           </p>
         </div>
 
-        {/* 3D Flip Card Team Grid */}
-        <div className="team-flip-grid">
+        {/* Team Card Grid */}
+        <div className="team-card-grid">
           {teamMembers.map((member) => (
             <TeamFlipCard key={member.name} member={member} />
           ))}

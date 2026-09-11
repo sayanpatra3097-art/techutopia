@@ -7,8 +7,8 @@ const animeThemes = [
     kanji: '影の君主',
     sub: 'Class: S-Rank Sovereign • Algorithmic Domain',
     badge: 'Solo Leveling Dimension',
-    color: '#00d4ff',
-    secondaryColor: '#4361ee',
+    color: '#ff9e00',
+    secondaryColor: '#ff3b30',
     image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
     quote: '“I have become the Monarch of Shadows. Every line of code arises at my command.”'
   },
@@ -39,7 +39,7 @@ const animeThemes = [
     title: 'CYBER JAIPUR 2026',
     kanji: '電脳桃源郷',
     sub: 'Arena: Grand Finale & Esports Coliseum',
-    badge: 'TechUtopia Apex',
+    badge: 'TechUthopia Apex',
     color: '#00f5d4',
     secondaryColor: '#00bbf9',
     image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
@@ -138,7 +138,7 @@ export default function Hero({ onNextDimension }) {
               textShadow: `0 0 25px ${currentTheme.color}88, 0 0 50px ${currentTheme.secondaryColor}44`
             }}
           >
-            UTOPIA
+            UTHOPIA
           </span>
           <span className="hero-dimension__edition">’26</span>
         </h1>

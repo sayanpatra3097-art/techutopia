@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import soloDoorImg from '../assets/solo_leveling_door.jpg'
+import doorImg from '../assets/door.png'
 
 // Eagerly resolve all anime dimension backgrounds (1.png to 42.png) from the assets folder
 const bgModules = import.meta.glob('../assets/*.png', { eager: true, import: 'default' })
@@ -19,8 +19,8 @@ const animeThemes = [
     title: 'SHADOW MONARCH DOMAIN',
     kanji: '影の君主',
     badge: 'Dimension 01 • Solo Leveling',
-    color: '#00d4ff',
-    secondaryColor: '#4361ee',
+    color: '#ff9e00',
+    secondaryColor: '#ff3b30',
     bg: getAssetBg(1),
     quote: '“All systems awaken. Every line of algorithmic code arises at my command.”'
   },
@@ -426,13 +426,13 @@ const animeThemes = [
   },
   {
     id: 'theme-42',
-    title: 'TECHUTOPIA SUPREME MONARCH',
+    title: 'TECHUTHOPIA SUPREME MONARCH',
     kanji: '影の皇帝・極限覚醒',
     badge: 'Dimension 42 • Grand Apex Sovereign',
-    color: '#00d4ff',
-    secondaryColor: '#b537f2',
+    color: '#ffb703',
+    secondaryColor: '#ff6b35',
     bg: getAssetBg(42),
-    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
+    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUthopia.”'
   }
 ]
 
@@ -451,7 +451,7 @@ const sanctuaryRelics = [
     name: 'TITAN MECHA AI CORE',
     sub: 'Class: S-Rank Relic • Autonomous Compute',
     desc: 'Autonomous neural engine running real-time edge processing for combat robotics.',
-    color: '#00d4ff'
+    color: '#ffd166'
   },
   {
     id: 'trophy',
@@ -466,7 +466,7 @@ const sanctuaryRelics = [
     icon: '📜',
     name: 'SACRED GUILD CODEX',
     sub: 'Class: Ancient Scroll • Fair Play Protocol',
-    desc: 'The immutable ethical constitution of TechUtopia. Respect, honor, and innovation.',
+    desc: 'The immutable ethical constitution of TechUthopia. Respect, honor, and innovation.',
     color: '#b537f2'
   }
 ]
@@ -610,11 +610,6 @@ export default function DoorLandingHero() {
 
             {/* Grand TECHUTOPIA Typography & Actions */}
             <div className="door-landing__hero-content">
-              <div className="door-landing__theme-badge" style={{ borderColor: `${currentTheme.color}88` }}>
-                <span className="door-landing__theme-dot" style={{ background: currentTheme.color }} />
-                <span>{currentTheme.badge}</span>
-              </div>
-
               <h1 className="door-landing__main-title">
                 <span className="door-landing__title-tech">TECH</span>
                 <span
@@ -623,7 +618,7 @@ export default function DoorLandingHero() {
                     textShadow: `0 0 30px ${currentTheme.color}88, 0 0 60px ${currentTheme.secondaryColor}44`
                   }}
                 >
-                  UTOPIA
+                  UTHOPIA
                 </span>
                 <span className="door-landing__title-year">’26</span>
               </h1>
@@ -709,7 +704,7 @@ export default function DoorLandingHero() {
               }}
             />
 
-            {/* Left Grand Door Wing: Solo Leveling Cartenon Temple */}
+            {/* Left Grand Door Wing: Ancient Molten Dungeon */}
             <div
               className="door-wing door-wing--left door-wing--fullscreen sl-door-wing sl-door-wing--left"
               style={{
@@ -719,21 +714,17 @@ export default function DoorLandingHero() {
               <div className="door-wing__inner sl-door-panel sl-door-panel--left">
                 <div className="sl-door__full-canvas sl-door__full-canvas--left">
                   <img
-                    src={soloDoorImg}
-                    alt="Solo Leveling Cartenon Temple Gate Left"
+                    src={doorImg}
+                    alt="Ancient Dungeon Portal Gate Left"
                     className="sl-door__image"
                   />
                 </div>
                 <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
-                <div className="sl-door__runic-inscription">
-                  <span>카르테논 신전 • 이중 던전</span>
-                </div>
                 <div className="sl-door__iron-brace" />
-                <div className="sl-door__seam-edge sl-door__seam-edge--right" />
               </div>
             </div>
 
-            {/* Right Grand Door Wing: Solo Leveling Cartenon Temple */}
+            {/* Right Grand Door Wing: Ancient Molten Dungeon */}
             <div
               className="door-wing door-wing--right door-wing--fullscreen sl-door-wing sl-door-wing--right"
               style={{
@@ -743,17 +734,13 @@ export default function DoorLandingHero() {
               <div className="door-wing__inner sl-door-panel sl-door-panel--right">
                 <div className="sl-door__full-canvas sl-door__full-canvas--right">
                   <img
-                    src={soloDoorImg}
-                    alt="Solo Leveling Cartenon Temple Gate Right"
+                    src={doorImg}
+                    alt="Ancient Dungeon Portal Gate Right"
                     className="sl-door__image"
                   />
                 </div>
                 <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />
-                <div className="sl-door__runic-inscription">
-                  <span>신을 경배하라 • 찬양하라</span>
-                </div>
                 <div className="sl-door__iron-brace" />
-                <div className="sl-door__seam-edge sl-door__seam-edge--left" />
               </div>
             </div>
 

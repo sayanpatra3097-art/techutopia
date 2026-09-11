@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import soloDoorImg from '../assets/solo_leveling_door.jpg'
+import doorImg from '../assets/door.png'
 import timerBg23 from '../assets/23.png'
 
 // Eagerly resolve all anime dimension backgrounds (1.png to 42.png) from the assets folder
@@ -20,8 +20,8 @@ const animeLayers = [
     title: 'SHADOW MONARCH DOMAIN',
     kanji: '影の君主',
     badge: 'Dimension 01 • Solo Leveling',
-    color: '#00d4ff',
-    secondaryColor: '#4361ee',
+    color: '#ff9e00',
+    secondaryColor: '#ff3b30',
     bg: getAssetBg(1),
     image: getAssetBg(1),
     quote: '“All algorithms awaken. Every line of algorithmic code arises at my command.”'
@@ -468,14 +468,14 @@ const animeLayers = [
   },
   {
     id: 'theme-42',
-    title: 'TECHUTOPIA SUPREME MONARCH',
+    title: 'TECHUTHOPIA SUPREME MONARCH',
     kanji: '影の皇帝・極限覚醒',
     badge: 'Dimension 42 • Grand Apex Sovereign',
     color: '#00d4ff',
     secondaryColor: '#b537f2',
     bg: getAssetBg(42),
     image: getAssetBg(42),
-    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
+    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUthopia.”'
   }
 ]
 
@@ -575,6 +575,19 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const rollStart = 0.40
   const rollEnd = 0.82
 
+  // For scrolling images: increase opacity and clarity with light vignette.
+  // For the last image (before/during timer): keep original dark gradient so timer animation is clearly visible.
+  const isLastActive = activeIndex >= totalLayers - 1 || scrollProgress >= scrollStageStart
+  const isLastNext = nextIndex >= totalLayers - 1
+
+  const activeBgGradient = isLastActive
+    ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
+    : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
+
+  const nextBgGradient = isLastNext
+    ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
+    : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
+
   const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * 12) : 0
   const timerScale = 0.90 + (scrollProgress > scrollStageStart ? Math.min(0.04, (scrollProgress - scrollStageStart) * 0.15) : 0)
 
@@ -653,9 +666,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           <div
             className="zoom-hero__image-layer"
             style={{
-              backgroundImage: `radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%), url(${currentLayer.bg})`,
+              backgroundImage: `${activeBgGradient}, url(${currentLayer.bg})`,
               transform: `scale(${activeScale})`,
-              opacity: activeOpacity
+              opacity: activeOpacity,
+              filter: isLastActive ? 'none' : 'saturate(1.15) contrast(1.06)'
             }}
           />
 
@@ -664,9 +678,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             <div
               className="zoom-hero__image-layer"
               style={{
-                backgroundImage: `radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%), url(${nextLayer.bg})`,
+                backgroundImage: `${nextBgGradient}, url(${nextLayer.bg})`,
                 transform: `scale(${nextScale})`,
-                opacity: nextOpacity
+                opacity: nextOpacity,
+                filter: isLastNext ? 'none' : 'saturate(1.15) contrast(1.06)'
               }}
             />
           )}
@@ -688,7 +703,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             pointerEvents: scrollProgress > 0.3 ? 'none' : 'auto'
           }}
         >
-          {/* Solo Leveling Cartenon Temple Double Dungeon - Left Wing */}
+          {/* Ancient Dungeon Portal - Left Wing */}
           <div
             className="door-wing door-wing--left door-wing--fullscreen sl-door-wing sl-door-wing--left"
             style={{ transform: `rotateY(-${doorAngle}deg)` }}
@@ -696,21 +711,17 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             <div className="door-wing__inner sl-door-panel sl-door-panel--left">
               <div className="sl-door__full-canvas sl-door__full-canvas--left">
                 <img
-                  src={soloDoorImg}
-                  alt="Solo Leveling Cartenon Temple Gate Left"
+                  src={doorImg}
+                  alt="Ancient Dungeon Portal Gate Left"
                   className="sl-door__image"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
-              <div className="sl-door__runic-inscription">
-                <span>카르테논 신전 • 이중 던전</span>
-              </div>
               <div className="sl-door__iron-brace" />
-              <div className="sl-door__seam-edge sl-door__seam-edge--right" />
             </div>
           </div>
 
-          {/* Solo Leveling Cartenon Temple Double Dungeon - Right Wing */}
+          {/* Ancient Dungeon Portal - Right Wing */}
           <div
             className="door-wing door-wing--right door-wing--fullscreen sl-door-wing sl-door-wing--right"
             style={{ transform: `rotateY(${doorAngle}deg)` }}
@@ -718,27 +729,15 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             <div className="door-wing__inner sl-door-panel sl-door-panel--right">
               <div className="sl-door__full-canvas sl-door__full-canvas--right">
                 <img
-                  src={soloDoorImg}
-                  alt="Solo Leveling Cartenon Temple Gate Right"
+                  src={doorImg}
+                  alt="Ancient Dungeon Portal Gate Right"
                   className="sl-door__image"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />
-              <div className="sl-door__runic-inscription">
-                <span>신을 경배하라 • 찬양하라 • 증명하라</span>
-              </div>
               <div className="sl-door__iron-brace" />
-              <div className="sl-door__seam-edge sl-door__seam-edge--left" />
             </div>
           </div>
-
-          {/* Center Seam Mana Light Line */}
-          <div
-            className="sl-door__center-mana-beam"
-            style={{
-              opacity: Math.max(0, 1 - doorAngle / 20)
-            }}
-          />
         </div>
 
         {/* ───── HERO TYPOGRAPHY & INTRO STATE (0% to 55%) ───── */}
@@ -750,33 +749,16 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             pointerEvents: scrollProgress < 0.4 ? 'auto' : 'none'
           }}
         >
-          <div className="door-landing__theme-badge" style={{ borderColor: `${activeColor}88` }}>
-            <span className="door-landing__theme-dot" style={{ background: activeColor }} />
-            <span>{currentLayer.badge}</span>
-          </div>
-
           <h1 className="door-landing__main-title">
             <span className="door-landing__title-tech">TECH</span>
             <span
               className="door-landing__title-utopia"
               style={{ textShadow: `0 0 35px ${activeColor}aa` }}
             >
-              UTOPIA
+              UTHOPIA
             </span>
           </h1>
 
-          <p className="door-landing__quote">
-            {currentLayer.quote}
-          </p>
-
-          <div className="zoom-hero__scroll-indicator">
-            <div className="zoom-hero__mouse-icon">
-              <div className="zoom-hero__mouse-wheel" />
-            </div>
-            <span>
-              DIMENSION {String(activeIndex + 1).padStart(2, '0')} / {totalLayers} • SCROLL TO DIVE DEEPER
-            </span>
-          </div>
         </div>
 
         {/* ───── STAGE 2: ROYAL ANIME MANA SCROLL OF TIME (UNROLLS ON SCROLL) ───── */}
@@ -872,7 +854,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div
                   className="royal-scroll__letter-image anime-timer__shrine-backdrop"
                   style={{
-                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(0, 212, 255, 0.15) 0%, rgba(8, 10, 20, 0.90) 80%), url(${timerBg23})`
+                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(255, 107, 53, 0.22) 0%, rgba(255, 183, 3, 0.12) 35%, rgba(14, 8, 4, 0.92) 80%), url(${timerBg23})`
                   }}
                 />
 
@@ -919,18 +901,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   <div className="anime-timer__title-block">
                     <div className="anime-timer__kanji-eyebrow">次元降臨カウントダウン</div>
                     <h2 className="anime-timer__headline anime-glow-text">
-                      CHRONICLES OF TECHUTOPIA ’26
+                      CHRONICLES OF TECHUTHOPIA ’26
                     </h2>
-                    <div className="anime-timer__mana-gauge">
-                      <div className="anime-timer__mana-gauge-fill" />
-                      <span className="anime-timer__mana-gauge-label">
-                        CHRONO-MANA: 100% MAXIMUM RESONANCE
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="anime-timer__subline anime-quote-subline">
-                    “「覚醒の刻が満ちる時、王の領域が開かれる」• When the celestial seal shatters, the supreme Monarchs of code and innovation shall awaken.”
                   </div>
 
                   {/* Authentic Anime Ofuda (お札) Talisman Countdown Cards */}

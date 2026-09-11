@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import soloDoorImg from '../assets/solo_leveling_door.jpg'
+import doorImg from '../assets/door.png'
 
 const artifacts = [
   {
@@ -17,7 +17,7 @@ const artifacts = [
     name: 'TITAN MECHA AI CORE',
     sub: 'Class: S-Rank Relic • Autonomous Compute',
     desc: 'Self-tuning neural core capable of 100 Teraflops of real-time edge processing for autonomous robotics.',
-    color: '#00d4ff',
+    color: '#ffb703',
     kanji: '機神核'
   },
   {
@@ -34,8 +34,8 @@ const artifacts = [
     icon: '📜',
     name: 'SACRED GUILD CODEX',
     sub: 'Class: Ancient Scroll • Fair Play Protocol',
-    desc: 'The immutable laws of TechUtopia 2026. Integrity, sportsmanship, and relentless innovation for all hunters.',
-    color: '#b537f2',
+    desc: 'The immutable laws of TechUthopia 2026. Integrity, sportsmanship, and relentless innovation for all hunters.',
+    color: '#e63946',
     kanji: '禁断巻'
   }
 ]
@@ -127,7 +127,7 @@ export default function DoorEntryScene() {
                   d="M50 15 C55 15 60 20 60 26 C60 32 55 36 50 36 C45 36 40 32 40 26 C40 20 45 15 50 15 Z 
                      M35 42 L65 42 L72 75 L62 80 L66 140 L54 140 L52 95 L48 95 L46 140 L34 140 L38 80 L28 75 Z
                      M68 55 L85 110 L80 112 L66 60 Z"
-                  fill="#00d4ff"
+                  fill="#ff6b35"
                   opacity="0.9"
                 />
               </svg>
@@ -158,7 +158,7 @@ export default function DoorEntryScene() {
           </div>
         </div>
 
-        {/* The Grand 3D Solo Leveling Cartenon Temple Double Doors (Left & Right Wings) */}
+        {/* The Grand 3D Molten Dungeon Double Doors (Left & Right Wings) */}
         <div className="door-scene__portal-frame">
           {/* Left Door Wing */}
           <div
@@ -170,17 +170,13 @@ export default function DoorEntryScene() {
             <div className="door-wing__inner sl-door-panel sl-door-panel--left">
               <div className="sl-door__full-canvas sl-door__full-canvas--left">
                 <img
-                  src={soloDoorImg}
-                  alt="Solo Leveling Cartenon Temple Gate Left"
+                  src={doorImg}
+                  alt="Ancient Dungeon Portal Gate Left"
                   className="sl-door__image"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
-              <div className="sl-door__runic-inscription">
-                <span>카르테논 신전</span>
-              </div>
               <div className="sl-door__iron-brace" />
-              <div className="sl-door__seam-edge sl-door__seam-edge--right" />
             </div>
           </div>
 
@@ -194,17 +190,13 @@ export default function DoorEntryScene() {
             <div className="door-wing__inner sl-door-panel sl-door-panel--right">
               <div className="sl-door__full-canvas sl-door__full-canvas--right">
                 <img
-                  src={soloDoorImg}
-                  alt="Solo Leveling Cartenon Temple Gate Right"
+                  src={doorImg}
+                  alt="Ancient Dungeon Portal Gate Right"
                   className="sl-door__image"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />
-              <div className="sl-door__runic-inscription">
-                <span>신을 경배하라</span>
-              </div>
               <div className="sl-door__iron-brace" />
-              <div className="sl-door__seam-edge sl-door__seam-edge--left" />
             </div>
           </div>
         </div>

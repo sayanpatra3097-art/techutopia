@@ -1,90 +1,61 @@
-import { useState } from 'react'
-
 export default function TeamFlipCard({ member }) {
-  const [isFlipped, setIsFlipped] = useState(false)
-
-  const handleCardClick = (e) => {
-    // Prevent unflip if user clicked directly on an interactive link
-    if (e.target.closest('a')) return
-    setIsFlipped(!isFlipped)
-  }
-
   return (
-    <div className={`team-flip-card-wrapper ${isFlipped ? 'is-flipped' : ''}`} onClick={handleCardClick}>
-      <div className="team-flip-card">
-        {/* ───── FRONT FACE ───── */}
-        <div className="team-flip-card__face team-flip-card__face--front">
-          <div className="team-flip-card__rank-badge" style={{ color: member.color || 'var(--accent-cyan)' }}>
-            {member.rank}
-          </div>
+    <div className="team-card-wrapper">
+      <div className="team-card">
+        {/* Ornate Corner Decorations */}
+        <div className="team-card__corner team-card__corner--tl" />
+        <div className="team-card__corner team-card__corner--tr" />
+        <div className="team-card__corner team-card__corner--bl" />
+        <div className="team-card__corner team-card__corner--br" />
 
-          <div className="team-flip-card__avatar-box">
-            <div className="team-flip-card__avatar-halo" style={{ borderColor: member.color || 'var(--accent-blue)' }} />
-            <img src={member.avatar} alt={member.name} className="team-flip-card__avatar-img" />
-          </div>
+        {/* Top Ornate Bar */}
+        <div className="team-card__top-bar">
+          <span className="team-card__rank-gem">◆</span>
+          <span className="team-card__rank-text">{member.rank}</span>
+          <span className="team-card__rank-gem">◆</span>
+        </div>
 
-          <h3 className="team-flip-card__name">{member.name}</h3>
-          <div className="team-flip-card__role">{member.role}</div>
-          <div className="team-flip-card__class" style={{ color: member.color || 'var(--accent-cyan)' }}>
-            {member.classTitle}
-          </div>
+        {/* Avatar Image Area */}
+        <div className="team-card__image-area">
+          <img src={member.avatar} alt={member.name} className="team-card__avatar" />
 
-          <div className="team-flip-card__flip-hint">
-            <span>TAP FOR STATS RADAR</span>
-            <span className="team-flip-card__flip-icon">↻</span>
+          {/* Hover Overlay with Details */}
+          <div className="team-card__overlay">
+            <div className="team-card__overlay-content">
+              <div className="team-card__ability-tag">{member.classTitle}</div>
+              <p className="team-card__ability-desc">{member.ability}</p>
+
+              <div className="team-card__stats-compact">
+                {Object.entries(member.stats).map(([key, val]) => (
+                  <div key={key} className="team-card__stat-mini">
+                    <span className="team-card__stat-label">{key.toUpperCase()}</span>
+                    <div className="team-card__stat-bar">
+                      <div className="team-card__stat-fill" style={{ width: `${val}%`, background: member.color }} />
+                    </div>
+                    <span className="team-card__stat-val">{val}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="team-card__social-row">
+                <a href={member.socials.github} target="_blank" rel="noreferrer" className="team-card__social-link" title="GitHub">⚡</a>
+                <a href={member.socials.linkedin} target="_blank" rel="noreferrer" className="team-card__social-link" title="LinkedIn">🔗</a>
+                <a href={`mailto:${member.socials.email}`} className="team-card__social-link" title="Email">✉️</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ───── BACK FACE ───── */}
-        <div className="team-flip-card__face team-flip-card__face--back">
-          <div className="team-flip-card__back-header">
-            <span className="team-flip-card__dossier-tag">HUNTER DOSSIER</span>
-            <button className="team-flip-card__unflip-btn" onClick={() => setIsFlipped(false)}>✕</button>
-          </div>
+        {/* Name & Role */}
+        <div className="team-card__info">
+          <h3 className="team-card__name">{member.name}</h3>
+          <div className="team-card__role">{member.role}</div>
+        </div>
 
-          <h4 className="team-flip-card__back-name">{member.name}</h4>
-          <div className="team-flip-card__ability">
-            <span className="team-flip-card__ability-label">AWAKENED POWER:</span>
-            <span className="team-flip-card__ability-val">{member.ability}</span>
-          </div>
-
-          {/* Combat Stats Bars */}
-          <div className="team-flip-card__stats-list">
-            <div className="team-flip-card__stat-row">
-              <span className="team-flip-card__stat-name">STRATEGY</span>
-              <div className="team-flip-card__stat-track">
-                <div className="team-flip-card__stat-fill" style={{ width: `${member.stats.strategy}%`, background: member.color }} />
-              </div>
-              <span className="team-flip-card__stat-num">{member.stats.strategy}</span>
-            </div>
-
-            <div className="team-flip-card__stat-row">
-              <span className="team-flip-card__stat-name">MANA / TECH</span>
-              <div className="team-flip-card__stat-track">
-                <div className="team-flip-card__stat-fill" style={{ width: `${member.stats.tech}%`, background: member.color }} />
-              </div>
-              <span className="team-flip-card__stat-num">{member.stats.tech}</span>
-            </div>
-
-            <div className="team-flip-card__stat-row">
-              <span className="team-flip-card__stat-name">LEADERSHIP</span>
-              <div className="team-flip-card__stat-track">
-                <div className="team-flip-card__stat-fill" style={{ width: `${member.stats.leadership}%`, background: member.color }} />
-              </div>
-              <span className="team-flip-card__stat-num">{member.stats.leadership}</span>
-            </div>
-          </div>
-
-          {/* Direct Social / Comm Links */}
-          <div className="team-flip-card__socials">
-            <a href={member.socials.github} target="_blank" rel="noreferrer" className="team-flip-card__social" title="GitHub">⚡</a>
-            <a href={member.socials.linkedin} target="_blank" rel="noreferrer" className="team-flip-card__social" title="LinkedIn">🔗</a>
-            <a href={`mailto:${member.socials.email}`} className="team-flip-card__social" title="Send Mana Dispatch">✉️</a>
-          </div>
-
-          <div className="team-flip-card__form-note">
-            [ Tap card to flip back ]
-          </div>
+        {/* Bottom Bar */}
+        <div className="team-card__bottom-bar">
+          <span className="team-card__dept-label">DEPT</span>
+          <span className="team-card__dept-value" style={{ color: member.color }}>{member.classTitle}</span>
         </div>
       </div>
     </div>

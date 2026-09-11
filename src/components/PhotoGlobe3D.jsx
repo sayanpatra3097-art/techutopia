@@ -13,7 +13,7 @@ const memoryCaptions = [
   { title: 'MIDNIGHT CODELAB FORGE', caption: '24-hour hackathon warriors writing algorithms under neon lights.' },
   { title: 'SUMO BATTLEBOT ARENA', caption: 'High-torque autonomous combat robots clashing in the steel cage.' },
   { title: 'ESPORTS STAGE CHAMPIONSHIP', caption: 'Packed auditorium cheering during the tactical shooter grand final.' },
-  { title: 'LASER NIGHT CONCERT', caption: 'Spectacular beam symphony closing the ceremonies of TechUtopia.' },
+  { title: 'LASER NIGHT CONCERT', caption: 'Spectacular beam symphony closing the ceremonies of TechUthopia.' },
   { title: 'NEURAL VR & MIXED REALITY', caption: 'Students testing next-gen spatial computing and neural interfaces.' },
   { title: 'HASHIRA TROPHY CONVOCATION', caption: 'Recognizing supreme university guilds with gold medallions and awards.' },
   { title: 'QUANTUM WEB DEV SPRINT', caption: 'Real-time 3D WebGL interfaces and full-stack battleground.' },

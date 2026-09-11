@@ -101,7 +101,6 @@ export default function AnimeIntro({ onComplete }) {
         <div className="katana-slash-line" />
         <div className="katana-sparks katana-sparks--1" />
         <div className="katana-sparks katana-sparks--2" />
-        <div className="katana-slash-kanji">一刀両断</div>
       </div>
 
       {/* 2nd: Japanese Anime Clouds that part ONCE left and right */}
@@ -159,17 +158,10 @@ export default function AnimeIntro({ onComplete }) {
           isTextFadingIn || isFadingOut ? 'anime-intro__center--fade-in' : ''
         }`}
       >
-        <div className="anime-intro__runes">
-          <span>壱</span>
-          <span>弐</span>
-          <span>参</span>
-          <span>肆</span>
-          <span>覚醒</span>
-        </div>
 
         <div className="anime-intro__logo">
           <div className="anime-intro__brand">TECH</div>
-          <div className="anime-intro__brand anime-intro__brand--utopia">UTOPIA</div>
+          <div className="anime-intro__brand anime-intro__brand--utopia">UTHOPIA</div>
         </div>
 
         <div className="anime-intro__sub">

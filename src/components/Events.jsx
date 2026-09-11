@@ -16,13 +16,12 @@ const eventsDataset = [
   {
     id: 1,
     title: 'Shadow Monarch Code Clash',
-    kanji: '影の王',
     rank: 'S-RANK RAID',
     threat: 'S-TIER',
-    element: 'SHADOW // 影',
+    element: 'SHADOW',
     category: 'Coding',
     icon: '⚔️',
-    color: '#00d4ff',
+    color: '#ff9e00',
     image: art1,
     side: 'left',
     snippet: 'Competitive algorithmic speed-clash. Solve 5 legendary bosses before the time portal shuts down.',
@@ -35,10 +34,9 @@ const eventsDataset = [
   {
     id: 2,
     title: 'Hashira Hackathon (24hr)',
-    kanji: '炎柱',
     rank: 'SUPREME SUMMON',
     threat: 'MYTHIC',
-    element: 'FLAME // 炎',
+    element: 'FLAME',
     category: 'Hackathon',
     icon: '🔥',
     color: '#ff6b35',
@@ -54,10 +52,9 @@ const eventsDataset = [
   {
     id: 3,
     title: 'Mecha Titan Arena',
-    kanji: '鋼鉄神',
     rank: 'A-RANK COLISEUM',
     threat: 'A-TIER',
-    element: 'STEEL // 鋼',
+    element: 'STEEL',
     category: 'Robotics',
     icon: '🤖',
     color: '#b537f2',
@@ -73,10 +70,9 @@ const eventsDataset = [
   {
     id: 4,
     title: 'Neural Network Dojo',
-    kanji: '超知能',
     rank: 'A-RANK INTELLECT',
     threat: 'A-TIER',
-    element: 'PSIONIC // 念',
+    element: 'PSIONIC',
     category: 'AI/ML',
     icon: '🧠',
     color: '#4361ee',
@@ -92,10 +88,9 @@ const eventsDataset = [
   {
     id: 5,
     title: 'Breathing Form: UI/UX Sprint',
-    kanji: '水の呼吸',
     rank: 'B-RANK CRAFT',
     threat: 'B-TIER',
-    element: 'WATER // 水',
+    element: 'WATER',
     category: 'Design',
     icon: '🎨',
     color: '#00f5d4',
@@ -111,10 +106,9 @@ const eventsDataset = [
   {
     id: 6,
     title: 'Dungeon Raid: Cyber CTF',
-    kanji: '迷宮攻略',
     rank: 'S-RANK DEFENSE',
     threat: 'S-TIER',
-    element: 'VOID // 虚',
+    element: 'VOID',
     category: 'Security',
     icon: '🛡️',
     color: '#e63946',
@@ -130,17 +124,16 @@ const eventsDataset = [
   {
     id: 7,
     title: 'Boss Battle: Gaming Arena',
-    kanji: '電脳覇王',
     rank: 'OPEN CHAMPIONSHIP',
     threat: 'CHAOS',
-    element: 'LIGHTNING // 雷',
+    element: 'LIGHTNING',
     category: 'Gaming',
     icon: '🎮',
     color: '#ffd700',
     image: art7,
     side: 'left',
     snippet: 'Valorant & BGMI esports face-off on the central arena jumbotron with live shoutcasting.',
-    description: '5v5 tactical shooter showdown. Strategy, reflexes, and team synergy to claim the TechUtopia Crown.',
+    description: '5v5 tactical shooter showdown. Strategy, reflexes, and team synergy to claim the TechUthopia Crown.',
     date: 'Day 1 - Day 3 • All Tournament Days',
     venue: 'Indoor Sports Coliseum, UEM Jaipur',
     prize: '₹60,000 + Gaming Gear',
@@ -149,10 +142,9 @@ const eventsDataset = [
   {
     id: 8,
     title: 'Infinity Castle: Web Dev Clash',
-    kanji: '無限城',
     rank: 'A-RANK DEV',
     threat: 'A-TIER',
-    element: 'SPATIAL // 空',
+    element: 'SPATIAL',
     category: 'Coding',
     icon: '🌐',
     color: '#7b2ff7',
@@ -168,10 +160,9 @@ const eventsDataset = [
   {
     id: 9,
     title: 'Demon Art: 3D Blender Dojo',
-    kanji: '血鬼術',
     rank: 'WORKSHOP QUEST',
     threat: 'SPECIAL',
-    element: 'ALCHEMY // 創',
+    element: 'ALCHEMY',
     category: 'Workshop',
     icon: '🎭',
     color: '#ff0055',
@@ -197,16 +188,16 @@ function ChainBridge({ direction = 'right' }) {
           <defs>
             <linearGradient id={`chainGrad-top-${direction}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#ffd700" />
-              <stop offset="50%" stopColor="#ff0055" />
-              <stop offset="100%" stopColor="#00d4ff" />
+              <stop offset="50%" stopColor="#ff6b35" />
+              <stop offset="100%" stopColor="#e63946" />
             </linearGradient>
           </defs>
           <rect x="2" y="6" width="16" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
           <line x1="16" y1="14" x2="28" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
           <rect x="26" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff0055" strokeWidth="4" strokeLinecap="round" />
+          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff3b30" strokeWidth="4" strokeLinecap="round" />
           <rect x="52" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="68" y1="14" x2="80" y2="14" stroke="#00d4ff" strokeWidth="4" strokeLinecap="round" />
+          <line x1="68" y1="14" x2="80" y2="14" stroke="#ff6b35" strokeWidth="4" strokeLinecap="round" />
           <rect x="78" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
           <line x1="94" y1="14" x2="106" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
           <rect x="104" y="6" width="14" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
@@ -216,7 +207,7 @@ function ChainBridge({ direction = 'right' }) {
       {/* Central Glowing Runic Seal Core */}
       <div className="chain-runic-core">
         <span className="chain-pulse-gem">◆</span>
-        <span className="chain-runic-text">封印鎖 // BIND</span>
+        <span className="chain-runic-text">SOUL CHAIN // BIND</span>
         <span className="chain-pulse-gem">◆</span>
       </div>
 
@@ -225,19 +216,19 @@ function ChainBridge({ direction = 'right' }) {
         <svg className="chain-svg" viewBox="0 0 120 28" fill="none">
           <defs>
             <linearGradient id={`chainGrad-bot-${direction}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#00d4ff" />
-              <stop offset="50%" stopColor="#ff0055" />
+              <stop offset="0%" stopColor="#e63946" />
+              <stop offset="50%" stopColor="#ff6b35" />
               <stop offset="100%" stopColor="#ffd700" />
             </linearGradient>
           </defs>
           <rect x="2" y="6" width="16" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="16" y1="14" x2="28" y2="14" stroke="#00d4ff" strokeWidth="4" strokeLinecap="round" />
+          <line x1="16" y1="14" x2="28" y2="14" stroke="#e63946" strokeWidth="4" strokeLinecap="round" />
           <rect x="26" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff0055" strokeWidth="4" strokeLinecap="round" />
+          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff3b30" strokeWidth="4" strokeLinecap="round" />
           <rect x="52" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
           <line x1="68" y1="14" x2="80" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
           <rect x="78" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="94" y1="14" x2="106" y2="14" stroke="#00d4ff" strokeWidth="4" strokeLinecap="round" />
+          <line x1="94" y1="14" x2="106" y2="14" stroke="#ff6b35" strokeWidth="4" strokeLinecap="round" />
           <rect x="104" y="6" width="14" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
         </svg>
       </div>
@@ -396,8 +387,8 @@ export default function Events() {
     const rows = Math.ceil(canvas.height / pixelSize)
 
     // Density curve: spikes at 0.5 then dissolves away
-    const density = pixelFadeProgress < 0.5 
-      ? pixelFadeProgress * 2 
+    const density = pixelFadeProgress < 0.5
+      ? pixelFadeProgress * 2
       : (1 - pixelFadeProgress) * 2
 
     const count = Math.floor(cols * rows * density * 0.45)
@@ -436,10 +427,10 @@ export default function Events() {
 
       // If user has walked forward into exhibits and scrolls back up to the entrance
       if (
-        hasWalkedForwardRef.current && 
-        progress <= 0.005 && 
-        window.scrollY <= 10 && 
-        !isPixelFading && 
+        hasWalkedForwardRef.current &&
+        progress <= 0.005 &&
+        window.scrollY <= 10 &&
+        !isPixelFading &&
         !transitionCooldownRef.current
       ) {
         returnToOutro()
@@ -513,13 +504,13 @@ export default function Events() {
 
   return (
     <div className="events-experience-wrapper">
-      
+
       {/* ════════════ TINY PIXEL DISSOLVE CANVAS OVERLAY ════════════ */}
       {isPixelFading && (
-        <canvas 
-          ref={canvasRef} 
-          className="micro-pixel-fade-canvas" 
-          aria-hidden="true" 
+        <canvas
+          ref={canvasRef}
+          className="micro-pixel-fade-canvas"
+          aria-hidden="true"
         />
       )}
 
@@ -539,7 +530,7 @@ export default function Events() {
             />
 
             {/* Outro Exterior Citadel: Anchored in center, NO translateY upwards, zooms into gate */}
-            <div 
+            <div
               className="events-outro-bg"
               style={{
                 backgroundImage: `url(${eventOutroImg})`,
@@ -551,53 +542,37 @@ export default function Events() {
             />
 
             {/* Subtle Atmosphere Light Vignette */}
-            <div 
+            <div
               className="events-outro-ambient"
               style={{ opacity: 0.3 + outroProgress * 0.45 }}
               aria-hidden="true"
             />
 
             {/* Outro Clean Title & Japanese Edict */}
-            <div 
+            <div
               className="events-outro-content"
-              style={{ 
+              style={{
                 opacity: Math.max(1 - outroProgress * 2.2, 0),
                 transform: `scale(${1 - outroProgress * 0.2})`
               }}
             >
-              <div className="events-outro-badge">
-                <span className="events-outro-badge__icon">⛩️</span>
-                <span className="events-outro-badge__kanji">試練の古城</span>
-                <span className="events-outro-badge__divider">//</span>
-                <span className="events-outro-badge__text">DIMENSION 02 • THE SHADOW CITADEL</span>
-              </div>
-
               <h1 className="events-outro-title">
-                APPROACH THE <span className="anime-text-glow">SHADOW CITADEL</span>
+                SCROLL TO <span className="anime-text-glow">ENTER CITADEL</span>
               </h1>
-
-              <div className="events-outro-subkanji">
-                【 緋色の月光に浮かぶ試練の回廊 • 下へスクロールして前進せよ 】
-              </div>
-
-              <p className="events-outro-lead">
-                Before you stands the ancient crimson monolith of TechUtopia.
-                Scroll down to walk forward through the gates into the Grand Exhibition Sanctum.
-              </p>
 
               {/* Minimal Clean Scroll Cue (No click button) */}
               <div className="events-outro-scroll-hint">
                 <span className="scroll-hint-icon">↓</span>
-                <span className="scroll-hint-text">SCROLL TO ENTER CITADEL ({Math.round(outroProgress * 100)}%)</span>
+                <span className="scroll-hint-text">  ({Math.round(outroProgress * 100)}%)</span>
                 <span className="scroll-hint-icon">↓</span>
               </div>
             </div>
 
             {/* Gate Proximity Laser Line */}
             <div className="events-outro-progress-bar">
-              <div 
-                className="events-outro-progress-fill" 
-                style={{ width: `${outroProgress * 100}%` }} 
+              <div
+                className="events-outro-progress-fill"
+                style={{ width: `${outroProgress * 100}%` }}
               />
             </div>
           </div>
@@ -607,9 +582,9 @@ export default function Events() {
       {/* ════════════ STAGE 2: 3D WALKING GALLERY CORRIDOR (event_inside.png) ════════════ */}
       {stage === 'inside' && (
         <div className="events-gallery-room-track" ref={insideTrackRef}>
-          
+
           {/* Inside Background: Zooming left and right with dynamic 3D perspective as we walk */}
-          <div 
+          <div
             className="events-room-bg"
             style={{
               backgroundImage: `url(${eventInsideImg})`,
@@ -623,17 +598,16 @@ export default function Events() {
           {/* Top Interactive Header */}
           <div className="events-room-header">
             <div className="events-room-header__container">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="events-room-back-gate"
                 onClick={returnToOutro}
                 title="Return to Citadel Gate"
               >
-                ⛩️ 門へ戻る // GATE
+                ⛩️ RETURN TO GATE
               </button>
 
               <div className="events-room-header__titles">
-                <div className="events-room-kanji-tag">【 迷宮回廊の試練 • 展示室 】</div>
                 <h2 className="events-room-title">
                   GRAND SANCTUM <span className="anime-text-glow">EXHIBITS</span>
                 </h2>
@@ -643,15 +617,11 @@ export default function Events() {
                 <span>EXHIBIT {activeEventIndex + 1} / {eventsDataset.length}</span>
               </div>
             </div>
-
-            <div className="events-room-subcue">
-              <span>🚶 Scroll to walk forward down the corridor. Posters are lined up in 3D depth. Tap any poster to inspect details & register.</span>
-            </div>
           </div>
 
           {/* Screen-wide Backdrop Dismiss Overlay when any event is opened */}
           {openedEventId !== null && (
-            <div 
+            <div
               className="dossier-backdrop-dismiss"
               onClick={() => setOpenedEventId(null)}
               title="Tap anywhere to close details"
@@ -667,7 +637,7 @@ export default function Events() {
 
           {/* ════════════ 3D PERSPECTIVE CORRIDOR STAGE ════════════ */}
           <div className={`events-3d-corridor-stage ${openedEventId !== null ? 'has-opened-event' : ''}`}>
-            <div 
+            <div
               className="events-3d-camera"
               style={{
                 transform: `translateX(${-cameraSwerveX}px)`
@@ -677,7 +647,7 @@ export default function Events() {
                 // Calculate physical 3D distance of each poster relative to camera walk
                 const posterInitialZ = -index * SPACING_Z
                 const relativeZ = posterInitialZ + walkProgress * totalWalkDistance
-                
+
                 // Active focus calculation with enhanced left/right zoom
                 const isFocused = Math.abs(relativeZ) < 155
                 const isOpened = openedEventId === event.id
@@ -715,16 +685,15 @@ export default function Events() {
                         <span className="lantern-gem">◆</span>
                       </div>
                       <div className={`gallery-spotlight-cone ${isFocused || isOpened ? 'is-beaming' : ''}`} />
-                      <div className="gallery-lantern-name">{event.kanji}</div>
                     </div>
 
                     {/* Exhibit Duo: Poster on its side, Connected Chain, and Middle Details Dossier */}
                     <div className={`gallery-exhibit-duo ${isLeft ? 'duo--left-to-center' : 'duo--right-to-center'} ${isOpened ? 'is-opened' : ''}`}>
-                      
+
                       {/* If right-side poster, Details Dossier renders on left (in the middle of the screen) */}
                       {!isLeft && isOpened && (
-                        <div 
-                          className="gallery-details-dossier" 
+                        <div
+                          className="gallery-details-dossier"
                           onClick={(e) => {
                             if (e.target.closest('.dossier-reg-btn')) return
                             setOpenedEventId(null)
@@ -733,15 +702,15 @@ export default function Events() {
                           <div className="dossier-top-bar">
                             <div className="dossier-tag-group">
                               <span className="dossier-shackle-icon">⛓️</span>
-                              <span className="dossier-tag">【 任務詳細録 // DOSSIER 】</span>
+                              <span className="dossier-tag">【 MISSION DOSSIER 】</span>
                             </div>
-                            <button 
-                              type="button" 
+                            <button
+                              type="button"
                               className="dossier-reseal-btn"
                               onClick={() => setOpenedEventId(null)}
                               title="Close dossier"
                             >
-                              ✕ 封印
+                              ✕ CLOSE
                             </button>
                           </div>
 
@@ -752,7 +721,7 @@ export default function Events() {
                             </div>
                           </div>
 
-                          <div className="dossier-kanji-sub">{event.kanji} • {event.element}</div>
+                          <div className="dossier-kanji-sub">{event.element}</div>
                           <p className="dossier-briefing">{event.description}</p>
 
                           <div className="dossier-spec-table">
@@ -775,7 +744,7 @@ export default function Events() {
                           </div>
 
                           <div className="dossier-actions">
-                            <a 
+                            <a
                               href={GOOGLE_FORM_URL}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -798,7 +767,7 @@ export default function Events() {
                       )}
 
                       {/* Poster Artwork Card (Always stays upright on its side!) */}
-                      <div 
+                      <div
                         className={`gallery-poster-box ${isOpened ? 'poster--active' : ''}`}
                         onClick={(e) => {
                           e.stopPropagation()
@@ -816,10 +785,10 @@ export default function Events() {
                         </div>
 
                         <div className="gallery-poster__img-frame">
-                          <img 
-                            src={event.image} 
-                            alt={event.title} 
-                            className="gallery-poster__img" 
+                          <img
+                            src={event.image}
+                            alt={event.title}
+                            className="gallery-poster__img"
                           />
                           <div className="gallery-poster__rank-badge" style={{ borderColor: event.color }}>
                             <span>{event.rank}</span>
@@ -837,7 +806,7 @@ export default function Events() {
                           </div>
 
                           <h3 className="gallery-poster__title">{event.title}</h3>
-                          
+
                           <div className="gallery-poster__bounty-row">
                             <span className="bounty-lbl">BOUNTY:</span>
                             <span className="bounty-val">{event.prize}</span>
@@ -856,8 +825,8 @@ export default function Events() {
 
                       {/* If left-side poster, Details Dossier renders on right (in the middle of the screen) */}
                       {isLeft && isOpened && (
-                        <div 
-                          className="gallery-details-dossier" 
+                        <div
+                          className="gallery-details-dossier"
                           onClick={(e) => {
                             if (e.target.closest('.dossier-reg-btn')) return
                             setOpenedEventId(null)
@@ -866,15 +835,15 @@ export default function Events() {
                           <div className="dossier-top-bar">
                             <div className="dossier-tag-group">
                               <span className="dossier-shackle-icon">⛓️</span>
-                              <span className="dossier-tag">【 任務詳細録 // DOSSIER 】</span>
+                              <span className="dossier-tag">【 MISSION DOSSIER 】</span>
                             </div>
-                            <button 
-                              type="button" 
+                            <button
+                              type="button"
                               className="dossier-reseal-btn"
                               onClick={() => setOpenedEventId(null)}
                               title="Close dossier"
                             >
-                              ✕ 封印
+                              ✕ CLOSE
                             </button>
                           </div>
 
@@ -885,7 +854,7 @@ export default function Events() {
                             </div>
                           </div>
 
-                          <div className="dossier-kanji-sub">{event.kanji} • {event.element}</div>
+                          <div className="dossier-kanji-sub">{event.element}</div>
                           <p className="dossier-briefing">{event.description}</p>
 
                           <div className="dossier-spec-table">
@@ -908,7 +877,7 @@ export default function Events() {
                           </div>
 
                           <div className="dossier-actions">
-                            <a 
+                            <a
                               href={GOOGLE_FORM_URL}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -934,7 +903,7 @@ export default function Events() {
 
           {/* ════════════ BOTTOM STEP DOCK (CLICK TO WALK DIRECTLY) ════════════ */}
           <div className="events-walk-dock">
-            <button 
+            <button
               type="button"
               className="walk-dock-nav-btn"
               onClick={() => scrollToEvent(activeEventIndex - 1)}
@@ -959,7 +928,7 @@ export default function Events() {
               ))}
             </div>
 
-            <button 
+            <button
               type="button"
               className="walk-dock-nav-btn"
               onClick={() => scrollToEvent(activeEventIndex + 1)}
