@@ -1,16 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
-import doorImg from '../assets/door.png'
+import doorImgLocal from '../assets/door.png'
+import { getAssetUrl } from '../utils/cloudinary'
+
+const doorImg = getAssetUrl('door.png', doorImgLocal)
 
 // Eagerly resolve all anime dimension backgrounds (1.png to 42.png) from the assets folder
 const bgModules = import.meta.glob('../assets/*.png', { eager: true, import: 'default' })
 
 const getAssetBg = (num) => {
-  return (
+  const local = (
     bgModules[`../assets/${num}.png`] ||
     bgModules[`../assets/${num}.jpg`] ||
     bgModules[`../assets/${((num % 42) + 1)}.png`] ||
     bgModules['../assets/1.png']
   )
+  return getAssetUrl(`${num}.png`, local)
 }
 
 const animeThemes = [

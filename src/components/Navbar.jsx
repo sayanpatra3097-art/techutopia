@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import owlLogo from '../assets/owl-logo.png'
+import { getAssetUrl } from '../utils/cloudinary'
+
+const owlLogoSrc = getAssetUrl('owl-logo.png', owlLogo)
 
 export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [scrolled, setScrolled] = useState(false)
@@ -38,7 +41,7 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
         {/* Left: Brand Logo with Anime Seal */}
         <div className="modern-navbar__left" onClick={() => handleNavClick(0)}>
           <div className="modern-navbar__emblem">
-            <img src={owlLogo} alt="TechUthopia Owl Logo" className="modern-navbar__emblem-img" />
+            <img src={owlLogoSrc} alt="TechUthopia Owl Logo" className="modern-navbar__emblem-img" />
           </div>
           <div className="modern-navbar__brand">
             <span className="modern-navbar__brand-title">TECHUTHOPIA</span>
