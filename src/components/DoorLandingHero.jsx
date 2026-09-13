@@ -614,7 +614,7 @@ export default function DoorLandingHero() {
                 <span
                   className="door-landing__title-utopia"
                   style={{
-                    textShadow: `0 0 30px ${currentTheme.color}88, 0 0 60px ${currentTheme.secondaryColor}44`
+                    textShadow: 'none'
                   }}
                 >
                   UTHOPIA

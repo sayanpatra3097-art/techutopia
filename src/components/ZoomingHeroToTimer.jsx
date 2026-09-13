@@ -659,10 +659,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   }
 
   const clockItems = [
-    { value: pad(timeLeft.days), label: 'DAYS // 日数', kanji: '天', tag: '残日数' },
-    { value: pad(timeLeft.hours), label: 'HOURS // 時間', kanji: '刻', tag: '刻限時' },
-    { value: pad(timeLeft.minutes), label: 'MINS // 分鐘', kanji: '分', tag: '覚醒分' },
-    { value: pad(timeLeft.seconds), label: 'SECS // 秒数', kanji: '秒', tag: '瞬刻秒' }
+    { value: pad(timeLeft.days), label: 'DAYS', code: 'D', tag: 'OCT 06' },
+    { value: pad(timeLeft.hours), label: 'HOURS', code: 'H', tag: 'TIME' },
+    { value: pad(timeLeft.minutes), label: 'MINS', code: 'M', tag: 'PULSE' },
+    { value: pad(timeLeft.seconds), label: 'SECS', code: 'S', tag: 'LIVE' }
   ]
 
   return (
@@ -768,7 +768,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             <span className="door-landing__title-tech">TECH</span>
             <span
               className="door-landing__title-utopia"
-              style={{ textShadow: `0 0 35px ${activeColor}aa` }}
+              style={{ textShadow: 'none' }}
             >
               UTHOPIA
             </span>
@@ -835,7 +835,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div className="royal-scroll__seal-ribbon royal-scroll__seal-ribbon--left anime-seal-ribbon" />
                 <div className="royal-scroll__seal-half royal-scroll__seal-half--left anime-seal-half">
                   <span className="anime-seal-symbol">☯</span>
-                  <span className="anime-seal-kanji">封印</span>
+                  <span className="anime-seal-kanji">LOCK</span>
                   <span className="anime-seal-sub">SEALED</span>
                 </div>
               </div>
@@ -852,7 +852,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               <div className="royal-scroll__seal-side royal-scroll__seal-side--right">
                 <div className="royal-scroll__seal-half royal-scroll__seal-half--right anime-seal-half">
                   <span className="anime-seal-symbol">⚡</span>
-                  <span className="anime-seal-kanji">覚醒</span>
+                  <span className="anime-seal-kanji">OPEN</span>
                   <span className="anime-seal-sub">AWAKEN</span>
                 </div>
                 <div className="royal-scroll__seal-ribbon royal-scroll__seal-ribbon--right anime-seal-ribbon" />
@@ -877,12 +877,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div className="royal-scroll__gold-trim-bottom anime-trim-bottom" />
 
                 {/* Left & Right Anime Shrine Pillars */}
-                <div className="anime-timer__shrine-pillar anime-timer__shrine-pillar--left anime-pillar">
-                  <span className="anime-timer__pillar-kanji">神</span>
-                </div>
-                <div className="anime-timer__shrine-pillar anime-timer__shrine-pillar--right anime-pillar">
-                  <span className="anime-timer__pillar-kanji">魔</span>
-                </div>
+                <div className="anime-timer__shrine-pillar anime-timer__shrine-pillar--left anime-pillar" />
+                <div className="anime-timer__shrine-pillar anime-timer__shrine-pillar--right anime-pillar" />
 
                 {/* Letter Content: Anime Header, Countdown Talismans, and Actions */}
                 <div
@@ -902,8 +898,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
                     <div className="anime-timer__shrine-creed anime-creed-badge">
                       <span className="anime-creed-spark">⚡</span>
-                      <span>領域展開 • 特異点時空</span>
-                      <span className="anime-timer__creed-sep">//</span>
                       <span>TEMPORAL AWAKENING MATRIX</span>
                       <span className="anime-creed-spark">⚡</span>
                     </div>
@@ -911,7 +905,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
                   {/* Anime Title Block */}
                   <div className="anime-timer__title-block">
-                    <div className="anime-timer__kanji-eyebrow">次元降臨カウントダウン</div>
+                    <div className="anime-timer__kanji-eyebrow">GRAND FESTIVAL COUNTDOWN</div>
                     <h2 className="anime-timer__headline anime-glow-text">
                       CHRONICLES OF TECHUTHOPIA ’26
                     </h2>
@@ -924,7 +918,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                         <div className="anime-timer__talisman-top-knot anime-ofuda-knot" />
                         
                         <div className="anime-ofuda-header">
-                          <span className="anime-ofuda-kanji-stamp">{item.kanji}</span>
+                          <span className="anime-ofuda-kanji-stamp">{item.code}</span>
                           <span className="anime-ofuda-tag">{item.tag}</span>
                         </div>
 
@@ -954,9 +948,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   <div className="anime-timer__date-scroll anime-date-edict">
                     <span className="anime-timer__scroll-crest">📜</span>
                     <span className="anime-date-edict__text">
-                      【 決戦期日: 2026年10月6日–7日 】 • CONVOCATION COLISEUM, UEM JAIPUR
+                      【 FESTIVAL DATE: OCTOBER 6–7, 2026 】 • CONVOCATION COLISEUM, UEM JAIPUR
                     </span>
-                    <span className="anime-timer__seal-stamp anime-stamp-neon">特異点</span>
+                    <span className="anime-timer__seal-stamp anime-stamp-neon">OCT '26</span>
                   </div>
 
                   {/* ───── ANIME DOMAIN UNSEAL EXPLORE BUTTON ───── */}
@@ -966,7 +960,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                       className="btn btn--primary zoom-hero__explore-btn anime-unseal-btn anime-btn-glow"
                       onClick={handleExploreClick}
                     >
-                      ⚔️【 CLICK TO EXPLORE EVENTS // 領域展開 】⚡
+                      ⚔️【 CLICK TO EXPLORE EVENTS 】⚡
                     </button>
                     <div className="zoom-hero__explore-sub anime-explore-hint">
                       “Click to enter Dimension 02: Dungeon Quests & Arena Trials”
@@ -984,14 +978,14 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 onClick={() => handleRollTo('close')}
                 title="Roll In"
               >
-                ◀ 封印 (Seal)
+                ◀ Seal
               </button>
               <div className="royal-scroll__dock-indicator anime-dock-indicator">
                 <span className="royal-scroll__dock-crest">⚡</span>
                 <span>
                   {rollProgress < 0.98
-                    ? `【 封印解除進行度: ${Math.round(rollProgress * 100)}% 】• SCROLL TO UNROLL MANA`
-                    : "【 封印完全解除 // DOMAIN AWAKENED: OCTOBER 6–7, 2026 】"}
+                    ? `【 UNROLL PROGRESS: ${Math.round(rollProgress * 100)}% 】• SCROLL TO REVEAL`
+                    : "【 SCROLL FULLY OPEN // DOMAIN AWAKENED: OCTOBER 6–7, 2026 】"}
                 </span>
                 <span className="royal-scroll__dock-crest">⚡</span>
               </div>
@@ -1001,7 +995,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 onClick={() => handleRollTo('open')}
                 title="Roll Out"
               >
-                解放 (Open) ▶
+                Open ▶
               </button>
             </div>
           </div>

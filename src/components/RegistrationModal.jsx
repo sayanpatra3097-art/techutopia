@@ -1,15 +1,20 @@
 import { useState } from 'react'
 
 const allEventsList = [
-  'Shadow Monarch Code Clash',
-  'Hashira Hackathon',
-  'Mecha Titan Arena',
-  'Neural Network Dojo',
-  'Breathing Technique: Design Sprint',
-  'Dungeon Raid: CTF',
-  'Boss Battle: Gaming Tournament',
-  'Infinity Castle: Web Dev Battle',
-  'Demon Art: 3D Modeling Workshop'
+  'Robo Mania',
+  'Gravity Zone',
+  'Physio Event',
+  'TechVenture',
+  'Launchpad',
+  'Hackathon (24hr)',
+  'Esports Championship',
+  'Photography',
+  'Bridge Building',
+  'Generative Media',
+  'Andhadhun',
+  'Food Fest',
+  'Auto Expo',
+  'Fashion Carnival'
 ]
 
 export default function RegistrationModal({ event, onClose }) {

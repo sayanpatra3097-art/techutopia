@@ -135,7 +135,7 @@ export default function Hero({ onNextDimension }) {
           <span
             className="hero-dimension__title-utopia"
             style={{
-              textShadow: `0 0 25px ${currentTheme.color}88, 0 0 50px ${currentTheme.secondaryColor}44`
+              textShadow: 'none'
             }}
           >
             UTHOPIA

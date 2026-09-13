@@ -20,14 +20,7 @@ const scheduleData = {
     { time: '02:00 PM', title: 'Mecha Titan Arena — Robot Battles', venue: 'Workshop Bay', tag: 'Robotics' },
     { time: '04:00 PM', title: 'Shadow Monarch Code Clash — Finals', venue: 'Auditorium Hall A', tag: 'Coding' },
     { time: '06:00 PM', title: 'Hashira Hackathon Judging', venue: 'Innovation Lab', tag: 'Hackathon' },
-    { time: '07:30 PM', title: 'DJ Night + Star Night', venue: 'Open Air Theatre', tag: 'Cultural' },
-  ],
-  'Day 3': [
-    { time: '10:00 AM', title: 'Dungeon Raid: CTF Challenge', venue: 'Network Lab', tag: 'Cybersecurity' },
-    { time: '11:00 AM', title: 'Demon Art: 3D Modeling Workshop', venue: 'Creative Lab', tag: 'Workshop' },
-    { time: '01:00 PM', title: 'Gaming Tournament — Grand Finals', venue: 'Gaming Arena', tag: 'Gaming' },
-    { time: '03:00 PM', title: 'Exhibition & Project Showcase', venue: 'Main Hall', tag: 'Exhibition' },
-    { time: '05:00 PM', title: 'Grand Closing & Prize Distribution', venue: 'Main Auditorium', tag: 'Ceremony' },
+    { time: '07:30 PM', title: 'DJ Night + Star Night & Closing Ceremony', venue: 'Open Air Theatre', tag: 'Cultural' },
   ],
 }
 
@@ -43,7 +36,7 @@ export default function Schedule() {
           <div className="section__label">📋 Schedule</div>
           <h2 className="section__title">Itinerary</h2>
           <p className="section__subtitle">
-            Three days of non-stop action. Plan your dungeon raids wisely.
+            Two days of non-stop action. Plan your dungeon raids wisely.
           </p>
         </div>
 

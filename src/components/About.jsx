@@ -47,7 +47,7 @@ export default function About() {
             <div className="section__label">🌀 About</div>
             <h2 className="section__title">What is TechUthopia?</h2>
             <p>
-              <strong>TechUthopia</strong> is UEM Jaipur's flagship annual tech fest — a 3-day spectacle where
+              <strong>TechUthopia</strong> is UEM Jaipur's flagship annual tech fest — a 2-day spectacle where
               technology meets anime-inspired creativity. Like a hunter entering a dungeon gate, 
               participants enter a world of challenges, workshops, and competitions that push 
               their abilities beyond limits.

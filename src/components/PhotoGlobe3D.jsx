@@ -164,9 +164,6 @@ export default function PhotoGlobe3D() {
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
-          <div className="section__label" style={{ justifyContent: 'center' }}>
-            🌌 記憶の球体 // DIMENSION 05 • CELESTIAL MEMORY GLOBE
-          </div>
           <h2 className="section__title anime-glow-text" style={{ textAlign: 'center' }}>
             CHRONICLES OF PAST GLORY
           </h2>

@@ -2,195 +2,251 @@ import { useState, useRef, useEffect } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
 import animeSkyBg from '../assets/anime_sky_bg.webp'
 
-// Authentic Anime Constellation Timeline for TechUtopia '26
+// Authentic Anime Constellation Timeline for TechUtopia '26 (2-Day Format)
 const constellationDays = {
   'DAY 01': [
     {
       id: 'd1-1',
-      x: 15,
-      y: 36,
-      time: '09:00 AM',
-      title: '【開闢】 GRAND INAUGURATION & MONARCH KEYNOTE',
-      desc: 'The celestial sanctuary gates unseal. Keynote address from supreme tech Monarchs initiating the festival.',
-      venue: 'Main Coliseum • 覚醒の間',
-      category: 'Ceremony',
-      rank: 'S-Rank Event',
-      starName: 'Alpha Ursae • 極星',
-      mana: '100% Resonance'
+      x: 12,
+      y: 32,
+      time: '10:00 AM - 04:00 PM',
+      title: 'LAUNCHPAD: TECH PROJECT EXPO',
+      desc: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions. Demonstrate working hardware prototypes, software solutions, and patented engineering research.',
+      venue: 'Exhibition Center, Main Foyer',
+      category: 'Project Expo',
+      rank: 'A-RANK INNOVATION',
+      starName: 'Launchpad',
+      eventName: 'Launchpad',
+      mana: '95% Resonance',
+      prize: '₹45,000 + Research Grants',
+      team: 'Team of 2-4'
     },
     {
       id: 'd1-2',
-      x: 30,
-      y: 22,
-      time: '10:00 AM',
-      title: '【影の試練】 SHADOW MONARCH ALGO CLASH — R1',
-      desc: 'Round 1 of the legendary competitive algorithmic battle. 500 coders descend into the shadow dungeon.',
-      venue: 'Dungeon Hall A • 影の回廊',
-      category: 'Competitive Code',
-      rank: 'A-Rank Quest',
-      starName: 'Polaris Prime • 北極星',
-      mana: 'High Mana'
+      x: 24,
+      y: 60,
+      time: '11:00 AM - 03:00 PM',
+      title: 'ROBO MANIA: MECHA COLISEUM',
+      desc: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena. Test armor, torque, weapon systems, and driver precision under high-voltage battle rounds.',
+      venue: 'Mechanical Arena, Workshop Block',
+      category: 'Robotics',
+      rank: 'S-RANK COLISEUM',
+      starName: 'Robo Mania',
+      eventName: 'Robo Mania',
+      mana: 'High Torque',
+      prize: '₹50,000 + Champion Trophy',
+      team: 'Team of 2-5'
     },
     {
       id: 'd1-3',
-      x: 50,
-      y: 42,
-      time: '11:00 AM',
-      title: '【炎の呼吸】 HASHIRA 24HR FORGE KICKOFF',
-      desc: 'The flame of creation is ignited. 24-hour non-stop hackathon building next-gen AI, Web3, and robotics solutions.',
-      venue: 'Sandbox Forge • 煉獄工房',
+      x: 38,
+      y: 26,
+      time: '11:00 AM (24hr Non-Stop)',
+      title: '24HR HACKATHON: MONARCH FORGE',
+      desc: 'The flagship 24-hour hackathon of TechUthopia! Code through the midnight hour, solve real-world industry problem statements, and build breakthrough AI, Web3, and Cloud solutions.',
+      venue: 'Innovation Hub & Sandbox Lab',
       category: 'Hackathon',
-      rank: 'Supreme Raid',
-      starName: 'Sirius Core • 狼星',
-      mana: 'Continuous Surge'
+      rank: 'SUPREME RAID',
+      starName: '24Hr Hackathon',
+      eventName: '24Hr Hackathon',
+      mana: 'Continuous Surge',
+      prize: '₹1,00,000 + Incubation Support',
+      team: 'Squad of 2-4'
     },
     {
       id: 'd1-4',
-      x: 70,
-      y: 26,
-      time: '02:30 PM',
-      title: '【風の呼吸】 BREATHING SPRINT: SPATIAL UI/UX',
-      desc: 'Ultra-fast visual design sprint. Hunters create fluid, high-velocity anime cyber-interfaces in 120 minutes.',
-      venue: 'Design Sanctum • 幻影館',
-      category: 'Creative Sprint',
-      rank: 'Special Guild',
-      starName: 'Vega Gate • 織姫星',
-      mana: 'Fluid Flow'
+      x: 50,
+      y: 68,
+      time: '12:00 PM - 08:00 PM',
+      title: 'GOURMET FOOD FEST & STREET ALCHEMY',
+      desc: 'Gastronomic culinary stalls, fast-eating showdowns, blind tasting challenges, and mocktail alchemy celebrating festival delicacies across the campus promenade.',
+      venue: 'Food Court Promenade, UEM Jaipur',
+      category: 'Culinary & Fun',
+      rank: 'OPEN CELEBRATION',
+      starName: 'Food Fest',
+      eventName: 'Food Fest',
+      mana: 'Feast Energy',
+      prize: '₹25,000 MasterChef Honors',
+      team: 'Solo / Squad'
     },
     {
       id: 'd1-5',
-      x: 86,
-      y: 56,
-      time: '07:00 PM',
-      title: '【星華夜】 ANIME TWILIGHT & LASER PRELUDE',
-      desc: 'Atmospheric twilight concert with synchronized beam lasers and anime orchestral symphonies under the open sky.',
-      venue: 'Open Air Colosseum • 星天広場',
-      category: 'Nocturnal Concert',
-      rank: 'Festival Rave',
-      starName: 'Betelgeuse • 巨星',
-      mana: 'Max Voltage'
+      x: 63,
+      y: 32,
+      time: '02:00 PM - 05:00 PM',
+      title: 'GRAVITY ZONE: ZERO-G ARENA',
+      desc: 'Defy terrestrial physics! Teams build aerodynamic launchers, precision egg-drop vessels, and pressurized water rockets to conquer gravity and achieve maximum flight time.',
+      venue: 'Central University Grounds, UEM Jaipur',
+      category: 'Physics & Fun',
+      rank: 'A-RANK ARENA',
+      starName: 'Gravity Zone',
+      eventName: 'Gravity Zone',
+      mana: 'Graviton Flux',
+      prize: '₹35,000 + Medallions',
+      team: 'Squad of 2-4'
+    },
+    {
+      id: 'd1-6',
+      x: 76,
+      y: 62,
+      time: '03:00 PM - 07:00 PM',
+      title: 'ESPORTS CHAMPIONSHIP (PRELIMS)',
+      desc: 'High-octane BGMI, Valorant, and EA FC 5v5 tactical shooter tournament. Teams duel across knockout brackets on ultra-high-refresh tournament rigs broadcasted live.',
+      venue: 'Indoor Sports Stadium & Gaming Dome',
+      category: 'Gaming',
+      rank: 'COLISEUM APEX',
+      starName: 'Esports Arena',
+      eventName: 'Esports Arena',
+      mana: 'High Voltage',
+      prize: '₹60,000 + Pro Gaming Gear',
+      team: 'Squad of 4-5'
+    },
+    {
+      id: 'd1-7',
+      x: 88,
+      y: 28,
+      time: 'Day 1 - Day 2 • All Day',
+      title: 'CHRONICLES OF TECHUTOPIA: PHOTOGRAPHY',
+      desc: 'Theme-based on-spot photography and cinematic storytelling competition capturing the soul, neon energy, and cyberpunk lights of the festival.',
+      venue: 'Media Center & Campus-Wide',
+      category: 'Creative Arts',
+      rank: 'B-RANK CHRONICLE',
+      starName: 'Photography',
+      eventName: 'Photography',
+      mana: 'Optic Focus',
+      prize: '₹25,000 + Lens Gear',
+      team: 'Solo Hunter'
     },
   ],
   'DAY 02': [
     {
       id: 'd2-1',
-      x: 18,
-      y: 62,
-      time: '09:30 AM',
-      title: '【無限城】 INFINITY CASTLE WEB DEV CLASH',
-      desc: 'Fast-paced WebGL and full-stack battleground with dynamic dimensional themes shifting in real-time.',
-      venue: 'Computing Nexus • 異次元ラボ',
-      category: 'Full-Stack Battle',
-      rank: 'A-Rank Raid',
-      starName: 'Rigel Nexus • 参宿',
-      mana: 'Overclocked'
+      x: 10,
+      y: 44,
+      time: '10:00 AM - 01:00 PM',
+      title: 'PHYSIO AGILITY & BIOMECHANICS',
+      desc: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing. Showcase clinical skills, healthcare diagnostics, and rapid physical assessment challenges.',
+      venue: 'Physiotherapy & Health Sciences Wing',
+      category: 'Healthcare & Wellness',
+      rank: 'SPECIAL GUILD',
+      starName: 'Physio Event',
+      eventName: 'Physio Event',
+      mana: 'Bio Resonance',
+      prize: '₹30,000 + Clinical Kits',
+      team: 'Solo / Duo'
     },
     {
       id: 'd2-2',
-      x: 38,
-      y: 30,
-      time: '11:00 AM',
-      title: '【無量空処】 NEURAL VOID DOJO (AI/ML SPRINT)',
-      desc: 'Deep learning neural models and autonomous agent swarms deployed against real-world enterprise datasets.',
-      venue: 'CS Core Sanctum • 領域展開の間',
-      category: 'Autonomous AI',
-      rank: 'Special Grade',
-      starName: 'Aldebaran • 牡牛眼',
-      mana: 'Boundless Void'
+      x: 22,
+      y: 22,
+      time: '10:30 AM - 01:30 PM',
+      title: 'ANDHADHUN: BLIND SYNTAX TRIAL',
+      desc: 'Screen-off coding challenge where contestants type algorithms with monitors off, relying purely on muscle memory and syntax cognition, combined with ear-training musical quizzes.',
+      venue: 'Computing Lab 4, UEM Jaipur',
+      category: 'Mystery & Skill',
+      rank: 'CHAOS TRIAL',
+      starName: 'Andhadhun',
+      eventName: 'Andhadhun',
+      mana: 'Sensory Overdrive',
+      prize: '₹35,000 + Goodies',
+      team: 'Solo'
     },
     {
       id: 'd2-3',
-      x: 56,
-      y: 66,
-      time: '02:00 PM',
-      title: '【機神決戦】 MECHA TITAN ROBOT WARS',
-      desc: 'Combat bots collide in the high-voltage arena. Spinning saws, flippers, and armored chassis fight to the finish.',
-      venue: 'Ironworks Bay • 機甲アリーナ',
-      category: 'Combat Robotics',
-      rank: 'Heavy Armored',
-      starName: 'Antares Nova • 心宿',
-      mana: 'Kinetic Blast'
+      x: 34,
+      y: 64,
+      time: '11:30 AM - 03:30 PM',
+      title: 'TECHVENTURE: STARTUP ARENA',
+      desc: 'Shark Tank style startup battleground. Pitch groundbreaking tech innovations, viable business models, and scalable prototypes directly to industry investors and venture founders.',
+      venue: 'Auditorium Hall B, UEM Jaipur',
+      category: 'Startup & Business',
+      rank: 'S-RANK SUMMON',
+      starName: 'TechVenture',
+      eventName: 'TechVenture',
+      mana: 'Venture Core',
+      prize: '₹75,000 + Seed Mentorship',
+      team: 'Team of 1-4'
     },
     {
       id: 'd2-4',
-      x: 74,
-      y: 38,
-      time: '06:00 PM',
-      title: '【最終決戦】 HASHIRA FORGE 24HR GRAND PITCH',
-      desc: 'The 24-hour hackathon concludes. The top 10 finalists pitch their creations before industry veteran judges.',
-      venue: 'Auditorium Prime • 審査の神殿',
-      category: 'Hackathon Final',
-      rank: 'Monarch Showcase',
-      starName: 'Spica Vault • 角宿',
-      mana: 'Critical Apex'
+      x: 46,
+      y: 26,
+      time: '11:00 AM - 05:00 PM',
+      title: 'AUTO EXPO: TORQUE & EV SHOWCASE',
+      desc: 'Superbikes, electric go-karts, modified cars, and Formula Student vehicles on display. Explore student-engineered electric racecars, tuned supercars, and aerodynamic designs.',
+      venue: 'Main Driveway Arena & Track',
+      category: 'Automotive & EVs',
+      rank: 'PREMIER SHOWCASE',
+      starName: 'Auto Expo',
+      eventName: 'Auto Expo',
+      mana: 'Nitro Drive',
+      prize: '₹50,000 Auto Innovator Award',
+      team: 'Exhibition Guilds'
     },
     {
       id: 'd2-5',
-      x: 88,
-      y: 72,
-      time: '08:00 PM',
-      title: '【音柱共鳴】 SONIC DOMAIN: ANIME EDM DJ NIGHT',
-      desc: 'High-octane sound explosion featuring headlining anime EDM producers, bass drops, and neon pyro effects.',
-      venue: 'Open Air Amphitheatre • 轟音祭壇',
-      category: 'Nocturnal Concert',
-      rank: 'Supreme Rave',
-      starName: 'Deneb Apex • 白鳥尾',
-      mana: 'Electrified'
-    },
-  ],
-  'DAY 03': [
-    {
-      id: 'd3-1',
-      x: 20,
-      y: 42,
-      time: '10:00 AM',
-      title: '【電脳侵入】 DUNGEON RAID: CYBER CTF CLASH',
-      desc: 'Hunters defend server nodes and infiltrate hardened network infrastructures in a live jeopardy-style CTF.',
-      venue: 'Security Matrix • 結界網',
-      category: 'Cyber Guild',
-      rank: 'Stealth Raid',
-      starName: 'Capella Ring • 五車',
-      mana: 'Encrypted'
+      x: 58,
+      y: 68,
+      time: '01:30 PM - 04:30 PM',
+      title: 'BRIDGE BUILDING: DESTRUCTION TEST',
+      desc: 'Design and construct maximum load-bearing truss bridges with minimal dead weight. Each bridge is subjected to calibrated point loading until collapse to determine ultimate strength ratio.',
+      venue: 'Civil Engineering Materials Lab',
+      category: 'Civil & Mechanics',
+      rank: 'B-RANK STRUCTURE',
+      starName: 'Bridge Building',
+      eventName: 'Bridge Building',
+      mana: 'Kinetic Limit',
+      prize: '₹30,000 + Trophy',
+      team: 'Team of 2-3'
     },
     {
-      id: 'd3-2',
-      x: 44,
-      y: 24,
-      time: '11:30 AM',
-      title: '【錬金真理】 ALCHEMICAL 3D BLENDER MASTERCLASS',
-      desc: 'Spatial 3D artists synthesize shaders, procedural worlds, and anime character meshes in real-time.',
-      venue: 'Creative Media Dojo • 真理の門',
-      category: 'Visual Alchemy',
-      rank: 'Master Guild',
-      starName: 'Castor Star • 双子座α',
-      mana: 'Transmutation'
+      id: 'd2-6',
+      x: 70,
+      y: 30,
+      time: '02:00 PM - 05:30 PM',
+      title: 'GENERATIVE MEDIA & AI SYNTHESIS',
+      desc: 'Prompt engineering, generative video, and procedural audio synthesis clash. Harness diffusion models and LLMs to produce an immersive anime trailer in under 4 hours.',
+      venue: 'Digital Arts & AI Lab',
+      category: 'AI & Digital Art',
+      rank: 'A-RANK SYNTHESIS',
+      starName: 'Generative Media',
+      eventName: 'Generative Media',
+      mana: 'Neural Synthesis',
+      prize: '₹40,000 + AI Subscriptions',
+      team: 'Solo / Duo'
     },
     {
-      id: 'd3-3',
-      x: 64,
-      y: 52,
-      time: '01:30 PM',
-      title: '【覇王頂点】 ESPORTS GRAND COLISEUM FINALS',
-      desc: 'The best collegiate tactical teams duel on the center jumbotron stage for the champion trophy.',
-      venue: 'Main Arena • 覇王闘技場',
-      category: 'Esports Finals',
-      rank: 'Championship',
-      starName: 'Pollux Node • 双子座β',
-      mana: 'Extreme Hype'
+      id: 'd2-7',
+      x: 82,
+      y: 60,
+      time: '04:00 PM - 06:30 PM',
+      title: '24HR HACKATHON GRAND JURY PITCH',
+      desc: 'The 24-hour hackathon concludes. The top finalist squads present live working deployments, architecture, and prototypes before senior industry architects and angel investors.',
+      venue: 'Innovation Hub & Sandbox Lab',
+      category: 'Hackathon Final',
+      rank: 'SUPREME RAID',
+      starName: 'Hackathon Finale',
+      eventName: 'Hackathon Finale',
+      mana: 'Critical Apex',
+      prize: '₹1,00,000 + Incubation Grants',
+      team: 'Top Finalist Squads'
     },
     {
-      id: 'd3-4',
-      x: 84,
-      y: 32,
-      time: '05:00 PM',
-      title: '【戴冠式】 SUPREME CONFERMENT & AWARDS GALA',
-      desc: 'Honoring victorious guilds with INR 10 Lakhs in bounties, gold medallions, and the eternal TechUthopia cup.',
-      venue: 'Imperial Auditorium • 栄光の殿堂',
-      category: 'Royal Ceremony',
-      rank: 'Legendary Rites',
-      starName: 'Altair Crown • 彦星',
-      mana: 'Crown Awakening'
-    },
+      id: 'd2-8',
+      x: 92,
+      y: 26,
+      time: '06:30 PM - 10:00 PM',
+      title: 'FASHION CARNIVAL & CLOSING GALA',
+      desc: 'The grand closing spectacle of TechUthopia! Anime cosplay masquerade, cyber couture runway, and conferring of festival championships, ₹10 Lakhs bounties, and trophies.',
+      venue: 'Grand Amphitheatre Open Stage',
+      category: 'Cultural Runway & Awards',
+      rank: 'SUPREME GALA',
+      starName: 'Fashion Carnival',
+      eventName: 'Fashion Carnival',
+      mana: 'Supreme Climax',
+      prize: '₹70,000 + Fashion Crowns & Bounties',
+      team: 'Guild Roster / Squad'
+    }
   ]
 }
 
@@ -388,9 +444,7 @@ export default function StarConstellation() {
         ctx.lineWidth = 3
         ctx.strokeStyle = activeDay === 'DAY 01'
           ? 'rgba(255, 107, 53, 0.65)'
-          : activeDay === 'DAY 02'
-          ? 'rgba(255, 183, 3, 0.65)'
-          : 'rgba(230, 57, 70, 0.65)'
+          : 'rgba(255, 215, 0, 0.65)'
         ctx.setLineDash([10, 6])
         ctx.lineDashOffset = -t * 22
         ctx.beginPath()
@@ -410,6 +464,74 @@ export default function StarConstellation() {
           ctx.lineTo(points[i].x, points[i].y)
         }
         ctx.stroke()
+
+        // 6. Draw Directional Flow Arrows connecting events sequentially (Node -> Node)
+        for (let i = 0; i < points.length - 1; i++) {
+          const p1 = points[i]
+          const p2 = points[i + 1]
+          const dx = p2.x - p1.x
+          const dy = p2.y - p1.y
+          const len = Math.hypot(dx, dy)
+          if (len < 20) continue
+          const angle = Math.atan2(dy, dx)
+
+          // A. Animated energy photon arrow gliding along trajectory
+          const pulseProg = (t * 0.45 + i * 0.28) % 1
+          const pulseX = p1.x + dx * pulseProg
+          const pulseY = p1.y + dy * pulseProg
+
+          ctx.save()
+          ctx.translate(pulseX, pulseY)
+          ctx.rotate(angle)
+          ctx.fillStyle = '#ffffff'
+          ctx.shadowColor = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
+          ctx.shadowBlur = 12
+          ctx.beginPath()
+          ctx.moveTo(9, 0)
+          ctx.lineTo(-6, -6)
+          ctx.lineTo(-2, 0)
+          ctx.lineTo(-6, 6)
+          ctx.closePath()
+          ctx.fill()
+          ctx.restore()
+
+          // B. High-visibility stationary double chevron arrows at midpoint
+          const midX = p1.x + dx * 0.5
+          const midY = p1.y + dy * 0.5
+
+          ctx.save()
+          ctx.translate(midX, midY)
+          ctx.rotate(angle)
+
+          // Outer dark outline badge for contrast against background
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.85)'
+          ctx.shadowBlur = 8
+
+          // Front prominent golden arrow
+          ctx.fillStyle = '#ffd700'
+          ctx.strokeStyle = '#ffffff'
+          ctx.lineWidth = 2
+          ctx.beginPath()
+          ctx.moveTo(15, 0)
+          ctx.lineTo(-3, -10)
+          ctx.lineTo(1, 0)
+          ctx.lineTo(-3, 10)
+          ctx.closePath()
+          ctx.fill()
+          ctx.stroke()
+
+          // Back trailing chevron for high-tech ">>" sequential flow
+          ctx.fillStyle = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
+          ctx.beginPath()
+          ctx.moveTo(4, 0)
+          ctx.lineTo(-13, -9)
+          ctx.lineTo(-9, 0)
+          ctx.lineTo(-13, 9)
+          ctx.closePath()
+          ctx.fill()
+
+          ctx.restore()
+        }
       }
 
       animationFrameId = requestAnimationFrame(render)
@@ -433,7 +555,7 @@ export default function StarConstellation() {
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
-          <h2 className="section__title anime-glow-text" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h2 className="constellation__title">
             THE CELESTIAL STARRY CHRONICLES
           </h2>
         </div>
@@ -450,9 +572,8 @@ export default function StarConstellation() {
                 setSelectedStar(null)
               }}
             >
-              {day === 'DAY 01' && '【開闢】 DAY 01 • INITIATION & FLAME'}
-              {day === 'DAY 02' && '【激闘】 DAY 02 • INFINITE DOJO'}
-              {day === 'DAY 03' && '【終極】 DAY 03 • GRAND FINALS'}
+              {day === 'DAY 01' && 'DAY 01 • INITIATION & FLAME'}
+              {day === 'DAY 02' && 'DAY 02 • CLIMAX & GRAND FINALE'}
             </button>
           ))}
         </div>
@@ -527,7 +648,7 @@ export default function StarConstellation() {
             <div className="constellation__modal-header">
               <div className="constellation__modal-star-id">
                 <span className="constellation__modal-dot" />
-                <span>【星辰情報】 CELESTIAL NODE: {selectedStar.starName} [{activeDay}]</span>
+                <span>EVENT: {selectedStar.eventName || selectedStar.starName} • [{activeDay}]</span>
               </div>
               <div className="constellation__modal-badges">
                 <span className="constellation__modal-badge">{selectedStar.category}</span>
@@ -543,17 +664,29 @@ export default function StarConstellation() {
 
             <div className="constellation__modal-meta">
               <div className="constellation__modal-meta-item">
-                <span>⏱ 刻限:</span>
+                <span>⏱ TIME:</span>
                 <strong>{selectedStar.time}</strong>
               </div>
               <div className="constellation__modal-meta-item">
-                <span>📍 領域:</span>
+                <span>📍 VENUE:</span>
                 <strong>{selectedStar.venue}</strong>
               </div>
               <div className="constellation__modal-meta-item" style={{ color: '#ffd166' }}>
-                <span>⚡ 魔力:</span>
+                <span>⚡ MANA:</span>
                 <strong>{selectedStar.mana}</strong>
               </div>
+              {selectedStar.prize && (
+                <div className="constellation__modal-meta-item" style={{ color: '#ffd700' }}>
+                  <span>🏆 PRIZE:</span>
+                  <strong>{selectedStar.prize}</strong>
+                </div>
+              )}
+              {selectedStar.team && (
+                <div className="constellation__modal-meta-item">
+                  <span>👥 SQUAD:</span>
+                  <strong>{selectedStar.team}</strong>
+                </div>
+              )}
             </div>
 
             <div className="constellation__modal-hint">
