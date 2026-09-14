@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import owlLogo from '../assets/owl-logo.webp'
+import tfLogo from '../assets/tf_logo.webp'
 
 export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [scrolled, setScrolled] = useState(false)
@@ -31,14 +31,10 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
   return (
     <>
       <header className={`modern-navbar ${scrolled ? 'modern-navbar--scrolled' : ''}`}>
-        {/* Left: Brand Logo with Anime Seal */}
+        {/* Left: Brand Logo Only */}
         <div className="modern-navbar__left" onClick={() => handleNavClick(0)}>
           <div className="modern-navbar__emblem">
-            <img src={owlLogo} alt="TechUthopia Owl Logo" className="modern-navbar__emblem-img" />
-          </div>
-          <div className="modern-navbar__brand">
-            <span className="modern-navbar__brand-title">TECHUTHOPIA</span>
-            <span className="modern-navbar__brand-tag">UEM JAIPUR ’26</span>
+            <img src={tfLogo} alt="TechUthopia Logo" className="modern-navbar__emblem-img" />
           </div>
         </div>
 

@@ -1859,7 +1859,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 2.5rem;
+  padding: 0.8rem 2.5rem;
   transition: all 0.4s var(--ease-out);
   background: transparent !important;
 }
@@ -1869,36 +1869,38 @@
   -webkit-backdrop-filter: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
-  padding: 0.9rem 2.5rem;
+  padding: 0.6rem 2.5rem;
 }
 .modern-navbar__left {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
   cursor: pointer;
   user-select: none;
 }
 .modern-navbar__emblem {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, rgba(230, 57, 70, 0.25) 0%, rgba(255, 107, 53, 0.25) 100%);
-  border: 1px solid rgba(230, 57, 70, 0.5);
+  width: 105px;
+  height: 105px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 0 15px rgba(230, 57, 70, 0.3);
-  transition: transform 0.3s;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .modern-navbar__emblem-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 4px rgba(255, 107, 53, 0.6));
+  filter: drop-shadow(0 0 10px rgba(255, 90, 20, 0.6));
+  transition: filter 0.3s ease;
 }
 .modern-navbar__left:hover .modern-navbar__emblem {
-  transform: rotate(6deg) scale(1.06);
+  transform: scale(1.08) rotate(2deg);
+}
+.modern-navbar__left:hover .modern-navbar__emblem-img {
+  filter: drop-shadow(0 0 18px rgba(255, 120, 30, 0.9));
 }
 .modern-navbar__brand {
   display: flex;
@@ -2174,7 +2176,8 @@
 }
 
 @media (max-width: 900px) {
-  .modern-navbar { padding: 1rem 1.5rem; }
+  .modern-navbar { padding: 0.8rem 1.5rem; }
+  .modern-navbar__emblem { width: 76px; height: 76px; }
   .modern-navbar__center { display: none; }
   .modern-navbar__cta-btn { display: none; }
   .modern-navbar__hamburger { display: flex; }
