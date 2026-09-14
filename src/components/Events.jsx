@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import eventOutroImg from '../assets/event_outro.webp'
 import eventInsideImg from '../assets/event_inside.webp'
 
@@ -28,7 +28,6 @@ const eventsDataset = [
     icon: '🤖',
     color: '#ff6b35',
     image: art1,
-    side: 'left',
     snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
     description: 'Unleash custom-built combat mechas and robowars machines in an electric caged battle arena. Test armor, torque, weapon systems, and driver precision under high-voltage battle rounds.',
     date: 'Day 1 • 11:00 AM - 3:00 PM',
@@ -46,7 +45,6 @@ const eventsDataset = [
     icon: '🌌',
     color: '#7b2ff7',
     image: art2,
-    side: 'right',
     snippet: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
     description: 'Defy terrestrial physics! Teams build aerodynamic launchers, precision egg-drop vessels, and pressurized water rockets to conquer gravity and achieve maximum flight time.',
     date: 'Day 1 • 2:00 PM - 5:00 PM',
@@ -64,7 +62,6 @@ const eventsDataset = [
     icon: '🩺',
     color: '#00f5d4',
     image: art3,
-    side: 'left',
     snippet: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
     description: 'A fusion of health sciences, physiotherapy diagnostics, and athletic biomechanics. Showcase clinical skills, ergonomic innovation, and rapid physical assessment challenges.',
     date: 'Day 2 • 10:00 AM - 1:00 PM',
@@ -82,7 +79,6 @@ const eventsDataset = [
     icon: '💼',
     color: '#ffd700',
     image: art4,
-    side: 'right',
     snippet: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
     description: 'Shark Tank style startup battleground. Pitch groundbreaking tech innovations, viable business models, and scalable prototypes directly to industry investors and venture founders.',
     date: 'Day 2 • 11:30 AM - 3:30 PM',
@@ -100,7 +96,6 @@ const eventsDataset = [
     icon: '🚀',
     color: '#4361ee',
     image: art5,
-    side: 'left',
     snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
     description: 'Demonstrate working hardware prototypes, software solutions, and patented student engineering research before academic deans, judges, and visiting industry leaders.',
     date: 'Day 1 • 10:00 AM - 4:00 PM',
@@ -118,7 +113,6 @@ const eventsDataset = [
     icon: '⚡',
     color: '#ff9e00',
     image: art6,
-    side: 'right',
     snippet: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
     description: 'The flagship 24-hour hackathon of TechUthopia! Code through the midnight hour, solve real-world industry problem statements, and present live working deployments to senior architects.',
     date: 'Day 1 - Day 2 • 24 Hours Non-Stop',
@@ -136,7 +130,6 @@ const eventsDataset = [
     icon: '🎮',
     color: '#e63946',
     image: art7,
-    side: 'left',
     snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     description: '5v5 tactical shooter showdown and battle royale madness. Teams duel across knockout brackets on ultra-high-refresh tournament rigs broadcasted live to the auditorium crowd.',
     date: 'Day 1 - Day 2 • Tournament Brackets',
@@ -154,7 +147,6 @@ const eventsDataset = [
     icon: '📸',
     color: '#00b4d8',
     image: art8,
-    side: 'right',
     snippet: 'Theme-based on-spot photography and cinematic storytelling competition.',
     description: 'Capture the soul, energy, and cyberpunk lights of TechUthopia. Judged on creative composition, lighting mastery, framing, and narrative storytelling without excessive post-filters.',
     date: 'Day 1 - Day 2 • On-Campus Submissions',
@@ -172,7 +164,6 @@ const eventsDataset = [
     icon: '🌉',
     color: '#f77f00',
     image: art9,
-    side: 'left',
     snippet: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
     description: 'Design and construct maximum load-bearing truss bridges with minimal dead weight. Each bridge is subjected to calibrated point loading until collapse to determine ultimate strength ratio.',
     date: 'Day 2 • 1:30 PM - 5:00 PM',
@@ -187,69 +178,65 @@ const eventsDataset = [
     threat: 'A-TIER',
     element: 'NEURAL',
     category: 'AI & Digital Art',
-    icon: '🎨',
-    color: '#d90429',
+    icon: '🔮',
+    color: '#9d4edd',
     image: art10,
-    side: 'right',
-    snippet: 'Prompt engineering, generative video, and procedural audio synthesis clash.',
-    description: 'Harness diffusion models, LLMs, and neural audio synthesizers to produce an immersive multimedia campaign or anime trailer in under 4 hours based on an unannounced prompt theme.',
-    date: 'Day 2 • 2:00 PM - 6:00 PM',
-    venue: 'Digital Arts & AI Lab',
-    prize: '₹40,000 + AI Subscriptions',
+    snippet: 'Prompt engineering and generative AI art showcase synthesizing anime and futurism.',
+    description: 'Challenge human imagination alongside neural models. Craft state-of-the-art multimodal AI artworks, prompt architectures, and motion graphics judged by digital artists.',
+    date: 'Day 2 • 3:00 PM - 6:00 PM',
+    venue: 'Digital Design Studio, Block 3',
+    prize: '₹35,000 + GPU Credits',
     team: 'Solo / Duo'
   },
   {
     id: 11,
-    title: 'Andhadhun',
-    rank: 'CHAOS TRIAL',
-    threat: 'SPECIAL',
-    element: 'SENSE',
-    category: 'Mystery & Skill',
+    title: 'Blind Coding',
+    rank: 'A-RANK CIPHER',
+    threat: 'A-TIER',
+    element: 'SHADOW',
+    category: 'Coding & Logic',
     icon: '🕶️',
-    color: '#ff007f',
+    color: '#06d6a0',
     image: art11,
-    side: 'left',
-    snippet: 'Type flawless algorithms with the screen turned off, followed by musical tuning rounds.',
-    description: 'Inspired by the iconic cinematic thriller! Contestants face code challenges with monitors switched off, relying purely on muscle memory and syntax cognition, combined with ear-training musical quizzes.',
-    date: 'Day 2 • 10:30 AM - 1:30 PM',
-    venue: 'Computing Lab 4, UEM Jaipur',
-    prize: '₹35,000 + Goodies',
-    team: 'Solo'
+    snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
+    description: 'Write compilable, bug-free C++/Python code with your display monitor switched completely OFF! Test muscle memory, algorithmic structure, and mental compiler simulation.',
+    date: 'Day 1 • 4:00 PM - 6:30 PM',
+    venue: 'Computer Science Lab 4',
+    prize: '₹25,000 + Mechanical Keyboards',
+    team: 'Solo Hunter'
   },
   {
     id: 12,
-    title: 'Food Fest',
-    rank: 'OPEN CELEBRATION',
-    threat: 'TASTE',
-    element: 'FEAST',
-    category: 'Culinary & Fun',
-    icon: '🍜',
-    color: '#fb8500',
+    title: 'Circuit Design',
+    rank: 'B-RANK SILICON',
+    threat: 'B-TIER',
+    element: 'SPARK',
+    category: 'Electronics',
+    icon: '🔌',
+    color: '#118ab2',
     image: art12,
-    side: 'right',
-    snippet: 'Gastronomic culinary stalls, fast-eating showdowns, and mocktail alchemy.',
-    description: 'Experience flavors from across the continent with pop-up street food stalls, live culinary battles, blind tasting challenges, and student chef masterclasses celebrating festival delicacies.',
-    date: 'All Days • 12:00 PM - 8:00 PM',
-    venue: 'Food Court Promenade, UEM Jaipur',
-    prize: '₹25,000 MasterChef Honors',
-    team: 'Solo / Squad'
+    snippet: 'Rapid breadboarding, PCB debugging, and analog/digital IC challenge.',
+    description: 'Diagnose faulty circuit schematics, solder components against time, and engineer functioning silicon hardware circuits under real-time oscilloscope analysis.',
+    date: 'Day 2 • 10:30 AM - 1:30 PM',
+    venue: 'ECE Microelectronics Lab',
+    prize: '₹30,000 + Oscilloscope Kits',
+    team: 'Team of 2'
   },
   {
     id: 13,
-    title: 'Auto Expo',
-    rank: 'PREMIER SHOWCASE',
-    threat: 'TORQUE',
-    element: 'NITRO',
-    category: 'Automotive & EVs',
-    icon: '🏎️',
-    color: '#023e8a',
+    title: 'Tech Model Expo',
+    rank: 'S-RANK EXHIBIT',
+    threat: 'S-TIER',
+    element: 'FORGE',
+    category: 'Hardware & Science',
+    icon: '🔬',
+    color: '#ef476f',
     image: art13,
-    side: 'left',
-    snippet: 'Superbikes, electric go-karts, modified cars, and Formula Student vehicles on display.',
-    description: 'A powerhouse showcase of engineering horsepower. Explore custom student-engineered electric racecars, tuned supercars, vintage motorcycles, and innovative aerodynamic powertrain designs.',
-    date: 'Day 1 - Day 2 • Full Day',
-    venue: 'Main Driveway Arena & Track',
-    prize: '₹50,000 Auto Innovator Award',
+    snippet: 'Interactive working models of smart city infrastructures and green-energy grids.',
+    description: 'Spectacular large-scale physical working models! Displays include magnetic levitation tracks, sustainable hydroponics, smart disaster-warning grids, and aerospace wind tunnel tests.',
+    date: 'Day 1 - Day 2 • Continuous Showcase',
+    venue: 'Main Foyer & Exhibition Hall A',
+    prize: '₹50,000 + Innovation Trophies',
     team: 'Exhibition Guilds'
   },
   {
@@ -262,7 +249,6 @@ const eventsDataset = [
     icon: '✨',
     color: '#ff0055',
     image: art14,
-    side: 'right',
     snippet: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
     description: 'The grand closing spectacle of TechUthopia! Designers, models, and anime cosplayers take the illuminated ramp in theatrical costumes combining neon cybernetics with traditional high fashion.',
     date: 'Day 2 • 6:30 PM - 10:00 PM (Grand Finale)',
@@ -274,73 +260,152 @@ const eventsDataset = [
 
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm/viewform"
 
-function ChainBridge({ direction = 'right' }) {
-  return (
-    <div className={`chain-bridge-container chain-bridge--${direction}`} aria-hidden="true">
-      {/* Top Chain Line */}
-      <div className="chain-line chain-line--top">
-        <svg className="chain-svg" viewBox="0 0 120 28" fill="none">
-          <defs>
-            <linearGradient id={`chainGrad-top-${direction}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ffd700" />
-              <stop offset="50%" stopColor="#ff6b35" />
-              <stop offset="100%" stopColor="#e63946" />
-            </linearGradient>
-          </defs>
-          <rect x="2" y="6" width="16" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="16" y1="14" x2="28" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
-          <rect x="26" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff3b30" strokeWidth="4" strokeLinecap="round" />
-          <rect x="52" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="68" y1="14" x2="80" y2="14" stroke="#ff6b35" strokeWidth="4" strokeLinecap="round" />
-          <rect x="78" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="94" y1="14" x2="106" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
-          <rect x="104" y="6" width="14" height="16" rx="5" stroke={`url(#chainGrad-top-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-        </svg>
-      </div>
+// 3D Corridor Layout Constants
+const SPACING_Z = 850 // Distance between consecutive exhibits in 3D depth
+const INITIAL_Z_OFFSET = 1200 // Camera start to first exhibit
 
-      {/* Central Glowing Runic Seal Core */}
-      <div className="chain-runic-core">
-        <span className="chain-pulse-gem">◆</span>
-        <span className="chain-runic-text">SOUL CHAIN // BIND</span>
-        <span className="chain-pulse-gem">◆</span>
-      </div>
+// Map exhibits with fixed 3D coordinates (Techfest architecture)
+const computedExhibits = eventsDataset.map((ev, i) => ({
+  ...ev,
+  index: i,
+  side: i % 2 === 0 ? 'left' : 'right',
+  z: -INITIAL_Z_OFFSET - i * SPACING_Z
+}))
 
-      {/* Bottom Chain Line */}
-      <div className="chain-line chain-line--bottom">
-        <svg className="chain-svg" viewBox="0 0 120 28" fill="none">
-          <defs>
-            <linearGradient id={`chainGrad-bot-${direction}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#e63946" />
-              <stop offset="50%" stopColor="#ff6b35" />
-              <stop offset="100%" stopColor="#ffd700" />
-            </linearGradient>
-          </defs>
-          <rect x="2" y="6" width="16" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="16" y1="14" x2="28" y2="14" stroke="#e63946" strokeWidth="4" strokeLinecap="round" />
-          <rect x="26" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="42" y1="14" x2="54" y2="14" stroke="#ff3b30" strokeWidth="4" strokeLinecap="round" />
-          <rect x="52" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="68" y1="14" x2="80" y2="14" stroke="#ffd700" strokeWidth="4" strokeLinecap="round" />
-          <rect x="78" y="6" width="18" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-          <line x1="94" y1="14" x2="106" y2="14" stroke="#ff6b35" strokeWidth="4" strokeLinecap="round" />
-          <rect x="104" y="6" width="14" height="16" rx="5" stroke={`url(#chainGrad-bot-${direction})`} strokeWidth="3" fill="rgba(6, 8, 16, 0.7)" />
-        </svg>
-      </div>
-    </div>
+// Total depth the camera travels down the tunnel
+const TOTAL_CORRIDOR_DEPTH = INITIAL_Z_OFFSET + (computedExhibits.length - 1) * SPACING_Z + 1400
+
+// 4-Point Catmull-Rom Spline interpolation (Exact Techfest navigation math)
+function calculateCatmullRomSpline(zVal, waypoints) {
+  if (!waypoints || waypoints.length === 0) return 0
+  let t = 0
+  for (; t < waypoints.length - 1 && waypoints[t + 1].z <= zVal; ) {
+    t++
+  }
+  if (t >= waypoints.length - 1) return waypoints[waypoints.length - 1].x
+
+  const p0 = waypoints[Math.max(0, t - 1)]
+  const p1 = waypoints[t]
+  const p2 = waypoints[Math.min(waypoints.length - 1, t + 1)]
+  const p3 = waypoints[Math.min(waypoints.length - 1, t + 2)]
+
+  const span = p2.z - p1.z
+  if (span === 0) return p1.x
+
+  const s = (zVal - p1.z) / span
+  const s2 = s * s
+  const s3 = s2 * s
+
+  return 0.5 * (
+    2 * p1.x +
+    (-p0.x + p2.x) * s +
+    (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * s2 +
+    (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * s3
   )
 }
 
-export default function Events() {
-  // 'outro' (Citadel entrance with scroll zoom) -> 'pixel' (Tiny pixel dissolve) -> 'inside' (3D walking gallery room)
+// ════════════ MEMOIZED 3D EXHIBITS LIST (ZERO REACT RE-RENDERS ON SCROLL) ════════════
+const CorridorExhibits = memo(function CorridorExhibits({
+  exhibits,
+  openedEventId,
+  onOpenEvent,
+  cardLateralOffset,
+  cardRotation
+}) {
+  return (
+    <>
+      {exhibits.map((event) => {
+        const isLeft = event.side === 'left'
+        const isOpened = openedEventId === event.id
+
+        return (
+          <div
+            key={event.id}
+            id={`techfest-mount-${event.index}`}
+            className={`techfest-exhibit-mount mount--${event.side} ${event.index === 0 ? 'is-focused' : ''} ${isOpened ? 'is-active' : ''}`}
+            style={{
+              transform: `translate(-50%, -50%) translateX(${isLeft ? -cardLateralOffset : cardLateralOffset}px) translateZ(${event.z}px) rotateY(${isLeft ? cardRotation : -cardRotation}deg)`,
+              '--accent-color': event.color
+            }}
+            onClick={() => onOpenEvent(event.id)}
+          >
+            {/* Overhead Volumetric Spotlight Fixture */}
+            <div className="techfest-light-wrap" aria-hidden="true">
+              <div className="techfest-light-fixture">
+                <span className="fixture-chain" />
+                <span className="fixture-lamp-head">🏮</span>
+              </div>
+              <div
+                className="techfest-light-glow"
+                style={{
+                  background: `radial-gradient(circle, ${event.color}ee 0%, ${event.color}44 50%, transparent 80%)`
+                }}
+              />
+              <div
+                className="techfest-light-beam-cone"
+                style={{
+                  background: `linear-gradient(to bottom, ${event.color}cc 0%, ${event.color}44 40%, transparent 88%)`
+                }}
+              />
+            </div>
+
+            {/* Exhibit Card Artwork & Presentation Frame */}
+            <div className="techfest-card-body">
+              <div className="techfest-card-image-wrap">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="techfest-card-image"
+                  loading="eager"
+                  decoding="async"
+                />
+
+                {/* Rank & Threat Hologram Badges */}
+                <div
+                  className="techfest-card-rank-badge"
+                  style={{ borderColor: event.color, color: event.color }}
+                >
+                  <span>{event.rank}</span>
+                </div>
+                <div className="techfest-card-element-tag">
+                  <span>{event.element}</span>
+                </div>
+              </div>
+
+              {/* Info Banner at Bottom of Artwork */}
+              <div className="techfest-card-caption">
+                <div className="techfest-caption-meta">
+                  <span className="caption-icon">{event.icon}</span>
+                  <span className="caption-category">{event.category}</span>
+                  <span className="caption-bounty">{event.prize}</span>
+                </div>
+
+                <h3 className="techfest-card-title">{event.title}</h3>
+
+                <div className="techfest-card-cue">
+                  <span>✦ TAP FOR DETAILS ✦</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </>
+  )
+})
+
+export default function Events({ onNext, onPrev }) {
+  // 'outro' (Citadel entrance gate zoom) -> 'pixel' -> 'inside' (Techfest 3D tunnel corridor)
   const [stage, setStage] = useState('outro')
   const [outroProgress, setOutroProgress] = useState(0)
   const [isPixelFading, setIsPixelFading] = useState(false)
-  const [pixelFadeProgress, setPixelFadeProgress] = useState(0) // 0 to 1
-  const [walkProgress, setWalkProgress] = useState(0) // 0 to 1 inside room
+  const [pixelFadeProgress, setPixelFadeProgress] = useState(0)
+
+  // Current active exhibit index in the corridor dock (updated smoothly)
+  const [activeEventIndex, setActiveEventIndex] = useState(0)
   const [openedEventId, setOpenedEventId] = useState(null)
+
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
-  const activeMobileEvent = eventsDataset.find((e) => e.id === openedEventId)
 
   useEffect(() => {
     const handleResize = () => {
@@ -354,83 +419,65 @@ export default function Events() {
   const insideTrackRef = useRef(null)
   const canvasRef = useRef(null)
   const transitionCooldownRef = useRef(false)
-  const hasWalkedForwardRef = useRef(false)
-  const insideEntryTimeRef = useRef(Date.now())
+  const insideEntryTimeRef = useRef(0)
+
+  // Techfest 3D Scene Refs
+  const cameraWrapperRef = useRef(null)
+  const sceneWrapperRef = useRef(null)
+
+  // Motion physics refs (60-120 FPS RAF loop with zero React re-renders)
+  const targetZRef = useRef(0)
+  const currentZRef = useRef(0)
+  const rafIdRef = useRef(null)
+  const lastActiveIdxRef = useRef(0)
+  const splineWaypointsRef = useRef([])
 
   useEffect(() => {
-    if (stage === 'inside') {
-      insideEntryTimeRef.current = Date.now()
-      hasWalkedForwardRef.current = false
-    }
-  }, [stage])
+    const shift = isMobile ? 140 : 360
+    const points = [{ z: 0, x: 0 }]
+    computedExhibits.forEach((ev) => {
+      points.push({
+        z: Math.abs(ev.z) - 300,
+        x: ev.side === 'left' ? shift : -shift
+      })
+    })
+    points.push({ z: TOTAL_CORRIDOR_DEPTH - 400, x: 0 })
+    points.push({ z: TOTAL_CORRIDOR_DEPTH + 600, x: 0 })
+    splineWaypointsRef.current = points
+  }, [isMobile])
 
-  // ───── CLOSE OPENED DETAILS UPON TAPPING ANYWHERE ON THE SCREEN ─────
-  useEffect(() => {
-    if (!openedEventId) return
+  // Active event for centered details modal (desktop & mobile)
+  const activeOpenedEvent = computedExhibits.find((e) => e.id === openedEventId) || eventsDataset.find((e) => e.id === openedEventId)
 
-    const handleGlobalTap = (e) => {
-      // Allow registration button click or mobile modal interactions
-      if (e.target.closest('.dossier-reg-btn') || e.target.closest('.mobile-quest-modal')) {
-        return
-      }
-      setOpenedEventId(null)
-    }
+  // Direct smooth camera navigation to specific exhibit
+  const scrollToExhibit = useCallback((index) => {
+    const track = insideTrackRef.current
+    if (!track) return
+    const scrollable = track.getBoundingClientRect().height - window.innerHeight
+    if (scrollable <= 0) return
 
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        setOpenedEventId(null)
-      }
-    }
+    const targetExhibit = computedExhibits[index]
+    if (!targetExhibit) return
 
-    // Small delay ensures the event that opened the poster doesn't immediately dismiss it
-    const timer = setTimeout(() => {
-      window.addEventListener('click', handleGlobalTap)
-      window.addEventListener('touchstart', handleGlobalTap, { passive: true })
-    }, 60)
-    window.addEventListener('keydown', handleKeyDown)
+    // Position camera just in front of target exhibit
+    const targetZ = Math.abs(targetExhibit.z) - 300
+    const progress = Math.min(Math.max(targetZ / TOTAL_CORRIDOR_DEPTH, 0), 1)
+    const targetScrollY = progress * scrollable
 
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('click', handleGlobalTap)
-      window.removeEventListener('touchstart', handleGlobalTap)
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [openedEventId])
+    window.scrollTo({
+      top: targetScrollY,
+      behavior: 'smooth'
+    })
+  }, [])
 
-  // ───── 1. OUTRO SCROLL ZOOM (NO UPWARD MOVEMENT, PURE ZOOM INTO CENTER GATE) ─────
-  useEffect(() => {
-    if (stage !== 'outro') return
-
-    const handleOutroScroll = () => {
-      if (transitionCooldownRef.current) return
-      const el = outroTrackRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const scrollable = rect.height - window.innerHeight
-      if (scrollable <= 0) return
-
-      const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
-      setOutroProgress(progress)
-
-      // Trigger micro-pixel animation once scrolled near the end of center zoom
-      if (progress >= 0.88 && !isPixelFading) {
-        startPixelFadeTransition('forward')
-      }
-    }
-
-    window.addEventListener('scroll', handleOutroScroll, { passive: true })
-    handleOutroScroll()
-    return () => window.removeEventListener('scroll', handleOutroScroll)
-  }, [stage, isPixelFading])
-
-  // ───── 2. BIDIRECTIONAL TINY FADING PIXELS TRANSITION ─────
-  const startPixelFadeTransition = (direction = 'forward') => {
+  // ───── BIDIRECTIONAL PIXEL TRANSITION ─────
+  const startPixelFadeTransition = useCallback((direction = 'forward') => {
     if (isPixelFading || transitionCooldownRef.current) return
     setIsPixelFading(true)
     transitionCooldownRef.current = true
 
     let start = null
-    const duration = 600 // ms
+    const duration = 550 // ms
 
     const animatePixels = (timestamp) => {
       if (!start) start = timestamp
@@ -438,10 +485,11 @@ export default function Events() {
       const t = Math.min(elapsed / duration, 1)
       setPixelFadeProgress(t)
 
-      // Halfway through the tiny pixel dissolve, switch stage
       if (t >= 0.48) {
         if (direction === 'forward' && stage === 'outro') {
           setStage('inside')
+          targetZRef.current = 0
+          currentZRef.current = 0
           window.scrollTo({ top: 0, behavior: 'instant' })
         } else if (direction === 'reverse' && stage === 'inside') {
           setStage('outro')
@@ -465,18 +513,57 @@ export default function Events() {
         setPixelFadeProgress(0)
         setTimeout(() => {
           transitionCooldownRef.current = false
-        }, 800)
+        }, 600)
       }
     }
 
     requestAnimationFrame(animatePixels)
-  }
+  }, [isPixelFading, stage])
 
-  const returnToOutro = () => {
+  const returnToOutro = useCallback(() => {
     startPixelFadeTransition('reverse')
-  }
+  }, [startPixelFadeTransition])
 
-  // Draw tiny fading pixels on the canvas
+  // ───── 1. OUTRO GATE SCROLL ZOOM ─────
+  useEffect(() => {
+    if (stage !== 'outro') return
+
+    let ticking = false
+    let lastP = -1
+
+    const updateOutro = () => {
+      ticking = false
+      if (transitionCooldownRef.current) return
+      const el = outroTrackRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const scrollable = rect.height - window.innerHeight
+      if (scrollable <= 0) return
+
+      const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
+      if (Math.abs(progress - lastP) > 0.002 || progress === 0 || progress === 1) {
+        lastP = progress
+        setOutroProgress(progress)
+      }
+
+      if (progress >= 0.88 && !isPixelFading) {
+        startPixelFadeTransition('forward')
+      }
+    }
+
+    const handleOutroScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(updateOutro)
+      }
+    }
+
+    window.addEventListener('scroll', handleOutroScroll, { passive: true })
+    updateOutro()
+    return () => window.removeEventListener('scroll', handleOutroScroll)
+  }, [stage, isPixelFading, startPixelFadeTransition])
+
+  // Canvas pixel dissolve effect
   useEffect(() => {
     if (!isPixelFading || !canvasRef.current) return
     const canvas = canvasRef.current
@@ -487,16 +574,15 @@ export default function Events() {
     canvas.height = window.innerHeight
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const pixelSize = 6 // very small micro-pixels
+    const pixelSize = isMobile ? 14 : 6
     const cols = Math.ceil(canvas.width / pixelSize)
     const rows = Math.ceil(canvas.height / pixelSize)
 
-    // Density curve: spikes at 0.5 then dissolves away
     const density = pixelFadeProgress < 0.5
       ? pixelFadeProgress * 2
       : (1 - pixelFadeProgress) * 2
 
-    const count = Math.floor(cols * rows * density * 0.45)
+    const count = Math.floor(cols * rows * density * (isMobile ? 0.25 : 0.45))
     for (let i = 0; i < count; i++) {
       const x = Math.floor(Math.random() * cols) * pixelSize
       const y = Math.floor(Math.random() * rows) * pixelSize
@@ -510,50 +596,37 @@ export default function Events() {
       }
       ctx.fillRect(x, y, pixelSize, pixelSize)
     }
-  }, [isPixelFading, pixelFadeProgress])
+  }, [isPixelFading, pixelFadeProgress, isMobile])
 
-  // ───── 3. INSIDE 3D ROOM WALKING SCROLL & SCROLL-BACK-TO-OUTRO ─────
+  // ───── 3. TECHFEST 3D CORRIDOR ENGINE (60-120 FPS ZERO LAG) ─────
   useEffect(() => {
     if (stage !== 'inside') return
+    insideEntryTimeRef.current = Date.now()
 
-    const handleInsideScroll = () => {
-      const el = insideTrackRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
+    // Smooth scroll position sync
+    const handleScroll = () => {
+      const track = insideTrackRef.current
+      if (!track) return
+      const rect = track.getBoundingClientRect()
       const scrollable = rect.height - window.innerHeight
       if (scrollable <= 0) return
 
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
-      setWalkProgress(progress)
-
-      if (progress > 0.03) {
-        hasWalkedForwardRef.current = true
-      }
-
-      // If user has walked forward into exhibits and scrolls back up to the entrance
-      if (
-        hasWalkedForwardRef.current &&
-        progress <= 0.005 &&
-        window.scrollY <= 10 &&
-        !isPixelFading &&
-        !transitionCooldownRef.current
-      ) {
-        returnToOutro()
-      }
+      targetZRef.current = progress * TOTAL_CORRIDOR_DEPTH
     }
 
-    // Wheel event to catch scrolling up when at the entrance of inside room
+    // Wheel event for entrance scroll-back
     const handleWheel = (e) => {
       if (isPixelFading || transitionCooldownRef.current) return
-      if (e.deltaY < -15 && window.scrollY <= 10) {
+      if (e.deltaY < -18 && window.scrollY <= 5) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
-        if (hasWalkedForwardRef.current || timeSinceEntry > 600) {
+        if (timeSinceEntry > 500) {
           returnToOutro()
         }
       }
     }
 
-    // Touch event to catch swipe-down when at the entrance of inside room on mobile
+    // Touch swipe for mobile entrance scroll-back
     let touchStartY = 0
     const handleTouchStart = (e) => {
       touchStartY = e.touches[0].clientY
@@ -561,56 +634,99 @@ export default function Events() {
     const handleTouchMove = (e) => {
       if (isPixelFading || transitionCooldownRef.current) return
       const currentY = e.touches[0].clientY
-      const diffY = currentY - touchStartY // swiping down -> scrolling up
-      if (diffY > 50 && window.scrollY <= 10) {
+      if (currentY - touchStartY > 60 && window.scrollY <= 5) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
-        if (hasWalkedForwardRef.current || timeSinceEntry > 600) {
+        if (timeSinceEntry > 500) {
           returnToOutro()
         }
       }
     }
 
-    window.addEventListener('scroll', handleInsideScroll, { passive: true })
+    // Keyboard navigation (Arrow keys & Page up/down)
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault()
+        const nextIdx = Math.min(lastActiveIdxRef.current + 1, computedExhibits.length - 1)
+        scrollToExhibit(nextIdx)
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault()
+        const prevIdx = Math.max(lastActiveIdxRef.current - 1, 0)
+        scrollToExhibit(prevIdx)
+      } else if (e.key === 'Escape') {
+        setOpenedEventId(null)
+      }
+    }
+
+    // Continuous 60-120fps GPU Transform RAF Loop
+    const renderLoop = () => {
+      // Smooth lerp easing toward target Z depth
+      const zDiff = targetZRef.current - currentZRef.current
+      if (Math.abs(zDiff) > 0.05) {
+        currentZRef.current += zDiff * 0.12
+      } else {
+        currentZRef.current = targetZRef.current
+      }
+
+      const zVal = currentZRef.current
+      const xVal = calculateCatmullRomSpline(zVal, splineWaypointsRef.current)
+
+      // Apply transforms directly to GPU without React re-rendering
+      if (cameraWrapperRef.current) {
+        cameraWrapperRef.current.style.transform = `translate3d(${xVal.toFixed(2)}px, 0, 0)`
+      }
+      if (sceneWrapperRef.current) {
+        sceneWrapperRef.current.style.transform = `translate3d(0, 0, ${zVal.toFixed(2)}px)`
+      }
+
+      // Compute nearest active exhibit for UI dock & direct class toggle without React re-render
+      const estimatedIdx = Math.min(
+        Math.max(0, Math.round((zVal - INITIAL_Z_OFFSET + 300) / SPACING_Z)),
+        computedExhibits.length - 1
+      )
+      if (estimatedIdx !== lastActiveIdxRef.current) {
+        const prevEl = document.getElementById(`techfest-mount-${lastActiveIdxRef.current}`)
+        if (prevEl) prevEl.classList.remove('is-focused')
+        const nextEl = document.getElementById(`techfest-mount-${estimatedIdx}`)
+        if (nextEl) nextEl.classList.add('is-focused')
+
+        lastActiveIdxRef.current = estimatedIdx
+        setActiveEventIndex(estimatedIdx)
+      }
+
+      rafIdRef.current = requestAnimationFrame(renderLoop)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('wheel', handleWheel, { passive: true })
     window.addEventListener('touchstart', handleTouchStart, { passive: true })
     window.addEventListener('touchmove', handleTouchMove, { passive: true })
-    handleInsideScroll()
+    window.addEventListener('keydown', handleKeyDown)
+
+    handleScroll()
+    rafIdRef.current = requestAnimationFrame(renderLoop)
 
     return () => {
-      window.removeEventListener('scroll', handleInsideScroll)
+      window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('keydown', handleKeyDown)
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current)
+      }
     }
-  }, [stage, isPixelFading])
+  }, [stage, isPixelFading, returnToOutro, scrollToExhibit])
 
-  // Calculate active event index based on walkProgress (0 to 8)
-  const activeEventIndex = Math.min(
-    Math.floor(walkProgress * eventsDataset.length),
-    eventsDataset.length - 1
-  )
 
-  // Camera horizontal swerve: zoom left and right distinctly as we walk down the corridor
-  const cameraSwerveX = Math.sin(walkProgress * Math.PI * (eventsDataset.length - 1)) * 82
 
-  // Total corridor depth span in 3D
-  const SPACING_Z = 340 // pixels between consecutive posters down the hallway
-  const totalWalkDistance = (eventsDataset.length - 1) * SPACING_Z
-
-  const scrollToEvent = (index) => {
-    const el = insideTrackRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const scrollable = rect.height - window.innerHeight
-    const targetProgress = index / (eventsDataset.length - 1)
-    const targetY = window.scrollY + rect.top + targetProgress * scrollable
-    window.scrollTo({ top: targetY, behavior: 'smooth' })
-  }
+  // Mobile card dimensions & lateral coordinates (authentic left-right alternating movement like web view)
+  const cardLateralOffset = isMobile ? 140 : 540
+  const cardRotation = isMobile ? 12 : 26
 
   return (
-    <div className="events-experience-wrapper">
+    <div className="techfest-quest-container">
 
-      {/* ════════════ TINY PIXEL DISSOLVE CANVAS OVERLAY ════════════ */}
+      {/* ════════════ MICRO-PIXEL DISSOLVE OVERLAY ════════════ */}
       {isPixelFading && (
         <canvas
           ref={canvasRef}
@@ -619,7 +735,7 @@ export default function Events() {
         />
       )}
 
-      {/* ════════════ STAGE 1: EVENT OUTRO (PURE CENTER ZOOM, NO UPWARD MOVEMENT) ════════════ */}
+      {/* ════════════ STAGE 1: CITADEL ENTRANCE GATE (OUTRO) ════════════ */}
       {stage === 'outro' && (
         <div className="events-outro-track" ref={outroTrackRef}>
           <div className="events-outro-viewport">
@@ -634,7 +750,7 @@ export default function Events() {
               aria-hidden="true"
             />
 
-            {/* Outro Exterior Citadel: Anchored in center, NO translateY upwards, zooms into gate */}
+            {/* Outro Exterior Citadel: Anchored in center, zooms into gate */}
             <div
               className="events-outro-bg"
               style={{
@@ -665,13 +781,22 @@ export default function Events() {
                 SCROLL TO <span className="anime-text-glow">ENTER CITADEL</span>
               </h1>
 
-              {/* Minimal Clean Scroll Cue (No click button) */}
               <div className="events-outro-scroll-hint">
                 <span className="scroll-hint-icon">↓</span>
                 <span className="scroll-hint-text">  ({Math.round(outroProgress * 100)}%)</span>
                 <span className="scroll-hint-icon">↓</span>
               </div>
             </div>
+
+            {/* Direct Quick Enter Button */}
+            <button
+              type="button"
+              className="events-outro-skip-btn"
+              onClick={() => startPixelFadeTransition('forward')}
+              title="Enter Corridor Directly"
+            >
+              ENTER CORRIDOR ⚡
+            </button>
 
             {/* Gate Proximity Laser Line */}
             <div className="events-outro-progress-bar">
@@ -684,475 +809,269 @@ export default function Events() {
         </div>
       )}
 
-      {/* ════════════ STAGE 2: 3D WALKING GALLERY CORRIDOR (event_inside.png) ════════════ */}
+      {/* ════════════ STAGE 2: TECHFEST-STYLE 3D TUNNEL CORRIDOR ════════════ */}
       {stage === 'inside' && (
-        <div className="events-gallery-room-track" ref={insideTrackRef}>
+        <div className="techfest-corridor-track" ref={insideTrackRef}>
 
-          {/* Inside Background: Zooming left and right with dynamic 3D perspective as we walk */}
-          <div
-            className="events-room-bg"
-            style={{
-              backgroundImage: `url(${eventInsideImg})`,
-              transform: `scale(${1.08 + walkProgress * 0.42}) translateX(${-cameraSwerveX * 0.65}px)`
-            }}
-            aria-hidden="true"
-          />
+          {/* Fixed 3D Viewport (Zero Scroll Lag, 100vw x 100vh) */}
+          <div className="techfest-fixed-stage">
 
-          <div className="events-room-ambient" aria-hidden="true" />
+            {/* Atmospheric Background Corridor Wall */}
+            <div
+              className="techfest-backdrop-wall"
+              style={{ backgroundImage: `url(${eventInsideImg})` }}
+              aria-hidden="true"
+            />
+            <div className="techfest-backdrop-vignette" aria-hidden="true" />
 
-          {/* Top Interactive Header */}
-          <div className="events-room-header">
-            <div className="events-room-header__container">
+            {/* Top Minimal HUD Bar */}
+            <div className="techfest-corridor-hud">
               <button
                 type="button"
-                className="events-room-back-gate"
+                className="techfest-hud-back-btn"
                 onClick={returnToOutro}
                 title="Return to Citadel Gate"
               >
                 ⛩️ RETURN TO GATE
               </button>
 
-              <div className="events-room-header__titles">
-                <h2 className="events-room-title">
-                  GRAND SANCTUM <span className="anime-text-glow">EXHIBITS</span>
+              <div className="techfest-hud-title-wrap">
+                <span className="techfest-hud-sub">QUEST SANCTUM CORRIDOR</span>
+                <h2 className="techfest-hud-title">
+                  GRAND EXHIBITIONS <span className="anime-text-glow">CHRONICLES</span>
                 </h2>
               </div>
 
-              <div className="events-room-step-pill">
-                <span>EXHIBIT {activeEventIndex + 1} / {eventsDataset.length}</span>
+              <div className="techfest-hud-counter-pill">
+                <span>EXHIBIT {activeEventIndex + 1} / {computedExhibits.length}</span>
               </div>
             </div>
-          </div>
 
-          {/* Screen-wide Backdrop Dismiss Overlay for Desktop */}
-          {openedEventId !== null && !isMobile && (
-            <div
-              className="dossier-backdrop-dismiss"
-              onClick={() => setOpenedEventId(null)}
-              title="Tap anywhere to close details"
-              aria-label="Tap anywhere to close details"
-            >
-              <div className="dossier-dismiss-banner">
-                <span className="banner-icon">✕</span>
-                <span>TAP ANYWHERE ON SCREEN TO CLOSE</span>
-                <span className="banner-icon">✕</span>
-              </div>
-            </div>
-          )}
+            {/* 3D PERSPECTIVE STAGE CONTAINER */}
+            <div className="techfest-3d-viewport">
+              
+              {/* Camera Wrapper (Curved X-spline steering) */}
+              <div className="techfest-camera-wrapper" ref={cameraWrapperRef}>
 
-          {/* ════════════ 3D PERSPECTIVE CORRIDOR STAGE ════════════ */}
-          <div className={`events-3d-corridor-stage ${openedEventId !== null ? 'has-opened-event' : ''}`}>
-            <div
-              className="events-3d-camera"
-              style={{
-                transform: `translateX(${-cameraSwerveX}px)`
-              }}
-            >
-              {eventsDataset.map((event, index) => {
-                // Calculate physical 3D distance of each poster relative to camera walk
-                const posterInitialZ = -index * SPACING_Z
-                const relativeZ = posterInitialZ + walkProgress * totalWalkDistance
+                {/* Scene Wrapper (Smooth Z-depth translation) */}
+                <div className="techfest-scene-wrapper" ref={sceneWrapperRef}>
 
-                // Active focus calculation with enhanced left/right zoom
-                const isFocused = Math.abs(relativeZ) < 155
-                const isOpened = openedEventId === event.id
-                const isLeft = event.side === 'left'
+                  {/* Floating Sanctum Title Edict */}
+                  <div className="techfest-tunnel-header-edict" aria-hidden="true">
+                    <span>◆ GRAND GUILD SANCTUM EXHIBITS ◆</span>
+                  </div>
 
-                // Opacity fades out if poster has passed behind the viewer (relativeZ > 130)
-                // or if it's far down the hallway (relativeZ < -900)
-                let itemOpacity = 1
-                if (relativeZ > 130) {
-                  itemOpacity = Math.max(1 - (relativeZ - 130) / 100, 0)
-                } else if (relativeZ < -900) {
-                  itemOpacity = Math.max(1 - (-relativeZ - 900) / 800, 0.25)
-                }
+                  {/* ═══════ ALL 14 EXHIBIT CARDS MOUNTED IN 3D SPACE (MEMOIZED) ═══════ */}
+                  <CorridorExhibits
+                    exhibits={computedExhibits}
+                    openedEventId={openedEventId}
+                    onOpenEvent={setOpenedEventId}
+                    cardLateralOffset={cardLateralOffset}
+                    cardRotation={cardRotation}
+                  />
 
-                // When opened, bring into foreground with chain connection
-                const focusScale = isOpened ? 1.04 : (isFocused ? 1.20 : 0.94)
-                const lateralOffset = isOpened ? (isLeft ? -20 : 20) : (isFocused ? (isLeft ? 36 : -36) : 0)
-                const elevationY = isOpened ? -25 : 0
-                const depthZ = relativeZ + (isOpened ? 90 : 0)
-
-                return (
+                  {/* ═══════ CORRIDOR SANCTUARY END BOARD ═══════ */}
                   <div
-                    key={event.id}
-                    className={`gallery-exhibit-mount ${isLeft ? 'mount--left' : 'mount--right'} ${isFocused ? 'is-focused' : ''} ${isOpened ? 'is-opened' : ''}`}
+                    className="techfest-end-board"
                     style={{
-                      transform: `translate3d(${lateralOffset}px, ${elevationY}px, ${depthZ}px) scale(${focusScale})`,
-                      opacity: itemOpacity,
-                      pointerEvents: itemOpacity > 0.25 ? 'auto' : 'none',
-                      zIndex: isOpened ? 9999 : (isFocused ? 50 : 10)
+                      transform: `translate(-50%, -50%) translateZ(${-TOTAL_CORRIDOR_DEPTH + 300}px)`
                     }}
                   >
-                    {/* Hanging Ceiling Lantern & Conical Spotlight Beam */}
-                    <div className="gallery-lantern-mount">
-                      <div className="gallery-lantern-head">
-                        <span className="lantern-gem">◆</span>
-                      </div>
-                      <div className={`gallery-spotlight-cone ${isFocused || isOpened ? 'is-beaming' : ''}`} />
-                    </div>
+                    <div className="techfest-end-board__card">
+                      <div className="end-board-badge">SANCTUM REVEAL COMPLETE</div>
+                      <h3 className="end-board-title">YOU HAVE EXPLORED ALL 14 QUESTS</h3>
+                      <p className="end-board-desc">
+                        Prepare your party, assemble your squad, and register before the shrine seals.
+                      </p>
 
-                    {/* Exhibit Duo: Poster on its side, Connected Chain, and Middle Details Dossier */}
-                    <div className={`gallery-exhibit-duo ${isLeft ? 'duo--left-to-center' : 'duo--right-to-center'} ${isOpened ? 'is-opened' : ''}`}>
-
-                      {/* If right-side poster, Details Dossier renders on left (in the middle of the screen) - DESKTOP ONLY */}
-                      {!isLeft && isOpened && !isMobile && (
-                        <div
-                          className="gallery-details-dossier"
-                          onClick={(e) => {
-                            if (e.target.closest('.dossier-reg-btn')) return
-                            setOpenedEventId(null)
-                          }}
+                      <div className="end-board-actions">
+                        <a
+                          href={GOOGLE_FORM_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn--primary end-board-reg-btn"
                         >
-                          <div className="dossier-top-bar">
-                            <div className="dossier-tag-group">
-                              <span className="dossier-shackle-icon">⛓️</span>
-                              <span className="dossier-tag">【 MISSION DOSSIER 】</span>
-                            </div>
-                            <button
-                              type="button"
-                              className="dossier-reseal-btn"
-                              onClick={() => setOpenedEventId(null)}
-                              title="Close dossier"
-                            >
-                              ✕ CLOSE
-                            </button>
-                          </div>
+                          <span>⚡ REGISTER FOR EVENTS NOW ↗</span>
+                        </a>
 
-                          <div className="dossier-header-row">
-                            <h4 className="dossier-event-name">{event.title}</h4>
-                            <div className="dossier-rank-pill" style={{ borderColor: event.color, color: event.color }}>
-                              {event.rank}
-                            </div>
-                          </div>
-
-                          <div className="dossier-kanji-sub">{event.element}</div>
-                          <p className="dossier-briefing">{event.description}</p>
-
-                          <div className="dossier-spec-table">
-                            <div className="dossier-spec-line">
-                              <span className="d-label">📅 SCHEDULE:</span>
-                              <span className="d-val">{event.date}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">📍 VENUE:</span>
-                              <span className="d-val">{event.venue}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">👥 GUILD SQUAD:</span>
-                              <span className="d-val">{event.team}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">🏆 BOUNTY:</span>
-                              <span className="d-val" style={{ color: '#ffd700', fontWeight: 800 }}>{event.prize}</span>
-                            </div>
-                          </div>
-
-                          <div className="dossier-actions">
-                            <a
-                              href={GOOGLE_FORM_URL}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn btn--primary dossier-reg-btn"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <span className="btn-lightning">⚡</span>
-                              <span>REGISTER VIA GOOGLE FORM ↗</span>
-                            </a>
-                            <div className="dossier-reseal-note">
-                              ✦ TAP ANYWHERE ON SCREEN TO CLOSE ✦
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* If right-side poster, Chain connects between center dossier and right poster - DESKTOP ONLY */}
-                      {!isLeft && isOpened && !isMobile && (
-                        <ChainBridge direction="left" />
-                      )}
-
-                      {/* Poster Artwork Card (Always stays upright on its side!) */}
-                      <div
-                        className={`gallery-poster-box ${isOpened ? 'poster--active' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          if (isOpened) {
-                            setOpenedEventId(null)
-                          } else {
-                            setOpenedEventId(event.id)
-                            scrollToEvent(index)
-                          }
-                        }}
-                      >
-                        <div className="gallery-poster__cables">
-                          <span className="cable-line" />
-                          <span className="cable-line" />
-                        </div>
-
-                        <div className="gallery-poster__img-frame">
-                          <img
-                            src={event.image}
-                            alt={event.title}
-                            className="gallery-poster__img"
-                          />
-                          <div className="gallery-poster__rank-badge" style={{ borderColor: event.color }}>
-                            <span>{event.rank}</span>
-                          </div>
-                          <div className="gallery-poster__threat-tag">
-                            <span>{event.element}</span>
-                          </div>
-                        </div>
-
-                        <div className="gallery-poster__caption">
-                          <div className="gallery-poster__meta-row">
-                            <span className="poster-icon">{event.icon}</span>
-                            <span className="poster-cat">{event.category}</span>
-                            <span className="poster-side-tag">【{isLeft ? 'LEFT' : 'RIGHT'}】</span>
-                          </div>
-
-                          <h3 className="gallery-poster__title">{event.title}</h3>
-
-                          <div className="gallery-poster__bounty-row">
-                            <span className="bounty-lbl">BOUNTY:</span>
-                            <span className="bounty-val">{event.prize}</span>
-                          </div>
-
-                          <div className="gallery-poster__tap-cue">
-                            <span>{isOpened ? '⛓️ CHAIN BOUND • TAP TO CLOSE ✕' : 'TAP TO SUMMON DOSSIER ⛓️'}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* If left-side poster, Chain connects from left poster into the center - DESKTOP ONLY */}
-                      {isLeft && isOpened && !isMobile && (
-                        <ChainBridge direction="right" />
-                      )}
-
-                      {/* If left-side poster, Details Dossier renders on right (in the middle of the screen) - DESKTOP ONLY */}
-                      {isLeft && isOpened && !isMobile && (
-                        <div
-                          className="gallery-details-dossier"
-                          onClick={(e) => {
-                            if (e.target.closest('.dossier-reg-btn')) return
-                            setOpenedEventId(null)
-                          }}
+                        <button
+                          type="button"
+                          className="end-board-secondary-btn"
+                          onClick={() => scrollToExhibit(0)}
                         >
-                          <div className="dossier-top-bar">
-                            <div className="dossier-tag-group">
-                              <span className="dossier-shackle-icon">⛓️</span>
-                              <span className="dossier-tag">【 MISSION DOSSIER 】</span>
-                            </div>
-                            <button
-                              type="button"
-                              className="dossier-reseal-btn"
-                              onClick={() => setOpenedEventId(null)}
-                              title="Close dossier"
-                            >
-                              ✕ CLOSE
-                            </button>
-                          </div>
+                          ⛩️ REPLAY CORRIDOR
+                        </button>
 
-                          <div className="dossier-header-row">
-                            <h4 className="dossier-event-name">{event.title}</h4>
-                            <div className="dossier-rank-pill" style={{ borderColor: event.color, color: event.color }}>
-                              {event.rank}
-                            </div>
-                          </div>
+                        {onPrev && (
+                          <button
+                            type="button"
+                            className="end-board-secondary-btn"
+                            onClick={onPrev}
+                          >
+                            ◀ SHRINE PORTAL
+                          </button>
+                        )}
 
-                          <div className="dossier-kanji-sub">{event.element}</div>
-                          <p className="dossier-briefing">{event.description}</p>
-
-                          <div className="dossier-spec-table">
-                            <div className="dossier-spec-line">
-                              <span className="d-label">📅 SCHEDULE:</span>
-                              <span className="d-val">{event.date}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">📍 VENUE:</span>
-                              <span className="d-val">{event.venue}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">👥 GUILD SQUAD:</span>
-                              <span className="d-val">{event.team}</span>
-                            </div>
-                            <div className="dossier-spec-line">
-                              <span className="d-label">🏆 BOUNTY:</span>
-                              <span className="d-val" style={{ color: '#ffd700', fontWeight: 800 }}>{event.prize}</span>
-                            </div>
-                          </div>
-
-                          <div className="dossier-actions">
-                            <a
-                              href={GOOGLE_FORM_URL}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn btn--primary dossier-reg-btn"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <span className="btn-lightning">⚡</span>
-                              <span>REGISTER VIA GOOGLE FORM ↗</span>
-                            </a>
-                            <div className="dossier-reseal-note">
-                              ✦ TAP ANYWHERE ON SCREEN TO CLOSE ✦
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
+                        {onNext && (
+                          <button
+                            type="button"
+                            className="end-board-next-btn"
+                            onClick={onNext}
+                          >
+                            <span>CELESTIAL CONSTELLATION ▶</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
 
-          {/* ════════════ BOTTOM STEP DOCK (CLICK TO WALK DIRECTLY) ════════════ */}
-          <div className="events-walk-dock">
-            <button
-              type="button"
-              className="walk-dock-nav-btn"
-              onClick={() => scrollToEvent(activeEventIndex - 1)}
-              disabled={activeEventIndex === 0}
-              title="Walk to Previous Exhibit"
-            >
-              ◀ PREV
-            </button>
-
-            <div className="walk-dock-indicators">
-              {eventsDataset.map((ev, idx) => (
-                <button
-                  key={ev.id}
-                  type="button"
-                  className={`walk-dock-dot ${activeEventIndex === idx ? 'is-active' : ''}`}
-                  onClick={() => scrollToEvent(idx)}
-                  title={`Exhibit ${idx + 1} (${ev.side.toUpperCase()}): ${ev.title}`}
-                >
-                  <span className="dot-num">{idx + 1}</span>
-                  <span className="dot-wing">{ev.side === 'left' ? 'L' : 'R'}</span>
-                </button>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              className="walk-dock-nav-btn"
-              onClick={() => scrollToEvent(activeEventIndex + 1)}
-              disabled={activeEventIndex === eventsDataset.length - 1}
-              title="Walk to Next Exhibit"
-            >
-              NEXT ▶
-            </button>
-          </div>
-
-        </div>
-      )}
-
-      {/* ════════════ DEDICATED MOBILE MISSION DOSSIER VIEW (FULLSCREEN BOTTOM SHEET) ════════════ */}
-      {isMobile && activeMobileEvent && (
-        <div 
-          className="mobile-quest-modal-overlay"
-          onClick={() => setOpenedEventId(null)}
-        >
-          <div 
-            className="mobile-quest-modal"
-            style={{ '--event-color': activeMobileEvent.color }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Drag handle */}
-            <div className="mobile-quest-modal__handle-bar" onClick={() => setOpenedEventId(null)}>
-              <span className="mobile-quest-modal__drag-pill" />
-            </div>
-
-            {/* Top action header */}
-            <div className="mobile-quest-modal__header">
-              <div className="mobile-quest-modal__tag">
-                <span className="mobile-quest-modal__tag-icon">⛓️</span>
-                <span>MISSION DOSSIER</span>
+                </div>
               </div>
+            </div>
+
+            {/* ════════════ BOTTOM STEP DOCK (TECHFEST NAVIGATION) ════════════ */}
+            <nav className="techfest-bottom-dock" aria-label="Exhibitions step navigation">
               <button
                 type="button"
-                className="mobile-quest-modal__close-btn"
-                onClick={() => setOpenedEventId(null)}
-                aria-label="Close quest details"
+                className="techfest-dock-btn"
+                onClick={() => scrollToExhibit(Math.max(0, activeEventIndex - 1))}
+                disabled={activeEventIndex === 0}
+                title="Walk to Previous Exhibit"
               >
-                ✕ CLOSE
+                ◀ PREV
               </button>
-            </div>
 
-            {/* Scrollable Quest Body */}
-            <div className="mobile-quest-modal__body">
-              {/* Banner with image and badges */}
-              <div className="mobile-quest-modal__banner">
-                <img
-                  src={activeMobileEvent.image}
-                  alt={activeMobileEvent.title}
-                  className="mobile-quest-modal__banner-img"
-                />
-                <div className="mobile-quest-modal__banner-overlay" />
-                <div className="mobile-quest-modal__badge-row">
-                  <span
-                    className="mobile-quest-modal__rank-badge"
-                    style={{ borderColor: activeMobileEvent.color, color: activeMobileEvent.color }}
+              <div className="techfest-dock-indicators">
+                {computedExhibits.map((ev, idx) => (
+                  <button
+                    key={ev.id}
+                    type="button"
+                    className={`techfest-dock-dot ${activeEventIndex === idx ? 'is-active' : ''}`}
+                    onClick={() => scrollToExhibit(idx)}
+                    title={`Exhibit ${idx + 1} (${ev.side.toUpperCase()}): ${ev.title}`}
                   >
-                    {activeMobileEvent.rank}
-                  </span>
-                  <span className="mobile-quest-modal__element-tag">
-                    {activeMobileEvent.element}
-                  </span>
-                </div>
+                    <span className="dock-dot-num">{idx + 1}</span>
+                    <span className="dock-dot-wing">{ev.side === 'left' ? 'L' : 'R'}</span>
+                  </button>
+                ))}
               </div>
 
-              {/* Title and category */}
-              <div className="mobile-quest-modal__title-section">
-                <div className="mobile-quest-modal__cat">
-                  <span>{activeMobileEvent.icon}</span>
-                  <span>{activeMobileEvent.category}</span>
-                </div>
-                <h3 className="mobile-quest-modal__title">{activeMobileEvent.title}</h3>
+              <button
+                type="button"
+                className="techfest-dock-btn"
+                onClick={() => scrollToExhibit(Math.min(computedExhibits.length - 1, activeEventIndex + 1))}
+                disabled={activeEventIndex === computedExhibits.length - 1}
+                title="Walk to Next Exhibit"
+              >
+                NEXT ▶
+              </button>
+            </nav>
+
+          </div>
+        </div>
+      )}
+
+      {/* ════════════ CENTERED DETAILS CARD (ON MIDDLE OF SCREEN UPON TAPPING) ════════════ */}
+      {activeOpenedEvent && (
+        <div
+          className="techfest-centered-modal-overlay"
+          onClick={() => setOpenedEventId(null)}
+        >
+          <div
+            className="techfest-centered-dossier"
+            style={{ '--event-color': activeOpenedEvent.color }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Top action header */}
+            <div className="centered-dossier__header">
+              <div className="centered-dossier__tag-group">
+                <span className="centered-dossier__tag-icon">⚡</span>
+                <span className="centered-dossier__tag-title">MISSION DOSSIER // 任務概要</span>
+                <span className="centered-dossier__number">
+                  EXHIBIT {activeOpenedEvent.index !== undefined ? activeOpenedEvent.index + 1 : activeOpenedEvent.id} / {computedExhibits.length}
+                </span>
               </div>
 
-              {/* Mission Briefing */}
-              <div className="mobile-quest-modal__briefing-card">
-                <div className="mobile-quest-modal__section-label">MISSION BRIEFING // 任務概要</div>
-                <p className="mobile-quest-modal__desc">{activeMobileEvent.description}</p>
-              </div>
-
-              {/* Specification Grid */}
-              <div className="mobile-quest-modal__specs-grid">
-                <div className="mobile-quest-modal__spec-card">
-                  <span className="spec-label">📅 SCHEDULE</span>
-                  <span className="spec-val">{activeMobileEvent.date}</span>
-                </div>
-                <div className="mobile-quest-modal__spec-card">
-                  <span className="spec-label">📍 VENUE</span>
-                  <span className="spec-val">{activeMobileEvent.venue}</span>
-                </div>
-                <div className="mobile-quest-modal__spec-card">
-                  <span className="spec-label">👥 GUILD SQUAD</span>
-                  <span className="spec-val">{activeMobileEvent.team}</span>
-                </div>
-                <div className="mobile-quest-modal__spec-card mobile-quest-modal__spec-card--bounty">
-                  <span className="spec-label">🏆 BOUNTY</span>
-                  <span className="spec-val" style={{ color: '#ffd700' }}>{activeMobileEvent.prize}</span>
-                </div>
+              <div className="centered-dossier__header-right">
+                <span
+                  className="centered-dossier__rank-badge"
+                  style={{ borderColor: activeOpenedEvent.color, color: activeOpenedEvent.color }}
+                >
+                  {activeOpenedEvent.rank}
+                </span>
+                <button
+                  type="button"
+                  className="centered-dossier__close-btn"
+                  onClick={() => setOpenedEventId(null)}
+                  aria-label="Close details card"
+                >
+                  ✕ CLOSE
+                </button>
               </div>
             </div>
 
-            {/* Sticky Bottom Actions */}
-            <div className="mobile-quest-modal__footer">
-              <a
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn--primary mobile-quest-modal__cta-btn dossier-reg-btn"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span>⚡ REGISTER VIA GOOGLE FORM ↗</span>
-              </a>
+            {/* Content Body: Left Column Image / Right Column Specs */}
+            <div className="centered-dossier__body">
+              {/* Media Preview (No dark tint) */}
+              <div className="centered-dossier__media">
+                <img
+                  src={activeOpenedEvent.image}
+                  alt={activeOpenedEvent.title}
+                  className="centered-dossier__img"
+                />
+                <div className="centered-dossier__element-pill">
+                  <span>{activeOpenedEvent.element}</span>
+                </div>
+              </div>
+
+              {/* Information & Specs */}
+              <div className="centered-dossier__info">
+                <div className="centered-dossier__meta-row">
+                  <span className="centered-dossier__cat-icon">{activeOpenedEvent.icon}</span>
+                  <span className="centered-dossier__category">{activeOpenedEvent.category}</span>
+                </div>
+
+                <h3 className="centered-dossier__title">{activeOpenedEvent.title}</h3>
+                <p className="centered-dossier__briefing">{activeOpenedEvent.description}</p>
+
+                <div className="centered-dossier__specs-grid">
+                  <div className="centered-dossier__spec-card">
+                    <span className="spec-label">📅 SCHEDULE</span>
+                    <span className="spec-val">{activeOpenedEvent.date}</span>
+                  </div>
+                  <div className="centered-dossier__spec-card">
+                    <span className="spec-label">📍 VENUE</span>
+                    <span className="spec-val">{activeOpenedEvent.venue}</span>
+                  </div>
+                  <div className="centered-dossier__spec-card">
+                    <span className="spec-label">👥 GUILD SQUAD</span>
+                    <span className="spec-val">{activeOpenedEvent.team}</span>
+                  </div>
+                  <div className="centered-dossier__spec-card centered-dossier__spec-card--bounty">
+                    <span className="spec-label">🏆 BOUNTY</span>
+                    <span className="spec-val" style={{ color: '#ffd700' }}>
+                      {activeOpenedEvent.prize}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="centered-dossier__footer">
+                  <a
+                    href={GOOGLE_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--primary centered-dossier__cta-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span>⚡ REGISTER VIA GOOGLE FORM ↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       )}
+
     </div>
   )
 }

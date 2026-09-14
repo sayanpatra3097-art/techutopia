@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import TeamFlipCard from './TeamFlipCard'
 import useScrollReveal from '../hooks/useScrollReveal'
 import coreTeamBg from '../assets/core_team.webp'
@@ -95,8 +95,26 @@ const teamMembers = [
 ]
 
 export default function Team() {
+  const [selectedMember, setSelectedMember] = useState(null)
   const ref = useRef(null)
   const isVisible = useScrollReveal(ref)
+
+  // ESC to close modal & prevent background body scroll when open
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedMember(null)
+    }
+    if (selectedMember) {
+      window.addEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [selectedMember])
 
   return (
     <section className="team-dimension section" id="team" ref={ref}>
@@ -125,10 +143,159 @@ export default function Team() {
         {/* Team Card Grid */}
         <div className="team-card-grid">
           {teamMembers.map((member) => (
-            <TeamFlipCard key={member.name} member={member} />
+            <TeamFlipCard
+              key={member.name}
+              member={member}
+              onSelect={setSelectedMember}
+            />
           ))}
         </div>
+
+        {/* UEM Jaipur Location Rectangle Box */}
+        <div className="team-location-wrap">
+          <a
+            href="https://maps.google.com/?q=University+of+Engineering+%26+Management+UEM+Jaipur+Gurukul+Sikar+Road+Jaipur+Rajasthan+303807"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="team-location-box"
+            title="Open UEM Jaipur location in Google Maps"
+          >
+            {/* Ornate Corner Accents */}
+            <div className="location-box__corner location-box__corner--tl" />
+            <div className="location-box__corner location-box__corner--tr" />
+            <div className="location-box__corner location-box__corner--bl" />
+            <div className="location-box__corner location-box__corner--br" />
+
+            <div className="team-location-box__inner">
+              <div className="team-location-box__icon-wrap">
+                <span className="team-location-box__pin">📍</span>
+                <span className="team-location-box__radar-pulse" />
+              </div>
+
+              <div className="team-location-box__details">
+                <div className="team-location-box__eyebrow">
+                  <span className="eyebrow-tag">⛩️ FESTIVAL SANCTUM</span>
+                  <span className="eyebrow-coord">27.1558° N, 75.7247° E</span>
+                </div>
+                <h3 className="team-location-box__title">
+                  UNIVERSITY OF ENGINEERING &amp; MANAGEMENT (UEM), JAIPUR
+                </h3>
+                <p className="team-location-box__address">
+                  Gurukul Campus, Sikar Road, NH-52, Near Udaipuria Mod, Jaipur, Rajasthan 303807
+                </p>
+                <div className="team-location-box__badges">
+                  <span className="location-badge">🏛️ MAIN ARENA CAMPUS</span>
+                  <span className="location-badge">🚗 DIRECT HIGHWAY ACCESS (NH-52)</span>
+                  <span className="location-badge location-badge--highlight">⚡ GET DIRECTIONS</span>
+                </div>
+              </div>
+
+              <div className="team-location-box__action">
+                <span className="team-location-box__cta-btn">
+                  <span>OPEN IN GOOGLE MAPS</span>
+                  <span className="cta-arrow">↗</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
+
+      {/* Centered Hashira Details Dossier Modal */}
+      {selectedMember && (
+        <div
+          className="team-modal-overlay"
+          onClick={() => setSelectedMember(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="team-modal-card"
+            style={{ '--accent-color': selectedMember.color }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="team-modal__close-btn"
+              onClick={() => setSelectedMember(null)}
+              aria-label="Close profile details"
+            >
+              ✕ CLOSE
+            </button>
+
+            <div className="team-modal__header">
+              <div
+                className="team-modal__rank-badge"
+                style={{ borderColor: selectedMember.color, color: selectedMember.color }}
+              >
+                {selectedMember.rank}
+              </div>
+              <div className="team-modal__class-tag">
+                {selectedMember.classTitle}
+              </div>
+            </div>
+
+            <div className="team-modal__body">
+              <div className="team-modal__avatar-col">
+                <img
+                  src={selectedMember.avatar}
+                  alt={selectedMember.name}
+                  className="team-modal__avatar"
+                />
+                <div className="team-modal__dept-pill" style={{ color: selectedMember.color }}>
+                  {selectedMember.role}
+                </div>
+              </div>
+
+              <div className="team-modal__info-col">
+                <h3 className="team-modal__name">{selectedMember.name}</h3>
+                <p className="team-modal__ability-desc">{selectedMember.ability}</p>
+
+                <div className="team-modal__stats-box">
+                  <span className="stats-box-title">⚡ POWER ATTRIBUTES</span>
+                  {Object.entries(selectedMember.stats).map(([key, val]) => (
+                    <div key={key} className="team-modal__stat-row">
+                      <span className="stat-label">{key.toUpperCase()}</span>
+                      <div className="stat-bar">
+                        <div
+                          className="stat-fill"
+                          style={{ width: `${val}%`, background: selectedMember.color }}
+                        />
+                      </div>
+                      <span className="stat-val">{val}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="team-modal__socials">
+                  <a
+                    href={selectedMember.socials.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="team-modal__social-btn"
+                  >
+                    <span>⚡ GitHub</span>
+                  </a>
+                  <a
+                    href={selectedMember.socials.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="team-modal__social-btn"
+                  >
+                    <span>🔗 LinkedIn</span>
+                  </a>
+                  <a
+                    href={`mailto:${selectedMember.socials.email}`}
+                    className="team-modal__social-btn"
+                  >
+                    <span>✉️ Email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

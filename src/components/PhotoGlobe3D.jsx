@@ -42,7 +42,7 @@ const allPastPhotos = Object.entries(pastPhotosGlob)
   .sort((a, b) => a.num - b.num)
 
 /* Single Floating Photo Card in 3D Spherical Formation */
-function GlobePhotoCard({ photo, position, onSelect }) {
+function GlobePhotoCard({ photo, position, onSelect, isMobile }) {
   const meshRef = useRef()
   const [hovered, setHovered] = useState(false)
 
@@ -51,10 +51,22 @@ function GlobePhotoCard({ photo, position, onSelect }) {
     const loader = new THREE.TextureLoader()
     const tex = loader.load(photo.url)
     tex.colorSpace = THREE.SRGBColorSpace
-    tex.generateMipmaps = true
-    tex.minFilter = THREE.LinearMipmapLinearFilter
+    if (isMobile) {
+      tex.generateMipmaps = false
+      tex.minFilter = THREE.LinearFilter
+    } else {
+      tex.generateMipmaps = true
+      tex.minFilter = THREE.LinearMipmapLinearFilter
+    }
     return tex
-  }, [photo.url])
+  }, [photo.url, isMobile])
+
+  // Cleanup texture on unmount to prevent GPU memory leaks
+  useEffect(() => {
+    return () => {
+      if (texture) texture.dispose()
+    }
+  }, [texture])
 
   useFrame(() => {
     if (meshRef.current) {
@@ -71,19 +83,23 @@ function GlobePhotoCard({ photo, position, onSelect }) {
         scale={hovered ? 1.15 : 1}
         onPointerOver={(e) => {
           e.stopPropagation()
-          setHovered(true)
-          document.body.style.cursor = 'pointer'
+          if (!isMobile) {
+            setHovered(true)
+            document.body.style.cursor = 'pointer'
+          }
         }}
         onPointerOut={() => {
-          setHovered(false)
-          document.body.style.cursor = 'auto'
+          if (!isMobile) {
+            setHovered(false)
+            document.body.style.cursor = 'auto'
+          }
         }}
         onClick={(e) => {
           e.stopPropagation()
           onSelect(photo)
         }}
       >
-        <planeGeometry args={[2.1, 1.45]} />
+        <planeGeometry args={isMobile ? [1.9, 1.3] : [2.1, 1.45]} />
         <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
       </mesh>
     </group>
@@ -91,15 +107,22 @@ function GlobePhotoCard({ photo, position, onSelect }) {
 }
 
 /* 3D Spherical Cluster of Photos (NO globe mesh, NO orbit rings) */
-function GlobeScene({ onSelect }) {
+function GlobeScene({ onSelect, isMobile }) {
   const groupRef = useRef()
 
-  // Calculate 3D spherical positions for all 41 photos (Fibonacci sphere distribution)
-  // Radius of 4.5 combined with enlarged cards (2.1 x 1.45) packs them densely with minimal gaps!
+  // On mobile screens, curate a balanced subset (21 photos) to slash VRAM and draw calls by 50%
+  const displayPhotos = useMemo(() => {
+    if (isMobile) {
+      return allPastPhotos.filter((_, idx) => idx % 2 === 0)
+    }
+    return allPastPhotos
+  }, [isMobile])
+
+  // Calculate 3D spherical positions (Fibonacci sphere distribution)
   const photoPositions = useMemo(() => {
-    const count = allPastPhotos.length
-    const radius = 4.5
-    return allPastPhotos.map((photo, i) => {
+    const count = displayPhotos.length
+    const radius = isMobile ? 4.2 : 4.5
+    return displayPhotos.map((photo, i) => {
       const phi = Math.acos(-1 + (2 * (i + 0.5)) / count)
       const theta = Math.sqrt(count * Math.PI) * phi
       const x = radius * Math.cos(theta) * Math.sin(phi)
@@ -107,7 +130,7 @@ function GlobeScene({ onSelect }) {
       const z = radius * Math.cos(phi)
       return { photo, pos: [x, y, z] }
     })
-  }, [])
+  }, [displayPhotos, isMobile])
 
   useFrame((_, delta) => {
     if (groupRef.current) {
@@ -117,13 +140,14 @@ function GlobeScene({ onSelect }) {
 
   return (
     <group ref={groupRef}>
-      {/* ONLY the floating photos in dense spherical formation — NO globe and NO orbits */}
+      {/* Floating photos in dense spherical formation */}
       {photoPositions.map(({ photo, pos }) => (
         <GlobePhotoCard
           key={photo.id}
           photo={photo}
           position={pos}
           onSelect={onSelect}
+          isMobile={isMobile}
         />
       ))}
     </group>
@@ -134,6 +158,15 @@ export default function PhotoGlobe3D() {
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const containerRef = useRef(null)
   const isVisible = useScrollReveal(containerRef)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 860)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Handle ESC key to close modal & lock body scroll when open
   useEffect(() => {
@@ -156,11 +189,12 @@ export default function PhotoGlobe3D() {
 
   return (
     <section className="photo-globe-dimension section" id="photo-globe" ref={containerRef}>
-      {/* Anime Cosmic Universe Background with subtle low opacity */}
+      {/* Anime Cosmic Universe Background with fixed positioning */}
       <div
         className="photo-globe__universe-bg"
         style={{ backgroundImage: `url(${universeBg})` }}
       />
+      <div className="photo-globe__universe-overlay" />
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
@@ -168,22 +202,35 @@ export default function PhotoGlobe3D() {
             CHRONICLES OF PAST GLORY
           </h2>
           <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-sm)', color: 'rgba(226, 232, 240, 0.85)' }}>
-            “41 historical fragments revolving in the cosmic void • Drag in 3D to rotate • Tap any photo talisman to inspect”
+            {isMobile
+              ? '“21 historical fragments revolving in 3D • Drag to rotate sphere • Tap to inspect”'
+              : '“41 historical fragments revolving in the cosmic void • Drag in 3D to rotate • Tap any photo talisman to inspect”'}
           </p>
         </div>
 
         {/* 3D Canvas Photo Globe Box */}
         <div className="photo-globe__canvas-box">
-          <Canvas camera={{ position: [0, 0, 10.5], fov: 48 }}>
+          <Canvas
+            dpr={isMobile ? [1, 1.25] : [1, 1.75]}
+            gl={{
+              powerPreference: 'high-performance',
+              antialias: !isMobile,
+              precision: isMobile ? 'mediump' : 'highp',
+              depth: true,
+              stencil: false,
+              alpha: true
+            }}
+            camera={{ position: [0, 0, isMobile ? 11.5 : 10.5], fov: 48 }}
+          >
             <ambientLight intensity={1.3} />
             <directionalLight position={[10, 10, 10]} intensity={0.7} />
             <Suspense fallback={null}>
-              <GlobeScene onSelect={setSelectedPhoto} />
+              <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
             </Suspense>
             <OrbitControls
               enableZoom={true}
               minDistance={5}
-              maxDistance={14}
+              maxDistance={15}
               enablePan={false}
               autoRotate={false}
               dampingFactor={0.05}
@@ -191,7 +238,7 @@ export default function PhotoGlobe3D() {
           </Canvas>
 
           <div className="photo-globe__drag-hint">
-            <span>✨ 41 MEMORY TALISMANS • ↺ DRAG TO ROTATE 3D SPHERE • SCROLL TO ZOOM</span>
+            <span>✨ {isMobile ? '21' : '41'} MEMORY TALISMANS • ↺ DRAG TO ROTATE 3D SPHERE • SCROLL TO ZOOM</span>
           </div>
         </div>
       </div>

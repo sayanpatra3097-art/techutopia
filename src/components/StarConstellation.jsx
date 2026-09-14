@@ -253,11 +253,20 @@ const constellationDays = {
 export default function StarConstellation() {
   const [activeDay, setActiveDay] = useState('DAY 01')
   const [selectedStar, setSelectedStar] = useState(null)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
   const canvasRef = useRef(null)
   const wrapperRef = useRef(null)
   const nodesLayerRef = useRef(null)
   const containerRef = useRef(null)
   const isVisible = useScrollReveal(containerRef)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 860)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Handle ESC key to close modal & lock body scroll when open
   useEffect(() => {
@@ -290,6 +299,7 @@ export default function StarConstellation() {
 
   // Track mouse coordinates relative to the map wrapper
   const handleMouseMove = (e) => {
+    if (isMobile) return
     const el = wrapperRef.current
     if (!el) return
     const rect = el.getBoundingClientRect()
@@ -305,29 +315,33 @@ export default function StarConstellation() {
     mouseState.current.targetY = 0
   }
 
-  // Canvas render for mouse-interactive constellation stars and connecting laser beams
+  // Canvas render for constellation stars and connecting laser beams
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     let animationFrameId
+    let isRunning = true
     let t = 0
 
     const resize = () => {
+      if (!canvas.parentElement) return
+      if (canvas.parentElement.offsetWidth === 0 || canvas.parentElement.offsetHeight === 0) return
       canvas.width = canvas.parentElement.offsetWidth
       canvas.height = canvas.parentElement.offsetHeight
     }
     resize()
     window.addEventListener('resize', resize)
 
-    // Generate 120 layered celestial background stars with depth for realistic mouse parallax
+    // Generate layered celestial background stars (40 on mobile, 130 on desktop)
     const bgStars = []
-    for (let i = 0; i < 130; i++) {
+    const starCount = isMobile ? 40 : 130
+    for (let i = 0; i < starCount; i++) {
       bgStars.push({
         baseX: Math.random() * canvas.width,
         baseY: Math.random() * canvas.height,
         size: Math.random() * 2 + 0.6,
-        depth: Math.random() * 1.5 + 0.4, // Depth layer multiplier: foreground moves faster
+        depth: Math.random() * 1.5 + 0.4,
         twinkleSpeed: Math.random() * 0.04 + 0.015,
         twinkleOffset: Math.random() * Math.PI * 2,
         isColored: Math.random() > 0.65,
@@ -340,15 +354,18 @@ export default function StarConstellation() {
     let nextSpawnTime = 80
 
     const render = () => {
+      if (!isRunning) return
       t += 0.02
 
-      // Smooth lerp mouse coordinates (spring-like follow)
+      // Smooth lerp mouse coordinates
       const m = mouseState.current
-      m.currentX += (m.targetX - m.currentX) * 0.065
-      m.currentY += (m.targetY - m.currentY) * 0.065
+      if (!isMobile) {
+        m.currentX += (m.targetX - m.currentX) * 0.065
+        m.currentY += (m.targetY - m.currentY) * 0.065
+      }
 
       // Parallax the HTML star nodes layer in sync with the canvas
-      if (nodesLayerRef.current) {
+      if (nodesLayerRef.current && !isMobile) {
         nodesLayerRef.current.style.transform = `translate3d(${(m.currentX * 22).toFixed(2)}px, ${(m.currentY * 22).toFixed(2)}px, 0)`
       }
 
@@ -367,8 +384,8 @@ export default function StarConstellation() {
       // 2. Draw layered background stars shifting with mouse movement
       bgStars.forEach(s => {
         // Multi-layered parallax shift
-        const px = s.baseX + m.currentX * s.depth * 55
-        const py = s.baseY + m.currentY * s.depth * 55
+        const px = isMobile ? s.baseX : (s.baseX + m.currentX * s.depth * 55)
+        const py = isMobile ? s.baseY : (s.baseY + m.currentY * s.depth * 55)
 
         // Wrap around seamlessly
         const wrappedX = ((px % canvas.width) + canvas.width) % canvas.width
@@ -378,19 +395,23 @@ export default function StarConstellation() {
 
         if (s.isColored) {
           ctx.fillStyle = `${s.color} ${alpha})`
-          ctx.shadowBlur = 8
-          ctx.shadowColor = s.color.includes('183') ? '#ffd166' : '#ff6b35'
+          if (!isMobile) {
+            ctx.shadowBlur = 8
+            ctx.shadowColor = s.color.includes('183') ? '#ffd166' : '#ff6b35'
+          }
         } else {
           ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
-          ctx.shadowBlur = 4
-          ctx.shadowColor = '#ffffff'
+          if (!isMobile) {
+            ctx.shadowBlur = 4
+            ctx.shadowColor = '#ffffff'
+          }
         }
 
         ctx.beginPath()
         ctx.arc(wrappedX, wrappedY, s.size, 0, Math.PI * 2)
         ctx.fill()
       })
-      ctx.shadowBlur = 0 // Reset shadow
+      if (!isMobile) ctx.shadowBlur = 0 // Reset shadow
 
       // 3. Anime Shooting Stars (Comet streaks)
       nextSpawnTime--
@@ -484,8 +505,10 @@ export default function StarConstellation() {
           ctx.translate(pulseX, pulseY)
           ctx.rotate(angle)
           ctx.fillStyle = '#ffffff'
-          ctx.shadowColor = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
-          ctx.shadowBlur = 12
+          if (!isMobile) {
+            ctx.shadowColor = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
+            ctx.shadowBlur = 12
+          }
           ctx.beginPath()
           ctx.moveTo(9, 0)
           ctx.lineTo(-6, -6)
@@ -504,8 +527,10 @@ export default function StarConstellation() {
           ctx.rotate(angle)
 
           // Outer dark outline badge for contrast against background
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.85)'
-          ctx.shadowBlur = 8
+          if (!isMobile) {
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)'
+            ctx.shadowBlur = 8
+          }
 
           // Front prominent golden arrow
           ctx.fillStyle = '#ffd700'
@@ -540,18 +565,20 @@ export default function StarConstellation() {
     render()
 
     return () => {
+      isRunning = false
       window.removeEventListener('resize', resize)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [stars, activeDay])
+  }, [stars, activeDay, isMobile])
 
   return (
     <section className="constellation-dimension section" id="constellation" ref={containerRef}>
-      {/* Anime Celestial Sky Background with subtle low opacity */}
+      {/* Anime Celestial Sky Background - Fixed and visible */}
       <div
         className="constellation__sky-bg"
         style={{ backgroundImage: `url(${animeSkyBg})` }}
       />
+      <div className="constellation__sky-overlay" />
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
@@ -578,10 +605,10 @@ export default function StarConstellation() {
           ))}
         </div>
 
-        {/* Interactive Star Map Canvas Box (Mouse-Reactive Constellation) */}
+        {/* Interactive Star Map Canvas Box (Mouse-Reactive Constellation - Desktop View) */}
         <div
           ref={wrapperRef}
-          className="constellation__map-wrapper"
+          className="constellation__map-wrapper constellation__desktop-view"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           onTouchMove={(e) => {
@@ -618,6 +645,80 @@ export default function StarConstellation() {
 
           <div className="constellation__tap-hint">
             <span>✨ TAP ANY STAR NODE TO INSPECT QUEST IN CENTER SCREEN</span>
+          </div>
+        </div>
+
+        {/* Mobile View: Rectangular Container Timeline with Left Line and Dot */}
+        <div className="constellation__mobile-timeline">
+          <div className="constellation__timeline-track">
+            <div className="constellation__timeline-line" />
+            {stars.map((event, idx) => {
+              const isSelected = selectedStar?.id === event.id
+              return (
+                <div
+                  key={event.id}
+                  className={`constellation__mobile-item ${isSelected ? 'constellation__mobile-item--active' : ''}`}
+                  onClick={() => setSelectedStar(event)}
+                >
+                  {/* Left Timeline Dot with Pulse Ring & Horizontal Connector */}
+                  <div className="constellation__timeline-dot-wrap">
+                    <div className="constellation__timeline-dot">
+                      <span className="timeline-dot-core" />
+                      <span className="timeline-dot-pulse" />
+                    </div>
+                    <div className="constellation__timeline-connector" />
+                  </div>
+
+                  {/* Rect Container */}
+                  <div className="constellation__mobile-card">
+                    <div className="constellation__mobile-card-header">
+                      <div className="constellation__mobile-card-meta">
+                        <span className="constellation__mobile-node-idx">NODE 0{idx + 1}</span>
+                        <span className="constellation__mobile-time">⏱ {event.time}</span>
+                      </div>
+                      <div className="constellation__mobile-badges">
+                        <span className="constellation__mobile-badge">{event.category}</span>
+                        <span className="constellation__mobile-rank">{event.rank}</span>
+                      </div>
+                    </div>
+
+                    <h3 className="constellation__mobile-card-title">{event.title}</h3>
+                    <p className="constellation__mobile-card-desc">{event.desc}</p>
+
+                    <div className="constellation__mobile-specs">
+                      <div className="constellation__mobile-spec-row">
+                        <span className="spec-icon">📍</span>
+                        <span className="spec-label">VENUE:</span>
+                        <span className="spec-val">{event.venue}</span>
+                      </div>
+                      <div className="constellation__mobile-spec-row">
+                        <span className="spec-icon">⚡</span>
+                        <span className="spec-label">MANA:</span>
+                        <span className="spec-val" style={{ color: '#ffd166' }}>{event.mana}</span>
+                      </div>
+                      {event.prize && (
+                        <div className="constellation__mobile-spec-row">
+                          <span className="spec-icon">🏆</span>
+                          <span className="spec-label">PRIZE:</span>
+                          <span className="spec-val" style={{ color: '#ffd700' }}>{event.prize}</span>
+                        </div>
+                      )}
+                      {event.team && (
+                        <div className="constellation__mobile-spec-row">
+                          <span className="spec-icon">👥</span>
+                          <span className="spec-label">SQUAD:</span>
+                          <span className="spec-val">{event.team}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="constellation__mobile-card-tap">
+                      <span>✦ TAP FOR FULL DETAILS ✦</span>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

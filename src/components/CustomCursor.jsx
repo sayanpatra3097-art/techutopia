@@ -5,14 +5,26 @@ export default function CustomCursor() {
   const dotRef = useRef(null)
   const [isHovering, setIsHovering] = useState(false)
 
-  useEffect(() => {
-    // Disable on touch / mobile devices to prevent frame lag and save CPU
-    const isTouch = typeof window !== 'undefined' && (
+  const [isTouchDevice, setIsTouchDevice] = useState(() => {
+    return typeof window !== 'undefined' && (
       'ontouchstart' in window ||
       navigator.maxTouchPoints > 0 ||
       window.matchMedia('(pointer: coarse)').matches
     )
-    if (isTouch) return
+  })
+
+  useEffect(() => {
+    const checkTouch = () => {
+      const isTouch = (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+      )
+      setIsTouchDevice(isTouch)
+      return isTouch
+    }
+
+    if (checkTouch()) return
 
     const cursor = cursorRef.current
     const dot = dotRef.current
@@ -55,6 +67,8 @@ export default function CustomCursor() {
       clearTimeout(timeout)
     }
   }, [])
+
+  if (isTouchDevice) return null
 
   return (
     <>

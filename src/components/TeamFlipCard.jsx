@@ -1,7 +1,19 @@
-export default function TeamFlipCard({ member }) {
+export default function TeamFlipCard({ member, onSelect }) {
   return (
-    <div className="team-card-wrapper">
-      <div className="team-card">
+    <div
+      className="team-card-wrapper"
+      onClick={() => onSelect && onSelect(member)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onSelect && onSelect(member)
+        }
+      }}
+      aria-label={`${member.name} - ${member.role}. Tap to view abilities and stats`}
+    >
+      <div className="team-card" style={{ '--member-color': member.color }}>
         {/* Ornate Corner Decorations */}
         <div className="team-card__corner team-card__corner--tl" />
         <div className="team-card__corner team-card__corner--tr" />
@@ -15,34 +27,11 @@ export default function TeamFlipCard({ member }) {
           <span className="team-card__rank-gem">◆</span>
         </div>
 
-        {/* Avatar Image Area */}
+        {/* Avatar Image Area - Crisp, Clear, Never Obscured */}
         <div className="team-card__image-area">
-          <img src={member.avatar} alt={member.name} className="team-card__avatar" />
-
-          {/* Hover Overlay with Details */}
-          <div className="team-card__overlay">
-            <div className="team-card__overlay-content">
-              <div className="team-card__ability-tag">{member.classTitle}</div>
-              <p className="team-card__ability-desc">{member.ability}</p>
-
-              <div className="team-card__stats-compact">
-                {Object.entries(member.stats).map(([key, val]) => (
-                  <div key={key} className="team-card__stat-mini">
-                    <span className="team-card__stat-label">{key.toUpperCase()}</span>
-                    <div className="team-card__stat-bar">
-                      <div className="team-card__stat-fill" style={{ width: `${val}%`, background: member.color }} />
-                    </div>
-                    <span className="team-card__stat-val">{val}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="team-card__social-row">
-                <a href={member.socials.github} target="_blank" rel="noreferrer" className="team-card__social-link" title="GitHub">⚡</a>
-                <a href={member.socials.linkedin} target="_blank" rel="noreferrer" className="team-card__social-link" title="LinkedIn">🔗</a>
-                <a href={`mailto:${member.socials.email}`} className="team-card__social-link" title="Email">✉️</a>
-              </div>
-            </div>
+          <img src={member.avatar} alt={member.name} className="team-card__avatar" loading="lazy" />
+          <div className="team-card__cue-pill">
+            <span>✦ STATS &amp; INFO ✦</span>
           </div>
         </div>
 

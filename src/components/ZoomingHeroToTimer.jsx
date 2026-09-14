@@ -678,7 +678,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               backgroundImage: `${activeBgGradient}, url(${currentLayer.bg})`,
               transform: `scale(${activeScale})`,
               opacity: activeOpacity,
-              filter: isLastActive ? 'none' : 'saturate(1.15) contrast(1.06)'
+              filter: (isMobile || isLastActive) ? 'none' : 'saturate(1.15) contrast(1.06)'
             }}
           />
 
@@ -690,7 +690,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 backgroundImage: `${nextBgGradient}, url(${nextLayer.bg})`,
                 transform: `scale(${nextScale})`,
                 opacity: nextOpacity,
-                filter: isLastNext ? 'none' : 'saturate(1.15) contrast(1.06)'
+                filter: (isMobile || isLastNext) ? 'none' : 'saturate(1.15) contrast(1.06)'
               }}
             />
           )}
@@ -944,15 +944,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                     ))}
                   </div>
 
-                  {/* Anime Imperial Date Edict Scroll */}
-                  <div className="anime-timer__date-scroll anime-date-edict">
-                    <span className="anime-timer__scroll-crest">📜</span>
-                    <span className="anime-date-edict__text">
-                      【 FESTIVAL DATE: OCTOBER 6–7, 2026 】 • CONVOCATION COLISEUM, UEM JAIPUR
-                    </span>
-                    <span className="anime-timer__seal-stamp anime-stamp-neon">OCT '26</span>
-                  </div>
-
                   {/* ───── ANIME DOMAIN UNSEAL EXPLORE BUTTON ───── */}
                   <div className="zoom-hero__explore-action">
                     <button
@@ -962,9 +953,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                     >
                       ⚔️【 CLICK TO EXPLORE EVENTS 】⚡
                     </button>
-                    <div className="zoom-hero__explore-sub anime-explore-hint">
-                      “Click to enter Dimension 02: Dungeon Quests & Arena Trials”
-                    </div>
                   </div>
                 </div>
               </div>
