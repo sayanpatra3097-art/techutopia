@@ -33,14 +33,26 @@ function App() {
   // 3: 3D PHOTO GLOBE (PhotoGlobe3D)
   // 4: CORE GUILD HASHIRAS (Team + Footer)
   const [currentPage, setCurrentPage] = useState(0)
+  const [eventsInitialStage, setEventsInitialStage] = useState('outro')
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const handleIntroComplete = useCallback(() => {
     setIntroFinished(true)
   }, [])
 
-  const goToPage = (pageIndex) => {
-    if (pageIndex === currentPage) return
+  const goToPage = (pageIndex, options = {}) => {
+    if (pageIndex === 1 && options.stage) {
+      setEventsInitialStage(options.stage)
+    } else if (pageIndex === 1 && !options.stage) {
+      setEventsInitialStage('outro')
+    }
+
+    if (pageIndex === currentPage) {
+      if (pageIndex === 1 && options.stage) {
+        setEventsInitialStage(options.stage)
+      }
+      return
+    }
     setIsTransitioning(true)
     setTimeout(() => {
       setCurrentPage(pageIndex)
@@ -100,6 +112,7 @@ function App() {
               <Events
                 onNext={nextPage}
                 onPrev={prevPage}
+                initialStage={eventsInitialStage}
               />
             </div>
           )}
@@ -144,55 +157,20 @@ function App() {
               type="button"
               className="dimension-nav-btn dimension-nav-btn--prev"
               onClick={prevPage}
-              title={`Go back to ${DIMENSION_PAGES[currentPage - 1]?.shortTitle || 'Previous'}`}
+              title="Previous Dimension"
             >
               <span className="dimension-nav-btn__arrow">◀</span>
-              <div className="dimension-nav-btn__text">
-                <span className="dimension-nav-btn__sub">PREV</span>
-                <span className="dimension-nav-btn__name">
-                  {DIMENSION_PAGES[currentPage - 1]?.shortTitle || 'Shrine Portal'}
-                </span>
-              </div>
+              <span className="dimension-nav-btn__label">PREV</span>
             </button>
-
-            {/* Center Dimension Status & Quick Dots */}
-            <div className="dimension-nav-indicator">
-              <span className="dimension-nav-indicator__pill">
-                DIMENSION {DIMENSION_PAGES[currentPage].number} / 05
-              </span>
-              <span className="dimension-nav-indicator__title">
-                {DIMENSION_PAGES[currentPage].title}
-              </span>
-              <div className="dimension-nav-dots">
-                {DIMENSION_PAGES.map((p, idx) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    className={`dimension-nav-dot ${currentPage === idx ? 'dimension-nav-dot--active' : ''}`}
-                    onClick={() => goToPage(idx)}
-                    title={p.title}
-                  />
-                ))}
-              </div>
-            </div>
 
             {/* Right NEXT Button */}
             <button
               type="button"
               className="dimension-nav-btn dimension-nav-btn--next"
               onClick={nextPage}
-              title={currentPage === DIMENSION_PAGES.length - 1 ? 'Return to Shrine' : `Proceed to ${DIMENSION_PAGES[currentPage + 1]?.shortTitle}`}
+              title="Next Dimension"
             >
-              <div className="dimension-nav-btn__text dimension-nav-btn__text--right">
-                <span className="dimension-nav-btn__sub">
-                  {currentPage === DIMENSION_PAGES.length - 1 ? 'RESTART' : 'NEXT'}
-                </span>
-                <span className="dimension-nav-btn__name">
-                  {currentPage === DIMENSION_PAGES.length - 1
-                    ? 'Shrine Portal ⛩️'
-                    : DIMENSION_PAGES[currentPage + 1]?.shortTitle}
-                </span>
-              </div>
+              <span className="dimension-nav-btn__label">NEXT</span>
               <span className="dimension-nav-btn__arrow">▶</span>
             </button>
           </nav>

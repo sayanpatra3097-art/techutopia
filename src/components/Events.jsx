@@ -394,9 +394,9 @@ const CorridorExhibits = memo(function CorridorExhibits({
   )
 })
 
-export default function Events({ onNext, onPrev }) {
+export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   // 'outro' (Citadel entrance gate zoom) -> 'pixel' -> 'inside' (Techfest 3D tunnel corridor)
-  const [stage, setStage] = useState('outro')
+  const [stage, setStage] = useState(initialStage)
   const [outroProgress, setOutroProgress] = useState(0)
   const [isPixelFading, setIsPixelFading] = useState(false)
   const [pixelFadeProgress, setPixelFadeProgress] = useState(0)
@@ -431,6 +431,17 @@ export default function Events({ onNext, onPrev }) {
   const rafIdRef = useRef(null)
   const lastActiveIdxRef = useRef(0)
   const splineWaypointsRef = useRef([])
+
+  useEffect(() => {
+    if (initialStage) {
+      setStage(initialStage)
+      if (initialStage === 'inside') {
+        targetZRef.current = 0
+        currentZRef.current = 0
+        window.scrollTo({ top: 0, behavior: 'instant' })
+      }
+    }
+  }, [initialStage])
 
   useEffect(() => {
     const shift = isMobile ? 140 : 360
@@ -824,29 +835,6 @@ export default function Events({ onNext, onPrev }) {
             />
             <div className="techfest-backdrop-vignette" aria-hidden="true" />
 
-            {/* Top Minimal HUD Bar */}
-            <div className="techfest-corridor-hud">
-              <button
-                type="button"
-                className="techfest-hud-back-btn"
-                onClick={returnToOutro}
-                title="Return to Citadel Gate"
-              >
-                ⛩️ RETURN TO GATE
-              </button>
-
-              <div className="techfest-hud-title-wrap">
-                <span className="techfest-hud-sub">QUEST SANCTUM CORRIDOR</span>
-                <h2 className="techfest-hud-title">
-                  GRAND EXHIBITIONS <span className="anime-text-glow">CHRONICLES</span>
-                </h2>
-              </div>
-
-              <div className="techfest-hud-counter-pill">
-                <span>EXHIBIT {activeEventIndex + 1} / {computedExhibits.length}</span>
-              </div>
-            </div>
-
             {/* 3D PERSPECTIVE STAGE CONTAINER */}
             <div className="techfest-3d-viewport">
               
@@ -938,7 +926,7 @@ export default function Events({ onNext, onPrev }) {
                 disabled={activeEventIndex === 0}
                 title="Walk to Previous Exhibit"
               >
-                ◀ PREV
+                &lt;
               </button>
 
               <div className="techfest-dock-indicators">
@@ -948,10 +936,9 @@ export default function Events({ onNext, onPrev }) {
                     type="button"
                     className={`techfest-dock-dot ${activeEventIndex === idx ? 'is-active' : ''}`}
                     onClick={() => scrollToExhibit(idx)}
-                    title={`Exhibit ${idx + 1} (${ev.side.toUpperCase()}): ${ev.title}`}
+                    title={`Exhibit ${idx + 1}: ${ev.title}`}
                   >
                     <span className="dock-dot-num">{idx + 1}</span>
-                    <span className="dock-dot-wing">{ev.side === 'left' ? 'L' : 'R'}</span>
                   </button>
                 ))}
               </div>
@@ -963,7 +950,7 @@ export default function Events({ onNext, onPrev }) {
                 disabled={activeEventIndex === computedExhibits.length - 1}
                 title="Walk to Next Exhibit"
               >
-                NEXT ▶
+                &gt;
               </button>
             </nav>
 

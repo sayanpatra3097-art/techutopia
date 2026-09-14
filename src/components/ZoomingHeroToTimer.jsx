@@ -916,7 +916,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                     {clockItems.map(item => (
                       <div key={item.label} className="anime-timer__talisman-card anime-ofuda-card">
                         <div className="anime-timer__talisman-top-knot anime-ofuda-knot" />
-                        
+
                         <div className="anime-ofuda-header">
                           <span className="anime-ofuda-kanji-stamp">{item.code}</span>
                           <span className="anime-ofuda-tag">{item.tag}</span>
@@ -951,7 +951,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                       className="btn btn--primary zoom-hero__explore-btn anime-unseal-btn anime-btn-glow"
                       onClick={handleExploreClick}
                     >
-                      ⚔️【 CLICK TO EXPLORE EVENTS 】⚡
+                      ⚔️ CLICK TO EXPLORE EVENTS ⚡
                     </button>
                   </div>
                 </div>
@@ -972,8 +972,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <span className="royal-scroll__dock-crest">⚡</span>
                 <span>
                   {rollProgress < 0.98
-                    ? `【 UNROLL PROGRESS: ${Math.round(rollProgress * 100)}% 】• SCROLL TO REVEAL`
-                    : "【 SCROLL FULLY OPEN // DOMAIN AWAKENED: OCTOBER 6–7, 2026 】"}
+                    ? `• SCROLL TO REVEAL`
+                    : "OCTOBER 6–7, 2026"}
                 </span>
                 <span className="royal-scroll__dock-crest">⚡</span>
               </div>

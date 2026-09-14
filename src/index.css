@@ -1,31 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Rye&display=swap');
+
 /* ═══════════════════════════════════════════════════════
    TECHUTOPIA — Design System & Global Styles
-   Anime-themed (Solo Leveling × Demon Slayer)
+   Typography: Cinzel (Headings) × Montserrat (Other Texts) × Rye (Brand & Citadel)
    ═══════════════════════════════════════════════════════ */
-
-@font-face {
-  font-family: 'SoloLeveling';
-  src: url('/fonts/SoloLevelDemo.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SoloLeveling';
-  src: url('/fonts/SoloLevelDemo.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SoloLeveling';
-  src: url('/fonts/SoloLevelDemo.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* === RESET === */
 *, *::before, *::after {
@@ -41,7 +19,8 @@ html {
 }
 
 :root {
-  --font-solo: 'SoloLeveling', 'Orbitron', serif;
+  --font-rye: 'Rye', serif;
+  --font-solo: 'Cinzel', serif;
   /* — Colors — */
   --bg-primary: #0a0a0f;
   --bg-secondary: #0d1117;
@@ -70,10 +49,11 @@ html {
   --glow-red: 0 0 20px rgba(230, 57, 70, 0.6), 0 0 40px rgba(230, 57, 70, 0.3);
   --glow-cyan: 0 0 20px rgba(255, 209, 102, 0.7), 0 0 40px rgba(255, 107, 53, 0.4);
 
-  /* — Typography — */
-  --font-display: 'SoloLeveling', 'Orbitron', sans-serif;
-  --font-heading: 'SoloLeveling', 'Rajdhani', sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  /* — Typography: Cinzel for Headings & Montserrat for other texts — */
+  --font-display: 'Cinzel', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Montserrat', monospace;
 
   /* — Spacing — */
   --space-xs: 0.5rem;
@@ -138,14 +118,24 @@ body {
 
 /* === Global Typography === */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+p, span, li, a, label {
+  font-family: var(--font-body);
+}
+
+h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
 }
 
 button, input, select, textarea {
-  font-family: inherit;
+  font-family: var(--font-body);
 }
 
 a {
@@ -335,4 +325,9 @@ a:hover {
     --space-2xl: 4rem;
     --space-3xl: 6rem;
   }
+}
+
+.font-rye,
+.rye-font {
+  font-family: var(--font-rye), serif !important;
 }
