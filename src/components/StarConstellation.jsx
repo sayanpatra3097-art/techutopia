@@ -43,7 +43,7 @@ const constellationDays = {
       y: 26,
       time: '11:00 AM (24hr Non-Stop)',
       title: '24HR HACKATHON: MONARCH FORGE',
-      desc: 'The flagship 24-hour hackathon of TechUthopia! Code through the midnight hour, solve real-world industry problem statements, and build breakthrough AI, Web3, and Cloud solutions.',
+      desc: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour, solve real-world industry problem statements, and build breakthrough AI, Web3, and Cloud solutions.',
       venue: 'Innovation Hub & Sandbox Lab',
       category: 'Hackathon',
       rank: 'SUPREME RAID',
@@ -237,7 +237,7 @@ const constellationDays = {
       y: 26,
       time: '06:30 PM - 10:00 PM',
       title: 'FASHION CARNIVAL & CLOSING GALA',
-      desc: 'The grand closing spectacle of TechUthopia! Anime cosplay masquerade, cyber couture runway, and conferring of festival championships, ₹10 Lakhs bounties, and trophies.',
+      desc: 'The grand closing spectacle of TechUtopia! Anime cosplay masquerade, cyber couture runway, and conferring of festival championships, ₹10 Lakhs bounties, and trophies.',
       venue: 'Grand Amphitheatre Open Stage',
       category: 'Cultural Runway & Awards',
       rank: 'SUPREME GALA',
@@ -345,7 +345,7 @@ export default function StarConstellation() {
         twinkleSpeed: Math.random() * 0.04 + 0.015,
         twinkleOffset: Math.random() * Math.PI * 2,
         isColored: Math.random() > 0.65,
-        color: Math.random() > 0.5 ? 'rgba(255, 183, 3,' : 'rgba(255, 107, 53,'
+        color: Math.random() > 0.5 ? 'rgba(56, 189, 248,' : 'rgba(0, 212, 255,'
       })
     }
 
@@ -375,8 +375,8 @@ export default function StarConstellation() {
       const gradX = canvas.width * 0.5 + m.currentX * 120
       const gradY = canvas.height * 0.5 + m.currentY * 80
       const radGrad = ctx.createRadialGradient(gradX, gradY, 10, gradX, gradY, canvas.width * 0.6)
-      radGrad.addColorStop(0, 'rgba(255, 107, 53, 0.14)')
-      radGrad.addColorStop(0.5, 'rgba(255, 209, 102, 0.07)')
+      radGrad.addColorStop(0, 'rgba(29, 78, 216, 0.22)')
+      radGrad.addColorStop(0.5, 'rgba(0, 212, 255, 0.1)')
       radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
       ctx.fillStyle = radGrad
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -397,7 +397,7 @@ export default function StarConstellation() {
           ctx.fillStyle = `${s.color} ${alpha})`
           if (!isMobile) {
             ctx.shadowBlur = 8
-            ctx.shadowColor = s.color.includes('183') ? '#ffd166' : '#ff6b35'
+            ctx.shadowColor = s.color.includes('189') ? '#38bdf8' : '#00d4ff'
           }
         } else {
           ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
@@ -441,8 +441,8 @@ export default function StarConstellation() {
         const tailX = cs.x - Math.cos(cs.angle) * cs.length
         const tailY = cs.y - Math.sin(cs.angle) * cs.length
         const cometGrad = ctx.createLinearGradient(tailX, tailY, cs.x, cs.y)
-        cometGrad.addColorStop(0, 'rgba(255, 183, 3, 0)')
-        cometGrad.addColorStop(0.8, `rgba(255, 183, 3, ${cs.alpha * 0.8})`)
+        cometGrad.addColorStop(0, 'rgba(168, 85, 247, 0)')
+        cometGrad.addColorStop(0.8, `rgba(192, 132, 252, ${cs.alpha * 0.8})`)
         cometGrad.addColorStop(1, `rgba(255, 255, 255, ${cs.alpha})`)
 
         ctx.strokeStyle = cometGrad
@@ -464,8 +464,8 @@ export default function StarConstellation() {
         // Outer glowing beam
         ctx.lineWidth = 3
         ctx.strokeStyle = activeDay === 'DAY 01'
-          ? 'rgba(255, 107, 53, 0.65)'
-          : 'rgba(255, 215, 0, 0.65)'
+          ? 'rgba(168, 85, 247, 0.85)'
+          : 'rgba(129, 140, 248, 0.85)'
         ctx.setLineDash([10, 6])
         ctx.lineDashOffset = -t * 22
         ctx.beginPath()
@@ -477,7 +477,7 @@ export default function StarConstellation() {
 
         // Inner bright white laser beam core
         ctx.lineWidth = 1.5
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)'
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)'
         ctx.setLineDash([])
         ctx.beginPath()
         ctx.moveTo(points[0].x, points[0].y)
@@ -506,7 +506,7 @@ export default function StarConstellation() {
           ctx.rotate(angle)
           ctx.fillStyle = '#ffffff'
           if (!isMobile) {
-            ctx.shadowColor = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
+            ctx.shadowColor = '#c084fc'
             ctx.shadowBlur = 12
           }
           ctx.beginPath()
@@ -532,8 +532,8 @@ export default function StarConstellation() {
             ctx.shadowBlur = 8
           }
 
-          // Front prominent golden arrow
-          ctx.fillStyle = '#ffd700'
+          // Front prominent purple arrow
+          ctx.fillStyle = '#a855f7'
           ctx.strokeStyle = '#ffffff'
           ctx.lineWidth = 2
           ctx.beginPath()
@@ -546,7 +546,7 @@ export default function StarConstellation() {
           ctx.stroke()
 
           // Back trailing chevron for high-tech ">>" sequential flow
-          ctx.fillStyle = activeDay === 'DAY 01' ? '#ff6b35' : '#ffd700'
+          ctx.fillStyle = '#7c3aed'
           ctx.beginPath()
           ctx.moveTo(4, 0)
           ctx.lineTo(-13, -9)
@@ -694,13 +694,13 @@ export default function StarConstellation() {
                       <div className="constellation__mobile-spec-row">
                         <span className="spec-icon">⚡</span>
                         <span className="spec-label">MANA:</span>
-                        <span className="spec-val" style={{ color: '#ffd166' }}>{event.mana}</span>
+                        <span className="spec-val" style={{ color: '#38bdf8' }}>{event.mana}</span>
                       </div>
                       {event.prize && (
                         <div className="constellation__mobile-spec-row">
                           <span className="spec-icon">🏆</span>
                           <span className="spec-label">PRIZE:</span>
-                          <span className="spec-val" style={{ color: '#ffd700' }}>{event.prize}</span>
+                          <span className="spec-val" style={{ color: '#7dd3fc' }}>{event.prize}</span>
                         </div>
                       )}
                       {event.team && (
@@ -772,12 +772,12 @@ export default function StarConstellation() {
                 <span>📍 VENUE:</span>
                 <strong>{selectedStar.venue}</strong>
               </div>
-              <div className="constellation__modal-meta-item" style={{ color: '#ffd166' }}>
+              <div className="constellation__modal-meta-item" style={{ color: '#38bdf8' }}>
                 <span>⚡ MANA:</span>
                 <strong>{selectedStar.mana}</strong>
               </div>
               {selectedStar.prize && (
-                <div className="constellation__modal-meta-item" style={{ color: '#ffd700' }}>
+                <div className="constellation__modal-meta-item" style={{ color: '#7dd3fc' }}>
                   <span>🏆 PRIZE:</span>
                   <strong>{selectedStar.prize}</strong>
                 </div>

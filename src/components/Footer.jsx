@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="footer__top">
           {/* Brand Info & Venue Address */}
           <div className="footer__brand-col">
-            <div className="footer__brand-name">TECHUTHOPIA 2026</div>
+            <div className="footer__brand-name">TECHUTOPIA 2026</div>
             <p className="footer__brand-desc">
               The supreme annual tech festival of University of Engineering &amp; Management (UEM), Jaipur.
               Enter the realm where code meets the anime frontier — Arise, Level Up, and Conquer!
@@ -21,7 +21,7 @@ export default function Footer() {
             <ul className="footer__col-links">
               <li className="footer__col-link">
                 <span className="contact-label">Email:</span>{' '}
-                <a href="mailto:techuthopia@uem.edu.in" className="contact-val">techuthopia@uem.edu.in</a>
+                <a href="mailto:techutopia@uem.edu.in" className="contact-val">techutopia@uem.edu.in</a>
               </li>
               <li className="footer__col-link">
                 <span className="contact-label">Helpline:</span>{' '}
@@ -41,7 +41,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <div className="footer__copyright">
-            © 2026 TechUthopia • University of Engineering &amp; Management, Jaipur. All rights reserved. Crafted with Three.js &amp; Passion.
+            © 2026 TechUtopia • University of Engineering &amp; Management, Jaipur. All rights reserved. Crafted with Three.js &amp; Passion.
           </div>
           <div className="footer__socials">
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="Instagram">📸</a>

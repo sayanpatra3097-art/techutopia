@@ -34,7 +34,7 @@ const artifacts = [
     icon: '📜',
     name: 'SACRED GUILD CODEX',
     sub: 'Class: Ancient Scroll • Fair Play Protocol',
-    desc: 'The immutable laws of TechUthopia 2026. Integrity, sportsmanship, and relentless innovation for all hunters.',
+    desc: 'The immutable laws of TechUtopia 2026. Integrity, sportsmanship, and relentless innovation for all hunters.',
     color: '#e63946',
     kanji: '禁断巻'
   }

@@ -18,8 +18,8 @@ const animeThemes = [
     title: 'SHADOW MONARCH DOMAIN',
     kanji: '影の君主',
     badge: 'Dimension 01 • Solo Leveling',
-    color: '#ff9e00',
-    secondaryColor: '#ff3b30',
+    color: '#1d4ed8',
+    secondaryColor: '#0f172a',
     bg: getAssetBg(1),
     quote: '“All systems awaken. Every line of algorithmic code arises at my command.”'
   },
@@ -425,13 +425,13 @@ const animeThemes = [
   },
   {
     id: 'theme-42',
-    title: 'TECHUTHOPIA SUPREME MONARCH',
+    title: 'TECHUTOPIA SUPREME MONARCH',
     kanji: '影の皇帝・極限覚醒',
     badge: 'Dimension 42 • Grand Apex Sovereign',
     color: '#ffb703',
     secondaryColor: '#ff6b35',
     bg: getAssetBg(42),
-    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUthopia.”'
+    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
   }
 ]
 
@@ -465,7 +465,7 @@ const sanctuaryRelics = [
     icon: '📜',
     name: 'SACRED GUILD CODEX',
     sub: 'Class: Ancient Scroll • Fair Play Protocol',
-    desc: 'The immutable ethical constitution of TechUthopia. Respect, honor, and innovation.',
+    desc: 'The immutable ethical constitution of TechUtopia. Respect, honor, and innovation.',
     color: '#b537f2'
   }
 ]
@@ -617,7 +617,7 @@ export default function DoorLandingHero() {
                     textShadow: 'none'
                   }}
                 >
-                  UTHOPIA
+                  UTOPIA
                 </span>
                 <span className="door-landing__title-year">’26</span>
               </h1>

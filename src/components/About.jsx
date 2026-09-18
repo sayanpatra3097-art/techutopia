@@ -45,21 +45,21 @@ export default function About() {
         <div className="about__grid">
           <div className={`about__text fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
             <div className="section__label">🌀 About</div>
-            <h2 className="section__title">What is <span className="font-rye">TechUthopia</span>?</h2>
+            <h2 className="section__title">What is <span className="font-rye">TechUtopia</span>?</h2>
             <p>
-              <strong className="font-rye">TechUthopia</strong> is UEM Jaipur's flagship annual tech fest — a 2-day spectacle where
+              <strong className="font-rye">TechUtopia</strong> is UEM Jaipur's flagship annual tech fest — a 2-day spectacle where
               technology meets anime-inspired creativity. Like a hunter entering a dungeon gate, 
               participants enter a world of challenges, workshops, and competitions that push 
               their abilities beyond limits.
             </p>
             <p>
               Inspired by the relentless spirits of <em>Solo Leveling</em> and <em>Demon Slayer</em>,
-              TechUthopia challenges you to level up, master new skills, and emerge victorious.
+              TechUtopia challenges you to level up, master new skills, and emerge victorious.
               From intense coding battles to immersive robotics workshops, every event is a 
               boss fight waiting to be conquered.
             </p>
             <p>
-              Whether you're a seasoned developer or just starting your journey, TechUthopia 
+              Whether you're a seasoned developer or just starting your journey, TechUtopia 
               welcomes all who dare to enter the portal. ⚡
             </p>
           </div>

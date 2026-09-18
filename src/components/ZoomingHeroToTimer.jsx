@@ -19,8 +19,8 @@ const animeLayers = [
     title: 'SHADOW MONARCH DOMAIN',
     kanji: '影の君主',
     badge: 'Dimension 01 • Solo Leveling',
-    color: '#ff9e00',
-    secondaryColor: '#ff3b30',
+    color: '#1d4ed8',
+    secondaryColor: '#0f172a',
     bg: getAssetBg(1),
     image: getAssetBg(1),
     quote: '“All algorithms awaken. Every line of algorithmic code arises at my command.”'
@@ -467,14 +467,14 @@ const animeLayers = [
   },
   {
     id: 'theme-42',
-    title: 'TECHUTHOPIA SUPREME MONARCH',
+    title: 'TECHUTOPIA SUPREME MONARCH',
     kanji: '影の皇帝・極限覚醒',
     badge: 'Dimension 42 • Grand Apex Sovereign',
     color: '#00d4ff',
     secondaryColor: '#b537f2',
     bg: getAssetBg(42),
     image: getAssetBg(42),
-    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUthopia.”'
+    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
   }
 ]
 
@@ -770,7 +770,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               className="door-landing__title-utopia"
               style={{ textShadow: 'none' }}
             >
-              UTHOPIA
+              UTOPIA
             </span>
           </h1>
 
@@ -866,7 +866,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div
                   className="royal-scroll__letter-image anime-timer__shrine-backdrop"
                   style={{
-                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(255, 107, 53, 0.22) 0%, rgba(255, 183, 3, 0.12) 35%, rgba(14, 8, 4, 0.92) 80%), url(${timerBg23})`
+                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(124, 58, 237, 0.28) 0%, rgba(24, 18, 55, 0.45) 35%, rgba(4, 2, 14, 0.98) 80%), url(${timerBg23})`
                   }}
                 />
 
@@ -907,7 +907,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   <div className="anime-timer__title-block">
                     <div className="anime-timer__kanji-eyebrow">GRAND FESTIVAL COUNTDOWN</div>
                     <h2 className="anime-timer__headline anime-glow-text">
-                      CHRONICLES OF TECHUTHOPIA ’26
+                      CHRONICLES OF TECHUTOPIA ’26
                     </h2>
                   </div>
 

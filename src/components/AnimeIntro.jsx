@@ -6,7 +6,7 @@ try {
   if (typeof window !== 'undefined' && sessionStorage.getItem('techutopia_intro_done') === 'true') {
     globalIntroExecuted = true
   }
-} catch (e) {}
+} catch (e) { }
 
 export default function AnimeIntro({ onComplete }) {
   // Sequence:
@@ -24,7 +24,7 @@ export default function AnimeIntro({ onComplete }) {
     globalIntroExecuted = true
     try {
       sessionStorage.setItem('techutopia_intro_done', 'true')
-    } catch (e) {}
+    } catch (e) { }
     setPhase('done')
     if (onCompleteRef.current) onCompleteRef.current()
   }
@@ -93,9 +93,8 @@ export default function AnimeIntro({ onComplete }) {
 
       {/* 1st: The Katana Cut Animation (starts 650ms after website open) */}
       <div
-        className={`katana-slash-container ${
-          isSlashing ? 'is-slashing' : phase !== 'black-hold' ? 'is-slashed' : ''
-        }`}
+        className={`katana-slash-container ${isSlashing ? 'is-slashing' : phase !== 'black-hold' ? 'is-slashed' : ''
+          }`}
       >
         <div className="katana-blade-trail" />
         <div className="katana-slash-line" />
@@ -105,9 +104,8 @@ export default function AnimeIntro({ onComplete }) {
 
       {/* 2nd: Japanese Anime Clouds that part ONCE left and right */}
       <div
-        className={`anime-cloud anime-cloud--left ${
-          isCloudsParted ? 'anime-cloud--part-left' : ''
-        }`}
+        className={`anime-cloud anime-cloud--left ${isCloudsParted ? 'anime-cloud--part-left' : ''
+          }`}
       >
         <svg viewBox="0 0 800 1000" fill="none" preserveAspectRatio="none">
           <path
@@ -129,9 +127,8 @@ export default function AnimeIntro({ onComplete }) {
       </div>
 
       <div
-        className={`anime-cloud anime-cloud--right ${
-          isCloudsParted ? 'anime-cloud--part-right' : ''
-        }`}
+        className={`anime-cloud anime-cloud--right ${isCloudsParted ? 'anime-cloud--part-right' : ''
+          }`}
       >
         <svg viewBox="0 0 800 1000" fill="none" preserveAspectRatio="none">
           <path
@@ -154,19 +151,18 @@ export default function AnimeIntro({ onComplete }) {
 
       {/* 3rd: TechUtopia text visible in a smooth fade-in animation */}
       <div
-        className={`anime-intro__center ${
-          isTextFadingIn || isFadingOut ? 'anime-intro__center--fade-in' : ''
-        }`}
+        className={`anime-intro__center ${isTextFadingIn || isFadingOut ? 'anime-intro__center--fade-in' : ''
+          }`}
       >
 
         <div className="anime-intro__logo">
           <div className="anime-intro__brand">TECH</div>
-          <div className="anime-intro__brand anime-intro__brand--utopia">UTHOPIA</div>
+          <div className="anime-intro__brand anime-intro__brand--utopia">UTOPIA</div>
         </div>
 
         <div className="anime-intro__sub">
           <span className="anime-intro__sub-dot" />
-          <span>AWAKENING PROTOCOL • UEM JAIPUR ’26</span>
+          <span>AWAKENING PROTOCOL • UEM JAIPUR</span>
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ export default function Gallery() {
           <div className="section__label">📸 Chronicles</div>
           <h2 className="section__title">Past Memories</h2>
           <p className="section__subtitle">
-            Relive legendary battles and unforgettable moments from previous editions of TechUthopia at UEM Jaipur.
+            Relive legendary battles and unforgettable moments from previous editions of TechUtopia at UEM Jaipur.
           </p>
         </div>
 

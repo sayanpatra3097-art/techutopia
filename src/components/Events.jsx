@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, memo } from 'react'
+import { useState, useEffect, useRef, useCallback, memo, useMemo } from 'react'
 import eventOutroImg from '../assets/event_outro.webp'
 import eventInsideImg from '../assets/event_inside.webp'
 
@@ -26,7 +26,7 @@ const eventsDataset = [
     element: 'MECHA',
     category: 'Robotics',
     icon: '🤖',
-    color: '#ff6b35',
+    color: '#0284c7',
     image: art1,
     snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
     description: 'Unleash custom-built combat mechas and robowars machines in an electric caged battle arena. Test armor, torque, weapon systems, and driver precision under high-voltage battle rounds.',
@@ -43,7 +43,7 @@ const eventsDataset = [
     element: 'GRAVITY',
     category: 'Physics & Fun',
     icon: '🌌',
-    color: '#7b2ff7',
+    color: '#6366f1',
     image: art2,
     snippet: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
     description: 'Defy terrestrial physics! Teams build aerodynamic launchers, precision egg-drop vessels, and pressurized water rockets to conquer gravity and achieve maximum flight time.',
@@ -77,7 +77,7 @@ const eventsDataset = [
     element: 'GOLD',
     category: 'Startup & Business',
     icon: '💼',
-    color: '#ffd700',
+    color: '#38bdf8',
     image: art4,
     snippet: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
     description: 'Shark Tank style startup battleground. Pitch groundbreaking tech innovations, viable business models, and scalable prototypes directly to industry investors and venture founders.',
@@ -94,7 +94,7 @@ const eventsDataset = [
     element: 'COSMIC',
     category: 'Project Expo',
     icon: '🚀',
-    color: '#4361ee',
+    color: '#2563eb',
     image: art5,
     snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
     description: 'Demonstrate working hardware prototypes, software solutions, and patented student engineering research before academic deans, judges, and visiting industry leaders.',
@@ -111,10 +111,10 @@ const eventsDataset = [
     element: 'CYBER',
     category: 'Hackathon',
     icon: '⚡',
-    color: '#ff9e00',
+    color: '#00d4ff',
     image: art6,
     snippet: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
-    description: 'The flagship 24-hour hackathon of TechUthopia! Code through the midnight hour, solve real-world industry problem statements, and present live working deployments to senior architects.',
+    description: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour, solve real-world industry problem statements, and present live working deployments to senior architects.',
     date: 'Day 1 - Day 2 • 24 Hours Non-Stop',
     venue: 'Innovation Hub & Sandbox Lab',
     prize: '₹1,00,000 + Incubation Support',
@@ -128,7 +128,7 @@ const eventsDataset = [
     element: 'LIGHTNING',
     category: 'Gaming',
     icon: '🎮',
-    color: '#e63946',
+    color: '#3b82f6',
     image: art7,
     snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     description: '5v5 tactical shooter showdown and battle royale madness. Teams duel across knockout brackets on ultra-high-refresh tournament rigs broadcasted live to the auditorium crowd.',
@@ -148,7 +148,7 @@ const eventsDataset = [
     color: '#00b4d8',
     image: art8,
     snippet: 'Theme-based on-spot photography and cinematic storytelling competition.',
-    description: 'Capture the soul, energy, and cyberpunk lights of TechUthopia. Judged on creative composition, lighting mastery, framing, and narrative storytelling without excessive post-filters.',
+    description: 'Capture the soul, energy, and cyberpunk lights of TechUtopia. Judged on creative composition, lighting mastery, framing, and narrative storytelling without excessive post-filters.',
     date: 'Day 1 - Day 2 • On-Campus Submissions',
     venue: 'Media Center & Campus-Wide',
     prize: '₹25,000 + Lens Gear',
@@ -162,7 +162,7 @@ const eventsDataset = [
     element: 'EARTH',
     category: 'Civil & Mechanics',
     icon: '🌉',
-    color: '#f77f00',
+    color: '#0ea5e9',
     image: art9,
     snippet: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
     description: 'Design and construct maximum load-bearing truss bridges with minimal dead weight. Each bridge is subjected to calibrated point loading until collapse to determine ultimate strength ratio.',
@@ -179,7 +179,7 @@ const eventsDataset = [
     element: 'NEURAL',
     category: 'AI & Digital Art',
     icon: '🔮',
-    color: '#9d4edd',
+    color: '#818cf8',
     image: art10,
     snippet: 'Prompt engineering and generative AI art showcase synthesizing anime and futurism.',
     description: 'Challenge human imagination alongside neural models. Craft state-of-the-art multimodal AI artworks, prompt architectures, and motion graphics judged by digital artists.',
@@ -196,7 +196,7 @@ const eventsDataset = [
     element: 'SHADOW',
     category: 'Coding & Logic',
     icon: '🕶️',
-    color: '#06d6a0',
+    color: '#2dd4bf',
     image: art11,
     snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
     description: 'Write compilable, bug-free C++/Python code with your display monitor switched completely OFF! Test muscle memory, algorithmic structure, and mental compiler simulation.',
@@ -213,7 +213,7 @@ const eventsDataset = [
     element: 'SPARK',
     category: 'Electronics',
     icon: '🔌',
-    color: '#118ab2',
+    color: '#0284c7',
     image: art12,
     snippet: 'Rapid breadboarding, PCB debugging, and analog/digital IC challenge.',
     description: 'Diagnose faulty circuit schematics, solder components against time, and engineer functioning silicon hardware circuits under real-time oscilloscope analysis.',
@@ -230,7 +230,7 @@ const eventsDataset = [
     element: 'FORGE',
     category: 'Hardware & Science',
     icon: '🔬',
-    color: '#ef476f',
+    color: '#60a5fa',
     image: art13,
     snippet: 'Interactive working models of smart city infrastructures and green-energy grids.',
     description: 'Spectacular large-scale physical working models! Displays include magnetic levitation tracks, sustainable hydroponics, smart disaster-warning grids, and aerospace wind tunnel tests.',
@@ -247,10 +247,10 @@ const eventsDataset = [
     element: 'RADIANCE',
     category: 'Cultural Runway',
     icon: '✨',
-    color: '#ff0055',
+    color: '#00d4ff',
     image: art14,
     snippet: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
-    description: 'The grand closing spectacle of TechUthopia! Designers, models, and anime cosplayers take the illuminated ramp in theatrical costumes combining neon cybernetics with traditional high fashion.',
+    description: 'The grand closing spectacle of TechUtopia! Designers, models, and anime cosplayers take the illuminated ramp in theatrical costumes combining neon cybernetics with traditional high fashion.',
     date: 'Day 2 • 6:30 PM - 10:00 PM (Grand Finale)',
     venue: 'Grand Amphitheatre Open Stage',
     prize: '₹70,000 + Fashion Crowns',
@@ -405,15 +405,35 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   const [activeEventIndex, setActiveEventIndex] = useState(0)
   const [openedEventId, setOpenedEventId] = useState(null)
 
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
+  const [windowWidth, setWindowWidth] = useState(() => typeof window !== 'undefined' ? window.innerWidth : 1440)
+  const isMobile = windowWidth <= 860
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 860)
+      setWindowWidth(window.innerWidth)
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  // Web view on laptop: cards are positioned to the left & right and move side-to-side on scroll
+  const { cardLateralOffset, cameraSplineShift, cardRotation } = useMemo(() => {
+    if (isMobile) {
+      return { cardLateralOffset: 140, cameraSplineShift: 140, cardRotation: 12 }
+    }
+    let offset = 680
+    if (windowWidth >= 1600) {
+      offset = Math.min(800, Math.round(windowWidth * 0.42))
+    } else if (windowWidth >= 1200) {
+      offset = Math.min(720, Math.max(620, Math.round(windowWidth * 0.46)))
+    } else {
+      offset = Math.max(520, Math.round(windowWidth * 0.44))
+    }
+
+    const shift = Math.round(offset * 0.74)
+    const rotation = 26
+    return { cardLateralOffset: offset, cameraSplineShift: shift, cardRotation: rotation }
+  }, [isMobile, windowWidth])
 
   const outroTrackRef = useRef(null)
   const insideTrackRef = useRef(null)
@@ -424,6 +444,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   // Techfest 3D Scene Refs
   const cameraWrapperRef = useRef(null)
   const sceneWrapperRef = useRef(null)
+  const backdropWallRef = useRef(null)
 
   // Motion physics refs (60-120 FPS RAF loop with zero React re-renders)
   const targetZRef = useRef(0)
@@ -444,18 +465,17 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   }, [initialStage])
 
   useEffect(() => {
-    const shift = isMobile ? 140 : 360
     const points = [{ z: 0, x: 0 }]
     computedExhibits.forEach((ev) => {
       points.push({
         z: Math.abs(ev.z) - 300,
-        x: ev.side === 'left' ? shift : -shift
+        x: ev.side === 'left' ? cameraSplineShift : -cameraSplineShift
       })
     })
     points.push({ z: TOTAL_CORRIDOR_DEPTH - 400, x: 0 })
     points.push({ z: TOTAL_CORRIDOR_DEPTH + 600, x: 0 })
     splineWaypointsRef.current = points
-  }, [isMobile])
+  }, [cameraSplineShift])
 
   // Active event for centered details modal (desktop & mobile)
   const activeOpenedEvent = computedExhibits.find((e) => e.id === openedEventId) || eventsDataset.find((e) => e.id === openedEventId)
@@ -599,9 +619,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
       const y = Math.floor(Math.random() * rows) * pixelSize
       const rVal = Math.random()
       if (rVal > 0.6) {
-        ctx.fillStyle = `rgba(255, 30, 70, ${0.4 + Math.random() * 0.5})`
+        ctx.fillStyle = `rgba(29, 78, 216, ${0.4 + Math.random() * 0.5})`
       } else if (rVal > 0.3) {
-        ctx.fillStyle = `rgba(255, 215, 0, ${0.3 + Math.random() * 0.5})`
+        ctx.fillStyle = `rgba(56, 189, 248, ${0.3 + Math.random() * 0.5})`
       } else {
         ctx.fillStyle = `rgba(0, 212, 255, ${0.3 + Math.random() * 0.5})`
       }
@@ -682,6 +702,14 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
       const xVal = calculateCatmullRomSpline(zVal, splineWaypointsRef.current)
 
       // Apply transforms directly to GPU without React re-rendering
+      // Background image: zoom only upon scroll with zero left/right movement
+      if (backdropWallRef.current) {
+        const bgProgress = Math.min(Math.max(zVal / TOTAL_CORRIDOR_DEPTH, 0), 1)
+        const bgScale = 1 + bgProgress * 0.45
+        backdropWallRef.current.style.transform = `scale(${bgScale.toFixed(4)})`
+      }
+
+      // Event cards: move from left to right as you scroll down the corridor
       if (cameraWrapperRef.current) {
         cameraWrapperRef.current.style.transform = `translate3d(${xVal.toFixed(2)}px, 0, 0)`
       }
@@ -729,10 +757,6 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   }, [stage, isPixelFading, returnToOutro, scrollToExhibit])
 
 
-
-  // Mobile card dimensions & lateral coordinates (authentic left-right alternating movement like web view)
-  const cardLateralOffset = isMobile ? 140 : 540
-  const cardRotation = isMobile ? 12 : 26
 
   return (
     <div className="techfest-quest-container">
@@ -829,11 +853,13 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
             {/* Atmospheric Background Corridor Wall */}
             <div
+              ref={backdropWallRef}
               className="techfest-backdrop-wall"
               style={{ backgroundImage: `url(${eventInsideImg})` }}
               aria-hidden="true"
             />
             <div className="techfest-backdrop-vignette" aria-hidden="true" />
+
 
             {/* 3D PERSPECTIVE STAGE CONTAINER */}
             <div className="techfest-3d-viewport">
@@ -1036,7 +1062,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                   </div>
                   <div className="centered-dossier__spec-card centered-dossier__spec-card--bounty">
                     <span className="spec-label">🏆 BOUNTY</span>
-                    <span className="spec-val" style={{ color: '#ffd700' }}>
+                    <span className="spec-val" style={{ color: '#38bdf8' }}>
                       {activeOpenedEvent.prize}
                     </span>
                   </div>

@@ -13,7 +13,7 @@ const memoryCaptions = [
   { title: 'MIDNIGHT CODELAB FORGE', caption: '24-hour hackathon warriors writing algorithms under neon lights.' },
   { title: 'SUMO BATTLEBOT ARENA', caption: 'High-torque autonomous combat robots clashing in the steel cage.' },
   { title: 'ESPORTS STAGE CHAMPIONSHIP', caption: 'Packed auditorium cheering during the tactical shooter grand final.' },
-  { title: 'LASER NIGHT CONCERT', caption: 'Spectacular beam symphony closing the ceremonies of TechUthopia.' },
+  { title: 'LASER NIGHT CONCERT', caption: 'Spectacular beam symphony closing the ceremonies of TechUtopia.' },
   { title: 'NEURAL VR & MIXED REALITY', caption: 'Students testing next-gen spatial computing and neural interfaces.' },
   { title: 'HASHIRA TROPHY CONVOCATION', caption: 'Recognizing supreme university guilds with gold medallions and awards.' },
   { title: 'QUANTUM WEB DEV SPRINT', caption: 'Real-time 3D WebGL interfaces and full-stack battleground.' },
@@ -25,13 +25,14 @@ const memoryCaptions = [
 ]
 
 const allPastPhotos = Object.entries(pastPhotosGlob)
-  .map(([filepath, url]) => {
+  .map(([filepath, url], index) => {
     const filename = filepath.split('/').pop() || ''
     const match = filename.match(/^(\d+)\.(png|webp)$/)
-    const num = match ? parseInt(match[1], 10) : 0
-    const meta = memoryCaptions[(num - 1) % memoryCaptions.length]
+    const num = match ? parseInt(match[1], 10) : (index + 1)
+    const captionIdx = Math.abs(num - 1) % (memoryCaptions.length || 1)
+    const meta = memoryCaptions[captionIdx] || memoryCaptions[0] || { title: 'TECHUTOPIA MEMORY', caption: 'Moments from TechUtopia celebrations.' }
     return {
-      id: num || filename,
+      id: `${num}-${index}`,
       num,
       filename,
       url,

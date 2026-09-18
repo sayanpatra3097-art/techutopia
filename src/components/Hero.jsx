@@ -39,7 +39,7 @@ const animeThemes = [
     title: 'CYBER JAIPUR 2026',
     kanji: '電脳桃源郷',
     sub: 'Arena: Grand Finale & Esports Coliseum',
-    badge: 'TechUthopia Apex',
+    badge: 'TechUtopia Apex',
     color: '#00f5d4',
     secondaryColor: '#00bbf9',
     image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
@@ -138,7 +138,7 @@ export default function Hero({ onNextDimension }) {
               textShadow: 'none'
             }}
           >
-            UTHOPIA
+            UTOPIA
           </span>
           <span className="hero-dimension__edition">’26</span>
         </h1>

@@ -10,7 +10,7 @@ export default function Preloader() {
 
   return (
     <div className={`preloader ${exiting ? 'preloader--exit' : ''}`}>
-      <div className="preloader__logo">TECHUTHOPIA</div>
+      <div className="preloader__logo">TECHUTOPIA</div>
       <div className="preloader__bar-track">
         <div className="preloader__bar-fill" />
       </div>

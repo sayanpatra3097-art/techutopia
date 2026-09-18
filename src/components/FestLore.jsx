@@ -34,7 +34,7 @@ export default function FestLore() {
       num: '01',
       title: 'THE AWAKENING',
       kanji: '覚醒の門',
-      desc: 'Just as an E-Rank hunter awakens unimaginable potential, TechUthopia challenges every student to transcend ordinary programming and discover their true creative strength.'
+      desc: 'Just as an E-Rank hunter awakens unimaginable potential, TechUtopia challenges every student to transcend ordinary programming and discover their true creative strength.'
     },
     {
       num: '02',
@@ -68,7 +68,7 @@ export default function FestLore() {
           </div>
           
           <h2 className="fest-lore__headline">
-            THE CHRONICLES OF TECHUTHOPIA
+            THE CHRONICLES OF TECHUTOPIA
           </h2>
 
           <div className="fest-lore__explore-cue">
