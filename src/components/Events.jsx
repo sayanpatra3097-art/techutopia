@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, memo, useMemo } from 'react'
+import { getEventFormLink, LAST_CARD_FORM_LINK } from '../context/eventForms'
 import eventOutroImg from '../assets/event_outro.webp'
 import eventInsideImg from '../assets/event_inside.webp'
 
@@ -257,8 +258,6 @@ const eventsDataset = [
     team: 'Guild Roster / Squad'
   }
 ]
-
-const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm/viewform"
 
 // 3D Corridor Layout Constants
 const SPACING_Z = 850 // Distance between consecutive exhibits in 3D depth
@@ -827,7 +826,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
                       <div className="end-board-actions">
                         <a
-                          href={GOOGLE_FORM_URL}
+                          href={LAST_CARD_FORM_LINK}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn--primary end-board-reg-btn"
@@ -997,7 +996,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
                 <div className="centered-dossier__footer">
                   <a
-                    href={GOOGLE_FORM_URL}
+                    href={getEventFormLink(activeOpenedEvent)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn--primary centered-dossier__cta-btn"

@@ -6328,3 +6328,226 @@
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.65), 0 0 10px #ff6b35;
   text-decoration: none;
 }
+
+/* ═══════════════════════════════════════════════════════
+   FLOATING SOCIALS DOCK (RIGHT-MOST CENTER)
+   Instagram • Twitter / X • Discord
+   Housed in a sleek low-opacity dark glass rectangle
+   ═══════════════════════════════════════════════════════ */
+.floating-social-sidebar {
+  position: fixed;
+  right: 18px;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.floating-social-dock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 12px 9px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), inset 0 0 12px rgba(255, 255, 255, 0.02);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-social-dock:hover {
+  background: rgba(0, 0, 0, 0.58);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 242, 254, 0.1);
+}
+
+.floating-social-dock__beam {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 14px;
+  bottom: 14px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(225, 48, 108, 0.35), rgba(0, 242, 254, 0.35), rgba(88, 101, 242, 0.35), transparent);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-social-item-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-social-btn {
+  position: relative;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 16, 32, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.floating-social-btn__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.floating-social-btn:hover,
+.floating-social-btn.is-hovered {
+  transform: scale(1.15) translateX(-3px);
+  color: #ffffff;
+  border-color: var(--brand-color);
+  background: rgba(16, 22, 44, 0.96);
+  box-shadow: 0 0 20px var(--brand-glow), 0 0 35px var(--brand-glow);
+}
+
+.floating-social-btn:hover .floating-social-icon {
+  transform: scale(1.1);
+}
+
+.floating-social-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brand-color);
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.floating-social-btn:hover .floating-social-pulse-ring {
+  opacity: 0.75;
+  transform: scale(1.12);
+  animation: floatSocialPulse 2s infinite ease-out;
+}
+
+@keyframes floatSocialPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* Tooltip on hover — slides towards the left into view */
+.floating-social-tooltip {
+  position: absolute;
+  right: calc(100% + 14px);
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(8, 12, 26, 0.95);
+  border: 1px solid var(--brand-color);
+  border-radius: 6px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 0 16px var(--brand-glow);
+  font-family: var(--font-display, 'Montserrat', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+}
+
+.floating-social-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.tooltip-kanji {
+  color: #ffd700;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.tooltip-divider {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+}
+
+.tooltip-name {
+  color: #ffffff;
+}
+
+.tooltip-arrow {
+  color: var(--brand-color);
+  font-size: 0.85rem;
+  margin-left: 2px;
+}
+
+/* Responsive adjustments for mobile / smaller screens */
+@media (max-width: 768px) {
+  .floating-social-sidebar {
+    right: 8px;
+    left: auto;
+  }
+
+  .floating-social-dock {
+    padding: 8px 6px;
+    gap: 8px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .floating-social-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .floating-social-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .floating-social-tooltip {
+    display: none;
+  }
+}
+
+

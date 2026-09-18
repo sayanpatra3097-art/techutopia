@@ -7,6 +7,7 @@ import StarConstellation from './components/StarConstellation'
 import PhotoGlobe3D from './components/PhotoGlobe3D'
 import Team from './components/Team'
 import Footer from './components/Footer'
+import FloatingSocials from './components/FloatingSocials'
 import CustomCursor from './components/CustomCursor'
 import './App.css'
 
@@ -94,6 +95,9 @@ function App() {
           currentPage={currentPage}
           onNavigatePage={goToPage}
         />
+        
+        {/* Floating Social Media Buttons (Left Center: Instagram, Twitter/X, Discord) */}
+        <FloatingSocials />
         
         <main className="dimensions-flow">
           {/* PAGE 0: Landing Experience leading to the King's Royal Scroll Countdown Timer */}

@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { getEventFormLink } from '../context/eventForms'
 
-export default function EventFlipCard({ event, googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm/viewform" }) {
+export default function EventFlipCard({ event, googleFormUrl }) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const resolvedFormUrl = googleFormUrl || getEventFormLink(event)
 
   const handleCardClick = (e) => {
     // Avoid flipping if user clicks directly on the register button or links
@@ -165,7 +167,7 @@ export default function EventFlipCard({ event, googleFormUrl = "https://docs.goo
           {/* Register via Google Form Action */}
           <div className="anime-dossier__actions">
             <a
-              href={googleFormUrl}
+              href={resolvedFormUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn anime-talisman__register-btn"
