@@ -470,8 +470,8 @@ const animeLayers = [
     title: 'TECHUTOPIA SUPREME MONARCH',
     kanji: '影の皇帝・極限覚醒',
     badge: 'Dimension 42 • Grand Apex Sovereign',
-    color: '#00d4ff',
-    secondaryColor: '#b537f2',
+    color: '#ff9a00',
+    secondaryColor: '#e63900',
     bg: getAssetBg(42),
     image: getAssetBg(42),
     quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
@@ -768,7 +768,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             <span className="door-landing__title-tech">TECH</span>
             <span
               className="door-landing__title-utopia"
-              style={{ textShadow: 'none' }}
             >
               UTOPIA
             </span>
@@ -866,7 +865,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div
                   className="royal-scroll__letter-image anime-timer__shrine-backdrop"
                   style={{
-                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(124, 58, 237, 0.28) 0%, rgba(24, 18, 55, 0.45) 35%, rgba(4, 2, 14, 0.98) 80%), url(${timerBg23})`
+                    backgroundImage: `radial-gradient(circle at 50% 35%, rgba(230, 57, 0, 0.28) 0%, rgba(24, 10, 2, 0.55) 35%, rgba(10, 4, 1, 0.98) 80%), url(${timerBg23})`
                   }}
                 />
 

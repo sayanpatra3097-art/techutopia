@@ -49,7 +49,7 @@ export default function ChamberOfTime() {
       <div
         className="time-chamber__backdrop"
         style={{
-          backgroundImage: `radial-gradient(circle at center, rgba(16, 12, 36, 0.45) 0%, rgba(4, 2, 12, 0.95) 85%), url(${timerBg23})`
+          backgroundImage: `radial-gradient(circle at center, rgba(10, 14, 25, 0.45) 0%, rgba(4, 5, 10, 0.95) 85%), url(${timerBg23})`
         }}
       />
       <div className="time-chamber__bg-grid" />

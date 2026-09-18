@@ -28,15 +28,9 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
     }
   }
 
-  // In Constellation (page 2), Memories (page 3), and Hashiras (page 4),
-  // the navbar moves upwards when scrolling instead of remaining fixed
-  const isScrollUpPage = currentPage === 2 || currentPage === 3 || currentPage === 4
-
   return (
     <>
-      <header
-        className={`modern-navbar ${isScrollUpPage ? 'modern-navbar--scroll-up' : ''} ${scrolled ? 'modern-navbar--scrolled' : ''}`}
-      >
+      <header className={`modern-navbar ${scrolled ? 'modern-navbar--scrolled' : ''}`}>
         {/* Left: Brand Logo Only */}
         <div className="modern-navbar__left" onClick={() => handleNavClick(0)}>
           <div className="modern-navbar__emblem">
@@ -44,13 +38,13 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
           </div>
         </div>
 
-        {/* Center: Cyberpunk Bluish-Purple HUD Boundary Navbar */}
+        {/* Center: Cyberpunk Golden HUD Boundary Navbar */}
         <div className="modern-navbar__center">
           <div className="tech-nav-boundary">
             {/* Dark Chamfered Background Plate */}
             <div className="tech-nav-boundary__bg" aria-hidden="true" />
 
-            {/* SVG Boundary Frame: Outer Wings, Corner Brackets, Segmented Bottom Rail with Center Gap */}
+            {/* SVG Golden Boundary Frame: Outer Wings, Corner Brackets, Segmented Bottom Rail with Center Gap */}
             <div className="tech-nav-boundary__frame" aria-hidden="true">
               <svg
                 className="tech-nav-boundary__svg"
@@ -60,28 +54,23 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>
-                  {/* TechUtopia Synth Cyber Metallic Gradient */}
-                  <linearGradient id="techPurpleMetalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="25%" stopColor="#FB2576" />
-                    <stop offset="55%" stopColor="#332FD0" />
-                    <stop offset="85%" stopColor="#3F0071" />
-                    <stop offset="100%" stopColor="#0002A1" />
+                  <linearGradient id="techGoldMetalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#fff7ed" />
+                    <stop offset="25%" stopColor="#fbbf24" />
+                    <stop offset="65%" stopColor="#ea580c" />
+                    <stop offset="100%" stopColor="#7c2d12" />
                   </linearGradient>
-                  {/* Bevel Chamfer Gradient */}
-                  <linearGradient id="techPurpleBevelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="30%" stopColor="#FB2576" />
-                    <stop offset="65%" stopColor="#332FD0" />
-                    <stop offset="85%" stopColor="#3F0071" />
-                    <stop offset="100%" stopColor="#0002A1" />
+                  <linearGradient id="techGoldBevelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#fef08a" />
+                    <stop offset="45%" stopColor="#f59e0b" />
+                    <stop offset="100%" stopColor="#b45309" />
                   </linearGradient>
                 </defs>
 
-                {/* Left Outer Wing (horizontal antenna stepping down) */}
+                {/* Left Outer Wing (horizontal gold/amber antenna stepping down) */}
                 <path
                   d="M 2 14 L 28 14 L 46 50"
-                  stroke="#FB2576"
+                  stroke="#ff9a00"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -90,69 +79,69 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
                 {/* Left Corner Beveled Bracket */}
                 <polygon
                   points="26,20 42,48 70,48 66,54 34,54 18,20"
-                  fill="url(#techPurpleMetalGrad)"
-                  stroke="#332FD0"
+                  fill="url(#techGoldMetalGrad)"
+                  stroke="#ffd580"
                   strokeWidth="1"
                 />
 
                 {/* Segment 1: Beveled Plate (under PORTAL) */}
                 <polygon
                   points="80,48 90,54 210,54 220,48 200,48 100,48"
-                  fill="url(#techPurpleBevelGrad)"
-                  stroke="#FB2576"
+                  fill="url(#techGoldBevelGrad)"
+                  stroke="#ff9a00"
                   strokeWidth="1"
                 />
-                <line x1="220" y1="48" x2="250" y2="48" stroke="#332FD0" strokeWidth="1.8" />
+                <line x1="220" y1="48" x2="250" y2="48" stroke="#f59e0b" strokeWidth="1.8" />
 
                 {/* Segment 2: Beveled Plate (under EVENTS) */}
                 <polygon
                   points="260,48 270,54 440,54 450,48 430,48 280,48"
-                  fill="url(#techPurpleBevelGrad)"
-                  stroke="#FB2576"
+                  fill="url(#techGoldBevelGrad)"
+                  stroke="#ff9a00"
                   strokeWidth="1"
                 />
 
                 {/* Center rail step-in before gap */}
-                <line x1="450" y1="48" x2="486" y2="48" stroke="#332FD0" strokeWidth="1.8" />
+                <line x1="450" y1="48" x2="486" y2="48" stroke="#f59e0b" strokeWidth="1.8" />
                 {/* CENTER GAP (divider cut) between 486 and 514 */}
-                <line x1="514" y1="48" x2="550" y2="48" stroke="#332FD0" strokeWidth="1.8" />
+                <line x1="514" y1="48" x2="550" y2="48" stroke="#f59e0b" strokeWidth="1.8" />
 
                 {/* Segment 3: Beveled Plate (under CONSTELLATION) */}
                 <polygon
                   points="560,48 570,54 730,54 740,48 720,48 580,48"
-                  fill="url(#techPurpleBevelGrad)"
-                  stroke="#FB2576"
+                  fill="url(#techGoldBevelGrad)"
+                  stroke="#ff9a00"
                   strokeWidth="1"
                 />
-                <line x1="740" y1="48" x2="770" y2="48" stroke="#332FD0" strokeWidth="1.8" />
+                <line x1="740" y1="48" x2="770" y2="48" stroke="#f59e0b" strokeWidth="1.8" />
 
                 {/* Segment 4: Beveled Plate (under MEMORIES & HASHIRAS) */}
                 <polygon
                   points="780,48 790,54 910,54 920,48 900,48 800,48"
-                  fill="url(#techPurpleBevelGrad)"
-                  stroke="#FB2576"
+                  fill="url(#techGoldBevelGrad)"
+                  stroke="#ff9a00"
                   strokeWidth="1"
                 />
 
                 {/* Right Corner Beveled Bracket */}
                 <polygon
                   points="974,20 958,48 930,48 934,54 966,54 982,20"
-                  fill="url(#techPurpleMetalGrad)"
-                  stroke="#332FD0"
+                  fill="url(#techGoldMetalGrad)"
+                  stroke="#ffd580"
                   strokeWidth="1"
                 />
 
-                {/* Right Outer Wing (horizontal antenna stepping up) */}
+                {/* Right Outer Wing (horizontal gold/amber antenna stepping up) */}
                 <path
                   d="M 954 50 L 972 14 L 998 14"
-                  stroke="#FB2576"
+                  stroke="#ff9a00"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
 
-                {/* Top Chamfer Edge Accent Line */}
-                <line x1="44" y1="1" x2="956" y2="1" stroke="rgba(251, 37, 118, 0.75)" strokeWidth="1.2" />
+                {/* Top Chamfer Edge Accent Lines */}
+                <line x1="44" y1="1" x2="956" y2="1" stroke="rgba(255, 160, 0, 0.45)" strokeWidth="1.2" />
               </svg>
             </div>
 

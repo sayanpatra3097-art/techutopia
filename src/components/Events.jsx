@@ -26,7 +26,7 @@ const eventsDataset = [
     element: 'MECHA',
     category: 'Robotics',
     icon: '🤖',
-    color: '#0284c7',
+    color: '#ff4500',
     image: art1,
     snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
     description: 'Unleash custom-built combat mechas and robowars machines in an electric caged battle arena. Test armor, torque, weapon systems, and driver precision under high-voltage battle rounds.',
@@ -43,7 +43,7 @@ const eventsDataset = [
     element: 'GRAVITY',
     category: 'Physics & Fun',
     icon: '🌌',
-    color: '#6366f1',
+    color: '#f59e0b',
     image: art2,
     snippet: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
     description: 'Defy terrestrial physics! Teams build aerodynamic launchers, precision egg-drop vessels, and pressurized water rockets to conquer gravity and achieve maximum flight time.',
@@ -60,7 +60,7 @@ const eventsDataset = [
     element: 'VITALITY',
     category: 'Healthcare & Wellness',
     icon: '🩺',
-    color: '#00f5d4',
+    color: '#ffb703',
     image: art3,
     snippet: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
     description: 'A fusion of health sciences, physiotherapy diagnostics, and athletic biomechanics. Showcase clinical skills, ergonomic innovation, and rapid physical assessment challenges.',
@@ -77,7 +77,7 @@ const eventsDataset = [
     element: 'GOLD',
     category: 'Startup & Business',
     icon: '💼',
-    color: '#38bdf8',
+    color: '#fbbf24',
     image: art4,
     snippet: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
     description: 'Shark Tank style startup battleground. Pitch groundbreaking tech innovations, viable business models, and scalable prototypes directly to industry investors and venture founders.',
@@ -94,7 +94,7 @@ const eventsDataset = [
     element: 'COSMIC',
     category: 'Project Expo',
     icon: '🚀',
-    color: '#2563eb',
+    color: '#ea580c',
     image: art5,
     snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
     description: 'Demonstrate working hardware prototypes, software solutions, and patented student engineering research before academic deans, judges, and visiting industry leaders.',
@@ -111,7 +111,7 @@ const eventsDataset = [
     element: 'CYBER',
     category: 'Hackathon',
     icon: '⚡',
-    color: '#00d4ff',
+    color: '#ffaa00',
     image: art6,
     snippet: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
     description: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour, solve real-world industry problem statements, and present live working deployments to senior architects.',
@@ -128,7 +128,7 @@ const eventsDataset = [
     element: 'LIGHTNING',
     category: 'Gaming',
     icon: '🎮',
-    color: '#3b82f6',
+    color: '#ef4444',
     image: art7,
     snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     description: '5v5 tactical shooter showdown and battle royale madness. Teams duel across knockout brackets on ultra-high-refresh tournament rigs broadcasted live to the auditorium crowd.',
@@ -145,7 +145,7 @@ const eventsDataset = [
     element: 'OPTIC',
     category: 'Creative Arts',
     icon: '📸',
-    color: '#00b4d8',
+    color: '#f97316',
     image: art8,
     snippet: 'Theme-based on-spot photography and cinematic storytelling competition.',
     description: 'Capture the soul, energy, and cyberpunk lights of TechUtopia. Judged on creative composition, lighting mastery, framing, and narrative storytelling without excessive post-filters.',
@@ -162,7 +162,7 @@ const eventsDataset = [
     element: 'EARTH',
     category: 'Civil & Mechanics',
     icon: '🌉',
-    color: '#0ea5e9',
+    color: '#d97706',
     image: art9,
     snippet: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
     description: 'Design and construct maximum load-bearing truss bridges with minimal dead weight. Each bridge is subjected to calibrated point loading until collapse to determine ultimate strength ratio.',
@@ -179,7 +179,7 @@ const eventsDataset = [
     element: 'NEURAL',
     category: 'AI & Digital Art',
     icon: '🔮',
-    color: '#818cf8',
+    color: '#ff6b35',
     image: art10,
     snippet: 'Prompt engineering and generative AI art showcase synthesizing anime and futurism.',
     description: 'Challenge human imagination alongside neural models. Craft state-of-the-art multimodal AI artworks, prompt architectures, and motion graphics judged by digital artists.',
@@ -196,7 +196,7 @@ const eventsDataset = [
     element: 'SHADOW',
     category: 'Coding & Logic',
     icon: '🕶️',
-    color: '#2dd4bf',
+    color: '#dc2626',
     image: art11,
     snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
     description: 'Write compilable, bug-free C++/Python code with your display monitor switched completely OFF! Test muscle memory, algorithmic structure, and mental compiler simulation.',
@@ -213,7 +213,7 @@ const eventsDataset = [
     element: 'SPARK',
     category: 'Electronics',
     icon: '🔌',
-    color: '#0284c7',
+    color: '#facc15',
     image: art12,
     snippet: 'Rapid breadboarding, PCB debugging, and analog/digital IC challenge.',
     description: 'Diagnose faulty circuit schematics, solder components against time, and engineer functioning silicon hardware circuits under real-time oscilloscope analysis.',
@@ -230,7 +230,7 @@ const eventsDataset = [
     element: 'FORGE',
     category: 'Hardware & Science',
     icon: '🔬',
-    color: '#60a5fa',
+    color: '#e65100',
     image: art13,
     snippet: 'Interactive working models of smart city infrastructures and green-energy grids.',
     description: 'Spectacular large-scale physical working models! Displays include magnetic levitation tracks, sustainable hydroponics, smart disaster-warning grids, and aerospace wind tunnel tests.',
@@ -247,7 +247,7 @@ const eventsDataset = [
     element: 'RADIANCE',
     category: 'Cultural Runway',
     icon: '✨',
-    color: '#00d4ff',
+    color: '#ff3366',
     image: art14,
     snippet: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
     description: 'The grand closing spectacle of TechUtopia! Designers, models, and anime cosplayers take the illuminated ramp in theatrical costumes combining neon cybernetics with traditional high fashion.',
@@ -395,11 +395,9 @@ const CorridorExhibits = memo(function CorridorExhibits({
 })
 
 export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
-  // 'outro' (Citadel entrance gate zoom) -> 'pixel' -> 'inside' (Techfest 3D tunnel corridor)
+  // 'outro' (Citadel entrance gate zoom) -> 'inside' (Techfest 3D tunnel corridor)
   const [stage, setStage] = useState(initialStage)
   const [outroProgress, setOutroProgress] = useState(0)
-  const [isPixelFading, setIsPixelFading] = useState(false)
-  const [pixelFadeProgress, setPixelFadeProgress] = useState(0)
 
   // Current active exhibit index in the corridor dock (updated smoothly)
   const [activeEventIndex, setActiveEventIndex] = useState(0)
@@ -437,7 +435,6 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
   const outroTrackRef = useRef(null)
   const insideTrackRef = useRef(null)
-  const canvasRef = useRef(null)
   const transitionCooldownRef = useRef(false)
   const insideEntryTimeRef = useRef(0)
 
@@ -501,59 +498,35 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     })
   }, [])
 
-  // ───── BIDIRECTIONAL PIXEL TRANSITION ─────
-  const startPixelFadeTransition = useCallback((direction = 'forward') => {
-    if (isPixelFading || transitionCooldownRef.current) return
-    setIsPixelFading(true)
+  // ───── SEAMLESS DIRECT TRANSITION (CLEAN, NO PIXEL ARTIFACTS) ─────
+  const enterCorridor = useCallback(() => {
+    if (transitionCooldownRef.current) return
     transitionCooldownRef.current = true
-
-    let start = null
-    const duration = 550 // ms
-
-    const animatePixels = (timestamp) => {
-      if (!start) start = timestamp
-      const elapsed = timestamp - start
-      const t = Math.min(elapsed / duration, 1)
-      setPixelFadeProgress(t)
-
-      if (t >= 0.48) {
-        if (direction === 'forward' && stage === 'outro') {
-          setStage('inside')
-          targetZRef.current = 0
-          currentZRef.current = 0
-          window.scrollTo({ top: 0, behavior: 'instant' })
-        } else if (direction === 'reverse' && stage === 'inside') {
-          setStage('outro')
-          setOpenedEventId(null)
-          setTimeout(() => {
-            if (outroTrackRef.current) {
-              const rect = outroTrackRef.current.getBoundingClientRect()
-              const scrollable = rect.height - window.innerHeight
-              const targetY = scrollable * 0.82
-              window.scrollTo({ top: targetY, behavior: 'instant' })
-              setOutroProgress(0.82)
-            }
-          }, 25)
-        }
-      }
-
-      if (t < 1) {
-        requestAnimationFrame(animatePixels)
-      } else {
-        setIsPixelFading(false)
-        setPixelFadeProgress(0)
-        setTimeout(() => {
-          transitionCooldownRef.current = false
-        }, 600)
-      }
-    }
-
-    requestAnimationFrame(animatePixels)
-  }, [isPixelFading, stage])
+    setStage('inside')
+    targetZRef.current = 0
+    currentZRef.current = 0
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    setTimeout(() => {
+      transitionCooldownRef.current = false
+    }, 350)
+  }, [])
 
   const returnToOutro = useCallback(() => {
-    startPixelFadeTransition('reverse')
-  }, [startPixelFadeTransition])
+    if (transitionCooldownRef.current) return
+    transitionCooldownRef.current = true
+    setStage('outro')
+    setOpenedEventId(null)
+    setTimeout(() => {
+      if (outroTrackRef.current) {
+        const rect = outroTrackRef.current.getBoundingClientRect()
+        const scrollable = rect.height - window.innerHeight
+        const targetY = scrollable * 0.82
+        window.scrollTo({ top: targetY, behavior: 'instant' })
+        setOutroProgress(0.82)
+      }
+      transitionCooldownRef.current = false
+    }, 50)
+  }, [])
 
   // ───── 1. OUTRO GATE SCROLL ZOOM ─────
   useEffect(() => {
@@ -577,8 +550,8 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
         setOutroProgress(progress)
       }
 
-      if (progress >= 0.88 && !isPixelFading) {
-        startPixelFadeTransition('forward')
+      if (progress >= 0.88) {
+        enterCorridor()
       }
     }
 
@@ -592,44 +565,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     window.addEventListener('scroll', handleOutroScroll, { passive: true })
     updateOutro()
     return () => window.removeEventListener('scroll', handleOutroScroll)
-  }, [stage, isPixelFading, startPixelFadeTransition])
+  }, [stage, enterCorridor])
 
-  // Canvas pixel dissolve effect
-  useEffect(() => {
-    if (!isPixelFading || !canvasRef.current) return
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const pixelSize = isMobile ? 14 : 6
-    const cols = Math.ceil(canvas.width / pixelSize)
-    const rows = Math.ceil(canvas.height / pixelSize)
-
-    const density = pixelFadeProgress < 0.5
-      ? pixelFadeProgress * 2
-      : (1 - pixelFadeProgress) * 2
-
-    const count = Math.floor(cols * rows * density * (isMobile ? 0.25 : 0.45))
-    for (let i = 0; i < count; i++) {
-      const x = Math.floor(Math.random() * cols) * pixelSize
-      const y = Math.floor(Math.random() * rows) * pixelSize
-      const rVal = Math.random()
-      if (rVal > 0.6) {
-        ctx.fillStyle = `rgba(29, 78, 216, ${0.4 + Math.random() * 0.5})`
-      } else if (rVal > 0.3) {
-        ctx.fillStyle = `rgba(56, 189, 248, ${0.3 + Math.random() * 0.5})`
-      } else {
-        ctx.fillStyle = `rgba(0, 212, 255, ${0.3 + Math.random() * 0.5})`
-      }
-      ctx.fillRect(x, y, pixelSize, pixelSize)
-    }
-  }, [isPixelFading, pixelFadeProgress, isMobile])
-
-  // ───── 3. TECHFEST 3D CORRIDOR ENGINE (60-120 FPS ZERO LAG) ─────
+  // ───── 2. TECHFEST 3D CORRIDOR ENGINE (60-120 FPS ZERO LAG) ─────
   useEffect(() => {
     if (stage !== 'inside') return
     insideEntryTimeRef.current = Date.now()
@@ -648,7 +586,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
     // Wheel event for entrance scroll-back
     const handleWheel = (e) => {
-      if (isPixelFading || transitionCooldownRef.current) return
+      if (transitionCooldownRef.current) return
       if (e.deltaY < -18 && window.scrollY <= 5) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
         if (timeSinceEntry > 500) {
@@ -663,7 +601,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
       touchStartY = e.touches[0].clientY
     }
     const handleTouchMove = (e) => {
-      if (isPixelFading || transitionCooldownRef.current) return
+      if (transitionCooldownRef.current) return
       const currentY = e.touches[0].clientY
       if (currentY - touchStartY > 60 && window.scrollY <= 5) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
@@ -754,21 +692,10 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
         cancelAnimationFrame(rafIdRef.current)
       }
     }
-  }, [stage, isPixelFading, returnToOutro, scrollToExhibit])
-
-
+  }, [stage, returnToOutro, scrollToExhibit])
 
   return (
     <div className="techfest-quest-container">
-
-      {/* ════════════ MICRO-PIXEL DISSOLVE OVERLAY ════════════ */}
-      {isPixelFading && (
-        <canvas
-          ref={canvasRef}
-          className="micro-pixel-fade-canvas"
-          aria-hidden="true"
-        />
-      )}
 
       {/* ════════════ STAGE 1: CITADEL ENTRANCE GATE (OUTRO) ════════════ */}
       {stage === 'outro' && (
@@ -827,7 +754,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
             <button
               type="button"
               className="events-outro-skip-btn"
-              onClick={() => startPixelFadeTransition('forward')}
+              onClick={enterCorridor}
               title="Enter Corridor Directly"
             >
               ENTER CORRIDOR ⚡
@@ -1062,7 +989,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                   </div>
                   <div className="centered-dossier__spec-card centered-dossier__spec-card--bounty">
                     <span className="spec-label">🏆 BOUNTY</span>
-                    <span className="spec-val" style={{ color: '#38bdf8' }}>
+                    <span className="spec-val" style={{ color: '#ffb703' }}>
                       {activeOpenedEvent.prize}
                     </span>
                   </div>

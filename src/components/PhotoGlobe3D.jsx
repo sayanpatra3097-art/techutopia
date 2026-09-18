@@ -199,10 +199,10 @@ export default function PhotoGlobe3D() {
 
       <div className="section__container">
         <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
-          <h2 className="section__title anime-glow-text" style={{ textAlign: 'center' }}>
+          <h2 className="photo-globe__title">
             CHRONICLES OF PAST GLORY
           </h2>
-          <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-sm)', color: 'rgba(226, 232, 240, 0.85)' }}>
+          <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-sm)', color: '#fde68a' }}>
             {isMobile
               ? '“21 historical fragments revolving in 3D • Drag to rotate sphere • Tap to inspect”'
               : '“41 historical fragments revolving in the cosmic void • Drag in 3D to rotate • Tap any photo talisman to inspect”'}
@@ -223,8 +223,9 @@ export default function PhotoGlobe3D() {
             }}
             camera={{ position: [0, 0, isMobile ? 11.5 : 10.5], fov: 48 }}
           >
-            <ambientLight intensity={1.3} />
-            <directionalLight position={[10, 10, 10]} intensity={0.7} />
+            <ambientLight intensity={1.4} color="#ffe8d6" />
+            <directionalLight position={[10, 10, 10]} intensity={1.1} color="#ffb703" />
+            <pointLight position={[-10, -10, -10]} intensity={0.6} color="#ff4500" />
             <Suspense fallback={null}>
               <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
             </Suspense>
@@ -274,11 +275,11 @@ export default function PhotoGlobe3D() {
             />
 
             <div className="photo-globe__modal-meta">
-              <div className="modal__title" style={{ fontSize: '1.25rem', marginTop: '1.1rem', color: '#ffffff' }}>
+              <div className="modal__title" style={{ fontSize: '1.25rem', marginTop: '1.1rem', color: '#ffb703', textShadow: '0 0 15px rgba(255, 154, 0, 0.5)' }}>
                 <span className="photo-globe__modal-stamp">覚醒記憶</span>
                 {selectedPhoto.title}
               </div>
-              <p style={{ color: 'rgba(226, 232, 240, 0.85)', fontSize: '0.92rem', marginTop: '0.5rem', lineHeight: '1.55' }}>
+              <p style={{ color: '#fed7aa', fontSize: '0.94rem', marginTop: '0.5rem', lineHeight: '1.55' }}>
                 {selectedPhoto.caption}
               </p>
               <div className="photo-globe__modal-hint">

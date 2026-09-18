@@ -1,8 +1,17 @@
+/* Self-hosted Bleeding Cowboys — distressed dark fantasy gothic serif */
+@font-face {
+  font-family: 'Bleeding Cowboys';
+  src: url('/fonts/Bleeding_Cowboys.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Rye&display=swap');
 
 /* ═══════════════════════════════════════════════════════
    TECHUTOPIA — Design System & Global Styles
-   Typography: Cinzel (Headings) × Montserrat (Other Texts) × Rye (Brand & Citadel)
+   Typography: Cinzel (Headings) × Montserrat (Other Texts) × Bleeding Cowboys (Brand & Citadel)
    ═══════════════════════════════════════════════════════ */
 
 /* === RESET === */
@@ -20,39 +29,35 @@ html {
 
 :root {
   --font-rye: 'Rye', serif;
+  --font-nosifer: 'Bleeding Cowboys', 'Rye', cursive;
   --font-solo: 'Cinzel', serif;
-  /* — Colors — TechUtopia Synth Cyber Palette: #0002A1, #332FD0, #3F0071, #FB2576 — */
-  --brand-blue: #0002A1;
-  --brand-indigo: #332FD0;
-  --brand-violet: #3F0071;
-  --brand-fuchsia: #FB2576;
+  /* — Colors — Dark Blue Theme */
+  --bg-primary: #030712;
+  --bg-secondary: #071228;
+  --bg-card: rgba(8, 20, 44, 0.85);
+  --bg-glass: rgba(6, 16, 38, 0.7);
 
-  --bg-primary: #03010b;
-  --bg-secondary: #07031c;
-  --bg-card: rgba(14, 5, 34, 0.85);
-  --bg-glass: rgba(10, 3, 26, 0.7);
-
-  --accent-blue: #332FD0;
-  --accent-cyan: #FB2576;
-  --accent-red: #3F0071;
-  --accent-orange: #FB2576;
-  --accent-purple: #332FD0;
-  --accent-magenta: #FB2576;
-  --accent-gold: #FB2576;
+  --accent-blue: #2563eb;
+  --accent-cyan: #00d4ff;
+  --accent-red: #1d4ed8;
+  --accent-orange: #38bdf8;
+  --accent-purple: #3b82f6;
+  --accent-magenta: #1e40af;
+  --accent-gold: #7dd3fc;
 
   --text-primary: #f8fafc;
-  --text-secondary: #c4b5fd;
-  --text-muted: #818cf8;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
 
-  --gradient-energy: linear-gradient(135deg, #0002A1 0%, #332FD0 35%, #3F0071 70%, #FB2576 100%);
-  --gradient-flame: linear-gradient(135deg, #332FD0 0%, #3F0071 50%, #FB2576 100%);
-  --gradient-dark: linear-gradient(180deg, #020108 0%, #060216 50%, #0d0426 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(51, 47, 208, 0.2), rgba(251, 37, 118, 0.12));
+  --gradient-energy: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #00d4ff 100%);
+  --gradient-flame: linear-gradient(135deg, #0f172a 0%, #1d4ed8 50%, #38bdf8 100%);
+  --gradient-dark: linear-gradient(180deg, #020617 0%, #060d1f 50%, #0b193d 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(29, 78, 216, 0.16), rgba(0, 212, 255, 0.08));
 
-  --glow-blue: 0 0 20px rgba(51, 47, 208, 0.6), 0 0 40px rgba(251, 37, 118, 0.35);
-  --glow-purple: 0 0 20px rgba(63, 0, 113, 0.6), 0 0 40px rgba(251, 37, 118, 0.4);
-  --glow-red: 0 0 20px rgba(251, 37, 118, 0.6), 0 0 40px rgba(51, 47, 208, 0.4);
-  --glow-cyan: 0 0 20px rgba(251, 37, 118, 0.7), 0 0 40px rgba(51, 47, 208, 0.4);
+  --glow-blue: 0 0 20px rgba(29, 78, 216, 0.6), 0 0 40px rgba(37, 99, 235, 0.35);
+  --glow-purple: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(29, 78, 216, 0.3);
+  --glow-red: 0 0 20px rgba(30, 64, 175, 0.6), 0 0 40px rgba(29, 78, 216, 0.4);
+  --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.7), 0 0 40px rgba(14, 165, 233, 0.4);
 
   /* — Typography: Cinzel for Headings & Montserrat for other texts — */
   --font-display: 'Cinzel', serif;
@@ -108,17 +113,17 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #332FD0, #FB2576);
+  background: var(--accent-blue);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #FB2576, #332FD0);
+  background: var(--accent-cyan);
 }
 
 /* === Selection === */
 ::selection {
-  background: rgba(251, 37, 118, 0.45);
-  color: #ffffff;
+  background: rgba(29, 78, 216, 0.45);
+  color: var(--text-primary);
 }
 
 /* === Global Typography === */
@@ -241,13 +246,11 @@ a:hover {
 .btn--primary {
   background: var(--gradient-energy);
   color: white;
-  border: 1px solid rgba(251, 37, 118, 0.6);
-  box-shadow: 0 4px 18px rgba(51, 47, 208, 0.5), 0 0 20px rgba(251, 37, 118, 0.35);
+  box-shadow: 0 4px 15px rgba(29, 78, 216, 0.45);
 }
 .btn--primary:hover {
   transform: translateY(-2px);
-  border-color: #FB2576;
-  box-shadow: 0 8px 30px rgba(251, 37, 118, 0.7), 0 0 40px rgba(51, 47, 208, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.6);
 }
 .btn--primary::after {
   content: '';
@@ -269,7 +272,7 @@ a:hover {
   border: 1px solid rgba(0, 212, 255, 0.45);
 }
 .btn--outline:hover {
-  background: rgba(251, 37, 118, 0.12);
+  background: rgba(0, 212, 255, 0.12);
   border-color: var(--accent-cyan);
   box-shadow: var(--glow-cyan);
 }
@@ -277,12 +280,11 @@ a:hover {
 .btn--flame {
   background: var(--gradient-flame);
   color: white;
-  border: 1px solid rgba(251, 37, 118, 0.6);
-  box-shadow: 0 4px 15px rgba(251, 37, 118, 0.4), 0 0 20px rgba(51, 47, 208, 0.4);
+  box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4);
 }
 .btn--flame:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(251, 37, 118, 0.6), 0 0 25px rgba(51, 47, 208, 0.6);
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.6);
 }
 
 /* === Grid System === */
@@ -298,7 +300,7 @@ a:hover {
 .divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(51, 47, 208, 0.5), rgba(251, 37, 118, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(29, 78, 216, 0.35), rgba(0, 212, 255, 0.35), transparent);
   margin: var(--space-xl) 0;
 }
 
@@ -337,5 +339,5 @@ a:hover {
 
 .font-rye,
 .rye-font {
-  font-family: var(--font-rye), serif !important;
+  font-family: var(--font-nosifer), serif !important;
 }
