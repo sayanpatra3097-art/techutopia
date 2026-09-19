@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getEventFormLink } from '../context/eventForms'
+import { getEventFormLink } from '../context/eventForms.jsx'
 
 export default function EventFlipCard({ event, googleFormUrl }) {
   const [isFlipped, setIsFlipped] = useState(false)

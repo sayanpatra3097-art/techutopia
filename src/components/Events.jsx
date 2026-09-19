@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, memo, useMemo } from 'react'
-import { eventsDataset, getEventFormLink, LAST_CARD_FORM_LINK } from '../context/eventForms'
+import { eventsDataset, getEventFormLink, LAST_CARD_FORM_LINK } from '../context/eventForms.jsx'
 import eventOutroImg from '../assets/event_outro.webp'
 import eventInsideImg from '../assets/event_inside.webp'
 
