@@ -1,21 +1,7 @@
 import { useState } from 'react'
+import { ALL_EVENT_TITLES } from '../context/eventForms'
 
-const allEventsList = [
-  'Robo Mania',
-  'Gravity Zone',
-  'Physio Event',
-  'TechVenture',
-  'Launchpad',
-  'Hackathon (24hr)',
-  'Esports Championship',
-  'Photography',
-  'Bridge Building',
-  'Generative Media',
-  'Andhadhun',
-  'Food Fest',
-  'Auto Expo',
-  'Fashion Carnival'
-]
+const allEventsList = ALL_EVENT_TITLES
 
 export default function RegistrationModal({ event, onClose }) {
   const [formData, setFormData] = useState({

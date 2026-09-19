@@ -6,11 +6,11 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const navLinks = [
-    { label: 'Portal', page: 0 },
+    { label: 'Home', page: 0 },
     { label: 'Events', page: 1 },
-    { label: 'Constellation', page: 2 },
+    { label: 'Itenary', page: 2 },
     { label: 'Memories', page: 3 },
-    { label: 'Hashiras', page: 4 }
+    { label: 'Contact Us', page: 4 }
   ]
 
   useEffect(() => {
@@ -199,8 +199,7 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
       {/* Fullscreen Mobile Drawer */}
       <div className={`modern-navbar__drawer ${mobileOpen ? 'is-open' : ''}`}>
         <div className="modern-navbar__drawer-header">
-          <div className="modern-navbar__brand-title">TECHUTOPIA 2026</div>
-          <button className="modern-navbar__drawer-close" onClick={() => setMobileOpen(false)}>✕</button>
+          <div className="modern-navbar__brand-title" onClick={() => handleNavClick(0)}>TECHUTOPIA 2026</div>
         </div>
 
         <div className="modern-navbar__drawer-links">

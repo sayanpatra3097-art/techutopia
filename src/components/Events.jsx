@@ -1,263 +1,7 @@
 import { useState, useEffect, useRef, useCallback, memo, useMemo } from 'react'
-import { getEventFormLink, LAST_CARD_FORM_LINK } from '../context/eventForms'
+import { eventsDataset, getEventFormLink, LAST_CARD_FORM_LINK } from '../context/eventForms'
 import eventOutroImg from '../assets/event_outro.webp'
 import eventInsideImg from '../assets/event_inside.webp'
-
-import art1 from '../assets/1.webp'
-import art2 from '../assets/2.webp'
-import art3 from '../assets/3.webp'
-import art4 from '../assets/4.webp'
-import art5 from '../assets/5.webp'
-import art6 from '../assets/6.webp'
-import art7 from '../assets/7.webp'
-import art8 from '../assets/8.webp'
-import art9 from '../assets/9.webp'
-import art10 from '../assets/10.webp'
-import art11 from '../assets/11.webp'
-import art12 from '../assets/12.webp'
-import art13 from '../assets/14.webp'
-import art14 from '../assets/15.webp'
-
-const eventsDataset = [
-  {
-    id: 1,
-    title: 'Robo Mania',
-    rank: 'S-RANK COLISEUM',
-    threat: 'S-TIER',
-    element: 'MECHA',
-    category: 'Robotics',
-    icon: '🤖',
-    color: '#ff4500',
-    image: art1,
-    snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
-    description: 'Unleash custom-built combat mechas and robowars machines in an electric caged battle arena. Test armor, torque, weapon systems, and driver precision under high-voltage battle rounds.',
-    date: 'Day 1 • 11:00 AM - 3:00 PM',
-    venue: 'Mechanical Arena, Workshop Block',
-    prize: '₹50,000 + Champion Trophy',
-    team: 'Team of 2-5'
-  },
-  {
-    id: 2,
-    title: 'Gravity Zone',
-    rank: 'A-RANK ARENA',
-    threat: 'A-TIER',
-    element: 'GRAVITY',
-    category: 'Physics & Fun',
-    icon: '🌌',
-    color: '#f59e0b',
-    image: art2,
-    snippet: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
-    description: 'Defy terrestrial physics! Teams build aerodynamic launchers, precision egg-drop vessels, and pressurized water rockets to conquer gravity and achieve maximum flight time.',
-    date: 'Day 1 • 2:00 PM - 5:00 PM',
-    venue: 'Central University Grounds, UEM Jaipur',
-    prize: '₹35,000 + Medallions',
-    team: 'Squad of 2-4'
-  },
-  {
-    id: 3,
-    title: 'Physio Event',
-    rank: 'SPECIAL GUILD',
-    threat: 'BIO-RANK',
-    element: 'VITALITY',
-    category: 'Healthcare & Wellness',
-    icon: '🩺',
-    color: '#ffb703',
-    image: art3,
-    snippet: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
-    description: 'A fusion of health sciences, physiotherapy diagnostics, and athletic biomechanics. Showcase clinical skills, ergonomic innovation, and rapid physical assessment challenges.',
-    date: 'Day 2 • 10:00 AM - 1:00 PM',
-    venue: 'Physiotherapy & Health Sciences Wing',
-    prize: '₹30,000 + Clinical Kits',
-    team: 'Solo / Duo'
-  },
-  {
-    id: 4,
-    title: 'TechVenture',
-    rank: 'S-RANK SUMMON',
-    threat: 'VENTURE',
-    element: 'GOLD',
-    category: 'Startup & Business',
-    icon: '💼',
-    color: '#fbbf24',
-    image: art4,
-    snippet: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
-    description: 'Shark Tank style startup battleground. Pitch groundbreaking tech innovations, viable business models, and scalable prototypes directly to industry investors and venture founders.',
-    date: 'Day 2 • 11:30 AM - 3:30 PM',
-    venue: 'Auditorium Hall B, UEM Jaipur',
-    prize: '₹75,000 + Seed Mentorship',
-    team: 'Team of 1-4'
-  },
-  {
-    id: 5,
-    title: 'Launchpad',
-    rank: 'A-RANK INNOVATION',
-    threat: 'A-TIER',
-    element: 'COSMIC',
-    category: 'Project Expo',
-    icon: '🚀',
-    color: '#ea580c',
-    image: art5,
-    snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
-    description: 'Demonstrate working hardware prototypes, software solutions, and patented student engineering research before academic deans, judges, and visiting industry leaders.',
-    date: 'Day 1 • 10:00 AM - 4:00 PM',
-    venue: 'Exhibition Center, Main Foyer',
-    prize: '₹45,000 + Research Grants',
-    team: 'Team of 2-4'
-  },
-  {
-    id: 6,
-    title: 'Hackathon (24hr)',
-    rank: 'SUPREME RAID',
-    threat: 'MYTHIC',
-    element: 'CYBER',
-    category: 'Hackathon',
-    icon: '⚡',
-    color: '#ffaa00',
-    image: art6,
-    snippet: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
-    description: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour, solve real-world industry problem statements, and present live working deployments to senior architects.',
-    date: 'Day 1 - Day 2 • 24 Hours Non-Stop',
-    venue: 'Innovation Hub & Sandbox Lab',
-    prize: '₹1,00,000 + Incubation Support',
-    team: 'Squad of 2-4'
-  },
-  {
-    id: 7,
-    title: 'Esports Championship',
-    rank: 'COLISEUM APEX',
-    threat: 'CHAOS',
-    element: 'LIGHTNING',
-    category: 'Gaming',
-    icon: '🎮',
-    color: '#ef4444',
-    image: art7,
-    snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
-    description: '5v5 tactical shooter showdown and battle royale madness. Teams duel across knockout brackets on ultra-high-refresh tournament rigs broadcasted live to the auditorium crowd.',
-    date: 'Day 1 - Day 2 • Tournament Brackets',
-    venue: 'Indoor Sports Stadium & Gaming Dome',
-    prize: '₹60,000 + Pro Gaming Gear',
-    team: 'Squad of 4-5'
-  },
-  {
-    id: 8,
-    title: 'Photography',
-    rank: 'B-RANK CHRONICLE',
-    threat: 'VISION',
-    element: 'OPTIC',
-    category: 'Creative Arts',
-    icon: '📸',
-    color: '#f97316',
-    image: art8,
-    snippet: 'Theme-based on-spot photography and cinematic storytelling competition.',
-    description: 'Capture the soul, energy, and cyberpunk lights of TechUtopia. Judged on creative composition, lighting mastery, framing, and narrative storytelling without excessive post-filters.',
-    date: 'Day 1 - Day 2 • On-Campus Submissions',
-    venue: 'Media Center & Campus-Wide',
-    prize: '₹25,000 + Lens Gear',
-    team: 'Solo Hunter'
-  },
-  {
-    id: 9,
-    title: 'Bridge Building',
-    rank: 'B-RANK STRUCTURE',
-    threat: 'B-TIER',
-    element: 'EARTH',
-    category: 'Civil & Mechanics',
-    icon: '🌉',
-    color: '#d97706',
-    image: art9,
-    snippet: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
-    description: 'Design and construct maximum load-bearing truss bridges with minimal dead weight. Each bridge is subjected to calibrated point loading until collapse to determine ultimate strength ratio.',
-    date: 'Day 2 • 1:30 PM - 5:00 PM',
-    venue: 'Civil Engineering Materials Lab',
-    prize: '₹30,000 + Trophy',
-    team: 'Team of 2-3'
-  },
-  {
-    id: 10,
-    title: 'Generative Media',
-    rank: 'A-RANK SYNTHESIS',
-    threat: 'A-TIER',
-    element: 'NEURAL',
-    category: 'AI & Digital Art',
-    icon: '🔮',
-    color: '#ff6b35',
-    image: art10,
-    snippet: 'Prompt engineering and generative AI art showcase synthesizing anime and futurism.',
-    description: 'Challenge human imagination alongside neural models. Craft state-of-the-art multimodal AI artworks, prompt architectures, and motion graphics judged by digital artists.',
-    date: 'Day 2 • 3:00 PM - 6:00 PM',
-    venue: 'Digital Design Studio, Block 3',
-    prize: '₹35,000 + GPU Credits',
-    team: 'Solo / Duo'
-  },
-  {
-    id: 11,
-    title: 'Blind Coding',
-    rank: 'A-RANK CIPHER',
-    threat: 'A-TIER',
-    element: 'SHADOW',
-    category: 'Coding & Logic',
-    icon: '🕶️',
-    color: '#dc2626',
-    image: art11,
-    snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
-    description: 'Write compilable, bug-free C++/Python code with your display monitor switched completely OFF! Test muscle memory, algorithmic structure, and mental compiler simulation.',
-    date: 'Day 1 • 4:00 PM - 6:30 PM',
-    venue: 'Computer Science Lab 4',
-    prize: '₹25,000 + Mechanical Keyboards',
-    team: 'Solo Hunter'
-  },
-  {
-    id: 12,
-    title: 'Circuit Design',
-    rank: 'B-RANK SILICON',
-    threat: 'B-TIER',
-    element: 'SPARK',
-    category: 'Electronics',
-    icon: '🔌',
-    color: '#facc15',
-    image: art12,
-    snippet: 'Rapid breadboarding, PCB debugging, and analog/digital IC challenge.',
-    description: 'Diagnose faulty circuit schematics, solder components against time, and engineer functioning silicon hardware circuits under real-time oscilloscope analysis.',
-    date: 'Day 2 • 10:30 AM - 1:30 PM',
-    venue: 'ECE Microelectronics Lab',
-    prize: '₹30,000 + Oscilloscope Kits',
-    team: 'Team of 2'
-  },
-  {
-    id: 13,
-    title: 'Tech Model Expo',
-    rank: 'S-RANK EXHIBIT',
-    threat: 'S-TIER',
-    element: 'FORGE',
-    category: 'Hardware & Science',
-    icon: '🔬',
-    color: '#e65100',
-    image: art13,
-    snippet: 'Interactive working models of smart city infrastructures and green-energy grids.',
-    description: 'Spectacular large-scale physical working models! Displays include magnetic levitation tracks, sustainable hydroponics, smart disaster-warning grids, and aerospace wind tunnel tests.',
-    date: 'Day 1 - Day 2 • Continuous Showcase',
-    venue: 'Main Foyer & Exhibition Hall A',
-    prize: '₹50,000 + Innovation Trophies',
-    team: 'Exhibition Guilds'
-  },
-  {
-    id: 14,
-    title: 'Fashion Carnival',
-    rank: 'SUPREME GALA',
-    threat: 'MYTHIC',
-    element: 'RADIANCE',
-    category: 'Cultural Runway',
-    icon: '✨',
-    color: '#ff3366',
-    image: art14,
-    snippet: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
-    description: 'The grand closing spectacle of TechUtopia! Designers, models, and anime cosplayers take the illuminated ramp in theatrical costumes combining neon cybernetics with traditional high fashion.',
-    date: 'Day 2 • 6:30 PM - 10:00 PM (Grand Finale)',
-    venue: 'Grand Amphitheatre Open Stage',
-    prize: '₹70,000 + Fashion Crowns',
-    team: 'Guild Roster / Squad'
-  }
-]
 
 // 3D Corridor Layout Constants
 const SPACING_Z = 850 // Distance between consecutive exhibits in 3D depth
@@ -356,33 +100,17 @@ const CorridorExhibits = memo(function CorridorExhibits({
                   alt={event.title}
                   className="techfest-card-image"
                   loading="eager"
-                  decoding="async"
+                  decoding="sync"
+                  draggable={false}
                 />
-
-                {/* Rank & Threat Hologram Badges */}
-                <div
-                  className="techfest-card-rank-badge"
-                  style={{ borderColor: event.color, color: event.color }}
-                >
-                  <span>{event.rank}</span>
-                </div>
-                <div className="techfest-card-element-tag">
-                  <span>{event.element}</span>
-                </div>
               </div>
 
               {/* Info Banner at Bottom of Artwork */}
               <div className="techfest-card-caption">
-                <div className="techfest-caption-meta">
-                  <span className="caption-icon">{event.icon}</span>
-                  <span className="caption-category">{event.category}</span>
-                  <span className="caption-bounty">{event.prize}</span>
-                </div>
-
                 <h3 className="techfest-card-title">{event.title}</h3>
 
                 <div className="techfest-card-cue">
-                  <span>✦ TAP FOR DETAILS ✦</span>
+                  <span>✦ CLICK TO REGISTER ✦</span>
                 </div>
               </div>
             </div>
@@ -416,7 +144,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
   // Web view on laptop: cards are positioned to the left & right and move side-to-side on scroll
   const { cardLateralOffset, cameraSplineShift, cardRotation } = useMemo(() => {
     if (isMobile) {
-      return { cardLateralOffset: 140, cameraSplineShift: 140, cardRotation: 12 }
+      return { cardLateralOffset: 95, cameraSplineShift: 75, cardRotation: 6 }
     }
     let offset = 680
     if (windowWidth >= 1600) {
@@ -517,17 +245,32 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     setOpenedEventId(null)
     setTimeout(() => {
       if (outroTrackRef.current) {
+        const targetProgress = 0.05
         const rect = outroTrackRef.current.getBoundingClientRect()
         const scrollable = rect.height - window.innerHeight
-        const targetY = scrollable * 0.82
+        const targetY = Math.max(0, scrollable * targetProgress)
         window.scrollTo({ top: targetY, behavior: 'instant' })
-        setOutroProgress(0.82)
+        setOutroProgress(targetProgress)
       }
-      transitionCooldownRef.current = false
+      setTimeout(() => {
+        transitionCooldownRef.current = false
+      }, 500)
     }, 50)
   }, [])
 
-  // ───── 1. OUTRO GATE SCROLL ZOOM ─────
+  // ───── PRELOAD CORRIDOR ASSETS FOR INSTANT LOAD ─────
+  useEffect(() => {
+    const insideImg = new Image()
+    insideImg.src = eventInsideImg
+    computedExhibits.slice(0, 8).forEach((ev) => {
+      if (ev.image) {
+        const cardImg = new Image()
+        cardImg.src = ev.image
+      }
+    })
+  }, [])
+
+  // ───── 1. OUTRO GATE SCROLL ZOOM & INSTANT MOBILE TRANSITION ─────
   useEffect(() => {
     if (stage !== 'outro') return
 
@@ -549,7 +292,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
         setOutroProgress(progress)
       }
 
-      if (progress >= 0.88) {
+      // Fast responsive trigger threshold: instantaneous on mobile
+      const triggerThreshold = isMobile ? 0.25 : 0.75
+      if (progress >= triggerThreshold) {
         enterCorridor()
       }
     }
@@ -561,10 +306,30 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
       }
     }
 
+    // Touch swipe support for immediate entry on mobile
+    let touchStartY = 0
+    const handleOutroTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+    const handleOutroTouchMove = (e) => {
+      if (transitionCooldownRef.current) return
+      const currentY = e.touches[0].clientY
+      if (touchStartY - currentY > 35) { // User swiped upwards to enter
+        enterCorridor()
+      }
+    }
+
     window.addEventListener('scroll', handleOutroScroll, { passive: true })
+    window.addEventListener('touchstart', handleOutroTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleOutroTouchMove, { passive: true })
     updateOutro()
-    return () => window.removeEventListener('scroll', handleOutroScroll)
-  }, [stage, enterCorridor])
+
+    return () => {
+      window.removeEventListener('scroll', handleOutroScroll)
+      window.removeEventListener('touchstart', handleOutroTouchStart)
+      window.removeEventListener('touchmove', handleOutroTouchMove)
+    }
+  }, [stage, isMobile, enterCorridor])
 
   // ───── 2. TECHFEST 3D CORRIDOR ENGINE (60-120 FPS ZERO LAG) ─────
   useEffect(() => {
@@ -586,15 +351,15 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     // Wheel event for entrance scroll-back
     const handleWheel = (e) => {
       if (transitionCooldownRef.current) return
-      if (e.deltaY < -18 && window.scrollY <= 5) {
+      if (e.deltaY < -10 && window.scrollY <= 15) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
-        if (timeSinceEntry > 500) {
+        if (timeSinceEntry > 600) {
           returnToOutro()
         }
       }
     }
 
-    // Touch swipe for mobile entrance scroll-back
+    // Touch swipe for mobile entrance scroll-back (responsive pull-down at top)
     let touchStartY = 0
     const handleTouchStart = (e) => {
       touchStartY = e.touches[0].clientY
@@ -602,9 +367,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     const handleTouchMove = (e) => {
       if (transitionCooldownRef.current) return
       const currentY = e.touches[0].clientY
-      if (currentY - touchStartY > 60 && window.scrollY <= 5) {
+      if (currentY - touchStartY > 45 && window.scrollY <= 15) {
         const timeSinceEntry = Date.now() - insideEntryTimeRef.current
-        if (timeSinceEntry > 500) {
+        if (timeSinceEntry > 600) {
           returnToOutro()
         }
       }
@@ -639,11 +404,15 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
       const xVal = calculateCatmullRomSpline(zVal, splineWaypointsRef.current)
 
       // Apply transforms directly to GPU without React re-rendering
-      // Background image: zoom only upon scroll with zero left/right movement
+      // Background image: stable hardware transform, zoom only on desktop, locked on mobile to avoid flicker
       if (backdropWallRef.current) {
-        const bgProgress = Math.min(Math.max(zVal / TOTAL_CORRIDOR_DEPTH, 0), 1)
-        const bgScale = 1 + bgProgress * 0.45
-        backdropWallRef.current.style.transform = `scale(${bgScale.toFixed(4)})`
+        if (!isMobile) {
+          const bgProgress = Math.min(Math.max(zVal / TOTAL_CORRIDOR_DEPTH, 0), 1)
+          const bgScale = 1 + bgProgress * 0.35
+          backdropWallRef.current.style.transform = `scale3d(${bgScale.toFixed(4)}, ${bgScale.toFixed(4)}, 1) translateZ(0)`
+        } else {
+          backdropWallRef.current.style.transform = 'translate3d(0, 0, 0)'
+        }
       }
 
       // Event cards: move from left to right as you scroll down the corridor
@@ -665,8 +434,37 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
         const nextEl = document.getElementById(`techfest-mount-${estimatedIdx}`)
         if (nextEl) nextEl.classList.add('is-focused')
 
+        const prevDot = document.getElementById(`techfest-dock-dot-${lastActiveIdxRef.current}`)
+        if (prevDot) prevDot.classList.remove('is-active')
+        const nextDot = document.getElementById(`techfest-dock-dot-${estimatedIdx}`)
+        if (nextDot) nextDot.classList.add('is-active')
+
         lastActiveIdxRef.current = estimatedIdx
-        setActiveEventIndex(estimatedIdx)
+      }
+
+      // Frustum Near-Plane Culling & Smooth Shoulder Dissolve:
+      // Completely eliminates flickering by hiding cards that pass behind the camera lens
+      for (let i = 0; i < computedExhibits.length; i++) {
+        const evZ = computedExhibits[i].z
+        const effZ = evZ + zVal // Distance relative to camera plane (z=0)
+        const mountEl = document.getElementById(`techfest-mount-${i}`)
+        if (mountEl) {
+          if (effZ > 60 || effZ < -6500) {
+            if (mountEl.style.visibility !== 'hidden') {
+              mountEl.style.visibility = 'hidden'
+            }
+          } else {
+            if (mountEl.style.visibility !== 'visible') {
+              mountEl.style.visibility = 'visible'
+            }
+            if (effZ > -130) {
+              const alpha = Math.max(0, Math.min(1, (50 - effZ) / 180))
+              mountEl.style.opacity = alpha.toFixed(3)
+            } else if (mountEl.style.opacity !== '1') {
+              mountEl.style.opacity = '1'
+            }
+          }
+        }
       }
 
       rafIdRef.current = requestAnimationFrame(renderLoop)
@@ -693,6 +491,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
     }
   }, [stage, returnToOutro, scrollToExhibit])
 
+  // Normalized progress for rapid, responsive animation (especially on mobile)
+  const displayProgress = isMobile ? Math.min(outroProgress * 3.2, 1) : outroProgress
+
   return (
     <div className="techfest-quest-container">
 
@@ -705,8 +506,8 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
               className="events-outro-portal-inside"
               style={{
                 backgroundImage: `url(${eventInsideImg})`,
-                transform: `scale(${0.78 + outroProgress * 0.32})`,
-                opacity: outroProgress < 0.2 ? 0 : Math.min(1, (outroProgress - 0.2) / 0.62)
+                transform: `scale(${0.78 + displayProgress * 0.32})`,
+                opacity: displayProgress < 0.15 ? 0 : Math.min(1, (displayProgress - 0.15) / 0.55)
               }}
               aria-hidden="true"
             />
@@ -716,9 +517,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
               className="events-outro-bg"
               style={{
                 backgroundImage: `url(${eventOutroImg})`,
-                transform: `scale(${1 + outroProgress * 3.4})`,
+                transform: `scale(${1 + displayProgress * 3.4})`,
                 transformOrigin: '50% 51%',
-                opacity: outroProgress < 0.55 ? 1 : Math.max(0, 1 - (outroProgress - 0.55) / 0.36)
+                opacity: displayProgress < 0.5 ? 1 : Math.max(0, 1 - (displayProgress - 0.5) / 0.35)
               }}
               aria-hidden="true"
             />
@@ -726,7 +527,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
             {/* Subtle Atmosphere Light Vignette */}
             <div
               className="events-outro-ambient"
-              style={{ opacity: 0.3 + outroProgress * 0.45 }}
+              style={{ opacity: 0.3 + displayProgress * 0.45 }}
               aria-hidden="true"
             />
 
@@ -734,8 +535,8 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
             <div
               className="events-outro-content"
               style={{
-                opacity: Math.max(1 - outroProgress * 2.2, 0),
-                transform: `scale(${1 - outroProgress * 0.2})`
+                opacity: Math.max(1 - displayProgress * 2.2, 0),
+                transform: `scale(${1 - displayProgress * 0.2})`
               }}
             >
               <h1 className="events-outro-title">
@@ -744,7 +545,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
 
               <div className="events-outro-scroll-hint">
                 <span className="scroll-hint-icon">↓</span>
-                <span className="scroll-hint-text">  ({Math.round(outroProgress * 100)}%)</span>
+                <span className="scroll-hint-text">  ({Math.round(displayProgress * 100)}%)</span>
                 <span className="scroll-hint-icon">↓</span>
               </div>
             </div>
@@ -763,7 +564,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
             <div className="events-outro-progress-bar">
               <div
                 className="events-outro-progress-fill"
-                style={{ width: `${outroProgress * 100}%` }}
+                style={{ width: `${displayProgress * 100}%` }}
               />
             </div>
           </div>
@@ -777,14 +578,18 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
           {/* Fixed 3D Viewport (Zero Scroll Lag, 100vw x 100vh) */}
           <div className="techfest-fixed-stage">
 
-            {/* Atmospheric Background Corridor Wall */}
-            <div
-              ref={backdropWallRef}
-              className="techfest-backdrop-wall"
-              style={{ backgroundImage: `url(${eventInsideImg})` }}
-              aria-hidden="true"
-            />
-            <div className="techfest-backdrop-vignette" aria-hidden="true" />
+            {/* Atmospheric Background Corridor Wall (High Clarity Dedicated <img> Element) */}
+            <div className="techfest-backdrop-wall-wrap" aria-hidden="true">
+              <img
+                ref={backdropWallRef}
+                src={eventInsideImg}
+                alt="Citadel Sanctuary Corridor"
+                className="techfest-backdrop-wall-img"
+                loading="eager"
+                decoding="sync"
+              />
+              <div className="techfest-backdrop-vignette" />
+            </div>
 
 
             {/* 3D PERSPECTIVE STAGE CONTAINER */}
@@ -874,8 +679,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
               <button
                 type="button"
                 className="techfest-dock-btn"
-                onClick={() => scrollToExhibit(Math.max(0, activeEventIndex - 1))}
-                disabled={activeEventIndex === 0}
+                onClick={() => scrollToExhibit(Math.max(0, lastActiveIdxRef.current - 1))}
                 title="Walk to Previous Exhibit"
               >
                 &lt;
@@ -885,8 +689,9 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                 {computedExhibits.map((ev, idx) => (
                   <button
                     key={ev.id}
+                    id={`techfest-dock-dot-${idx}`}
                     type="button"
-                    className={`techfest-dock-dot ${activeEventIndex === idx ? 'is-active' : ''}`}
+                    className={`techfest-dock-dot ${idx === 0 ? 'is-active' : ''}`}
                     onClick={() => scrollToExhibit(idx)}
                     title={`Exhibit ${idx + 1}: ${ev.title}`}
                   >
@@ -898,8 +703,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
               <button
                 type="button"
                 className="techfest-dock-btn"
-                onClick={() => scrollToExhibit(Math.min(computedExhibits.length - 1, activeEventIndex + 1))}
-                disabled={activeEventIndex === computedExhibits.length - 1}
+                onClick={() => scrollToExhibit(Math.min(computedExhibits.length - 1, lastActiveIdxRef.current + 1))}
                 title="Walk to Next Exhibit"
               >
                 &gt;
@@ -921,32 +725,16 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
             style={{ '--event-color': activeOpenedEvent.color }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Top action header */}
+            {/* Top Close Action */}
             <div className="centered-dossier__header">
-              <div className="centered-dossier__tag-group">
-                <span className="centered-dossier__tag-icon">⚡</span>
-                <span className="centered-dossier__tag-title">MISSION DOSSIER // 任務概要</span>
-                <span className="centered-dossier__number">
-                  EXHIBIT {activeOpenedEvent.index !== undefined ? activeOpenedEvent.index + 1 : activeOpenedEvent.id} / {computedExhibits.length}
-                </span>
-              </div>
-
-              <div className="centered-dossier__header-right">
-                <span
-                  className="centered-dossier__rank-badge"
-                  style={{ borderColor: activeOpenedEvent.color, color: activeOpenedEvent.color }}
-                >
-                  {activeOpenedEvent.rank}
-                </span>
-                <button
-                  type="button"
-                  className="centered-dossier__close-btn"
-                  onClick={() => setOpenedEventId(null)}
-                  aria-label="Close details card"
-                >
-                  ✕ CLOSE
-                </button>
-              </div>
+              <button
+                type="button"
+                className="centered-dossier__close-btn"
+                onClick={() => setOpenedEventId(null)}
+                aria-label="Close details card"
+              >
+                ✕ CLOSE
+              </button>
             </div>
 
             {/* Content Body: Left Column Image / Right Column Specs */}
@@ -958,18 +746,10 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                   alt={activeOpenedEvent.title}
                   className="centered-dossier__img"
                 />
-                <div className="centered-dossier__element-pill">
-                  <span>{activeOpenedEvent.element}</span>
-                </div>
               </div>
 
               {/* Information & Specs */}
               <div className="centered-dossier__info">
-                <div className="centered-dossier__meta-row">
-                  <span className="centered-dossier__cat-icon">{activeOpenedEvent.icon}</span>
-                  <span className="centered-dossier__category">{activeOpenedEvent.category}</span>
-                </div>
-
                 <h3 className="centered-dossier__title">{activeOpenedEvent.title}</h3>
                 <p className="centered-dossier__briefing">{activeOpenedEvent.description}</p>
 
@@ -985,12 +765,6 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                   <div className="centered-dossier__spec-card">
                     <span className="spec-label">👥 GUILD SQUAD</span>
                     <span className="spec-val">{activeOpenedEvent.team}</span>
-                  </div>
-                  <div className="centered-dossier__spec-card centered-dossier__spec-card--bounty">
-                    <span className="spec-label">🏆 BOUNTY</span>
-                    <span className="spec-val" style={{ color: '#ffb703' }}>
-                      {activeOpenedEvent.prize}
-                    </span>
                   </div>
                 </div>
 

@@ -1,11 +1,11 @@
 import { useRef, useState, useMemo, useEffect, Suspense } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import useScrollReveal from '../hooks/useScrollReveal'
 import universeBg from '../assets/anime_universe_bg.webp'
 
-// Dynamically import all 41 photos from src/assets/pastphotos
+// Dynamically import all photos from src/assets/pastphotos
 const pastPhotosGlob = import.meta.glob('../assets/pastphotos/*.webp', { eager: true, import: 'default' })
 
 // Curated anime-themed lore captions for the memory fragments
@@ -42,15 +42,14 @@ const allPastPhotos = Object.entries(pastPhotosGlob)
   })
   .sort((a, b) => a.num - b.num)
 
-/* Single Floating Photo Card in 3D Spherical Formation */
-function GlobePhotoCard({ photo, position, onSelect, isMobile }) {
-  const meshRef = useRef()
-  const [hovered, setHovered] = useState(false)
+// Texture cache so duplicated photo tiles share the exact same GPU texture
+const textureCache = new Map()
 
-  // Load image texture safely with SRGB color space
-  const texture = useMemo(() => {
+function getSharedTexture(url, isMobile) {
+  const cacheKey = `${url}_${isMobile ? 'm' : 'd'}`
+  if (!textureCache.has(cacheKey)) {
     const loader = new THREE.TextureLoader()
-    const tex = loader.load(photo.url)
+    const tex = loader.load(url)
     tex.colorSpace = THREE.SRGBColorSpace
     if (isMobile) {
       tex.generateMipmaps = false
@@ -59,29 +58,42 @@ function GlobePhotoCard({ photo, position, onSelect, isMobile }) {
       tex.generateMipmaps = true
       tex.minFilter = THREE.LinearMipmapLinearFilter
     }
-    return tex
+    textureCache.set(cacheKey, tex)
+  }
+  return textureCache.get(cacheKey)
+}
+
+/* Single Floating Photo Card in 3D Spherical Formation with Golden Trim & Drag-Proof Tap */
+function GlobePhotoCard({ photo, position, rotation, w, h, onSelect, isMobile }) {
+  const groupRef = useRef()
+  const [hovered, setHovered] = useState(false)
+  const pointerStartRef = useRef({ x: 0, y: 0, time: 0 })
+
+  // Load image texture safely with SRGB color space (cached for duplicate tiles)
+  const texture = useMemo(() => {
+    return getSharedTexture(photo.url, isMobile)
   }, [photo.url, isMobile])
 
-  // Cleanup texture on unmount to prevent GPU memory leaks
-  useEffect(() => {
-    return () => {
-      if (texture) texture.dispose()
-    }
-  }, [texture])
-
-  useFrame(() => {
-    if (meshRef.current) {
-      // Face outward from origin (0,0,0)
-      meshRef.current.lookAt(0, 0, 0)
-      meshRef.current.rotateY(Math.PI)
-    }
-  })
-
   return (
-    <group position={position} ref={meshRef}>
+    <group position={position} rotation={rotation} ref={groupRef}>
       {/* 3D Photo Plane */}
       <mesh
-        scale={hovered ? 1.15 : 1}
+        scale={hovered ? 1.08 : 1}
+        onPointerDown={(e) => {
+          pointerStartRef.current = { x: e.clientX, y: e.clientY, time: Date.now() }
+        }}
+        onPointerUp={(e) => {
+          const dx = e.clientX - pointerStartRef.current.x
+          const dy = e.clientY - pointerStartRef.current.y
+          const dist = Math.hypot(dx, dy)
+          const elapsed = Date.now() - pointerStartRef.current.time
+          // Deliberate tap/click threshold (< 8px movement and < 400ms duration)
+          // Ensures dragging to rotate NEVER accidentally triggers modal open!
+          if (dist < 8 && elapsed < 400) {
+            e.stopPropagation()
+            onSelect(photo)
+          }
+        }}
         onPointerOver={(e) => {
           e.stopPropagation()
           if (!isMobile) {
@@ -95,62 +107,107 @@ function GlobePhotoCard({ photo, position, onSelect, isMobile }) {
             document.body.style.cursor = 'auto'
           }
         }}
-        onClick={(e) => {
-          e.stopPropagation()
-          onSelect(photo)
-        }}
       >
-        <planeGeometry args={isMobile ? [1.9, 1.3] : [2.1, 1.45]} />
-        <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
+        <planeGeometry args={[w, h]} />
+        <meshBasicMaterial map={texture} side={THREE.FrontSide} />
+
+        {/* Glowing Gold Border Trim (HackJKLU Aesthetic) */}
+        <mesh position={[0, 0, -0.005]}>
+          <planeGeometry args={[w + 0.04, h + 0.04]} />
+          <meshBasicMaterial color={hovered ? '#fbbf24' : '#d97706'} transparent opacity={hovered ? 0.95 : 0.65} />
+        </mesh>
+
+        {/* Polished Obsidian Backing Plate for Back-Facing Cards */}
+        <mesh position={[0, 0, -0.01]} rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[w + 0.04, h + 0.04]} />
+          <meshBasicMaterial color="#1a0b04" side={THREE.FrontSide} />
+        </mesh>
       </mesh>
     </group>
   )
 }
 
-/* 3D Spherical Cluster of Photos (NO globe mesh, NO orbit rings) */
+/* 3D Spherical Cluster of Photos (Continuous Left-to-Right Drift & Cosmic Sparkles) */
 function GlobeScene({ onSelect, isMobile }) {
   const groupRef = useRef()
 
-  // On mobile screens, curate a balanced subset (21 photos) to slash VRAM and draw calls by 50%
-  const displayPhotos = useMemo(() => {
-    if (isMobile) {
-      return allPastPhotos.filter((_, idx) => idx % 2 === 0)
-    }
-    return allPastPhotos
-  }, [isMobile])
+  // Sizing and spherical grid configuration (HackJKLU style with negligible spacing)
+  const segmentsX = isMobile ? 14 : 18
+  const segmentsY = isMobile ? 4 : 5
+  const totalSlots = segmentsX * segmentsY
+  const radius = isMobile ? 4.5 : 4.85
+  const stepThetaDeg = isMobile ? 18 : 17.5
+  const stepThetaRad = (stepThetaDeg * Math.PI) / 180
+  const wBase = isMobile ? 1.95 : 1.63
+  const h = isMobile ? 1.35 : 1.42
 
-  // Calculate 3D spherical positions (Fibonacci sphere distribution)
-  const photoPositions = useMemo(() => {
-    const count = displayPhotos.length
-    const radius = isMobile ? 4.2 : 4.5
-    return displayPhotos.map((photo, i) => {
-      const phi = Math.acos(-1 + (2 * (i + 0.5)) / count)
-      const theta = Math.sqrt(count * Math.PI) * phi
-      const x = radius * Math.cos(theta) * Math.sin(phi)
-      const y = radius * Math.sin(theta) * Math.sin(phi)
-      const z = radius * Math.cos(phi)
-      return { photo, pos: [x, y, z] }
+  // Duplicate photos cyclically if number of photos is less than totalSlots,
+  // ensuring the space between photos is completely filled and negligible.
+  const photoSlots = useMemo(() => {
+    if (allPastPhotos.length === 0) return []
+
+    const dummy = new THREE.Object3D()
+
+    return Array.from({ length: totalSlots }).map((_, i) => {
+      const photo = allPastPhotos[i % allPastPhotos.length]
+      const col = i % segmentsX
+      const row = Math.floor(i / segmentsX)
+
+      // Horizontal angle around Y axis (0 to 360 deg)
+      const phi = (col / segmentsX) * Math.PI * 2
+      // Elevation angle from center equator
+      const theta = (row - (segmentsY - 1) / 2) * stepThetaRad
+
+      const cosTheta = Math.cos(theta)
+      const sinTheta = Math.sin(theta)
+
+      const x = radius * Math.sin(phi) * cosTheta
+      const y = radius * sinTheta
+      const z = radius * Math.cos(phi) * cosTheta
+
+      // Compute outward orientation pointing away from origin
+      dummy.position.set(x, y, z)
+      dummy.lookAt(x * 2, y * 2, z * 2)
+
+      // Calculate width adapting to row latitude so gap is uniform and negligible across all rows
+      const rowWidth = wBase * cosTheta
+
+      return {
+        key: `${photo.id}-slot-${i}`,
+        photo,
+        pos: [x, y, z],
+        rot: [dummy.rotation.x, dummy.rotation.y, dummy.rotation.z],
+        w: rowWidth,
+        h
+      }
     })
-  }, [displayPhotos, isMobile])
-
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.075 // Smooth celestial rotation
-    }
-  })
+  }, [segmentsX, segmentsY, totalSlots, radius, stepThetaRad, wBase, h])
 
   return (
     <group ref={groupRef}>
-      {/* Floating photos in dense spherical formation */}
-      {photoPositions.map(({ photo, pos }) => (
+      {/* Seamless tightly packed photo globe with negligible gaps */}
+      {photoSlots.map((slot) => (
         <GlobePhotoCard
-          key={photo.id}
-          photo={photo}
-          position={pos}
+          key={slot.key}
+          photo={slot.photo}
+          position={slot.pos}
+          rotation={slot.rot}
+          w={slot.w}
+          h={slot.h}
           onSelect={onSelect}
           isMobile={isMobile}
         />
       ))}
+
+      {/* Atmospheric Cosmic Sparkles around the globe (HackJKLU Aesthetic) */}
+      <Sparkles
+        count={isMobile ? 36 : 75}
+        scale={13}
+        size={isMobile ? 2.5 : 4}
+        speed={0.45}
+        color="#ffb703"
+        opacity={0.75}
+      />
     </group>
   )
 }
@@ -203,9 +260,7 @@ export default function PhotoGlobe3D() {
             CHRONICLES OF PAST GLORY
           </h2>
           <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-sm)', color: '#fde68a' }}>
-            {isMobile
-              ? '“21 historical fragments revolving in 3D • Drag to rotate sphere • Tap to inspect”'
-              : '“41 historical fragments revolving in the cosmic void • Drag in 3D to rotate • Tap any photo talisman to inspect”'}
+            Click to open pic and tap and drag to rotate
           </p>
         </div>
 
@@ -221,27 +276,32 @@ export default function PhotoGlobe3D() {
               stencil: false,
               alpha: true
             }}
-            camera={{ position: [0, 0, isMobile ? 11.5 : 10.5], fov: 48 }}
+            camera={{ position: [0, 0, isMobile ? 11.8 : 10.5], fov: 48 }}
           >
-            <ambientLight intensity={1.4} color="#ffe8d6" />
-            <directionalLight position={[10, 10, 10]} intensity={1.1} color="#ffb703" />
-            <pointLight position={[-10, -10, -10]} intensity={0.6} color="#ff4500" />
+            <ambientLight intensity={1.5} color="#ffe8d6" />
+            <directionalLight position={[10, 10, 10]} intensity={1.2} color="#ffb703" />
+            <pointLight position={[-10, -10, -10]} intensity={0.8} color="#ff4500" />
             <Suspense fallback={null}>
               <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
             </Suspense>
+            {/* 
+              OrbitControls:
+              - ONLY tap and drag can rotate the globe (enableRotate={true}, enableZoom={false}, enablePan={false})
+              - Continuously moves from left to right via autoRotateSpeed={-1.3}
+            */}
             <OrbitControls
-              enableZoom={true}
-              minDistance={5}
-              maxDistance={15}
+              enableZoom={false}
               enablePan={false}
-              autoRotate={false}
-              dampingFactor={0.05}
+              enableRotate={true}
+              autoRotate={true}
+              autoRotateSpeed={-1.3}
+              rotateSpeed={isMobile ? 0.9 : 0.75}
+              dampingFactor={0.06}
+              enableDamping={true}
+              minPolarAngle={Math.PI * 0.15}
+              maxPolarAngle={Math.PI * 0.85}
             />
           </Canvas>
-
-          <div className="photo-globe__drag-hint">
-            <span>✨ {isMobile ? '21' : '41'} MEMORY TALISMANS • ↺ DRAG TO ROTATE 3D SPHERE • SCROLL TO ZOOM</span>
-          </div>
         </div>
       </div>
 
@@ -268,23 +328,18 @@ export default function PhotoGlobe3D() {
               ✕
             </button>
 
-            <img
-              src={selectedPhoto.url}
-              alt={selectedPhoto.title}
-              className="photo-globe__modal-img"
-            />
+            {/* Only title on top: memories to be noticed */}
+            <div className="photo-globe__modal-header">
+              <h3 className="photo-globe__modal-title">MEMORIES TO BE NOTICED</h3>
+            </div>
 
-            <div className="photo-globe__modal-meta">
-              <div className="modal__title" style={{ fontSize: '1.25rem', marginTop: '1.1rem', color: '#ffb703', textShadow: '0 0 15px rgba(255, 154, 0, 0.5)' }}>
-                <span className="photo-globe__modal-stamp">覚醒記憶</span>
-                {selectedPhoto.title}
-              </div>
-              <p style={{ color: '#fed7aa', fontSize: '0.94rem', marginTop: '0.5rem', lineHeight: '1.55' }}>
-                {selectedPhoto.caption}
-              </p>
-              <div className="photo-globe__modal-hint">
-                <span>[ Tap ✕ button or tap anywhere outside to close ]</span>
-              </div>
+            {/* The image only, no description */}
+            <div className="photo-globe__modal-img-container">
+              <img
+                src={selectedPhoto.url}
+                alt="memories to be noticed"
+                className="photo-globe__modal-img"
+              />
             </div>
           </div>
         </div>

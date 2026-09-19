@@ -90,13 +90,8 @@ export default function EventFlipCard({ event, googleFormUrl }) {
             </p>
           </div>
 
-          {/* Bottom Imperial Bounty & Flip Action */}
-          <div className="anime-talisman__footer">
-            <div className="anime-talisman__bounty-box">
-              <span className="anime-bounty__label">【 報奨金 // BOUNTY 】</span>
-              <span className="anime-bounty__value">{event.prize}</span>
-            </div>
-
+          {/* Bottom Imperial Flip Action */}
+          <div className="anime-talisman__footer anime-talisman__footer--centered">
             <div className="anime-talisman__flip-cue">
               <span className="anime-flip__text">開封 // TAP TO FLIP</span>
               <span className="anime-flip__icon">↻</span>

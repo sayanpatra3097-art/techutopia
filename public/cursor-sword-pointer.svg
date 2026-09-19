@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <!-- Ignited combat sword aura -->
+    <filter id="flameSwordGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.4" flood-color="#ff007f" flood-opacity="1"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="3.2" flood-color="#7928ca" flood-opacity="0.8"/>
+    </filter>
+    <linearGradient id="bladeCombatL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#ff70a6"/>
+      <stop offset="100%" stop-color="#ff007f"/>
+    </linearGradient>
+    <linearGradient id="bladeCombatR" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe5ec"/>
+      <stop offset="60%" stop-color="#d90429"/>
+      <stop offset="100%" stop-color="#590d22"/>
+    </linearGradient>
+    <linearGradient id="goldHiltCombat" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#ff9e00"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#flameSwordGlow)">
+    <!-- Blade Aura Slash Energy Flare -->
+    <path d="M1 2 L17 13 L15 17 L2 3 Z" fill="#ff007f" opacity="0.35"/>
+
+    <!-- Sword Blade Upper Edge -->
+    <polygon points="2,2 17,14 16,16" fill="url(#bladeCombatL)" stroke="#ff007f" stroke-width="0.6"/>
+    
+    <!-- Sword Blade Lower Edge -->
+    <polygon points="2,2 16,16 14,17" fill="url(#bladeCombatR)" stroke="#d90429" stroke-width="0.6"/>
+
+    <!-- Sharp Center Blade Spine / Energy Hamon -->
+    <line x1="2" y1="2" x2="16" y2="16" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round"/>
+
+    <!-- Crossguard (Quillons) -->
+    <polygon points="10,21 13,18 15,16 18,14 21,11 20,14 17,17 14,20" fill="url(#goldHiltCombat)" stroke="#ffffff" stroke-width="0.6"/>
+    <!-- Guard Center Gem -->
+    <polygon points="16,14.5 17.5,16 16,17.5 14.5,16" fill="#00f0ff" stroke="#ffffff" stroke-width="0.5"/>
+
+    <!-- Sword Grip / Handle -->
+    <line x1="17" y1="17" x2="25" y2="25" stroke="#240046" stroke-width="3" stroke-linecap="round"/>
+    <line x1="17" y1="17" x2="25" y2="25" stroke="#ff007f" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- Grip Wrap Ties -->
+    <line x1="19" y1="18" x2="18" y2="19" stroke="#ffffff" stroke-width="0.8"/>
+    <line x1="21" y1="20" x2="20" y2="21" stroke="#ffffff" stroke-width="0.8"/>
+    <line x1="23" y1="22" x2="22" y2="23" stroke="#ffffff" stroke-width="0.8"/>
+
+    <!-- Pommel -->
+    <polygon points="25,26 28,25 28,28 26,28" fill="url(#goldHiltCombat)" stroke="#ffffff" stroke-width="0.6"/>
+    <circle cx="27" cy="27" r="1.2" fill="#ff007f"/>
+
+    <!-- Tip Strike Glint -->
+    <circle cx="2" cy="2" r="1.6" fill="#ffffff"/>
+    <line x1="2" y1="0" x2="2" y2="4" stroke="#ffffff" stroke-width="0.7"/>
+    <line x1="0" y1="2" x2="4" y2="2" stroke="#ffffff" stroke-width="0.7"/>
+  </g>
+</svg>

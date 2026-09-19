@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <!-- Cyber Emerald / Toxic Green Energy Glow -->
+    <filter id="deltaGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#00ff88" flood-opacity="0.95"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="3.2" flood-color="#05ffa1" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#003b22" flood-opacity="0.5"/>
+    </filter>
+
+    <linearGradient id="deltaLeftFacet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#80ffbf"/>
+      <stop offset="70%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#007f44"/>
+    </linearGradient>
+
+    <linearGradient id="deltaRightFacet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ccffea"/>
+      <stop offset="40%" stop-color="#05ffa1"/>
+      <stop offset="80%" stop-color="#00ba66"/>
+      <stop offset="100%" stop-color="#004d2a"/>
+    </linearGradient>
+
+    <linearGradient id="deltaCore" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#021a10"/>
+      <stop offset="100%" stop-color="#063d26"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#deltaGlow)">
+    <!-- Outer Aerodynamic Stealth Triangle Body -->
+    <!-- Left Flank -->
+    <polygon points="2,2 5,25 13,13" fill="url(#deltaLeftFacet)" stroke="#00ff88" stroke-width="0.7" stroke-linejoin="round"/>
+    
+    <!-- Right Flank -->
+    <polygon points="2,2 13,13 25,5" fill="url(#deltaRightFacet)" stroke="#00ff88" stroke-width="0.7" stroke-linejoin="round"/>
+
+    <!-- Inner Carbon Cockpit Chevron -->
+    <polygon points="5,5 7,18 12,12 18,7" fill="url(#deltaCore)" stroke="#00ff88" stroke-width="0.6" stroke-linejoin="round"/>
+
+    <!-- Inner Glowing Energy V-Core -->
+    <polyline points="7,8 11,11 8,15" stroke="#00ff88" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Sharp Center Spine / Laser Crest -->
+    <line x1="2" y1="2" x2="13" y2="13" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round"/>
+
+    <!-- Wing Winglet Accents -->
+    <line x1="4" y1="22" x2="7" y2="22" stroke="#ffffff" stroke-width="0.8"/>
+    <line x1="22" y1="4" x2="22" y2="7" stroke="#ffffff" stroke-width="0.8"/>
+
+    <!-- Sharp Tip Precision Glint -->
+    <circle cx="2" cy="2" r="1.5" fill="#ffffff"/>
+  </g>
+</svg>

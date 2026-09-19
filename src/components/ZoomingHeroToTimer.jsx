@@ -552,13 +552,14 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
   const pad = (n) => String(n).padStart(2, '0')
 
-  // 3D Solo Leveling Door Swing opening on initial scroll
-  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 700 : 550))
-  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 7.2 : 5.8))
+  // 3D Solo Leveling Door Swing opening and upward scroll translation
+  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 1200 : 550))
+  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 14 : 5.8))
+  const doorTranslateY = -scrollProgress * (isMobile ? 360 : 180)
 
   // ───── CONTINUOUS 42-DIMENSION ZOOM-IN CALCULATION ─────
   const zoomStart = 0.02
-  const zoomEnd = isMobile ? 0.28 : 0.44
+  const zoomEnd = isMobile ? 0.16 : 0.44
   const totalLayers = animeLayers.length // 42
 
   const clampedProgress = Math.max(0, Math.min(1, (scrollProgress - zoomStart) / (zoomEnd - zoomStart)))
@@ -579,10 +580,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const nextLayer = animeLayers[nextIndex] || currentLayer
   const activeColor = currentLayer.color
 
-  // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (100% HARDWARE-SYNCED) ─────
-  const scrollStageStart = isMobile ? 0.22 : 0.38
-  const rollStart = isMobile ? 0.24 : 0.40
-  const rollEnd = isMobile ? 0.58 : 0.82
+  // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (OPENS WITHIN 2-3 SWIPES ON MOBILE) ─────
+  const scrollStageStart = isMobile ? 0.10 : 0.38
+  const rollStart = isMobile ? 0.12 : 0.40
+  const rollEnd = isMobile ? 0.40 : 0.82
 
   // For scrolling images: increase opacity and clarity with light vignette.
   // For the last image (before/during timer): keep original dark gradient so timer animation is clearly visible.
@@ -597,8 +598,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
     : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
 
-  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 16 : 12)) : 0
-  const timerScale = 0.90 + (scrollProgress > scrollStageStart ? Math.min(0.04, (scrollProgress - scrollStageStart) * 0.15) : 0)
+  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 25 : 12)) : 0
+  const timerScale = 0.90 + (scrollProgress > scrollStageStart ? Math.min(0.04, (scrollProgress - scrollStageStart) * (isMobile ? 0.25 : 0.15)) : 0)
 
   // Direct 1-to-1 scroll-driven roll calculation (zero lag, zero latency)
   const scrollRoll = Math.max(0, Math.min(1, (scrollProgress - rollStart) / (rollEnd - rollStart)))
@@ -659,10 +660,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   }
 
   const clockItems = [
-    { value: pad(timeLeft.days), label: 'DAYS', code: 'D', tag: 'OCT 06' },
-    { value: pad(timeLeft.hours), label: 'HOURS', code: 'H', tag: 'TIME' },
-    { value: pad(timeLeft.minutes), label: 'MINS', code: 'M', tag: 'PULSE' },
-    { value: pad(timeLeft.seconds), label: 'SECS', code: 'S', tag: 'LIVE' }
+    { value: pad(timeLeft.days), label: 'DAYS' },
+    { value: pad(timeLeft.hours), label: 'HOURS' },
+    { value: pad(timeLeft.minutes), label: 'MINS' },
+    { value: pad(timeLeft.seconds), label: 'SECS' }
   ]
 
   return (
@@ -709,7 +710,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           className="zoom-hero__doors-portal"
           style={{
             opacity: doorOpacity,
-            pointerEvents: scrollProgress > 0.3 ? 'none' : 'auto'
+            transform: `translateY(${doorTranslateY}px)`,
+            pointerEvents: scrollProgress > (isMobile ? 0.12 : 0.3) ? 'none' : 'auto'
           }}
         >
           {/* Ancient Dungeon Portal - Left Wing */}
@@ -759,9 +761,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
         <div
           className="zoom-hero__content-stage"
           style={{
-            opacity: scrollProgress < 0.65 ? Math.max(0, 1 - scrollProgress * 1.6) : 0,
-            transform: `translateY(${-scrollProgress * 80}px) scale(${1 + scrollProgress * 0.2})`,
-            pointerEvents: scrollProgress < 0.4 ? 'auto' : 'none'
+            opacity: scrollProgress < (isMobile ? 0.45 : 0.65) ? Math.max(0, 1 - scrollProgress * (isMobile ? 2.6 : 1.6)) : 0,
+            transform: `translateY(${-scrollProgress * (isMobile ? 140 : 80)}px) scale(${1 + scrollProgress * 0.2})`,
+            pointerEvents: scrollProgress < 0.3 ? 'auto' : 'none'
           }}
         >
           <h1 className="door-landing__main-title">
@@ -774,6 +776,34 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           </h1>
 
         </div>
+
+        {/* ───── BOTTOM SCROLL TO ENTER PROMPT (DOOR ENTRY STAGE) ───── */}
+        {scrollProgress < (isMobile ? 0.12 : 0.22) && (
+          <div
+            className="door-entry__scroll-prompt"
+            style={{
+              opacity: Math.max(0, 1 - scrollProgress * (isMobile ? 12 : 6)),
+              transform: `translateX(-50%) translateY(${scrollProgress * 35}px)`,
+              pointerEvents: scrollProgress < (isMobile ? 0.05 : 0.08) ? 'auto' : 'none'
+            }}
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight * (isMobile ? 0.35 : 0.5),
+                behavior: 'smooth'
+              })
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Scroll to enter"
+          >
+            <div className="door-scroll-prompt__content">
+              <span className="door-scroll-prompt__arrow">↓</span>
+              <span className="door-scroll-prompt__text">SCROLL TO ENTER</span>
+              <span className="door-scroll-prompt__arrow">↓</span>
+            </div>
+            <div className="door-scroll-prompt__glow-bar" aria-hidden="true" />
+          </div>
+        )}
 
         {/* ───── STAGE 2: ROYAL ANIME MANA SCROLL OF TIME (UNROLLS ON SCROLL) ───── */}
         <div
@@ -916,11 +946,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                       <div key={item.label} className="anime-timer__talisman-card anime-ofuda-card">
                         <div className="anime-timer__talisman-top-knot anime-ofuda-knot" />
 
-                        <div className="anime-ofuda-header">
-                          <span className="anime-ofuda-kanji-stamp">{item.code}</span>
-                          <span className="anime-ofuda-tag">{item.tag}</span>
-                        </div>
-
                         <div className="anime-timer__talisman-number anime-ofuda-number">
                           {item.value}
                         </div>
@@ -986,23 +1011,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* Bottom Zoom Scrub Progress Bar */}
-        <div className="zoom-hero__progress-dock">
-          <div className="zoom-hero__progress-rail">
-            <div
-              className="zoom-hero__progress-thumb"
-              style={{
-                width: `${Math.round(scrollProgress * 100)}%`,
-                background: activeColor,
-                boxShadow: `0 0 10px ${activeColor}`
-              }}
-            />
-          </div>
-          <span className="zoom-hero__progress-label">
-            DEPTH: {Math.round(scrollProgress * 100)}% // DIMENSION {String(activeIndex + 1).padStart(2, '0')} OF {totalLayers} ({currentLayer.title})
-          </span>
         </div>
       </div>
     </div>
