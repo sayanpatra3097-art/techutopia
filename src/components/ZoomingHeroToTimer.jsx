@@ -2,512 +2,85 @@ import { useState, useEffect, useRef } from 'react'
 import doorImg from '../assets/door.webp'
 import timerBg23 from '../assets/23.webp'
 
-import bg1 from '../assets/1.webp'
-import bg2 from '../assets/2.webp'
-import bg3 from '../assets/3.webp'
+// Eagerly resolve anime dimension images from assets folder (41 numbered webp images)
+const bgModules = import.meta.glob('../assets/*.webp', { eager: true, import: 'default' })
 
-// Curated 4 preloaded backgrounds to eliminate bundle bloat and 42-image decode stutter
-const keyBgs = {
-  1: bg1,
-  2: bg2,
-  3: bg3
-}
-
-const getAssetBg = (num) => {
-  return keyBgs[num] || (num % 3 === 1 ? bg1 : (num % 3 === 2 ? bg2 : (num % 3 === 0 ? bg3 : timerBg23)))
-}
-
-const animeLayers = [
-  {
-    id: 'theme-1',
-    title: 'SHADOW MONARCH DOMAIN',
-    kanji: '影の君主',
-    badge: 'Dimension 01 • Solo Leveling',
-    color: '#1d4ed8',
-    secondaryColor: '#0f172a',
-    bg: getAssetBg(1),
-    image: getAssetBg(1),
-    quote: '“All algorithms awaken. Every line of algorithmic code arises at my command.”'
-  },
-  {
-    id: 'theme-2',
-    title: 'HINOKAMI KAGURA FORGE',
-    kanji: 'ヒノカミ神楽',
-    badge: 'Dimension 02 • Demon Slayer',
-    color: '#ff6b35',
-    secondaryColor: '#e63946',
-    bg: getAssetBg(2),
-    image: getAssetBg(2),
-    quote: '“Set your heart ablaze. Forge resilient creations in the heat of innovation.”'
-  },
-  {
-    id: 'theme-3',
-    title: 'INFINITE NEURAL VOID',
-    kanji: '無量空処',
-    badge: 'Dimension 03 • Jujutsu Kaisen',
-    color: '#b537f2',
-    secondaryColor: '#7b2ff7',
-    bg: getAssetBg(3),
-    image: getAssetBg(3),
-    quote: '“Infinite intelligence and autonomous compute flowing into boundless reality.”'
-  },
-  {
-    id: 'theme-4',
-    title: 'BANKAI SOUL SANCTUARY',
-    kanji: '卍解・天鎖斬月',
-    badge: 'Dimension 04 • Bleach',
-    color: '#3a86ff',
-    secondaryColor: '#8338ec',
-    bg: getAssetBg(4),
-    image: getAssetBg(4),
-    quote: '“Release the ultimate potential of your code with bankai-level precision.”'
-  },
-  {
-    id: 'theme-5',
-    title: 'TITAN WALL TRANSCENDENCE',
-    kanji: '進撃の巨人',
-    badge: 'Dimension 05 • Attack on Titan',
-    color: '#2a9d8f',
-    secondaryColor: '#264653',
-    bg: getAssetBg(5),
-    image: getAssetBg(5),
-    quote: '“Dedicate your mind and soul. Break through every wall that confines you.”'
-  },
-  {
-    id: 'theme-6',
-    title: 'SIX PATHS SAGE MATRIX',
-    kanji: '六道仙人モード',
-    badge: 'Dimension 06 • Naruto',
-    color: '#ffb703',
-    secondaryColor: '#fb8500',
-    bg: getAssetBg(6),
-    image: getAssetBg(6),
-    quote: '“Believe in the infinite path of perseverance. My ninja way is innovation.”'
-  },
-  {
-    id: 'theme-7',
-    title: 'SUN GOD NIKA GEAR 5',
-    kanji: '太陽の神ニカ',
-    badge: 'Dimension 07 • One Piece',
-    color: '#ffd166',
-    secondaryColor: '#ef476f',
-    bg: getAssetBg(7),
-    image: getAssetBg(7),
-    quote: '“Freedom of imagination turns the impossible into absolute triumph.”'
-  },
-  {
-    id: 'theme-8',
-    title: 'GODSPEED NEN DOMAIN',
-    kanji: '神速・電光石火',
-    badge: 'Dimension 08 • Hunter x Hunter',
-    color: '#06d6a0',
-    secondaryColor: '#118ab2',
-    bg: getAssetBg(8),
-    image: getAssetBg(8),
-    quote: '“Transmute your thoughts into lightning-fast algorithmic execution.”'
-  },
-  {
-    id: 'theme-9',
-    title: 'SANDEVISTAN OVERDRIVE',
-    kanji: 'サイバーパンク',
-    badge: 'Dimension 09 • Cyberpunk',
-    color: '#ff007f',
-    secondaryColor: '#00f0ff',
-    bg: getAssetBg(9),
-    image: getAssetBg(9),
-    quote: '“Time slows down when pure neural speed takes over the system grid.”'
-  },
-  {
-    id: 'theme-10',
-    title: 'UNLIMITED BLADE WORKS',
-    kanji: '無限の剣製',
-    badge: 'Dimension 10 • Fate/Stay Night',
-    color: '#e63946',
-    secondaryColor: '#ff758f',
-    bg: getAssetBg(10),
-    image: getAssetBg(10),
-    quote: '“I am the bone of my sword. Steel is my body, and fire is my blood.”'
-  },
-  {
-    id: 'theme-11',
-    title: 'EVANGELION BERSERK CORE',
-    kanji: '初号機暴走',
-    badge: 'Dimension 11 • Evangelion',
-    color: '#7209b7',
-    secondaryColor: '#4cc9f0',
-    bg: getAssetBg(11),
-    image: getAssetBg(11),
-    quote: '“Synchronize at 400% ratio. Synchronous consciousness meets synthetic form.”'
-  },
-  {
-    id: 'theme-12',
-    title: 'ULTRA INSTINCT ASCENT',
-    kanji: '身勝手の極意',
-    badge: 'Dimension 12 • Dragon Ball',
-    color: '#e0aaff',
-    secondaryColor: '#c77dff',
-    bg: getAssetBg(12),
-    image: getAssetBg(12),
-    quote: '“Move without thinking. Pure instinct and mastery in every pulse.”'
-  },
-  {
-    id: 'theme-13',
-    title: 'CHAINSAW HELL ENGINE',
-    kanji: 'チェンソーの悪魔',
-    badge: 'Dimension 13 • Chainsaw Man',
-    color: '#f77f00',
-    secondaryColor: '#d62828',
-    bg: getAssetBg(13),
-    image: getAssetBg(13),
-    quote: '“Rev the engine of relentless creation until every obstacle is shattered.”'
-  },
-  {
-    id: 'theme-14',
-    title: 'ALCHEMICAL GATE OF TRUTH',
-    kanji: '真理の扉',
-    badge: 'Dimension 14 • Fullmetal Alchemist',
-    color: '#f4a261',
-    secondaryColor: '#e76f51',
-    bg: getAssetBg(14),
-    image: getAssetBg(14),
-    quote: '“Equivalent exchange: give your relentless effort, receive absolute mastery.”'
-  },
-  {
-    id: 'theme-15',
-    title: 'ONE-EYED KING KAKUJA',
-    kanji: '隻眼の王',
-    badge: 'Dimension 15 • Tokyo Ghoul',
-    color: '#c1121f',
-    secondaryColor: '#780000',
-    bg: getAssetBg(15),
-    image: getAssetBg(15),
-    quote: '“In this tragedy of limitations, we evolve beyond what was thought possible.”'
-  },
-  {
-    id: 'theme-16',
-    title: 'ZERO REQUIEM GEASS',
-    kanji: '絶対遵守の力',
-    badge: 'Dimension 16 • Code Geass',
-    color: '#9d4edd',
-    secondaryColor: '#5a189a',
-    bg: getAssetBg(16),
-    image: getAssetBg(16),
-    quote: '“The only ones who should fire are those who are prepared to be fired upon.”'
-  },
-  {
-    id: 'theme-17',
-    title: 'STEIN GATE TIMELINE',
-    kanji: '運命石の扉',
-    badge: 'Dimension 17 • Steins;Gate',
-    color: '#00b4d8',
-    secondaryColor: '#0077b6',
-    bg: getAssetBg(17),
-    image: getAssetBg(17),
-    quote: '“Deceive your other self. Deceive the world. Reach the Steins Gate.”'
-  },
-  {
-    id: 'theme-18',
-    title: 'PSYCHIC 100% BURST',
-    kanji: 'モブサイコ１００',
-    badge: 'Dimension 18 • Mob Psycho',
-    color: '#48cae4',
-    secondaryColor: '#023e8a',
-    bg: getAssetBg(18),
-    image: getAssetBg(18),
-    quote: '“When emotions reach critical threshold, unbridled power is unlocked.”'
-  },
-  {
-    id: 'theme-19',
-    title: 'GOLDEN WIND REQUIEM',
-    kanji: '黄金の風',
-    badge: 'Dimension 19 • JoJo Bizarre',
-    color: '#ffb703',
-    secondaryColor: '#fb8500',
-    bg: getAssetBg(19),
-    image: getAssetBg(19),
-    quote: '“You will never reach the reality of failure. Revert all bugs to zero.”'
-  },
-  {
-    id: 'theme-20',
-    title: 'BLACK SWORDSMAN BRAND',
-    kanji: '狂戦士の甲冑',
-    badge: 'Dimension 20 • Berserk',
-    color: '#9b2226',
-    secondaryColor: '#ae2012',
-    bg: getAssetBg(20),
-    image: getAssetBg(20),
-    quote: '“Struggle, endure, and contend. That alone is the sword of a true challenger.”'
-  },
-  {
-    id: 'theme-21',
-    title: 'TRUE WARRIOR VALHALLA',
-    kanji: '本当の戦士',
-    badge: 'Dimension 21 • Vinland Saga',
-    color: '#84a59d',
-    secondaryColor: '#f28482',
-    bg: getAssetBg(21),
-    image: getAssetBg(21),
-    quote: '“A true pioneer has no enemies. Build what preserves and elevates humanity.”'
-  },
-  {
-    id: 'theme-22',
-    title: 'NEW WORLD COGNITION',
-    kanji: '新世界の神',
-    badge: 'Dimension 22 • Death Note',
-    color: '#495057',
-    secondaryColor: '#212529',
-    bg: getAssetBg(22),
-    image: getAssetBg(22),
-    quote: '“I will create an architecturally perfect realm where truth prevails.”'
-  },
-  {
-    id: 'theme-23',
-    title: 'SPIRAL GALAXY DRILL',
-    kanji: '天元突破グレンラガン',
-    badge: 'Dimension 23 • Gurren Lagann',
-    color: '#ff0054',
-    secondaryColor: '#ff5400',
-    bg: getAssetBg(23),
-    image: getAssetBg(23),
-    quote: '“Pierce the heavens with your vision. Believe in the you that believes in you.”'
-  },
-  {
-    id: 'theme-24',
-    title: 'STARBURST DUAL BLADES',
-    kanji: 'スターバースト・ストリーム',
-    badge: 'Dimension 24 • Sword Art Online',
-    color: '#0077b6',
-    secondaryColor: '#90e0ef',
-    bg: getAssetBg(24),
-    image: getAssetBg(24),
-    quote: '“Ten consecutive algorithmic strikes to shatter through any barrier.”'
-  },
-  {
-    id: 'theme-25',
-    title: 'ANTI-MAGIC DEVIL UNION',
-    kanji: '悪魔同化モード',
-    badge: 'Dimension 25 • Black Clover',
-    color: '#14213d',
-    secondaryColor: '#fca311',
-    bg: getAssetBg(25),
-    image: getAssetBg(25),
-    quote: '“My magic is never giving up. Defy the odds with raw perseverance.”'
-  },
-  {
-    id: 'theme-26',
-    title: 'ONE FOR ALL GEARSHIFT',
-    kanji: 'ワン・フォー・オール',
-    badge: 'Dimension 26 • My Hero Academia',
-    color: '#00b4d8',
-    secondaryColor: '#52b788',
-    bg: getAssetBg(26),
-    image: getAssetBg(26),
-    quote: '“Go beyond, Plus Ultra! Inherit the dreams of all who engineered before you.”'
-  },
-  {
-    id: 'theme-27',
-    title: 'CRIMSON MOON SYMPHONY',
-    kanji: '月下の夜想曲',
-    badge: 'Dimension 27 • Castlevania',
-    color: '#800f2f',
-    secondaryColor: '#a4133c',
-    bg: getAssetBg(27),
-    image: getAssetBg(27),
-    quote: '“What is a man? A relentless seeker of technological mastery.”'
-  },
-  {
-    id: 'theme-28',
-    title: 'EGOIST METAVISION EYE',
-    kanji: '空間認識・直撃蹴弾',
-    badge: 'Dimension 28 • Blue Lock',
-    color: '#00f5d4',
-    secondaryColor: '#7b2cbf',
-    bg: getAssetBg(28),
-    image: getAssetBg(28),
-    quote: '“Devour the field. Predict every outcome before the competition even blinks.”'
-  },
-  {
-    id: 'theme-29',
-    title: 'ADOLLA BURST GENESIS',
-    kanji: 'アドラバースト',
-    badge: 'Dimension 29 • Fire Force',
-    color: '#ff4d6d',
-    secondaryColor: '#ff758f',
-    bg: getAssetBg(29),
-    image: getAssetBg(29),
-    quote: '“Faster than light, ignite the flames that reshape reality itself.”'
-  },
-  {
-    id: 'theme-30',
-    title: 'ZERO RESTRAINT RELEASE',
-    kanji: '死線解放零',
-    badge: 'Dimension 30 • Hellsing',
-    color: '#590d22',
-    secondaryColor: '#800f2f',
-    bg: getAssetBg(30),
-    image: getAssetBg(30),
-    quote: '“Releasing control art restriction zero. An endless army of solutions arises.”'
-  },
-  {
-    id: 'theme-31',
-    title: 'GOLDEN CITY ABYSS',
-    kanji: '奈落の底・深界七層',
-    badge: 'Dimension 31 • Made in Abyss',
-    color: '#e9c46a',
-    secondaryColor: '#2a9d8f',
-    bg: getAssetBg(31),
-    image: getAssetBg(31),
-    quote: '“The abyss calls to those who dare venture past the point of no return.”'
-  },
-  {
-    id: 'theme-32',
-    title: 'OVERLORD FALLEN DOWN',
-    kanji: '至高の四十一人',
-    badge: 'Dimension 32 • Overlord',
-    color: '#7b2cbf',
-    secondaryColor: '#3c096c',
-    bg: getAssetBg(32),
-    image: getAssetBg(32),
-    quote: '“Bow before the supreme architect of autonomous digital fortresses.”'
-  },
-  {
-    id: 'theme-33',
-    title: 'RETURN BY DEATH REWIND',
-    kanji: '死に戻り・魔女の残香',
-    badge: 'Dimension 33 • Re:Zero',
-    color: '#4361ee',
-    secondaryColor: '#3f37c9',
-    bg: getAssetBg(33),
-    image: getAssetBg(33),
-    quote: '“No matter how many times we fail, we iterate until perfection is realized.”'
-  },
-  {
-    id: 'theme-34',
-    title: 'BEELZEBUB GLUTTONOUS VOID',
-    kanji: '暴食之王・ベルゼビュート',
-    badge: 'Dimension 34 • Slime Isekai',
-    color: '#4cc9f0',
-    secondaryColor: '#4895ef',
-    bg: getAssetBg(34),
-    image: getAssetBg(34),
-    quote: '“Analyze, assimilate, and optimize every data structure in existence.”'
-  },
-  {
-    id: 'theme-35',
-    title: 'GHOST SHELL CYBERNETIC',
-    kanji: '攻殻機動隊',
-    badge: 'Dimension 35 • Ghost in the Shell',
-    color: '#00f5d4',
-    secondaryColor: '#00bbf9',
-    bg: getAssetBg(35),
-    image: getAssetBg(35),
-    quote: '“Your ghost whispers the solution through infinite optic cyber-routes.”'
-  },
-  {
-    id: 'theme-36',
-    title: 'NEO-TOKYO SINGULARITY',
-    kanji: 'アキラ・覚醒',
-    badge: 'Dimension 36 • Akira',
-    color: '#d90429',
-    secondaryColor: '#ef233c',
-    bg: getAssetBg(36),
-    image: getAssetBg(36),
-    quote: '“A power too vast for comprehension awakening in the digital metropolis.”'
-  },
-  {
-    id: 'theme-37',
-    title: 'ASTRAL JAZZ PARADIGM',
-    kanji: 'カウボーイビバップ',
-    badge: 'Dimension 37 • Cowboy Bebop',
-    color: '#f39c12',
-    secondaryColor: '#d35400',
-    bg: getAssetBg(37),
-    image: getAssetBg(37),
-    quote: '“Whatever happens, happens. Improvise with cool, unmatched composure.”'
-  },
-  {
-    id: 'theme-38',
-    title: 'APPARITION PHENOMENON',
-    kanji: '怪異・化物語',
-    badge: 'Dimension 38 • Monogatari',
-    color: '#e76f51',
-    secondaryColor: '#264653',
-    bg: getAssetBg(38),
-    image: getAssetBg(38),
-    quote: '“People save themselves on their own. Knowledge is merely the catalyst.”'
-  },
-  {
-    id: 'theme-39',
-    title: 'CALAMITY SHRINE BLADE',
-    kanji: '夜ト神・禍津神',
-    badge: 'Dimension 39 • Noragami',
-    color: '#52b788',
-    secondaryColor: '#2d6a4f',
-    bg: getAssetBg(39),
-    image: getAssetBg(39),
-    quote: '“Sever the ties of misfortune and forge an unbreakable path ahead.”'
-  },
-  {
-    id: 'theme-40',
-    title: 'SOUL RESONANCE SYMPHONY',
-    kanji: '魂の共鳴・鬼神狩り',
-    badge: 'Dimension 40 • Soul Eater',
-    color: '#ffaa00',
-    secondaryColor: '#ff5500',
-    bg: getAssetBg(40),
-    image: getAssetBg(40),
-    quote: '“A sound soul dwells within a sound mind and a sound architecture.”'
-  },
-  {
-    id: 'theme-41',
-    title: 'NO LONGER HUMAN NEXUS',
-    kanji: '人間失格・文豪ストレイドッグス',
-    badge: 'Dimension 41 • Bungo Stray Dogs',
-    color: '#6c757d',
-    secondaryColor: '#495057',
-    bg: getAssetBg(41),
-    image: getAssetBg(41),
-    quote: '“Nullify all anomalies and bugs with effortless intellectual dominance.”'
-  },
-  {
-    id: 'theme-42',
-    title: 'TECHUTOPIA SUPREME MONARCH',
-    kanji: '影の皇帝・極限覚醒',
-    badge: 'Dimension 42 • Grand Apex Sovereign',
-    color: '#ff9a00',
-    secondaryColor: '#e63900',
-    bg: getAssetBg(42),
-    image: getAssetBg(42),
-    quote: '“Forty-two dimensions mastered. Arise and conquer the future of TechUtopia.”'
-  }
-]
+// Sort all numbered webp images in natural order (1, 2, 3 ... 42)
+const animeImages = Object.keys(bgModules)
+  .filter((k) => /assets\/\d+\.webp$/.test(k))
+  .sort((a, b) => {
+    const numA = parseInt(a.match(/(\d+)\.webp/)[1], 10)
+    const numB = parseInt(b.match(/(\d+)\.webp/)[1], 10)
+    return numA - numB
+  })
+  .map((k) => bgModules[k])
 
 export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
-  const [scrollProgress, setScrollProgress] = useState(0) // 0 to 1 across the track
   const trackRef = useRef(null)
 
+  // DOM Refs for direct GPU-composited style manipulation (Zero React re-render during scroll)
+  const leftWingRef = useRef(null)
+  const rightWingRef = useRef(null)
+  const doorsPortalRef = useRef(null)
+  const contentStageRef = useRef(null)
+  const scrollPromptRef = useRef(null)
+  const layerRefA = useRef(null)
+  const layerRefB = useRef(null)
+  const timerDestinationRef = useRef(null)
+  const scrollApparatusRef = useRef(null)
+  const sealRuptureRef = useRef(null)
+  const letterContentRef = useRef(null)
+  const curlLeftRef = useRef(null)
+  const curlRightRef = useRef(null)
+  const dockTextRef = useRef(null)
+
+  // Track active layer indices to avoid redundant DOM updates
+  const curActiveIdx = useRef(-1)
+  const curNextIdx = useRef(-1)
+
   // Target Fest Date for Countdown: October 6 – 7, 2026
-  const targetDate = new Date('2026-10-06T09:00:00').getTime()
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  const targetDate = new Date('2026-10-06T09:00:00')
 
-  // Realtime countdown ticker
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  })
+
+  // Pre-decode all anime images into GPU texture memory on mount for silky-smooth 120fps zoom
   useEffect(() => {
-    const update = () => {
-      const now = Date.now()
-      const diff = Math.max(0, targetDate - now)
+    animeImages.forEach((src) => {
+      const img = new Image()
+      img.src = src
+      if (img.decode) {
+        img.decode().catch(() => {})
+      }
+    })
+  }, [])
 
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((diff / (1000 * 60)) % 60),
-        seconds: Math.floor((diff / 1000) % 60),
-      })
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date()
+      const diff = targetDate - now
+
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        return
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
+      const minutes = Math.floor((diff / 1000 / 60) % 60)
+      const seconds = Math.floor((diff / 1000) % 60)
+
+      setTimeLeft({ days, hours, minutes, seconds })
     }
 
-    update()
-    const interval = setInterval(update, 1000)
+    updateCountdown()
+    const interval = setInterval(updateCountdown, 1000)
     return () => clearInterval(interval)
-  }, [targetDate])
+  }, [])
 
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860)
 
@@ -519,140 +92,172 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // High-performance rAF-throttled scroll handler for buttery-smooth 60-120fps on mobile
+  // 60–120 FPS Silky-Smooth GPU Scroll Driver (Multi-Image Continuous Zoom Tunnel)
   useEffect(() => {
     let ticking = false
-    let lastProgress = -1
 
-    const updateScroll = () => {
+    const applyScrollStyles = () => {
       ticking = false
       const el = trackRef.current
       if (!el) return
       const rect = el.getBoundingClientRect()
       const totalScrollable = rect.height - window.innerHeight
+      if (totalScrollable <= 0) return
 
-      if (totalScrollable > 0) {
-        const scrolled = -rect.top
-        const p = Math.max(0, Math.min(1, scrolled / totalScrollable))
-        // Deadband filter prevents micro-jitter and avoids redundant React renders
-        if (Math.abs(p - lastProgress) > 0.003 || p === 0 || p === 1) {
-          lastProgress = p
-          setScrollProgress(p)
+      const scrolled = -rect.top
+      const p = Math.max(0, Math.min(1, scrolled / totalScrollable))
+      const mobile = window.innerWidth <= 860
+
+      // 1. 3D Ancient Sanctuary Doors Swing (Opens as scroll begins)
+      const doorAngle = Math.min(95, p * (mobile ? 920 : 820))
+      const doorOpacity = Math.max(0, 1 - p * (mobile ? 11 : 8.5))
+      const doorTranslateY = -p * (mobile ? 160 : 110)
+
+      if (leftWingRef.current) {
+        leftWingRef.current.style.transform = `rotateY(-${doorAngle}deg)`
+      }
+      if (rightWingRef.current) {
+        rightWingRef.current.style.transform = `rotateY(${doorAngle}deg)`
+      }
+      if (doorsPortalRef.current) {
+        doorsPortalRef.current.style.opacity = doorOpacity
+        doorsPortalRef.current.style.transform = `translateY(${doorTranslateY}px)`
+        doorsPortalRef.current.style.pointerEvents = p > 0.12 ? 'none' : 'auto'
+      }
+
+      // 2. TECHUTOPIA Title (Remains prominently visible during door open & dimensions zoom, fades just before countdown)
+      const fadeStart = mobile ? 0.42 : 0.48
+      const fadeEnd = mobile ? 0.49 : 0.54
+
+      let heroOpacity = 1
+      if (p < fadeStart) {
+        // Fully visible once doors open and throughout all anime zooming dimensions
+        heroOpacity = 1
+      } else if (p <= fadeEnd) {
+        // Fades away smoothly just before the countdown shrine opens
+        heroOpacity = Math.max(0, 1 - (p - fadeStart) / (fadeEnd - fadeStart))
+      } else {
+        heroOpacity = 0
+      }
+
+      const heroTranslateY = -Math.min(45, p * 70)
+      const heroScale = 1 + (p > fadeStart ? (p - fadeStart) * 0.4 : p * 0.04)
+
+      if (contentStageRef.current) {
+        contentStageRef.current.style.opacity = heroOpacity
+        contentStageRef.current.style.transform = `translateY(${heroTranslateY}px) scale(${heroScale})`
+        contentStageRef.current.style.pointerEvents = (p > fadeStart || p < 0.02) ? 'none' : 'auto'
+      }
+      if (scrollPromptRef.current) {
+        // Bottom "SCROLL TO ENTER" indicator fades out promptly as scrolling begins
+        const promptOpacity = Math.max(0, 1 - p * 12)
+        scrollPromptRef.current.style.opacity = promptOpacity
+        scrollPromptRef.current.style.pointerEvents = p > 0.06 ? 'none' : 'auto'
+      }
+
+      // 3. CONTINUOUS 35+ ANIME DIMENSION ZOOMING TUNNEL
+      const zoomStart = 0.02
+      const zoomEnd = mobile ? 0.52 : 0.60
+      const totalLayers = animeImages.length // 41 images!
+
+      const clamped = Math.max(0, Math.min(1, (p - zoomStart) / (zoomEnd - zoomStart)))
+      const exactPos = clamped * (totalLayers - 1)
+      const activeIndex = Math.min(totalLayers - 1, Math.floor(exactPos))
+      const nextIndex = Math.min(totalLayers - 1, activeIndex + 1)
+      const stepProgress = exactPos - activeIndex
+
+      // Active layer: zooms in from 1.0 to 2.45x
+      const activeScale = 1 + stepProgress * 1.45
+      const activeOpacity = Math.max(0, 1 - stepProgress * 1.08)
+
+      // Next layer: zooms in from 0.85 to 1.0
+      const nextScale = 0.85 + stepProgress * 0.35
+      const nextOpacity = Math.min(1, stepProgress * 1.35)
+
+      // Swap texture URLs only when index changes (O(1), pre-warmed in memory)
+      if (activeIndex !== curActiveIdx.current) {
+        curActiveIdx.current = activeIndex
+        if (layerRefA.current && animeImages[activeIndex]) {
+          const isLast = activeIndex >= totalLayers - 1
+          const bgGrad = isLast
+            ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
+            : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
+          layerRefA.current.style.backgroundImage = `${bgGrad}, url(${animeImages[activeIndex]})`
         }
       }
-    }
+      if (nextIndex !== curNextIdx.current) {
+        curNextIdx.current = nextIndex
+        if (layerRefB.current && animeImages[nextIndex]) {
+          const isLast = nextIndex >= totalLayers - 1
+          const bgGrad = isLast
+            ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
+            : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
+          layerRefB.current.style.backgroundImage = `${bgGrad}, url(${animeImages[nextIndex]})`
+        }
+      }
 
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true
-        requestAnimationFrame(updateScroll)
+      // Direct GPU transform update on image layers
+      if (layerRefA.current) {
+        layerRefA.current.style.transform = `scale(${activeScale}) translateZ(0)`
+        layerRefA.current.style.opacity = activeOpacity
+      }
+      if (layerRefB.current) {
+        layerRefB.current.style.transform = `scale(${nextScale}) translateZ(0)`
+        layerRefB.current.style.opacity = nextOpacity
+      }
+
+      // 4. ROYAL COUNTDOWN SHRINE TIMER ENTRANCE & SCALE (p: 0.50 to 1.0)
+      const timerStart = mobile ? 0.48 : 0.54
+      const timerOpacity = p > timerStart ? Math.min(1, (p - timerStart) * (mobile ? 12 : 8)) : 0
+      const timerScale = 0.92 + (p > timerStart ? Math.min(0.08, (p - timerStart) * 0.22) : 0)
+
+      if (timerDestinationRef.current) {
+        timerDestinationRef.current.style.opacity = timerOpacity
+        timerDestinationRef.current.style.transform = `translate(-50%, -50%) scale(${timerScale})`
+        timerDestinationRef.current.style.pointerEvents = p > timerStart ? 'auto' : 'none'
+      }
+
+      // 5. Royal Scroll Parchment Unrolling (p: 0.54 to 0.88)
+      const rollStart = mobile ? 0.52 : 0.58
+      const rollEnd = mobile ? 0.86 : 0.90
+      const currentRoll = Math.max(0, Math.min(1, (p - rollStart) / (rollEnd - rollStart)))
+
+      if (scrollApparatusRef.current) {
+        scrollApparatusRef.current.style.setProperty('--roll', currentRoll.toFixed(4))
+      }
+      if (curlLeftRef.current) {
+        curlLeftRef.current.style.opacity = currentRoll > 0.03 ? '1' : '0'
+      }
+      if (curlRightRef.current) {
+        curlRightRef.current.style.opacity = currentRoll > 0.03 ? '1' : '0'
+      }
+      if (sealRuptureRef.current) {
+        sealRuptureRef.current.style.opacity = (currentRoll > 0.02 && currentRoll < 0.28) ? '1' : '0'
+        sealRuptureRef.current.style.transform = `scaleY(${1 + currentRoll * 2})`
+      }
+      if (letterContentRef.current) {
+        const contentOpacity = Math.min(1, Math.max(0, (currentRoll - 0.08) / 0.55))
+        letterContentRef.current.style.opacity = contentOpacity
+        letterContentRef.current.style.transform = `translateY(${(1 - contentOpacity) * 18}px)`
+      }
+      if (dockTextRef.current) {
+        dockTextRef.current.textContent = currentRoll < 0.95 ? '• SCROLL TO REVEAL' : 'OCTOBER 6–7, 2026'
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    updateScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(applyScrollStyles)
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    applyScrollStyles()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const pad = (n) => String(n).padStart(2, '0')
-
-  // 3D Solo Leveling Door Swing opening - swift, natural, and lag-free
-  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 480 : 440))
-  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 5.2 : 4.6))
-  const doorTranslateY = -scrollProgress * (isMobile ? 120 : 80)
-
-  // ───── CURATED KEY DIMENSIONS TRANSITION (PRELOADED, ZERO NETWORK/DECODE LAG) ─────
-  const keyDimensions = [
-    animeLayers[0], // Solo Leveling Shadow Monarch
-    animeLayers[1], // Demon Slayer Hinokami
-    animeLayers[2], // Jujutsu Kaisen Infinite Void
-    animeLayers[22] // TechUtopia Royal Chrono Apex
-  ]
-  const zoomStart = 0.06
-  const zoomEnd = isMobile ? 0.40 : 0.50
-  const totalLayers = keyDimensions.length // 4
-
-  const clampedProgress = Math.max(0, Math.min(1, (scrollProgress - zoomStart) / (zoomEnd - zoomStart)))
-  const exactPosition = clampedProgress * (totalLayers - 1)
-  const activeIndex = Math.min(totalLayers - 1, Math.floor(exactPosition))
-  const nextIndex = Math.min(totalLayers - 1, activeIndex + 1)
-  const stepProgress = exactPosition - activeIndex // 0.0 to 1.0 within current step
-
-  // Active layer zoom: starts at scale 1.0 and zooms in smoothly without heavy GPU filters
-  const activeScale = 1 + stepProgress * 0.85
-  const activeOpacity = Math.max(0, 1 - stepProgress * 0.95)
-
-  // Next layer: emerging smoothly from behind
-  const nextScale = 0.88 + stepProgress * 0.25
-  const nextOpacity = Math.min(1, stepProgress * 1.25)
-
-  const currentLayer = keyDimensions[activeIndex] || keyDimensions[0]
-  const nextLayer = keyDimensions[nextIndex] || currentLayer
-  const activeColor = currentLayer.color
-
-  // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (OPENS SWIFTLY WITHIN 1-2 SWIPES) ─────
-  const scrollStageStart = isMobile ? 0.20 : 0.30
-  const rollStart = isMobile ? 0.24 : 0.34
-  const rollEnd = isMobile ? 0.65 : 0.78
-
-  // Clean radial vignette without costly image churn
-  const isLastActive = activeIndex >= totalLayers - 1 || scrollProgress >= scrollStageStart
-  const isLastNext = nextIndex >= totalLayers - 1
-
-  const activeBgGradient = isLastActive
-    ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
-    : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
-
-  const nextBgGradient = isLastNext
-    ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
-    : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
-
-  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 12 : 9)) : 0
-  const timerScale = 0.92 + (scrollProgress > scrollStageStart ? Math.min(0.08, (scrollProgress - scrollStageStart) * 0.16) : 0)
-
-  // Direct 1-to-1 scroll-driven roll calculation (zero lag, zero latency)
-  const scrollRoll = Math.max(0, Math.min(1, (scrollProgress - rollStart) / (rollEnd - rollStart)))
-
-  // Optional manual drag scrubbing for instant interactive left-right control
-  const [dragRoll, setDragRoll] = useState(null)
-  const isDraggingRef = useRef(false)
-  const dragStartXRef = useRef(0)
-  const dragStartRollRef = useRef(0)
-
-  const rollProgress = dragRoll !== null ? dragRoll : scrollRoll
-
-  const handleDragStart = (e) => {
-    isDraggingRef.current = true
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0
-    dragStartXRef.current = clientX
-    dragStartRollRef.current = rollProgress
-  }
-
-  const handleDragMove = (e) => {
-    if (!isDraggingRef.current) return
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0
-    const delta = (clientX - dragStartXRef.current) / 350
-    const next = Math.max(0, Math.min(1, dragStartRollRef.current + delta))
-    setDragRoll(next)
-  }
-
-  const handleDragEnd = () => {
-    if (!isDraggingRef.current) return
-    isDraggingRef.current = false
-    if (dragRoll !== null) {
-      const el = trackRef.current
-      if (el) {
-        const rect = el.getBoundingClientRect()
-        const totalScrollable = rect.height - window.innerHeight
-        const targetProgress = rollStart + dragRoll * (rollEnd - rollStart)
-        window.scrollTo({
-          top: window.scrollY + rect.top + targetProgress * totalScrollable,
-          behavior: 'auto'
-        })
-      }
-      setDragRoll(null)
-    }
-  }
 
   const handleExploreClick = () => {
     if (onExploreMore) onExploreMore()
@@ -663,7 +268,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     if (!el) return
     const rect = el.getBoundingClientRect()
     const totalScrollable = rect.height - window.innerHeight
-    const targetProgress = target === 'open' ? 0.84 : 0.39
+    const mobile = window.innerWidth <= 860
+    const targetProgress = target === 'open' ? (mobile ? 0.88 : 0.90) : (mobile ? 0.52 : 0.58)
     const targetScrollY = window.scrollY + rect.top + (targetProgress * totalScrollable)
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' })
   }
@@ -679,52 +285,48 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     <div className="zoom-hero-track" ref={trackRef} id="door-hero">
       {/* Sticky 100vh Fullscreen Viewport */}
       <div className="zoom-hero-sticky">
-        {/* ───── MULTI-IMAGE CONTINUOUS 42-DIMENSION ZOOMING BACKGROUNDS ───── */}
+        {/* ───── MULTI-IMAGE CONTINUOUS 35+ DIMENSION ZOOMING BACKGROUNDS ───── */}
         <div className="zoom-hero__visuals-container">
           {/* Active Zooming Dimension Layer */}
           <div
+            ref={layerRefA}
             className="zoom-hero__image-layer"
             style={{
-              backgroundImage: `${activeBgGradient}, url(${currentLayer.bg})`,
-              transform: `scale(${activeScale})`,
-              opacity: activeOpacity
+              backgroundImage: `radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%), url(${animeImages[0] || timerBg23})`,
+              transform: 'scale(1) translateZ(0)',
+              opacity: 1
             }}
           />
 
-          {/* Emerging Next Dimension Layer (zooms up from behind) */}
-          {nextIndex !== activeIndex && (
-            <div
-              className="zoom-hero__image-layer"
-              style={{
-                backgroundImage: `${nextBgGradient}, url(${nextLayer.bg})`,
-                transform: `scale(${nextScale})`,
-                opacity: nextOpacity
-              }}
-            />
-          )}
+          {/* Emerging Next Dimension Layer */}
+          <div
+            ref={layerRefB}
+            className="zoom-hero__image-layer"
+            style={{
+              backgroundImage: `radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%), url(${animeImages[1] || timerBg23})`,
+              transform: 'scale(0.85) translateZ(0)',
+              opacity: 0
+            }}
+          />
 
-          {/* Dynamic Color Aura Overlay */}
+          {/* Warm Solar Mana Glow Aura */}
           <div
             className="zoom-hero__color-aura"
             style={{
-              boxShadow: `inset 0 0 160px ${activeColor}33, 0 0 100px ${activeColor}44`
+              boxShadow: 'inset 0 0 160px rgba(255, 120, 0, 0.18), 0 0 90px rgba(255, 175, 20, 0.14)'
             }}
           />
         </div>
 
         {/* ───── INITIAL 3D SANCTUARY DOORS: THE SOLO LEVELING CARTENON DOUBLE DUNGEON GATE ───── */}
         <div
+          ref={doorsPortalRef}
           className="zoom-hero__doors-portal"
-          style={{
-            opacity: doorOpacity,
-            transform: `translateY(${doorTranslateY}px)`,
-            pointerEvents: scrollProgress > (isMobile ? 0.16 : 0.22) ? 'none' : 'auto'
-          }}
         >
           {/* Ancient Dungeon Portal - Left Wing */}
           <div
+            ref={leftWingRef}
             className="door-wing door-wing--left door-wing--fullscreen sl-door-wing sl-door-wing--left"
-            style={{ transform: `rotateY(-${doorAngle}deg)` }}
           >
             <div className="door-wing__inner sl-door-panel sl-door-panel--left">
               <div className="sl-door__full-canvas sl-door__full-canvas--left">
@@ -733,7 +335,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   alt="Ancient Dungeon Portal Gate Left"
                   className="sl-door__image"
                   loading="eager"
-                  fetchPriority="high"
                   decoding="async"
                 />
               </div>
@@ -744,8 +345,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
           {/* Ancient Dungeon Portal - Right Wing */}
           <div
+            ref={rightWingRef}
             className="door-wing door-wing--right door-wing--fullscreen sl-door-wing sl-door-wing--right"
-            style={{ transform: `rotateY(${doorAngle}deg)` }}
           >
             <div className="door-wing__inner sl-door-panel sl-door-panel--right">
               <div className="sl-door__full-canvas sl-door__full-canvas--right">
@@ -754,7 +355,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   alt="Ancient Dungeon Portal Gate Right"
                   className="sl-door__image"
                   loading="eager"
-                  fetchPriority="high"
                   decoding="async"
                 />
               </div>
@@ -764,74 +364,54 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           </div>
         </div>
 
-        {/* ───── HERO TYPOGRAPHY & INTRO STATE (0% to 55%) ───── */}
+        {/* ───── HERO TYPOGRAPHY & INTRO STATE (Fades as doors open) ───── */}
         <div
+          ref={contentStageRef}
           className="zoom-hero__content-stage"
-          style={{
-            opacity: scrollProgress < (isMobile ? 0.45 : 0.65) ? Math.max(0, 1 - scrollProgress * (isMobile ? 2.6 : 1.6)) : 0,
-            transform: `translateY(${-scrollProgress * (isMobile ? 140 : 80)}px) scale(${1 + scrollProgress * 0.2})`,
-            pointerEvents: scrollProgress < 0.3 ? 'auto' : 'none'
-          }}
         >
           <h1 className="door-landing__main-title">
             <span className="door-landing__title-tech">TECH</span>
-            <span
-              className="door-landing__title-utopia"
-            >
-              UTOPIA
-            </span>
+            <span className="door-landing__title-utopia">UTOPIA</span>
           </h1>
-
         </div>
 
-        {/* ───── BOTTOM SCROLL TO ENTER PROMPT (DOOR ENTRY STAGE) ───── */}
-        {scrollProgress < (isMobile ? 0.12 : 0.22) && (
-          <div
-            className="door-entry__scroll-prompt"
-            style={{
-              opacity: Math.max(0, 1 - scrollProgress * (isMobile ? 12 : 6)),
-              transform: `translateX(-50%) translateY(${scrollProgress * 35}px)`,
-              pointerEvents: scrollProgress < (isMobile ? 0.05 : 0.08) ? 'auto' : 'none'
-            }}
-            onClick={() => {
-              window.scrollTo({
-                top: window.innerHeight * (isMobile ? 0.35 : 0.5),
-                behavior: 'smooth'
-              })
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Scroll to enter"
-          >
-            <div className="door-scroll-prompt__content">
-              <span className="door-scroll-prompt__arrow">↓</span>
-              <span className="door-scroll-prompt__text">SCROLL TO ENTER</span>
-              <span className="door-scroll-prompt__arrow">↓</span>
-            </div>
-            <div className="door-scroll-prompt__glow-bar" aria-hidden="true" />
+        {/* ───── BOTTOM SCROLL TO ENTER PROMPT ───── */}
+        <div
+          ref={scrollPromptRef}
+          className="door-entry__scroll-prompt"
+          onClick={() => {
+            const el = trackRef.current
+            if (el) {
+              const rect = el.getBoundingClientRect()
+              const targetScroll = window.scrollY + rect.top + window.innerHeight * 0.75
+              window.scrollTo({ top: targetScroll, behavior: 'smooth' })
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Scroll to enter"
+        >
+          <div className="door-scroll-prompt__content">
+            <span className="door-scroll-prompt__arrow">↓</span>
+            <span className="door-scroll-prompt__text">SCROLL TO ENTER</span>
+            <span className="door-scroll-prompt__arrow">↓</span>
           </div>
-        )}
+          <div className="door-scroll-prompt__glow-bar" aria-hidden="true" />
+        </div>
 
         {/* ───── STAGE 2: ROYAL ANIME MANA SCROLL OF TIME (UNROLLS ON SCROLL) ───── */}
         <div
+          ref={timerDestinationRef}
           className="zoom-hero__timer-destination royal-scroll-stage"
-          style={{
-            opacity: timerOpacity,
-            transform: `translate(-50%, -50%) scale(${timerScale})`,
-            pointerEvents: scrollProgress > scrollStageStart ? 'auto' : 'none'
-          }}
-          onMouseDown={handleDragStart}
-          onMouseMove={handleDragMove}
-          onMouseUp={handleDragEnd}
+          style={{ opacity: 0 }}
         >
           {/* Authentic Anime Mana Scroll Apparatus */}
           <div
+            ref={scrollApparatusRef}
             className="royal-scroll anime-scroll"
-            style={{
-              '--roll': rollProgress.toFixed(4)
-            }}
+            style={{ '--roll': '0.0000' }}
           >
-            {/* Left Anime Mana Roller (Rolls left with glowing mana runes) */}
+            {/* Left Anime Mana Roller */}
             <div className="royal-scroll__roller royal-scroll__roller--left anime-mana-roller">
               <div className="royal-scroll__finial royal-scroll__finial--top anime-mana-finial">
                 <span className="royal-scroll__finial-gem anime-mana-core" />
@@ -843,12 +423,13 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div className="royal-scroll__tassel anime-mana-tassel" />
               </div>
               <div
+                ref={curlLeftRef}
                 className="royal-scroll__curl-shadow royal-scroll__curl-shadow--left"
-                style={{ opacity: rollProgress > 0.03 ? 1 : 0 }}
+                style={{ opacity: 0 }}
               />
             </div>
 
-            {/* Right Anime Mana Roller (Rolls right with glowing mana runes) */}
+            {/* Right Anime Mana Roller */}
             <div className="royal-scroll__roller royal-scroll__roller--right anime-mana-roller">
               <div className="royal-scroll__finial royal-scroll__finial--top anime-mana-finial">
                 <span className="royal-scroll__finial-gem anime-mana-core" />
@@ -860,12 +441,13 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                 <div className="royal-scroll__tassel anime-mana-tassel" />
               </div>
               <div
+                ref={curlRightRef}
                 className="royal-scroll__curl-shadow royal-scroll__curl-shadow--right"
-                style={{ opacity: rollProgress > 0.03 ? 1 : 0 }}
+                style={{ opacity: 0 }}
               />
             </div>
 
-            {/* Japanese Anime Cursed Seal (封印 • 覚醒 - breaks in half on scroll) */}
+            {/* Japanese Anime Cursed Seal */}
             <div className="royal-scroll__seal-system anime-seal-system">
               <div className="royal-scroll__seal-side royal-scroll__seal-side--left">
                 <div className="royal-scroll__seal-ribbon royal-scroll__seal-ribbon--left anime-seal-ribbon" />
@@ -878,11 +460,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
               {/* Central neon mana fracture rupture */}
               <div
+                ref={sealRuptureRef}
                 className="royal-scroll__seal-rupture-beam anime-seal-rupture"
-                style={{
-                  opacity: rollProgress > 0.02 && rollProgress < 0.28 ? 1 : 0,
-                  transform: `scaleY(${1 + rollProgress * 2})`
-                }}
+                style={{ opacity: 0 }}
               />
 
               <div className="royal-scroll__seal-side royal-scroll__seal-side--right">
@@ -895,10 +475,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               </div>
             </div>
 
-            {/* Anime Parchment Letter Body with 23.png */}
+            {/* Anime Parchment Letter Body with timerBg23 */}
             <div className="royal-scroll__parchment-window anime-parchment-window">
               <div className="royal-scroll__parchment-letter anime-timer-shrine anime-shrine-frame">
-                {/* 23.png Anime Dimension Image inside the Letter */}
                 <div
                   className="royal-scroll__letter-image anime-timer__shrine-backdrop"
                   style={{
@@ -918,11 +497,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
                 {/* Letter Content: Anime Header, Countdown Talismans, and Actions */}
                 <div
+                  ref={letterContentRef}
                   className="royal-scroll__letter-content anime-letter-content"
-                  style={{
-                    opacity: Math.min(1, Math.max(0, (rollProgress - 0.1) / 0.65)),
-                    transform: `translateY(${(1 - Math.min(1, Math.max(0, (rollProgress - 0.1) / 0.65))) * 18}px)`
-                  }}
+                  style={{ opacity: 0 }}
                 >
                   {/* Anime Torii & Creed Header */}
                   <div className="anime-timer__header">
@@ -949,7 +526,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
                   {/* Authentic Anime Ofuda (お札) Talisman Countdown Cards */}
                   <div className="anime-timer__clock-row anime-ofuda-grid">
-                    {clockItems.map(item => (
+                    {clockItems.map((item) => (
                       <div key={item.label} className="anime-timer__talisman-card anime-ofuda-card">
                         <div className="anime-timer__talisman-top-knot anime-ofuda-knot" />
 
@@ -1001,11 +578,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               </button>
               <div className="royal-scroll__dock-indicator anime-dock-indicator">
                 <span className="royal-scroll__dock-crest">⚡</span>
-                <span>
-                  {rollProgress < 0.98
-                    ? `• SCROLL TO REVEAL`
-                    : "OCTOBER 6–7, 2026"}
-                </span>
+                <span ref={dockTextRef}>• SCROLL TO REVEAL</span>
                 <span className="royal-scroll__dock-crest">⚡</span>
               </div>
               <button
