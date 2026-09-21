@@ -233,9 +233,9 @@ function SoloLevelingMonarch({ isMobile }) {
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
     // Smooth levitation up and down
-    const floatOffset = Math.sin(t * 1.5) * 0.12
-    // Positioned so character stands centered in globe holding it, with head completely inside the view
-    const baseY = isMobile ? -0.1 : 0.0
+    const floatOffset = Math.sin(t * 1.5) * 0.15
+    // Positioned so head and glowing eyes emerge in the upper rim of tilted globe
+    const baseY = isMobile ? 0.9 : 1.35
     const currentY = baseY + floatOffset
 
     if (meshRef.current) {
@@ -253,20 +253,20 @@ function SoloLevelingMonarch({ isMobile }) {
       rightHandLightRef.current.intensity = 3.2 + Math.cos(t * 3.2) * 0.9
     }
     if (headLightRef.current) {
-      headLightRef.current.position.y = currentY + (isMobile ? 2.8 : 3.4)
+      headLightRef.current.position.y = currentY + (isMobile ? 3.3 : 3.85)
       headLightRef.current.intensity = 2.6 + Math.sin(t * 2.1) * 0.6
     }
   })
 
-  // Sized to hold the globe naturally without cutting off at any border
-  const meshSize = isMobile ? 9.8 : 12.0
+  // Sized boldly for larger globe
+  const meshSize = isMobile ? 10.5 : 13.0
 
   return (
     <group>
-      {/* 3D Character standing inside center of sphere, emerging naturally through top aperture */}
+      {/* 3D Character standing inside center of sphere, emerging through top aperture */}
       <mesh
         ref={meshRef}
-        position={[0, isMobile ? -0.1 : 0.0, 0]}
+        position={[0, isMobile ? 0.9 : 1.35, 0]}
         renderOrder={1}
       >
         <planeGeometry args={[meshSize, meshSize]} />
@@ -282,7 +282,7 @@ function SoloLevelingMonarch({ isMobile }) {
       {/* Radiant Solar Gold Mana Sparks at Left Hand */}
       <pointLight
         ref={leftHandLightRef}
-        position={[isMobile ? -4.5 : -5.2, isMobile ? -0.1 : 0.0, 0.5]}
+        position={[isMobile ? -4.8 : -5.6, isMobile ? 0.9 : 1.35, 0.5]}
         intensity={3.4}
         color="#ffaa00"
         distance={11}
@@ -291,7 +291,7 @@ function SoloLevelingMonarch({ isMobile }) {
       {/* Blazing Crimson-Red Fire at Right Hand */}
       <pointLight
         ref={rightHandLightRef}
-        position={[isMobile ? 4.5 : 5.2, isMobile ? -0.1 : 0.0, 0.5]}
+        position={[isMobile ? 4.8 : 5.6, isMobile ? 0.9 : 1.35, 0.5]}
         intensity={3.4}
         color="#ff3d00"
         distance={11}
@@ -300,7 +300,7 @@ function SoloLevelingMonarch({ isMobile }) {
       {/* Glowing Solar Gold Monarch Eyes & Head Aura */}
       <pointLight
         ref={headLightRef}
-        position={[0, isMobile ? 2.8 : 3.4, 0.8]}
+        position={[0, isMobile ? 4.2 : 5.2, 0.8]}
         intensity={2.8}
         color="#ffd700"
         distance={11}
@@ -379,14 +379,14 @@ export default function PhotoGlobe3D() {
               stencil: false,
               alpha: true
             }}
-            camera={{ position: [0, isMobile ? 1.4 : 1.8, isMobile ? 17.0 : 16.5], fov: 48 }}
+            camera={{ position: [0, isMobile ? 2.4 : 3.8, isMobile ? 13.5 : 12.0], fov: 48 }}
           >
             <ambientLight intensity={1.7} color="#fff4e6" />
             <directionalLight position={[10, 10, 10]} intensity={1.3} color="#ff9e00" />
             <pointLight position={[-10, -10, -10]} intensity={0.9} color="#e63946" />
             <Suspense fallback={null}>
               {/* Positioned lower so it does not collide with heading */}
-              <group position={[0, isMobile ? -0.4 : -0.6, 0]}>
+              <group position={[0, isMobile ? -0.5 : -0.8, 0]}>
                 <SoloLevelingMonarch isMobile={isMobile} />
                 <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
               </group>
@@ -398,7 +398,7 @@ export default function PhotoGlobe3D() {
               - Default view tilted downward matching reference image
             */}
             <OrbitControls
-              target={[0, isMobile ? -0.4 : -0.6, 0]}
+              target={[0, isMobile ? -0.5 : -0.8, 0]}
               enableZoom={false}
               enablePan={false}
               enableRotate={true}
