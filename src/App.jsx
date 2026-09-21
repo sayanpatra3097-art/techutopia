@@ -8,6 +8,10 @@ import PhotoGlobe3D from './components/PhotoGlobe3D'
 import Team from './components/Team'
 import Footer from './components/Footer'
 import FloatingSocials from './components/FloatingSocials'
+import FloatingSideNav from './components/FloatingSideNav'
+import HistoryPage from './components/HistoryPage'
+import SponsorsPage from './components/SponsorsPage'
+import FaqPage from './components/FaqPage'
 import CustomCursor from './components/CustomCursor'
 import './App.css'
 
@@ -36,6 +40,9 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0)
   const [eventsInitialStage, setEventsInitialStage] = useState('outro')
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false)
+  const [isSponsorsOpen, setIsSponsorsOpen] = useState(false)
+  const [isFaqOpen, setIsFaqOpen] = useState(false)
 
   const handleIntroComplete = useCallback(() => {
     setIntroFinished(true)
@@ -96,8 +103,54 @@ function App() {
           onNavigatePage={goToPage}
         />
         
-        {/* Floating Social Media Buttons (Left Center: Instagram, Twitter/X, Discord) */}
+        {/* Floating Social Media Buttons (Instagram on Right) */}
         <FloatingSocials />
+        
+        {/* Floating Left Dock (History, Sponsors, FAQs with Icon + Title) */}
+        <FloatingSideNav 
+          onOpenHistory={() => {
+            setIsHistoryOpen(true)
+            setIsSponsorsOpen(false)
+            setIsFaqOpen(false)
+          }}
+          onOpenSponsors={() => {
+            setIsSponsorsOpen(true)
+            setIsHistoryOpen(false)
+            setIsFaqOpen(false)
+          }}
+          onOpenFaq={() => {
+            setIsFaqOpen(true)
+            setIsHistoryOpen(false)
+            setIsSponsorsOpen(false)
+          }}
+        />
+        
+        {/* ═══ DEDICATED HISTORY PAGE OVERLAY (SOLAR SYSTEM & CHRONICLES) ═══ */}
+        {isHistoryOpen && (
+          <HistoryPage 
+            onBack={() => setIsHistoryOpen(false)}
+            onOpenSponsors={() => { setIsHistoryOpen(false); setIsSponsorsOpen(true) }}
+            onOpenFaq={() => { setIsHistoryOpen(false); setIsFaqOpen(true) }}
+          />
+        )}
+
+        {/* ═══ DEDICATED SPONSORS PAGE OVERLAY (WARM GOLDEN AMBER FORGE) ═══ */}
+        {isSponsorsOpen && (
+          <SponsorsPage 
+            onBack={() => setIsSponsorsOpen(false)}
+            onOpenHistory={() => { setIsSponsorsOpen(false); setIsHistoryOpen(true) }}
+            onOpenFaq={() => { setIsSponsorsOpen(false); setIsFaqOpen(true) }}
+          />
+        )}
+
+        {/* ═══ DEDICATED FAQ PAGE OVERLAY (WARM CRIMSON & RUBY ARCHIVES) ═══ */}
+        {isFaqOpen && (
+          <FaqPage 
+            onBack={() => setIsFaqOpen(false)}
+            onOpenHistory={() => { setIsFaqOpen(false); setIsHistoryOpen(true) }}
+            onOpenSponsors={() => { setIsFaqOpen(false); setIsSponsorsOpen(true) }}
+          />
+        )}
         
         <main className="dimensions-flow">
           {/* PAGE 0: Landing Experience leading to the King's Royal Scroll Countdown Timer */}

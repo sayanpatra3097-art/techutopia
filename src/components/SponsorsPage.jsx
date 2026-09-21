@@ -1,0 +1,304 @@
+import { useState, useEffect, useRef } from 'react'
+import sponsorsBg from '../assets/sponsors_bg.webp'
+
+const SPONSOR_METRICS = [
+  { value: '₹5,00,000+', label: 'COMMITTED BOUNTY' },
+  { value: '5,000+', label: 'WARRIOR FOOTFALL' },
+  { value: '80+', label: 'TOP INSTITUTES' },
+  { value: '100K+', label: 'DIGITAL IMPRESSIONS' }
+]
+
+const TITLE_PATRON = {
+  tier: 'TITLE GUILD PATRON',
+  name: 'Apex Cyber Dynamics Corp',
+  tagline: 'Leading Cloud AI & Autonomous Cyber Infrastructure',
+  perk: 'Exclusive Festival Naming Rights • Grand Keynote Arena • Direct Recruitment Fast-Track',
+  description: 'Pioneering generative machine intelligence and high-throughput computational architectures powering next-generation smart ecosystems globally.',
+  website: 'https://apexcyberdynamics.example.com',
+  badge: 'APEX TIER'
+}
+
+const POWERED_PATRON = {
+  tier: 'POWERED BY GUILD',
+  name: 'Hyperion Mecha Labs & Gaming',
+  tagline: 'Heavyweight Combat Robotics & Next-Gen Esports Arenas',
+  perk: 'Official Combat Arena Sponsor • LAN Championship Hardware Partner',
+  description: 'Building titanium-alloy combat chassis, autonomous sensor modules, and zero-latency esports gaming hardware for top global contenders.',
+  website: 'https://hyperionmecha.example.com',
+  badge: 'TITANIUM TIER'
+}
+
+const ASSOCIATE_PARTNERS = [
+  {
+    name: 'Quantum Coders Guild',
+    role: 'Hackathon Track Partner',
+    desc: 'Powering 24-hour non-stop developer track bounties with cloud credits & mentorship.'
+  },
+  {
+    name: 'Vertex BioTech Labs',
+    role: 'Physio X Biometrics Partner',
+    desc: 'Providing high-speed sensor grids and athletic telemetry for human performance trials.'
+  },
+  {
+    name: 'AeroDrone Dynamics',
+    role: 'Aerial Matrix Partner',
+    desc: 'Sponsoring custom FPV drone obstacle courses and flight avionics hardware.'
+  },
+  {
+    name: 'RedBull Energy Guild',
+    role: 'Official Fuel Partner',
+    desc: 'Powering 5,000+ sleepless hackers, roboticists, and gamers through 48 hours of battle.'
+  }
+]
+
+const MEDIA_ECOSYSTEM = [
+  { name: 'Campus Chronicle India', role: 'Student Outreach Network' },
+  { name: 'AnimeVerse Jaipur', role: 'Cosplay & Cultural Media Partner' },
+  { name: 'HackerEarth Community', role: 'Coding Verification Partner' },
+  { name: 'Unstop Official', role: 'Tournament Registration Portal' }
+]
+
+export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
+  const canvasRef = useRef(null)
+
+  // Keyboard shortcut: Esc to return to main dimension
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && onBack) {
+        onBack()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onBack])
+
+  // Floating golden forge sparkle particles canvas
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let animId
+    let isRunning = true
+
+    const resize = () => {
+      if (!canvas.parentElement) return
+      canvas.width = canvas.parentElement.offsetWidth
+      canvas.height = canvas.parentElement.offsetHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const sparkleCount = 65
+    const sparkles = []
+    for (let i = 0; i < sparkleCount; i++) {
+      sparkles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2.8 + 0.9,
+        speedY: Math.random() * 0.5 + 0.15,
+        speedX: (Math.random() - 0.5) * 0.35,
+        alpha: Math.random() * 0.65 + 0.25,
+        color: ['#fbbf24', '#f59e0b', '#fde68a', '#ffedd5', '#ea580c'][Math.floor(Math.random() * 5)],
+        twinklePhase: Math.random() * Math.PI * 2
+      })
+    }
+
+    const render = () => {
+      if (!isRunning) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      sparkles.forEach((sp) => {
+        sp.y -= sp.speedY
+        sp.x += sp.speedX
+        sp.twinklePhase += 0.04
+        if (sp.y < -10) {
+          sp.y = canvas.height + 10
+          sp.x = Math.random() * canvas.width
+        }
+        const alpha = sp.alpha * (0.7 + 0.3 * Math.sin(sp.twinklePhase))
+        ctx.fillStyle = sp.color
+        ctx.globalAlpha = alpha
+        ctx.beginPath()
+        ctx.arc(sp.x, sp.y, sp.size, 0, Math.PI * 2)
+        ctx.fill()
+      })
+
+      animId = requestAnimationFrame(render)
+    }
+    render()
+
+    return () => {
+      isRunning = false
+      window.removeEventListener('resize', resize)
+      cancelAnimationFrame(animId)
+    }
+  }, [])
+
+  return (
+    <div className="sponsors-page">
+      {/* 1. Deep Warm Golden Amber / Molten Copper Background */}
+      <div
+        className="sponsors-page__bg"
+        style={{ backgroundImage: `url(${sponsorsBg})` }}
+      />
+      <div className="sponsors-page__vignette" />
+      <canvas ref={canvasRef} className="sponsors-page__sparkle-canvas" />
+
+      {/* 2. Main Scrollable Content Container */}
+      <main className="sponsors-page__content">
+        {/* Header Hero Section */}
+        <section className="sponsors-header-hero">
+          <h1 className="sponsors-main-title">GUILD PATRONS & ALLIES</h1>
+          <p className="sponsors-subtitle">
+            Powering Rajasthan’s most epic techno-cultural arena with technology, bounties, and infinite momentum.
+          </p>
+
+          {/* Festival Metrics Counter */}
+          <div className="sponsors-metrics-grid">
+            {SPONSOR_METRICS.map((m, i) => (
+              <div key={i} className="sponsors-metric-card">
+                <span className="sponsors-metric-val">{m.value}</span>
+                <span className="sponsors-metric-lbl">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── TIER 1: TITLE GUILD PATRON ─── */}
+        <section className="sponsors-section-block">
+          <div className="sponsors-tier-heading">
+            <span className="sponsors-tier-line" />
+            <span className="sponsors-tier-title sponsors-tier-title--title">TITLE GUILD PATRON</span>
+            <span className="sponsors-tier-line" />
+          </div>
+
+          <div className="sponsors-title-card">
+            <div className="sponsors-title-card__inner">
+              <div className="sponsors-title-card__badge">{TITLE_PATRON.badge}</div>
+              <div className="sponsors-title-card__header">
+                <div>
+                  <h2 className="sponsors-title-name">{TITLE_PATRON.name}</h2>
+                  <p className="sponsors-title-tagline">{TITLE_PATRON.tagline}</p>
+                </div>
+              </div>
+
+              <p className="sponsors-title-desc">{TITLE_PATRON.description}</p>
+
+              <div className="sponsors-title-perks">
+                <span className="sponsors-perk-icon">⚡</span>
+                <span className="sponsors-perk-text">{TITLE_PATRON.perk}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── TIER 2: POWERED BY GUILD ─── */}
+        <section className="sponsors-section-block">
+          <div className="sponsors-tier-heading">
+            <span className="sponsors-tier-line" />
+            <span className="sponsors-tier-title sponsors-tier-title--powered">POWERED BY GUILD</span>
+            <span className="sponsors-tier-line" />
+          </div>
+
+          <div className="sponsors-powered-card">
+            <div className="sponsors-powered-card__inner">
+              <div className="sponsors-powered-card__badge">{POWERED_PATRON.badge}</div>
+              <div className="sponsors-powered-card__header">
+                <div>
+                  <h2 className="sponsors-powered-name">{POWERED_PATRON.name}</h2>
+                  <p className="sponsors-powered-tagline">{POWERED_PATRON.tagline}</p>
+                </div>
+              </div>
+
+              <p className="sponsors-powered-desc">{POWERED_PATRON.description}</p>
+
+              <div className="sponsors-powered-perks">
+                <span className="sponsors-perk-icon">⚔</span>
+                <span className="sponsors-perk-text">{POWERED_PATRON.perk}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── TIER 3: ASSOCIATE GUILD PARTNERS ─── */}
+        <section className="sponsors-section-block">
+          <div className="sponsors-tier-heading">
+            <span className="sponsors-tier-line" />
+            <span className="sponsors-tier-title">ASSOCIATE GUILD PARTNERS</span>
+            <span className="sponsors-tier-line" />
+          </div>
+
+          <div className="sponsors-associate-grid">
+            {ASSOCIATE_PARTNERS.map((p, idx) => (
+              <div key={idx} className="sponsors-associate-card">
+                <div className="sponsors-associate-header">
+                  <h3 className="sponsors-associate-name">{p.name}</h3>
+                  <span className="sponsors-associate-role">{p.role}</span>
+                </div>
+                <p className="sponsors-associate-desc">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── TIER 4: MEDIA & ECOSYSTEM PARTNERS ─── */}
+        <section className="sponsors-section-block">
+          <div className="sponsors-tier-heading">
+            <span className="sponsors-tier-line" />
+            <span className="sponsors-tier-title">MEDIA & OUTREACH NETWORK</span>
+            <span className="sponsors-tier-line" />
+          </div>
+
+          <div className="sponsors-media-grid">
+            {MEDIA_ECOSYSTEM.map((m, idx) => (
+              <div key={idx} className="sponsors-media-card">
+                <span className="sponsors-media-name">{m.name}</span>
+                <span className="sponsors-media-role">{m.role}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── PARTNERSHIP CALL TO ACTION ─── */}
+        <section className="sponsors-cta-box">
+          <div className="sponsors-cta-inner">
+            <div className="sponsors-cta-content">
+              <span className="sponsors-cta-tag">PARTNER WITH TECHUTOPIA ’26</span>
+              <h3 className="sponsors-cta-title">Want to empower India’s finest student innovators?</h3>
+              <p className="sponsors-cta-desc">
+                Engage directly with 5,000+ elite engineers, developers, and creatives. Custom branding tiers, keynote presentations, and recruitment pipelines available.
+              </p>
+            </div>
+            <div className="sponsors-cta-actions">
+              <a
+                href="mailto:techutopia.sponsors@uem.edu.in"
+                className="sponsors-cta-btn"
+                title="Send sponsorship inquiry"
+              >
+                📜 Request Sponsorship Brochure
+              </a>
+              <a
+                href="mailto:techutopia@uem.edu.in"
+                className="sponsors-cta-btn sponsors-cta-btn--secondary"
+              >
+                ✉ Contact Guild Relations
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* 4. Fixed Floating Bottom Right PORTAL Button */}
+      <button
+        type="button"
+        className="history-corner-portal-btn portal-floating-fixed-btn"
+        onClick={onBack}
+        title="Return to Main Festival Dimension"
+        aria-label="Back to festival portal"
+      >
+        <span className="portal-arrow">←</span>
+        <span className="portal-text">BACK</span>
+      </button>
+    </div>
+  )
+}
