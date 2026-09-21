@@ -8,7 +8,7 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const navLinks = [
     { label: 'Home', page: 0 },
     { label: 'Events', page: 1 },
-    { label: 'Itenary', page: 2 },
+    { label: 'Itinerary', page: 2 },
     { label: 'Memories', page: 3 },
     { label: 'Contact Us', page: 4 }
   ]
