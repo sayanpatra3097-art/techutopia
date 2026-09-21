@@ -1,9 +1,10 @@
 import { useRef, useState, useMemo, useEffect, Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import useScrollReveal from '../hooks/useScrollReveal'
 import universeBg from '../assets/anime_universe_bg.webp'
+import soloMonarchImg from '../assets/solo_monarch_globe.webp'
 
 // Dynamically import all photos from src/assets/pastphotos
 const pastPhotosGlob = import.meta.glob('../assets/pastphotos/*.webp', { eager: true, import: 'default' })
@@ -24,7 +25,7 @@ const memoryCaptions = [
   { title: 'AI GENERATIVE ART SHOWCASE', caption: 'Neural network installations reacting to audience movement.' }
 ]
 
-const allPastPhotos = Object.entries(pastPhotosGlob)
+const allPastPhotosRaw = Object.entries(pastPhotosGlob)
   .map(([filepath, url], index) => {
     const filename = filepath.split('/').pop() || ''
     const match = filename.match(/^(\d+)\.(png|webp)$/)
@@ -41,6 +42,11 @@ const allPastPhotos = Object.entries(pastPhotosGlob)
     }
   })
   .sort((a, b) => a.num - b.num)
+
+// Keep exactly 20 photos: use starting 10 and ending 10 pictures, skipping middle pictures
+const allPastPhotos = allPastPhotosRaw.length <= 20
+  ? allPastPhotosRaw
+  : [...allPastPhotosRaw.slice(0, 10), ...allPastPhotosRaw.slice(-10)]
 
 // Texture cache so duplicated photo tiles share the exact same GPU texture
 const textureCache = new Map()
@@ -135,11 +141,12 @@ function GlobeScene({ onSelect, isMobile }) {
   const segmentsX = isMobile ? 14 : 18
   const segmentsY = isMobile ? 4 : 5
   const totalSlots = segmentsX * segmentsY
-  const radius = isMobile ? 4.5 : 4.85
-  const stepThetaDeg = isMobile ? 18 : 17.5
+  // Bigger globe size as requested
+  const radius = isMobile ? 5.6 : 7.2
+  const stepThetaDeg = isMobile ? 18 : 17.0
   const stepThetaRad = (stepThetaDeg * Math.PI) / 180
-  const wBase = isMobile ? 1.95 : 1.63
-  const h = isMobile ? 1.35 : 1.42
+  const wBase = isMobile ? 2.30 : 2.42
+  const h = isMobile ? 1.70 : 2.05
 
   // Duplicate photos cyclically if number of photos is less than totalSlots,
   // ensuring the space between photos is completely filled and negligible.
@@ -212,6 +219,101 @@ function GlobeScene({ onSelect, isMobile }) {
   )
 }
 
+/* Solo Leveling Anime Character (Sung Jin-woo / Shadow Monarch) standing in the middle holding the globe */
+function SoloLevelingMonarch({ isMobile }) {
+  const meshRef = useRef()
+  const leftHandLightRef = useRef()
+  const rightHandLightRef = useRef()
+  const headLightRef = useRef()
+
+  const monarchTexture = useMemo(() => {
+    const loader = new THREE.TextureLoader()
+    const tex = loader.load(soloMonarchImg)
+    tex.colorSpace = THREE.SRGBColorSpace
+    tex.generateMipmaps = true
+    tex.minFilter = THREE.LinearMipmapLinearFilter
+    return tex
+  }, [])
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime()
+    // Smooth levitation up and down
+    const floatOffset = Math.sin(t * 1.5) * 0.15
+    // Positioned so head and glowing eyes emerge in the upper rim of tilted globe
+    const baseY = isMobile ? 0.9 : 1.35
+    const currentY = baseY + floatOffset
+
+    if (meshRef.current) {
+      // Always face the camera so he looks directly at the user from inside the globe
+      meshRef.current.quaternion.copy(state.camera.quaternion)
+      meshRef.current.position.y = currentY
+    }
+    // Dynamic Shadow Monarch warm flame & gold mana lights move with character
+    if (leftHandLightRef.current) {
+      leftHandLightRef.current.position.y = currentY
+      leftHandLightRef.current.intensity = 3.2 + Math.sin(t * 3.2) * 0.9
+    }
+    if (rightHandLightRef.current) {
+      rightHandLightRef.current.position.y = currentY
+      rightHandLightRef.current.intensity = 3.2 + Math.cos(t * 3.2) * 0.9
+    }
+    if (headLightRef.current) {
+      headLightRef.current.position.y = currentY + (isMobile ? 3.3 : 3.85)
+      headLightRef.current.intensity = 2.6 + Math.sin(t * 2.1) * 0.6
+    }
+  })
+
+  // Sized boldly for larger globe
+  const meshSize = isMobile ? 10.5 : 13.0
+
+  return (
+    <group>
+      {/* 3D Character standing inside center of sphere, emerging through top aperture */}
+      <mesh
+        ref={meshRef}
+        position={[0, isMobile ? 0.9 : 1.35, 0]}
+        renderOrder={1}
+      >
+        <planeGeometry args={[meshSize, meshSize]} />
+        <meshBasicMaterial
+          map={monarchTexture}
+          transparent={true}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+
+      {/* Radiant Solar Gold Mana Sparks at Left Hand */}
+      <pointLight
+        ref={leftHandLightRef}
+        position={[isMobile ? -4.8 : -5.6, isMobile ? 0.9 : 1.35, 0.5]}
+        intensity={3.4}
+        color="#ffaa00"
+        distance={11}
+      />
+
+      {/* Blazing Crimson-Red Fire at Right Hand */}
+      <pointLight
+        ref={rightHandLightRef}
+        position={[isMobile ? 4.8 : 5.6, isMobile ? 0.9 : 1.35, 0.5]}
+        intensity={3.4}
+        color="#ff3d00"
+        distance={11}
+      />
+
+      {/* Glowing Solar Gold Monarch Eyes & Head Aura */}
+      <pointLight
+        ref={headLightRef}
+        position={[0, isMobile ? 4.2 : 5.2, 0.8]}
+        intensity={2.8}
+        color="#ffd700"
+        distance={11}
+      />
+    </group>
+  )
+}
+
 export default function PhotoGlobe3D() {
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const containerRef = useRef(null)
@@ -254,18 +356,24 @@ export default function PhotoGlobe3D() {
       />
       <div className="photo-globe__universe-overlay" />
 
-      <div className="section__container">
-        <div className={`fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
+      {/* Fullscreen gradient from black on all sides to transparent in the middle */}
+      <div className="photo-globe__vignette-overlay" aria-hidden="true" />
+
+      <div className="section__container photo-globe__container-fullscreen">
+        <div className={`photo-globe__header-block fade-in-up ${isVisible ? 'fade-in-up--visible' : ''}`}>
           <h2 className="photo-globe__title">
             CHRONICLES OF PAST GLORY
           </h2>
-          <p className="section__subtitle" style={{ textAlign: 'center', margin: '0 auto var(--space-sm)', color: '#fde68a' }}>
+          <p className="section__subtitle photo-globe__subtitle">
             Click to open pic and tap and drag to rotate
           </p>
         </div>
 
-        {/* 3D Canvas Photo Globe Box */}
+        {/* 3D Canvas Photo Globe Box with full screen dedicated space */}
         <div className="photo-globe__canvas-box">
+          {/* Pulsing Shadow Monarch Domain Aura in background */}
+          <div className="photo-globe__monarch-aura" aria-hidden="true" />
+
           <Canvas
             dpr={isMobile ? [1, 1.25] : [1, 1.75]}
             gl={{
@@ -276,20 +384,26 @@ export default function PhotoGlobe3D() {
               stencil: false,
               alpha: true
             }}
-            camera={{ position: [0, 0, isMobile ? 11.8 : 10.5], fov: 48 }}
+            camera={{ position: [0, isMobile ? 2.4 : 3.8, isMobile ? 13.5 : 12.0], fov: 48 }}
           >
-            <ambientLight intensity={1.5} color="#ffe8d6" />
-            <directionalLight position={[10, 10, 10]} intensity={1.2} color="#ffb703" />
-            <pointLight position={[-10, -10, -10]} intensity={0.8} color="#ff4500" />
+            <ambientLight intensity={1.7} color="#fff4e6" />
+            <directionalLight position={[10, 10, 10]} intensity={1.3} color="#ff9e00" />
+            <pointLight position={[-10, -10, -10]} intensity={0.9} color="#e63946" />
             <Suspense fallback={null}>
-              <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
+              {/* Positioned lower so it does not collide with heading */}
+              <group position={[0, isMobile ? -0.5 : -0.8, 0]}>
+                <SoloLevelingMonarch isMobile={isMobile} />
+                <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
+              </group>
             </Suspense>
             {/* 
               OrbitControls:
               - ONLY tap and drag can rotate the globe (enableRotate={true}, enableZoom={false}, enablePan={false})
               - Continuously moves from left to right via autoRotateSpeed={-1.3}
+              - Default view tilted downward matching reference image
             */}
             <OrbitControls
+              target={[0, isMobile ? -0.5 : -0.8, 0]}
               enableZoom={false}
               enablePan={false}
               enableRotate={true}

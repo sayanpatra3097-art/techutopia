@@ -2,15 +2,19 @@ import { useState, useEffect, useRef } from 'react'
 import doorImg from '../assets/door.webp'
 import timerBg23 from '../assets/23.webp'
 
-// Eagerly resolve all anime dimension backgrounds (1.webp to 42.webp) from the assets folder
-const bgModules = import.meta.glob('../assets/*.webp', { eager: true, import: 'default' })
+import bg1 from '../assets/1.webp'
+import bg2 from '../assets/2.webp'
+import bg3 from '../assets/3.webp'
+
+// Curated 4 preloaded backgrounds to eliminate bundle bloat and 42-image decode stutter
+const keyBgs = {
+  1: bg1,
+  2: bg2,
+  3: bg3
+}
 
 const getAssetBg = (num) => {
-  return (
-    bgModules[`../assets/${num}.webp`] ||
-    bgModules[`../assets/${((num % 42) + 1)}.webp`] ||
-    bgModules['../assets/1.webp']
-  )
+  return keyBgs[num] || (num % 3 === 1 ? bg1 : (num % 3 === 2 ? bg2 : (num % 3 === 0 ? bg3 : timerBg23)))
 }
 
 const animeLayers = [
@@ -531,7 +535,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
         const scrolled = -rect.top
         const p = Math.max(0, Math.min(1, scrolled / totalScrollable))
         // Deadband filter prevents micro-jitter and avoids redundant React renders
-        if (Math.abs(p - lastProgress) > 0.0015 || p === 0 || p === 1) {
+        if (Math.abs(p - lastProgress) > 0.003 || p === 0 || p === 1) {
           lastProgress = p
           setScrollProgress(p)
         }
@@ -552,15 +556,21 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
   const pad = (n) => String(n).padStart(2, '0')
 
-  // 3D Solo Leveling Door Swing opening and upward scroll translation
-  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 1200 : 550))
-  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 14 : 5.8))
-  const doorTranslateY = -scrollProgress * (isMobile ? 360 : 180)
+  // 3D Solo Leveling Door Swing opening - swift, natural, and lag-free
+  const doorAngle = Math.min(95, scrollProgress * (isMobile ? 480 : 440))
+  const doorOpacity = Math.max(0, 1 - scrollProgress * (isMobile ? 5.2 : 4.6))
+  const doorTranslateY = -scrollProgress * (isMobile ? 120 : 80)
 
-  // ───── CONTINUOUS 42-DIMENSION ZOOM-IN CALCULATION ─────
-  const zoomStart = 0.02
-  const zoomEnd = isMobile ? 0.16 : 0.44
-  const totalLayers = animeLayers.length // 42
+  // ───── CURATED KEY DIMENSIONS TRANSITION (PRELOADED, ZERO NETWORK/DECODE LAG) ─────
+  const keyDimensions = [
+    animeLayers[0], // Solo Leveling Shadow Monarch
+    animeLayers[1], // Demon Slayer Hinokami
+    animeLayers[2], // Jujutsu Kaisen Infinite Void
+    animeLayers[22] // TechUtopia Royal Chrono Apex
+  ]
+  const zoomStart = 0.06
+  const zoomEnd = isMobile ? 0.40 : 0.50
+  const totalLayers = keyDimensions.length // 4
 
   const clampedProgress = Math.max(0, Math.min(1, (scrollProgress - zoomStart) / (zoomEnd - zoomStart)))
   const exactPosition = clampedProgress * (totalLayers - 1)
@@ -568,25 +578,24 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const nextIndex = Math.min(totalLayers - 1, activeIndex + 1)
   const stepProgress = exactPosition - activeIndex // 0.0 to 1.0 within current step
 
-  // Active layer zoom: starts at scale 1.0 and zooms in up to 2.45x as you scroll
-  const activeScale = 1 + stepProgress * 1.45
-  const activeOpacity = Math.max(0, 1 - stepProgress * 1.1)
+  // Active layer zoom: starts at scale 1.0 and zooms in smoothly without heavy GPU filters
+  const activeScale = 1 + stepProgress * 0.85
+  const activeOpacity = Math.max(0, 1 - stepProgress * 0.95)
 
-  // Next layer: emerging from behind starting at scale 0.85 and scaling up to 1.0
-  const nextScale = 0.85 + stepProgress * 0.35
-  const nextOpacity = Math.min(1, stepProgress * 1.4)
+  // Next layer: emerging smoothly from behind
+  const nextScale = 0.88 + stepProgress * 0.25
+  const nextOpacity = Math.min(1, stepProgress * 1.25)
 
-  const currentLayer = animeLayers[activeIndex] || animeLayers[0]
-  const nextLayer = animeLayers[nextIndex] || currentLayer
+  const currentLayer = keyDimensions[activeIndex] || keyDimensions[0]
+  const nextLayer = keyDimensions[nextIndex] || currentLayer
   const activeColor = currentLayer.color
 
-  // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (OPENS WITHIN 2-3 SWIPES ON MOBILE) ─────
-  const scrollStageStart = isMobile ? 0.10 : 0.38
-  const rollStart = isMobile ? 0.12 : 0.40
-  const rollEnd = isMobile ? 0.40 : 0.82
+  // ───── ROYAL KING'S SCROLL UNROLL CALCULATION (OPENS SWIFTLY WITHIN 1-2 SWIPES) ─────
+  const scrollStageStart = isMobile ? 0.20 : 0.30
+  const rollStart = isMobile ? 0.24 : 0.34
+  const rollEnd = isMobile ? 0.65 : 0.78
 
-  // For scrolling images: increase opacity and clarity with light vignette.
-  // For the last image (before/during timer): keep original dark gradient so timer animation is clearly visible.
+  // Clean radial vignette without costly image churn
   const isLastActive = activeIndex >= totalLayers - 1 || scrollProgress >= scrollStageStart
   const isLastNext = nextIndex >= totalLayers - 1
 
@@ -598,8 +607,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
     ? 'radial-gradient(circle at center, rgba(10, 12, 20, 0.3) 0%, rgba(5, 6, 10, 0.96) 85%)'
     : 'radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(4, 5, 10, 0.28) 85%)'
 
-  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 25 : 12)) : 0
-  const timerScale = 0.90 + (scrollProgress > scrollStageStart ? Math.min(0.04, (scrollProgress - scrollStageStart) * (isMobile ? 0.25 : 0.15)) : 0)
+  const timerOpacity = scrollProgress > scrollStageStart ? Math.min(1, (scrollProgress - scrollStageStart) * (isMobile ? 12 : 9)) : 0
+  const timerScale = 0.92 + (scrollProgress > scrollStageStart ? Math.min(0.08, (scrollProgress - scrollStageStart) * 0.16) : 0)
 
   // Direct 1-to-1 scroll-driven roll calculation (zero lag, zero latency)
   const scrollRoll = Math.max(0, Math.min(1, (scrollProgress - rollStart) / (rollEnd - rollStart)))
@@ -678,8 +687,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
             style={{
               backgroundImage: `${activeBgGradient}, url(${currentLayer.bg})`,
               transform: `scale(${activeScale})`,
-              opacity: activeOpacity,
-              filter: (isMobile || isLastActive) ? 'none' : 'saturate(1.15) contrast(1.06)'
+              opacity: activeOpacity
             }}
           />
 
@@ -690,8 +698,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
               style={{
                 backgroundImage: `${nextBgGradient}, url(${nextLayer.bg})`,
                 transform: `scale(${nextScale})`,
-                opacity: nextOpacity,
-                filter: (isMobile || isLastNext) ? 'none' : 'saturate(1.15) contrast(1.06)'
+                opacity: nextOpacity
               }}
             />
           )}
@@ -711,7 +718,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
           style={{
             opacity: doorOpacity,
             transform: `translateY(${doorTranslateY}px)`,
-            pointerEvents: scrollProgress > (isMobile ? 0.12 : 0.3) ? 'none' : 'auto'
+            pointerEvents: scrollProgress > (isMobile ? 0.16 : 0.22) ? 'none' : 'auto'
           }}
         >
           {/* Ancient Dungeon Portal - Left Wing */}
@@ -727,7 +734,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   className="sl-door__image"
                   loading="eager"
                   fetchPriority="high"
-                  decoding="sync"
+                  decoding="async"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--left" />
@@ -748,7 +755,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                   className="sl-door__image"
                   loading="eager"
                   fetchPriority="high"
-                  decoding="sync"
+                  decoding="async"
                 />
               </div>
               <div className="sl-door__mana-cracks sl-door__mana-cracks--right" />

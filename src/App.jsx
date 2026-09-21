@@ -133,7 +133,7 @@ function App() {
 
           {/* PAGE 3: 3D PHOTO GLOBE & MEMORIES */}
           {currentPage === 3 && (
-            <div className="dimension-page-view">
+            <div className="dimension-page-view dimension-page-view--globe">
               <PhotoGlobe3D
                 onNext={nextPage}
                 onPrev={prevPage}
