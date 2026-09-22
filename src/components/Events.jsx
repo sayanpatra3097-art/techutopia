@@ -751,22 +751,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
               {/* Information & Specs */}
               <div className="centered-dossier__info">
                 <h3 className="centered-dossier__title">{activeOpenedEvent.title}</h3>
-                <p className="centered-dossier__briefing">{activeOpenedEvent.description}</p>
-
-                <div className="centered-dossier__specs-grid">
-                  <div className="centered-dossier__spec-card">
-                    <span className="spec-label">📅 SCHEDULE</span>
-                    <span className="spec-val">{activeOpenedEvent.date}</span>
-                  </div>
-                  <div className="centered-dossier__spec-card">
-                    <span className="spec-label">📍 VENUE</span>
-                    <span className="spec-val">{activeOpenedEvent.venue}</span>
-                  </div>
-                  <div className="centered-dossier__spec-card">
-                    <span className="spec-label">👥 GUILD SQUAD</span>
-                    <span className="spec-val">{activeOpenedEvent.team}</span>
-                  </div>
-                </div>
+                <p className="centered-dossier__briefing">{activeOpenedEvent.snippet || activeOpenedEvent.description}</p>
 
                 <div className="centered-dossier__footer">
                   <a

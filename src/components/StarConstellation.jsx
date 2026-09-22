@@ -41,7 +41,7 @@ const constellationDays = {
       id: 'd1-1',
       x: 19,
       y: 22,
-      labelPos: 'left',
+      labelPos: 'bottom',
       color: '#fbbf24',
       time: '10:00 AM - 04:00 PM',
       title: 'LAUNCHPAD: TECH EXPO',
@@ -71,7 +71,7 @@ const constellationDays = {
       id: 'd1-3',
       x: 56,
       y: 26,
-      labelPos: 'bottom',
+      labelPos: 'top',
       color: '#f59e0b',
       time: '11:30 AM - 03:00 PM',
       title: 'PHYSIO X: AGILITY',
@@ -116,7 +116,7 @@ const constellationDays = {
       id: 'd1-6',
       x: 67,
       y: 36,
-      labelPos: 'top',
+      labelPos: 'bottom',
       color: '#fbbf24',
       time: '02:00 PM - 05:00 PM',
       title: 'GRAVITY ZONE: ZERO-G',
@@ -146,7 +146,7 @@ const constellationDays = {
       id: 'd1-8',
       x: 72,
       y: 76,
-      labelPos: 'bottom',
+      labelPos: 'left',
       color: '#fcd34d',
       time: '03:00 PM - 06:00 PM',
       title: 'DRONE AIR MATRIX',
@@ -161,7 +161,7 @@ const constellationDays = {
       id: 'd1-9',
       x: 89,
       y: 85,
-      labelPos: 'left',
+      labelPos: 'top',
       color: '#f59e0b',
       time: '03:00 PM - 07:00 PM',
       title: 'ESPORTS CHAMPIONSHIP',
@@ -193,7 +193,7 @@ const constellationDays = {
       id: 'd2-1',
       x: 19,
       y: 22,
-      labelPos: 'left',
+      labelPos: 'bottom',
       color: '#fbbf24',
       time: '10:00 AM - 02:00 PM',
       title: 'SUSTAINABILITY FORUM',
@@ -223,7 +223,7 @@ const constellationDays = {
       id: 'd2-3',
       x: 56,
       y: 26,
-      labelPos: 'bottom',
+      labelPos: 'top',
       color: '#f59e0b',
       time: '10:30 AM - 01:30 PM',
       title: 'PROMPT VERSE: TRIAL',
@@ -268,7 +268,7 @@ const constellationDays = {
       id: 'd2-6',
       x: 67,
       y: 36,
-      labelPos: 'top',
+      labelPos: 'bottom',
       color: '#fbbf24',
       time: '12:00 PM - 05:00 PM',
       title: 'CYSEC: CYBER WARFARE',
@@ -313,7 +313,7 @@ const constellationDays = {
       id: 'd2-9',
       x: 72,
       y: 76,
-      labelPos: 'bottom',
+      labelPos: 'left',
       color: '#f59e0b',
       time: '04:00 PM - 06:30 PM',
       title: 'HACKATHON FINALE PITCH',
@@ -328,7 +328,7 @@ const constellationDays = {
       id: 'd2-10',
       x: 89,
       y: 85,
-      labelPos: 'left',
+      labelPos: 'top',
       color: '#fde68a',
       time: '06:30 PM - 08:30 PM',
       title: 'FASHION CARNIVAL',
@@ -338,21 +338,6 @@ const constellationDays = {
       rank: 'SUPREME GALA',
       starName: 'Theta Eridani (Acamar)',
       eventName: 'Fashion Carnival'
-    },
-    {
-      id: 'd2-11',
-      x: 95,
-      y: 92,
-      labelPos: 'left',
-      color: '#ff9a00',
-      time: '07:00 PM - 10:30 PM',
-      title: 'CELEBRITY CONCERT & DJ NIGHT',
-      desc: 'Live rock bands, celebrity concert, EDM DJ sets, and musical performances.',
-      venue: 'Main University Stadium Open Grounds',
-      category: 'Music & Cultural Fest',
-      rank: 'STARLIGHT GALA',
-      starName: 'Alpha Eridani (Achernar)',
-      eventName: 'Cultural Evening'
     }
   ]
 }
@@ -853,24 +838,19 @@ export default function StarConstellation() {
         ctx.shadowBlur = 0
 
         // 5. Astronomical Watermarks & Annotations in warm gold / champagne
-        // Rigel companion star & label at top-left
+        // Subtle Rigel companion star dot at top-left (without text label to prevent overlap)
         const rigelX = (12 / 100) * canvas.width * curZoom + curPan.x
         const rigelY = (22 / 100) * canvas.height * curZoom + curPan.y
-        ctx.fillStyle = '#fde68a'
-        ctx.font = `bold ${Math.max(11, Math.round(13 * curZoom))}px Outfit, sans-serif`
-        ctx.textAlign = 'right'
-        ctx.textBaseline = 'middle'
-        ctx.fillText('Rigel', rigelX - 10, rigelY)
-        // Rigel bright star dot
         ctx.shadowColor = '#fbbf24'
-        ctx.shadowBlur = 10
+        ctx.shadowBlur = 8
+        ctx.fillStyle = '#fde68a'
         ctx.beginPath()
-        ctx.arc(rigelX, rigelY, 4.2, 0, Math.PI * 2)
+        ctx.arc(rigelX, rigelY, 3.5, 0, Math.PI * 2)
         ctx.fill()
         ctx.shadowBlur = 0
 
         // "Eridanus the River" constellation watermark inside the upper loop
-        const nameX = (43 / 100) * canvas.width * curZoom + curPan.x
+        const nameX = (40 / 100) * canvas.width * curZoom + curPan.x
         const nameY = (28 / 100) * canvas.height * curZoom + curPan.y
         ctx.font = `800 ${Math.max(14, Math.round(19 * curZoom))}px Outfit, sans-serif`
         ctx.textAlign = 'center'
@@ -880,30 +860,6 @@ export default function StarConstellation() {
         ctx.shadowBlur = 14
         ctx.fillText('Eridanus the River', nameX, nameY)
         ctx.shadowBlur = 0
-
-        // Acamar star label
-        if (riverPoints[25]) {
-          ctx.font = `600 ${Math.max(10, Math.round(12 * curZoom))}px Outfit, sans-serif`
-          ctx.textAlign = 'right'
-          ctx.textBaseline = 'middle'
-          ctx.fillStyle = '#fde68a'
-          ctx.shadowColor = '#ff9a00'
-          ctx.shadowBlur = 6
-          ctx.fillText('Acamar', riverPoints[25].x - 14, riverPoints[25].y)
-          ctx.shadowBlur = 0
-        }
-
-        // Achernar terminal star label
-        if (riverPoints[27]) {
-          ctx.font = `bold ${Math.max(11, Math.round(13 * curZoom))}px Outfit, sans-serif`
-          ctx.textAlign = 'right'
-          ctx.textBaseline = 'middle'
-          ctx.fillStyle = '#fef3c7'
-          ctx.shadowColor = '#f97316'
-          ctx.shadowBlur = 8
-          ctx.fillText('Achernar', riverPoints[27].x - 16, riverPoints[27].y)
-          ctx.shadowBlur = 0
-        }
 
         // 6. Directional Arrows Traveling along all segments of the Eridanus River in fire-gold
         const segments = []

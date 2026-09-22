@@ -30,11 +30,11 @@ export { sunWebp, sunWebp as sunReal }
 
 export const HISTORY_EDITIONS = [
   {
-    id: '2022-23',
-    year: '2022-23',
+    id: '2021-22',
+    year: '2021-22',
     theme: 'THE GENESIS DAWN',
     subtitle: 'Awakening the Techno-Cultural Era',
-    description: `Conceived at UEM Jaipur as the supreme techno-cultural festival. Featured Rajasthan's first heavyweight combat robotics cage, grassroots drone trials, and 1,200+ delegates. Inaugurated Jaipur's grandest student-led tech confluence.`,
+    description: `Launched the Tech Fest at UEM Jaipur, bringing together UEM students to showcase innovation, creativity, and technical talent through exciting competitions and projects.`,
     stats: {
       footfall: '1,200+',
       events: '18 Quests',
@@ -56,8 +56,8 @@ export const HISTORY_EDITIONS = [
     }
   },
   {
-    id: '2023-24',
-    year: '2023-24',
+    id: '2022-23',
+    year: '2022-23',
     theme: 'CYBER RENAISSANCE',
     subtitle: 'Statewide Expansion & Autonomous Machines',
     description: `Expanded into a nationwide tech summit with the flagship Hack Pulse 24-hour non-stop hackathon. Featured pneumatic 60kg combat bots, high-speed RC dirt racing, and state esports arenas with 2,800+ contenders.`,
@@ -82,8 +82,8 @@ export const HISTORY_EDITIONS = [
     }
   },
   {
-    id: '2024-25',
-    year: '2024-25',
+    id: '2023-24',
+    year: '2023-24',
     theme: 'CELESTIAL ASCENDANCE',
     subtitle: 'National Footprint & Star-Studded Nights',
     description: `Shattered collegiate records with 4,500+ delegates from 80+ top universities across India. Debuted Physio X biomechanics testing, grand laser light shows, and headline concerts under open skies.`,
@@ -108,8 +108,8 @@ export const HISTORY_EDITIONS = [
     }
   },
   {
-    id: '2025-26',
-    year: '2025-26',
+    id: '2024-25',
+    year: '2024-25',
     theme: 'THE MONARCH’S REALM',
     subtitle: 'Solo Leveling Dimension & The Future Unlocked',
     description: `The grandest edition in history! Ascending into a Solo Leveling dungeon multiverse with an interactive 3D Photo Globe, Celestial Eridanus star maps, and an unprecedented ₹5,00,000+ bounty pool for 5,000+ warriors.`,
