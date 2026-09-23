@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { preloadHistoryAssets } from '../utils/preloadAssets'
 
 const navSections = [
   {
@@ -206,6 +207,9 @@ export default function FloatingSideNav({ onOpenHistory, onOpenSponsors, onOpenF
               style={{
                 '--item-color': sec.color,
                 '--item-glow': sec.glow
+              }}
+              onPointerEnter={() => {
+                if (sec.id === 'history') preloadHistoryAssets()
               }}
               onClick={() => handleNavClick(sec.id)}
               aria-label={sec.title}

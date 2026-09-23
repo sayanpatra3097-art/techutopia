@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import AnimeIntro from './components/AnimeIntro'
 import ZoomingHeroToTimer from './components/ZoomingHeroToTimer'
@@ -13,6 +13,7 @@ import HistoryPage from './components/HistoryPage'
 import SponsorsPage from './components/SponsorsPage'
 import FaqPage from './components/FaqPage'
 import CustomCursor from './components/CustomCursor'
+import { preloadSecondaryAssets, preloadHistoryAssets } from './utils/preloadAssets'
 import './App.css'
 
 const DIMENSION_PAGES = [
@@ -46,6 +47,17 @@ function App() {
 
   const handleIntroComplete = useCallback(() => {
     setIntroFinished(true)
+  }, [])
+
+  // Automatically warm browser cache for History, Events, and all dimensions in background
+  useEffect(() => {
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(() => preloadSecondaryAssets(), { timeout: 1500 })
+      return () => window.cancelIdleCallback(id)
+    } else {
+      const timer = setTimeout(preloadSecondaryAssets, 600)
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   const goToPage = (pageIndex, options = {}) => {
@@ -109,6 +121,7 @@ function App() {
         {/* Floating Left Dock (History, Sponsors, FAQs with Icon + Title) */}
         <FloatingSideNav 
           onOpenHistory={() => {
+            preloadHistoryAssets()
             setIsHistoryOpen(true)
             setIsSponsorsOpen(false)
             setIsFaqOpen(false)

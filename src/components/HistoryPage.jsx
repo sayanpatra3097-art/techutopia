@@ -105,8 +105,19 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
   // Dynamic asteroid belt particles (between 2nd last and last planet)
   const asteroidsRef = useRef([])
 
-  // Preload sun.webp, planet sphere canvases, and asteroid belt once on mount
+  // Preload sun.webp, planet sphere canvases, edition images, and asteroid belt once on mount
   useEffect(() => {
+    // Eagerly pre-decode all edition photos for all 4 years into GPU memory for instant display
+    HISTORY_EDITIONS.forEach((ed) => {
+      if (!ed.images) return
+      Object.values(ed.images).forEach((url) => {
+        if (!url) return
+        const img = new Image()
+        img.src = url
+        if (img.decode) img.decode().catch(() => {})
+      })
+    })
+
     // 1. Initialize 3D model of the Sun using Three.js and sun.webp
     const sunImg = new Image()
     sunImg.crossOrigin = 'anonymous'
@@ -781,7 +792,9 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
             <img
               src={currentEdition.images.leftTop}
               alt="Archive highlight"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
         </div>
@@ -792,7 +805,9 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
             <img
               src={currentEdition.images.leftBottom}
               alt="Festival chronicle"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
         </div>
@@ -803,7 +818,9 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
             <img
               src={currentEdition.images.rightTop}
               alt="Edition event"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
         </div>
@@ -822,7 +839,9 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
             <img
               src={currentEdition.images.rightBottom}
               alt="Celebration moment"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
         </div>
