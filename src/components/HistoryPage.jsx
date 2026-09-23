@@ -794,7 +794,7 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
               alt="Archive highlight"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -807,7 +807,7 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
               alt="Festival chronicle"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -820,7 +820,7 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
               alt="Edition event"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -841,7 +841,7 @@ export default function HistoryPage({ onBack, onOpenSponsors, onOpenFaq }) {
               alt="Celebration moment"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>
