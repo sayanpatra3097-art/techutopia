@@ -1,3 +1,5 @@
+import { SOCIAL_LINKS } from '../context/socialLinks'
+
 export default function Footer() {
   return (
     <footer className="footer" id="contact">
@@ -21,11 +23,7 @@ export default function Footer() {
             <ul className="footer__col-links">
               <li className="footer__col-link">
                 <span className="contact-label">Email:</span>{' '}
-                <a href="mailto:techutopia@uem.edu.in" className="contact-val">techutopia@uem.edu.in</a>
-              </li>
-              <li className="footer__col-link">
-                <span className="contact-label">Helpline:</span>{' '}
-                <a href="tel:+911412828000" className="contact-val">+91 141 2828 000</a>
+                <a href="mailto:techutopia@iem.edu.in" className="contact-val">techutopia@iem.edu.in</a>
               </li>
               <li className="footer__col-link">
                 <span className="contact-label">Student Convener:</span>{' '}
@@ -44,9 +42,9 @@ export default function Footer() {
             © 2026 TechUtopia • University of Engineering &amp; Management, Jaipur. All rights reserved. Crafted with Three.js &amp; Passion.
           </div>
           <div className="footer__socials">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="Instagram">📸</a>
+            <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="footer__social" aria-label="Instagram">📸</a>
             <a href="https://discord.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="Discord">💬</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="LinkedIn">💼</a>
+            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noreferrer" className="footer__social" aria-label="LinkedIn">💼</a>
             <a href="https://youtube.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="YouTube">▶️</a>
             <a href="https://github.com" target="_blank" rel="noreferrer" className="footer__social" aria-label="GitHub">🐙</a>
           </div>

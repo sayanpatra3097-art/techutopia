@@ -271,7 +271,7 @@ export default function FaqPage({ onBack, onOpenHistory, onOpenSponsors }) {
             </div>
             <div className="faq-summon-actions">
               <a
-                href="mailto:techutopia@uem.edu.in"
+                href="mailto:techutopia@iem.edu.in"
                 className="faq-summon-btn"
                 title="Send official inquiry email"
               >

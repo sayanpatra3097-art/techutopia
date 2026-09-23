@@ -2,8 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import useScrollReveal from '../hooks/useScrollReveal'
 import animeSkyBg from '../assets/anime_sky_bg.webp'
 
+const PATH_Y_SHIFT = 5 // Shifts the entire celestial constellation trajectory smoothly down for optimal visual spacing
+
 // Authentic "Eridanus the River" Constellation Trajectory (Exact match to reference star chart)
-const eridanusTrajectory = [
+const rawEridanusTrajectory = [
   { x: 19, y: 22 }, // 0: Start below top-left bend (near Rigel)
   { x: 18, y: 13 }, // 1: Top of vertical stem
   { x: 26, y: 11 }, // 2: Up-right
@@ -34,8 +36,13 @@ const eridanusTrajectory = [
   { x: 95, y: 92 }  // 27: Achernar terminal star (Alpha Eridani / Achernar)
 ]
 
+const eridanusTrajectory = rawEridanusTrajectory.map(pt => ({
+  x: pt.x,
+  y: pt.y + PATH_Y_SHIFT
+}))
+
 // Authentic Anime Constellation Timeline for TechUtopia '26 mapped onto Eridanus the River
-const constellationDays = {
+const rawConstellationDays = {
   'DAY 01': [
     {
       id: 'd1-1',
@@ -43,7 +50,7 @@ const constellationDays = {
       y: 22,
       labelPos: 'bottom',
       color: '#fbbf24',
-      time: '10:00 AM - 04:00 PM',
+      time: 'Time : TBD',
       title: 'LAUNCHPAD: TECH EXPO',
       desc: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
       venue: 'Exhibition Center, Main Foyer',
@@ -58,7 +65,7 @@ const constellationDays = {
       y: 8,
       labelPos: 'top',
       color: '#ffb703',
-      time: '11:00 AM - 03:00 PM',
+      time: 'Time : TBD',
       title: 'ROBO WAR: COLISEUM',
       desc: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
       venue: 'Mechanical Arena, Workshop Block',
@@ -73,7 +80,7 @@ const constellationDays = {
       y: 26,
       labelPos: 'top',
       color: '#f59e0b',
-      time: '11:30 AM - 03:00 PM',
+      time: 'Time : TBD',
       title: 'PHYSIO X: AGILITY',
       desc: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
       venue: 'Physiotherapy Clinical Arena',
@@ -88,7 +95,7 @@ const constellationDays = {
       y: 13,
       labelPos: 'top',
       color: '#fde68a',
-      time: '11:00 AM (24hr Non-Stop)',
+      time: 'Time : TBD',
       title: 'HACK PULSE: 24HR SPRINT',
       desc: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour.',
       venue: 'Innovation Hub & Sandbox Lab',
@@ -103,7 +110,7 @@ const constellationDays = {
       y: 30,
       labelPos: 'right',
       color: '#ff9a00',
-      time: '12:00 PM - 08:00 PM',
+      time: 'Time : TBD',
       title: 'CAMPUS ZAIKA & ALCHEMY',
       desc: 'Gastronomic culinary stalls, fast-eating showdowns, and mocktail alchemy.',
       venue: 'Food Court Promenade, UEM Jaipur',
@@ -118,7 +125,7 @@ const constellationDays = {
       y: 36,
       labelPos: 'bottom',
       color: '#fbbf24',
-      time: '02:00 PM - 05:00 PM',
+      time: 'Time : TBD',
       title: 'GRAVITY ZONE: ZERO-G',
       desc: 'Defy terrestrial physics! Teams build aerodynamic launchers and rockets.',
       venue: 'Central University Grounds, UEM Jaipur',
@@ -133,7 +140,7 @@ const constellationDays = {
       y: 55,
       labelPos: 'left',
       color: '#ffb703',
-      time: '02:30 PM - 05:30 PM',
+      time: 'Time : TBD',
       title: 'DEATH RACE: RC CLASH',
       desc: 'High-velocity RC car sprint across lethal obstacle tracks and sharp chicanes.',
       venue: 'Outdoor Grand Arena & Dirt Track',
@@ -144,11 +151,26 @@ const constellationDays = {
     },
     {
       id: 'd1-8',
+      x: 62,
+      y: 66,
+      labelPos: 'top',
+      color: '#e65100',
+      time: 'Time : TBD',
+      title: 'BYTE BATTLE: TECH EXPO',
+      desc: 'Interactive working models of smart city infrastructures, robotics grids, and clean energy.',
+      venue: 'Main Foyer & Exhibition Hall A',
+      category: 'Hardware & Science',
+      rank: 'S-RANK EXHIBIT',
+      starName: 'Sceptrum',
+      eventName: 'BYTE BATTLE'
+    },
+    {
+      id: 'd1-9',
       x: 72,
       y: 76,
       labelPos: 'left',
       color: '#fcd34d',
-      time: '03:00 PM - 06:00 PM',
+      time: 'Time : TBD',
       title: 'DRONE AIR MATRIX',
       desc: 'Pilots navigate quadcopters through an illuminated obstacle matrix in 3D airspace.',
       venue: 'Open Sky Amphitheatre Arena',
@@ -158,12 +180,12 @@ const constellationDays = {
       eventName: 'Drone Competition'
     },
     {
-      id: 'd1-9',
+      id: 'd1-10',
       x: 89,
       y: 85,
       labelPos: 'top',
       color: '#f59e0b',
-      time: '03:00 PM - 07:00 PM',
+      time: 'Time : TBD',
       title: 'ESPORTS CHAMPIONSHIP',
       desc: 'High-octane BGMI, Valorant, and EA FC tactical tournament on high-refresh rigs.',
       venue: 'Indoor Sports Stadium & Gaming Dome',
@@ -173,12 +195,12 @@ const constellationDays = {
       eventName: 'Esports Arena'
     },
     {
-      id: 'd1-10',
+      id: 'd1-11',
       x: 95,
       y: 92,
       labelPos: 'left',
       color: '#fde68a',
-      time: 'Day 1 - Day 2 • All Day',
+      time: 'Time : TBD',
       title: 'VISUAL ECHOS',
       desc: 'Theme-based on-spot photography and cinematic storytelling competition.',
       venue: 'Media Center & Campus-Wide',
@@ -195,7 +217,7 @@ const constellationDays = {
       y: 22,
       labelPos: 'bottom',
       color: '#fbbf24',
-      time: '10:00 AM - 02:00 PM',
+      time: 'Time : TBD',
       title: 'SUSTAINABILITY FORUM',
       desc: 'Present breakthrough technologies for renewable energy, water recycling, and carbon capture.',
       venue: 'Eco-Innovation Concourse, Block 2',
@@ -210,7 +232,7 @@ const constellationDays = {
       y: 8,
       labelPos: 'top',
       color: '#ffb703',
-      time: '10:00 AM - 01:00 PM',
+      time: 'Time : TBD',
       title: 'PRAGATI 2.0: BIOMECHANICS',
       desc: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
       venue: 'Physiotherapy & Health Sciences Wing',
@@ -225,7 +247,7 @@ const constellationDays = {
       y: 26,
       labelPos: 'top',
       color: '#f59e0b',
-      time: '10:30 AM - 01:30 PM',
+      time: 'Time : TBD',
       title: 'PROMPT VERSE: TRIAL',
       desc: 'Screen-off coding challenge where contestants type algorithms with monitors off.',
       venue: 'Computing Lab 4, UEM Jaipur',
@@ -240,7 +262,7 @@ const constellationDays = {
       y: 13,
       labelPos: 'top',
       color: '#fde68a',
-      time: '11:00 AM - 03:00 PM',
+      time: 'Time : TBD',
       title: 'ROBOSOCCER: MECHA',
       desc: 'Deploy custom-engineered manual or autonomous rovers in magnetic turf arena.',
       venue: 'Robotics Arena, Workshop Ground',
@@ -255,7 +277,7 @@ const constellationDays = {
       y: 30,
       labelPos: 'right',
       color: '#ff9a00',
-      time: '11:30 AM - 03:30 PM',
+      time: 'Time : TBD',
       title: 'TECHVENTURE: ARENA',
       desc: 'Shark Tank style startup battleground pitching to angel investors.',
       venue: 'Auditorium Hall B, UEM Jaipur',
@@ -270,7 +292,7 @@ const constellationDays = {
       y: 36,
       labelPos: 'bottom',
       color: '#fbbf24',
-      time: '12:00 PM - 05:00 PM',
+      time: 'Time : TBD',
       title: 'CYSEC: CYBER WARFARE',
       desc: 'Live jeopardy-style ethical hacking battle! Penetrate server clusters and decrypt payloads.',
       venue: 'Cyber Defense Command Lab 1',
@@ -285,7 +307,7 @@ const constellationDays = {
       y: 55,
       labelPos: 'left',
       color: '#ffb703',
-      time: '01:30 PM - 04:30 PM',
+      time: 'Time : TBD',
       title: 'BRIDGE BUILDING',
       desc: 'Design and construct maximum load-bearing truss bridges under calibrated testing.',
       venue: 'Civil Engineering Materials Lab',
@@ -300,7 +322,7 @@ const constellationDays = {
       y: 66,
       labelPos: 'top',
       color: '#fcd34d',
-      time: '02:00 PM - 05:30 PM',
+      time: 'Time : TBD',
       title: "DRAGON'S DEN ARENA",
       desc: 'High-stakes startup pitch arena directly to industry venture capitalists.',
       venue: 'Auditorium Hall B & Innovation Stage',
@@ -315,7 +337,7 @@ const constellationDays = {
       y: 76,
       labelPos: 'left',
       color: '#f59e0b',
-      time: '04:00 PM - 06:30 PM',
+      time: 'Time : TBD',
       title: 'HACKATHON FINALE PITCH',
       desc: 'Finalist squads present live working deployments before senior architects.',
       venue: 'Innovation Hub & Sandbox Lab',
@@ -330,7 +352,7 @@ const constellationDays = {
       y: 85,
       labelPos: 'top',
       color: '#fde68a',
-      time: '06:30 PM - 08:30 PM',
+      time: 'Time : TBD',
       title: 'FASHION CARNIVAL',
       desc: 'Anime cosplay masquerade, cyber couture runway, and festival championships.',
       venue: 'Grand Amphitheatre Open Stage',
@@ -338,9 +360,34 @@ const constellationDays = {
       rank: 'SUPREME GALA',
       starName: 'Theta Eridani (Acamar)',
       eventName: 'Fashion Carnival'
+    },
+    {
+      id: 'd2-11',
+      x: 95,
+      y: 92,
+      labelPos: 'left',
+      color: '#ec4899',
+      time: 'Time : TBD',
+      title: 'AGOMONI: STARLIGHT GALA',
+      desc: 'Celebrity live music concert, theatrical dance ensembles, and DJ festival night.',
+      venue: 'Main University Stadium Open Grounds',
+      category: 'Music & Cultural Fest',
+      rank: 'STARLIGHT GALA',
+      starName: 'Alpha Eridani (Achernar)',
+      eventName: 'Agomoni'
     }
   ]
 }
+
+const constellationDays = Object.fromEntries(
+  Object.entries(rawConstellationDays).map(([day, list]) => [
+    day,
+    list.map(star => ({
+      ...star,
+      y: star.y + PATH_Y_SHIFT
+    }))
+  ])
+)
 
 const nodeColorPalette = [
   '#fbbf24', // Radiant Amber Gold
@@ -840,7 +887,7 @@ export default function StarConstellation() {
         // 5. Astronomical Watermarks & Annotations in warm gold / champagne
         // Subtle Rigel companion star dot at top-left (without text label to prevent overlap)
         const rigelX = (12 / 100) * canvas.width * curZoom + curPan.x
-        const rigelY = (22 / 100) * canvas.height * curZoom + curPan.y
+        const rigelY = ((22 + PATH_Y_SHIFT) / 100) * canvas.height * curZoom + curPan.y
         ctx.shadowColor = '#fbbf24'
         ctx.shadowBlur = 8
         ctx.fillStyle = '#fde68a'
@@ -851,7 +898,7 @@ export default function StarConstellation() {
 
         // "Eridanus the River" constellation watermark inside the upper loop
         const nameX = (40 / 100) * canvas.width * curZoom + curPan.x
-        const nameY = (28 / 100) * canvas.height * curZoom + curPan.y
+        const nameY = ((28 + PATH_Y_SHIFT) / 100) * canvas.height * curZoom + curPan.y
         ctx.font = `800 ${Math.max(14, Math.round(19 * curZoom))}px Outfit, sans-serif`
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'

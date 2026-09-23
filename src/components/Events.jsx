@@ -109,9 +109,16 @@ const CorridorExhibits = memo(function CorridorExhibits({
               <div className="techfest-card-caption">
                 <h3 className="techfest-card-title">{event.title}</h3>
 
-                <div className="techfest-card-cue">
+                <a
+                  href={getEventFormLink(event)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="techfest-card-cue"
+                  onClick={(e) => e.stopPropagation()}
+                  title={`Register for ${event.title}`}
+                >
                   <span>✦ CLICK TO REGISTER ✦</span>
-                </div>
+                </a>
               </div>
             </div>
           </div>

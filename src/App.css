@@ -3097,6 +3097,15 @@
   color: var(--accent-color, #ff9a00);
   text-transform: uppercase;
   text-shadow: 0 0 10px rgba(255, 154, 0, 0.55);
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.techfest-card-cue:hover {
+  transform: scale(1.06);
+  filter: brightness(1.25);
+  text-shadow: 0 0 14px rgba(255, 154, 0, 0.85);
 }
 
 /* ════════════ CENTERED DETAILS MODAL (ON MIDDLE OF SCREEN UPON TAPPING) ════════════ */
@@ -3795,7 +3804,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.9rem;
 }
 
 /* Top Pill Instruction placed cleanly in the header ABOVE the canvas */

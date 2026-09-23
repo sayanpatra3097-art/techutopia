@@ -13,7 +13,7 @@ import art2 from '../assets/EVENTS/gravity zone.webp'
 import art3 from '../assets/EVENTS/pragati.webp'
 import art5 from '../assets/EVENTS/launchpad real.webp'
 import art6 from '../assets/EVENTS/hackpulse.webp'
-import art7 from '../assets/7.webp'
+import art7 from '../assets/EVENTS/esportz final.webp'
 import art8 from '../assets/EVENTS/visual echoes.webp'
 import art9 from '../assets/EVENTS/bridge building.webp'
 import art10 from '../assets/EVENTS/launchpad.webp'
@@ -26,7 +26,7 @@ import art17 from '../assets/EVENTS/drone compi (1).webp'
 import art18 from '../assets/EVENTS/sustanibility.webp'
 import art19 from '../assets/EVENTS/physio x.webp'
 import art20 from '../assets/EVENTS/CySec.webp'
-import art21 from '../assets/22.webp'
+import art21 from '../assets/EVENTS/agomoni.webp'
 
 // Export all event card images for direct access if needed
 export const EVENT_ASSETS = {
@@ -48,12 +48,14 @@ export const EVENT_ASSETS = {
   art18,
   art19,
   art20,
-  art21
+  art21,
+  agomoni: art21,
+  artAgomoni: art21
 }
 
 // ─── 2. DEFAULT & SPECIAL FORM LINKS ─────────────────────────────────────────
-export const DEFAULT_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm/viewform"
-export const LAST_CARD_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_FinaleAllEvents/viewform"
+export const DEFAULT_FORM_LINK = "https://forms.gle/mLC9NQxHTFdsuCz9A"
+export const LAST_CARD_FORM_LINK = "https://forms.gle/mLC9NQxHTFdsuCz9A"
 
 // ─── 3. COMPLETE EVENTS DATASET (DETAILS, ARTWORK & FORM MAPPINGS) ────────────
 export const EVENTS_DATASET = [
@@ -67,7 +69,7 @@ export const EVENTS_DATASET = [
     icon: '🤖',
     color: '#ff4500',
     image: art1,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_RoboMania/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
     description: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
     date: 'Day 1 • 11:00 AM - 3:00 PM',
@@ -85,7 +87,7 @@ export const EVENTS_DATASET = [
     icon: '🌌',
     color: '#f59e0b',
     image: art2,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_GravityZone/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
     description: 'Zero-G engineering challenges, water rockets, and high-altitude aerodynamic drops.',
     date: 'Day 1 • 2:00 PM - 5:00 PM',
@@ -103,7 +105,7 @@ export const EVENTS_DATASET = [
     icon: '🩺',
     color: '#ffb703',
     image: art3,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_PhysioEvent/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
     description: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
     date: 'Day 2 • 10:00 AM - 1:00 PM',
@@ -121,7 +123,7 @@ export const EVENTS_DATASET = [
     icon: '🚀',
     color: '#ea580c',
     image: art5,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Launchpad/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
     description: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
     date: 'Day 1 • 10:00 AM - 4:00 PM',
@@ -139,7 +141,7 @@ export const EVENTS_DATASET = [
     icon: '⚡',
     color: '#ffaa00',
     image: art6,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Hackathon/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
     description: '24-hour non-stop code sprint building breakthrough AI, Web3, and Cloud solutions.',
     date: 'Day 1 - Day 2 • 24 Hours Non-Stop',
@@ -157,7 +159,7 @@ export const EVENTS_DATASET = [
     icon: '🎮',
     color: '#ef4444',
     image: art7,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Esports/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     description: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     date: 'Day 1 - Day 2 • Tournament Brackets',
@@ -175,7 +177,7 @@ export const EVENTS_DATASET = [
     icon: '📸',
     color: '#f97316',
     image: art8,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Photography/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Theme-based on-spot photography and cinematic storytelling competition.',
     description: 'Theme-based on-spot photography and cinematic storytelling competition.',
     date: 'Day 1 - Day 2 • On-Campus Submissions',
@@ -193,7 +195,7 @@ export const EVENTS_DATASET = [
     icon: '🌉',
     color: '#d97706',
     image: art9,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_BridgeBuilding/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
     description: 'Popsicle stick and balsa truss bridge engineering tested to absolute destruction.',
     date: 'Day 2 • 1:30 PM - 5:00 PM',
@@ -211,7 +213,7 @@ export const EVENTS_DATASET = [
     icon: '🦈',
     color: '#06b6d4',
     image: art10,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_SharkTank/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'High-stakes startup pitch battleground before angel investors and venture capitalists.',
     description: 'High-stakes startup pitch battleground before angel investors and venture capitalists.',
     date: 'Day 2 • 3:00 PM - 6:00 PM',
@@ -229,7 +231,7 @@ export const EVENTS_DATASET = [
     icon: '🕶️',
     color: '#dc2626',
     image: art11,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_BlindCoding/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
     description: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
     date: 'Day 1 • 4:00 PM - 6:30 PM',
@@ -247,7 +249,7 @@ export const EVENTS_DATASET = [
     icon: '🍜',
     color: '#facc15',
     image: art12,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_FoodFest/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Gastronomic food carnival, live mocktail alchemy, and street food popups.',
     description: 'Gastronomic food carnival, live mocktail alchemy, and street food popups.',
     date: 'Day 1 - Day 2 • 12:00 PM - 8:00 PM',
@@ -257,7 +259,7 @@ export const EVENTS_DATASET = [
   },
   {
     id: 12,
-    title: 'Code Fusion',
+    title: 'BYTE BATTLE',
     rank: 'S-RANK EXHIBIT',
     threat: 'S-TIER',
     element: 'FORGE',
@@ -265,7 +267,7 @@ export const EVENTS_DATASET = [
     icon: '🔬',
     color: '#e65100',
     image: art13,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_TechModelExpo/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Interactive working models of smart city infrastructures and green-energy grids.',
     description: 'Interactive working models of smart city infrastructures and green-energy grids.',
     date: 'Day 1 - Day 2 • Continuous Showcase',
@@ -283,7 +285,7 @@ export const EVENTS_DATASET = [
     icon: '🏎️',
     color: '#ef4444',
     image: art15,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_DeathRace/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'High-velocity RC car sprint across lethal obstacle tracks and sharp chicanes.',
     description: 'High-velocity RC car sprint across lethal obstacle tracks and sharp chicanes.',
     date: 'Day 1 • 2:30 PM - 5:30 PM',
@@ -301,7 +303,7 @@ export const EVENTS_DATASET = [
     icon: '⚽',
     color: '#10b981',
     image: art16,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Robosoccer/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Wireless mechanized bots clashing in tactical soccer penalty shootouts and matches.',
     description: 'Wireless mechanized bots clashing in tactical soccer penalty shootouts and matches.',
     date: 'Day 2 • 11:00 AM - 3:00 PM',
@@ -319,7 +321,7 @@ export const EVENTS_DATASET = [
     icon: '🛸',
     color: '#06b6d4',
     image: art17,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_DroneCompetition/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'High-speed FPV drone racing through neon ring gates and precision payload drops.',
     description: 'High-speed FPV drone racing through neon ring gates and precision payload drops.',
     date: 'Day 1 • 3:00 PM - 6:00 PM',
@@ -337,7 +339,7 @@ export const EVENTS_DATASET = [
     icon: '🌱',
     color: '#22c55e',
     image: art18,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_Sustainability/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Innovative clean energy models, zero-waste tech, and eco-sustainable engineering.',
     description: 'Innovative clean energy models, zero-waste tech, and eco-sustainable engineering.',
     date: 'Day 2 • 10:00 AM - 2:00 PM',
@@ -355,7 +357,7 @@ export const EVENTS_DATASET = [
     icon: '🩺',
     color: '#eab308',
     image: art19,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_PhysioX/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
     description: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
     date: 'Day 1 • 11:30 AM - 3:00 PM',
@@ -373,7 +375,7 @@ export const EVENTS_DATASET = [
     icon: '🛡️',
     color: '#8b5cf6',
     image: art20,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_CySec/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Capture the Flag (CTF) showdown: reverse engineering, cryptography, and penetration.',
     description: 'Capture the Flag (CTF) showdown: reverse engineering, cryptography, and penetration.',
     date: 'Day 2 • 12:00 PM - 5:00 PM',
@@ -391,7 +393,7 @@ export const EVENTS_DATASET = [
     icon: '🎭',
     color: '#ec4899',
     image: art21,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_CulturalEvening/viewform",
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
     snippet: 'Celebrity live music concert, theatrical dance ensembles, and DJ night.',
     description: 'Celebrity live music concert, theatrical dance ensembles, and DJ night.',
     date: 'Day 2 • 7:00 PM - 10:30 PM (Grand Night)',
@@ -441,8 +443,12 @@ export const EVENT_FORM_LINKS = {
   "Campus Zaika": findLink('Campus Zaika'),
   "CampusZaika": findLink('Campus Zaika'),
   "Circuit Design": findLink('Campus Zaika'),
-  "CodeFusion": findLink('Code Fusion'),
-  "Tech Model Expo": findLink('Code Fusion'),
+  "BYTE BATTLE": findLink('BYTE BATTLE'),
+  "Byte Battle": findLink('BYTE BATTLE'),
+  "byte battle": findLink('BYTE BATTLE'),
+  "Code Fusion": findLink('BYTE BATTLE'),
+  "CodeFusion": findLink('BYTE BATTLE'),
+  "Tech Model Expo": findLink('BYTE BATTLE'),
   "DeathRace": findLink('Death Race'),
   "Robo Soccer": findLink('Robosoccer'),
   "RoboSoccer": findLink('Robosoccer'),

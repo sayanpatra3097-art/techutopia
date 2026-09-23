@@ -271,14 +271,14 @@ export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
             </div>
             <div className="sponsors-cta-actions">
               <a
-                href="mailto:techutopia.sponsors@uem.edu.in"
+                href="mailto:techutopia.sponsors@iem.edu.in"
                 className="sponsors-cta-btn"
                 title="Send sponsorship inquiry"
               >
                 📜 Request Sponsorship Brochure
               </a>
               <a
-                href="mailto:techutopia@uem.edu.in"
+                href="mailto:techutopia@iem.edu.in"
                 className="sponsors-cta-btn sponsors-cta-btn--secondary"
               >
                 ✉ Contact Guild Relations

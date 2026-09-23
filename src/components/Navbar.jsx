@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import tfLogo from '../assets/tf_logo.webp'
+import { DEFAULT_FORM_LINK } from '../context/eventForms'
 
 export default function Navbar({ currentPage = 0, onNavigatePage }) {
   const [scrolled, setScrolled] = useState(false)
@@ -178,13 +179,15 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
 
         {/* Right: Quick Register + Mobile Menu */}
         <div className="modern-navbar__right">
-          <button
+          <a
+            href={DEFAULT_FORM_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="modern-navbar__cta-btn"
-            onClick={() => handleNavClick(1, { stage: 'inside' })}
-            title="Open Events Quests Corridor"
+            title="Register for TechUtopia Events (Google Form)"
           >
             <span>REGISTER ↗</span>
-          </button>
+          </a>
 
           <button
             className={`modern-navbar__hamburger ${mobileOpen ? 'is-active' : ''}`}
@@ -216,13 +219,16 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
         </div>
 
         <div className="modern-navbar__drawer-footer">
-          <button
+          <a
+            href={DEFAULT_FORM_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn--primary"
-            style={{ width: '100%', justifyContent: 'center' }}
-            onClick={() => handleNavClick(1, { stage: 'inside' })}
+            style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
+            onClick={() => setMobileOpen(false)}
           >
             REGISTER FOR EVENTS ↗
-          </button>
+          </a>
         </div>
       </div>
     </>
