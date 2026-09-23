@@ -3,22 +3,22 @@
 // You can easily change the Year, Text, and Images for each edition here!
 // ═══════════════════════════════════════════════════════════════════════
 
-import img1 from '../assets/1.webp'
-import img2 from '../assets/2.webp'
-import img3 from '../assets/3.webp'
-import img4 from '../assets/4.webp'
-import img5 from '../assets/5.webp'
-import img6 from '../assets/6.webp'
-import img7 from '../assets/7.webp'
-import img8 from '../assets/8.webp'
-import img9 from '../assets/9.webp'
-import img10 from '../assets/10.webp'
-import img11 from '../assets/11.webp'
-import img12 from '../assets/12.webp'
-import img14 from '../assets/14.webp'
-import img15 from '../assets/15.webp'
-import img16 from '../assets/16.webp'
-import img17 from '../assets/17.webp'
+import img1 from '../assets/2019_1.webp'
+import img2 from '../assets/2019_2.webp'
+import img3 from '../assets/2019_3.webp'
+import img4 from '../assets/2019_4.webp'
+import img5 from '../assets/2022_1.webp'
+import img6 from '../assets/2022_2.webp'
+import img7 from '../assets/2022_3.webp'
+import img8 from '../assets/2022_4.webp'
+import img9 from '../assets/2024_1.webp'
+import img10 from '../assets/2024_2.webp'
+import img11 from '../assets/2024_3.webp'
+import img12 from '../assets/2024_4.webp'
+import img14 from '../assets/pastphotos/DSC_3665.webp'
+import img15 from '../assets/pastphotos/DSC_3655.webp'
+import img16 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17.webp'
+import img17 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (8).webp'
 
 import planetCyan from '../assets/planets/planet_cyan.webp'
 import planetPurple from '../assets/planets/planet_purple.webp'
@@ -30,8 +30,8 @@ export { sunWebp, sunWebp as sunReal }
 
 export const HISTORY_EDITIONS = [
   {
-    id: '2021-22',
-    year: '2021-22',
+    id: '2019-20',
+    year: '2019-20',
     theme: 'THE GENESIS DAWN',
     subtitle: 'Awakening the Techno-Cultural Era',
     description: `Launched the Tech Fest at UEM Jaipur, bringing together UEM students to showcase innovation, creativity, and technical talent through exciting competitions and projects.`,
@@ -82,8 +82,8 @@ export const HISTORY_EDITIONS = [
     }
   },
   {
-    id: '2023-24',
-    year: '2023-24',
+    id: '2024-25',
+    year: '2024-25',
     theme: 'CELESTIAL ASCENDANCE',
     subtitle: 'National Footprint & Star-Studded Nights',
     description: `Shattered collegiate records with 4,500+ delegates from 80+ top universities across India. Debuted Physio X biomechanics testing, grand laser light shows, and headline concerts under open skies.`,
@@ -108,8 +108,8 @@ export const HISTORY_EDITIONS = [
     }
   },
   {
-    id: '2024-25',
-    year: '2024-25',
+    id: '2025-26',
+    year: '2025-26',
     theme: 'THE MONARCH’S REALM',
     subtitle: 'Solo Leveling Dimension & The Future Unlocked',
     description: `The grandest edition in history! Ascending into a Solo Leveling dungeon multiverse with an interactive 3D Photo Globe, Celestial Eridanus star maps, and an unprecedented ₹5,00,000+ bounty pool for 5,000+ warriors.`,

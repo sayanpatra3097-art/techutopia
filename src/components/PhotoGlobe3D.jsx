@@ -136,12 +136,12 @@ function GlobeScene({ onSelect, isMobile }) {
   const segmentsX = isMobile ? 14 : 18
   const segmentsY = isMobile ? 4 : 5
   const totalSlots = segmentsX * segmentsY
-  // Sizing decreased as requested
-  const radius = isMobile ? 4.3 : 5.5
+  // Sizing: moderately enlarged for glorious immersion
+  const radius = isMobile ? 5.1 : 6.4
   const stepThetaDeg = isMobile ? 18 : 17.2
   const stepThetaRad = (stepThetaDeg * Math.PI) / 180
-  const wBase = isMobile ? 1.76 : 1.86
-  const h = isMobile ? 1.30 : 1.58
+  const wBase = isMobile ? 2.10 : 2.18
+  const h = isMobile ? 1.50 : 1.82
 
   // Duplicate photos cyclically if number of photos is less than totalSlots,
   // ensuring the space between photos is completely filled and negligible.
@@ -203,12 +203,12 @@ function GlobeScene({ onSelect, isMobile }) {
 
       {/* Atmospheric Cosmic Sparkles around the globe (HackJKLU Aesthetic) */}
       <Sparkles
-        count={isMobile ? 36 : 70}
-        scale={10.5}
-        size={isMobile ? 2.5 : 3.5}
+        count={isMobile ? 45 : 85}
+        scale={isMobile ? 12 : 14.5}
+        size={isMobile ? 2.8 : 3.8}
         speed={0.45}
         color="#ffb703"
-        opacity={0.75}
+        opacity={0.8}
       />
     </group>
   )
@@ -235,7 +235,7 @@ function SoloLevelingMonarch({ isMobile }) {
     // Smooth levitation up and down
     const floatOffset = Math.sin(t * 1.5) * 0.15
     // Positioned so head and glowing eyes emerge in the upper rim of tilted globe
-    const baseY = isMobile ? 0.9 : 1.35
+    const baseY = isMobile ? 1.05 : 1.55
     const currentY = baseY + floatOffset
 
     if (meshRef.current) {
@@ -253,20 +253,20 @@ function SoloLevelingMonarch({ isMobile }) {
       rightHandLightRef.current.intensity = 3.2 + Math.cos(t * 3.2) * 0.9
     }
     if (headLightRef.current) {
-      headLightRef.current.position.y = currentY + (isMobile ? 3.3 : 3.85)
+      headLightRef.current.position.y = currentY + (isMobile ? 3.7 : 4.45)
       headLightRef.current.intensity = 2.6 + Math.sin(t * 2.1) * 0.6
     }
   })
 
-  // Sized proportionally for decreased globe
-  const meshSize = isMobile ? 8.2 : 10.2
+  // Sized proportionally for enlarged globe
+  const meshSize = isMobile ? 9.6 : 12.0
 
   return (
     <group>
       {/* 3D Character standing inside center of sphere, emerging through top aperture */}
       <mesh
         ref={meshRef}
-        position={[0, isMobile ? 0.7 : 1.05, 0]}
+        position={[0, isMobile ? 0.85 : 1.25, 0]}
         renderOrder={1}
       >
         <planeGeometry args={[meshSize, meshSize]} />
@@ -282,28 +282,28 @@ function SoloLevelingMonarch({ isMobile }) {
       {/* Radiant Solar Gold Mana Sparks at Left Hand */}
       <pointLight
         ref={leftHandLightRef}
-        position={[isMobile ? -3.8 : -4.4, isMobile ? 0.7 : 1.05, 0.5]}
+        position={[isMobile ? -4.3 : -5.1, isMobile ? 0.85 : 1.25, 0.6]}
         intensity={3.2}
         color="#ffaa00"
-        distance={9}
+        distance={10}
       />
 
       {/* Blazing Crimson-Red Fire at Right Hand */}
       <pointLight
         ref={rightHandLightRef}
-        position={[isMobile ? 3.8 : 4.4, isMobile ? 0.7 : 1.05, 0.5]}
+        position={[isMobile ? 4.3 : 5.1, isMobile ? 0.85 : 1.25, 0.6]}
         intensity={3.2}
         color="#ff3d00"
-        distance={9}
+        distance={10}
       />
 
       {/* Glowing Solar Gold Monarch Eyes & Head Aura */}
       <pointLight
         ref={headLightRef}
-        position={[0, isMobile ? 3.3 : 4.1, 0.8]}
+        position={[0, isMobile ? 3.7 : 4.5, 0.9]}
         intensity={2.6}
         color="#ffd700"
-        distance={9}
+        distance={10}
       />
     </group>
   )
@@ -379,14 +379,14 @@ export default function PhotoGlobe3D() {
               stencil: false,
               alpha: true
             }}
-            camera={{ position: [0, isMobile ? 2.0 : 3.0, isMobile ? 12.0 : 10.8], fov: 48 }}
+            camera={{ position: [0, isMobile ? 1.8 : 2.4, isMobile ? 12.6 : 11.6], fov: 46 }}
           >
             <ambientLight intensity={1.7} color="#fff4e6" />
             <directionalLight position={[10, 10, 10]} intensity={1.3} color="#ff9e00" />
             <pointLight position={[-10, -10, -10]} intensity={0.9} color="#e63946" />
             <Suspense fallback={null}>
-              {/* Positioned lower so it does not collide with heading */}
-              <group position={[0, isMobile ? -0.4 : -0.6, 0]}>
+              {/* Positioned cleanly in visual center of canvas */}
+              <group position={[0, isMobile ? -0.2 : -0.3, 0]}>
                 <SoloLevelingMonarch isMobile={isMobile} />
                 <GlobeScene onSelect={setSelectedPhoto} isMobile={isMobile} />
               </group>
@@ -398,7 +398,7 @@ export default function PhotoGlobe3D() {
               - Default view tilted downward matching reference image
             */}
             <OrbitControls
-              target={[0, isMobile ? -0.4 : -0.6, 0]}
+              target={[0, isMobile ? -0.2 : -0.3, 0]}
               enableZoom={false}
               enablePan={false}
               enableRotate={true}

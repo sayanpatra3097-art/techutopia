@@ -11,7 +11,6 @@ import { createContext, useContext } from 'react'
 import art1 from '../assets/EVENTS/robo war.webp'
 import art2 from '../assets/EVENTS/gravity zone.webp'
 import art3 from '../assets/EVENTS/pragati.webp'
-import art4 from '../assets/4.webp'
 import art5 from '../assets/EVENTS/launchpad real.webp'
 import art6 from '../assets/EVENTS/hackpulse.webp'
 import art7 from '../assets/7.webp'
@@ -19,9 +18,8 @@ import art8 from '../assets/EVENTS/visual echoes.webp'
 import art9 from '../assets/EVENTS/bridge building.webp'
 import art10 from '../assets/EVENTS/launchpad.webp'
 import art11 from '../assets/EVENTS/PromptVerse.webp'
-import art12 from '../assets/12.webp'
-import art13 from '../assets/14.webp'
-import art14 from '../assets/15.webp'
+import art12 from '../assets/EVENTS/food festival.webp'
+import art13 from '../assets/EVENTS/code fusion.webp'
 import art15 from '../assets/EVENTS/death race.webp'
 import art16 from '../assets/EVENTS/robo soccer.webp'
 import art17 from '../assets/EVENTS/drone compi (1).webp'
@@ -35,7 +33,6 @@ export const EVENT_ASSETS = {
   art1,
   art2,
   art3,
-  art4,
   art5,
   art6,
   art7,
@@ -45,7 +42,6 @@ export const EVENT_ASSETS = {
   art11,
   art12,
   art13,
-  art14,
   art15,
   art16,
   art17,
@@ -117,24 +113,6 @@ export const EVENTS_DATASET = [
   },
   {
     id: 4,
-    title: 'TechVenture',
-    rank: 'S-RANK SUMMON',
-    threat: 'VENTURE',
-    element: 'GOLD',
-    category: 'Startup & Business',
-    icon: '💼',
-    color: '#fbbf24',
-    image: art4,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_TechVenture/viewform",
-    snippet: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
-    description: 'High-stakes startup pitch arena in front of venture capitalists and angel investors.',
-    date: 'Day 2 • 11:30 AM - 3:30 PM',
-    venue: 'Auditorium Hall B, UEM Jaipur',
-    prize: '₹75,000 + Seed Mentorship',
-    team: 'Team of 1-4'
-  },
-  {
-    id: 5,
     title: 'Launchpad',
     rank: 'A-RANK INNOVATION',
     threat: 'A-TIER',
@@ -152,7 +130,7 @@ export const EVENTS_DATASET = [
     team: 'Team of 2-4'
   },
   {
-    id: 6,
+    id: 5,
     title: 'Hack Pulse',
     rank: 'SUPREME RAID',
     threat: 'MYTHIC',
@@ -170,7 +148,7 @@ export const EVENTS_DATASET = [
     team: 'Squad of 2-4'
   },
   {
-    id: 7,
+    id: 6,
     title: 'Esports Championship',
     rank: 'COLISEUM APEX',
     threat: 'CHAOS',
@@ -188,7 +166,7 @@ export const EVENTS_DATASET = [
     team: 'Squad of 4-5'
   },
   {
-    id: 8,
+    id: 7,
     title: 'Visual Echos',
     rank: 'B-RANK CHRONICLE',
     threat: 'VISION',
@@ -206,7 +184,7 @@ export const EVENTS_DATASET = [
     team: 'Solo Hunter'
   },
   {
-    id: 9,
+    id: 8,
     title: 'Bridge Building',
     rank: 'B-RANK STRUCTURE',
     threat: 'B-TIER',
@@ -224,8 +202,8 @@ export const EVENTS_DATASET = [
     team: 'Team of 2-3'
   },
   {
-    id: 10,
-    title: 'Shark Tank',
+    id: 9,
+    title: "Dragon's Den",
     rank: 'S-RANK VENTURE',
     threat: 'VENTURE',
     element: 'CAPITAL',
@@ -242,7 +220,7 @@ export const EVENTS_DATASET = [
     team: 'Team of 1-4'
   },
   {
-    id: 11,
+    id: 10,
     title: 'Prompt Verse',
     rank: 'A-RANK CIPHER',
     threat: 'A-TIER',
@@ -260,8 +238,8 @@ export const EVENTS_DATASET = [
     team: 'Solo Hunter'
   },
   {
-    id: 12,
-    title: 'Food Festival',
+    id: 11,
+    title: 'Campus Zaika',
     rank: 'GOURMET FEAST',
     threat: 'FLAVOR',
     element: 'EMBER',
@@ -278,7 +256,7 @@ export const EVENTS_DATASET = [
     team: 'Solo / Squad'
   },
   {
-    id: 13,
+    id: 12,
     title: 'Code Fusion',
     rank: 'S-RANK EXHIBIT',
     threat: 'S-TIER',
@@ -296,25 +274,7 @@ export const EVENTS_DATASET = [
     team: 'Exhibition Guilds'
   },
   {
-    id: 14,
-    title: 'Fashion Carnival',
-    rank: 'SUPREME GALA',
-    threat: 'MYTHIC',
-    element: 'RADIANCE',
-    category: 'Cultural Runway',
-    icon: '✨',
-    color: '#ff3366',
-    image: art14,
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScTechUtopiaSampleForm_FashionCarnival/viewform",
-    snippet: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
-    description: 'Anime cosplay masquerade, avant-garde cyber couture, and celebrity runway night.',
-    date: 'Day 2 • 6:30 PM - 10:00 PM (Grand Finale)',
-    venue: 'Grand Amphitheatre Open Stage',
-    prize: '₹70,000 + Fashion Crowns',
-    team: 'Guild Roster / Squad'
-  },
-  {
-    id: 15,
+    id: 13,
     title: 'Death Race',
     rank: 'APEX SPEED',
     threat: 'S-TIER',
@@ -332,7 +292,7 @@ export const EVENTS_DATASET = [
     team: 'Team of 2-3'
   },
   {
-    id: 16,
+    id: 14,
     title: 'Robosoccer',
     rank: 'STRIKER GUILD',
     threat: 'A-TIER',
@@ -350,7 +310,7 @@ export const EVENTS_DATASET = [
     team: 'Team of 2-4'
   },
   {
-    id: 17,
+    id: 15,
     title: 'Drone Competition',
     rank: 'AERIAL ACE',
     threat: 'S-TIER',
@@ -368,7 +328,7 @@ export const EVENTS_DATASET = [
     team: 'Solo / Pilot & Co-Pilot'
   },
   {
-    id: 18,
+    id: 16,
     title: 'Sustainability',
     rank: 'GREEN TITAN',
     threat: 'ECO-TIER',
@@ -386,7 +346,7 @@ export const EVENTS_DATASET = [
     team: 'Team of 2-4'
   },
   {
-    id: 19,
+    id: 17,
     title: 'Physio X',
     rank: 'ELITE BIO-CORPS',
     threat: 'VITAL',
@@ -404,7 +364,7 @@ export const EVENTS_DATASET = [
     team: 'Solo / Duo'
   },
   {
-    id: 20,
+    id: 18,
     title: 'CySec',
     rank: 'CYBER CIPHER',
     threat: 'DARK-TIER',
@@ -422,7 +382,7 @@ export const EVENTS_DATASET = [
     team: 'Squad of 1-3'
   },
   {
-    id: 21,
+    id: 19,
     title: 'Agomoni',
     rank: 'STARLIGHT GALA',
     threat: 'CELEBRATION',
@@ -444,6 +404,9 @@ export const EVENTS_DATASET = [
 // Re-export alias
 export const eventsDataset = EVENTS_DATASET
 
+// Safe link resolver by event title
+const findLink = (title) => EVENTS_DATASET.find((e) => e.title.toLowerCase() === title.toLowerCase())?.formLink || DEFAULT_FORM_LINK
+
 // ─── 4. FORM LINKS LOOKUP TABLE (BY ID, TITLE & ALIASES) ──────────────────────
 export const EVENT_FORM_LINKS = {
   // Map all events dynamically from EVENTS_DATASET
@@ -454,42 +417,48 @@ export const EVENT_FORM_LINKS = {
   }, {}),
 
   // Aliases & Alternate Spellings for backwards compatibility
-  "RoboWar": EVENTS_DATASET[0].formLink,
-  "Robo Mania": EVENTS_DATASET[0].formLink,
-  "RoboMania": EVENTS_DATASET[0].formLink,
-  "Pragati 2.0": EVENTS_DATASET[2].formLink,
-  "Physio Event": EVENTS_DATASET[2].formLink,
-  "Hackathon": EVENTS_DATASET[5].formLink,
-  "Hackathon (24hr)": EVENTS_DATASET[5].formLink,
-  "24Hr Hackathon": EVENTS_DATASET[5].formLink,
-  "Esports": EVENTS_DATASET[6].formLink,
-  "Esports Arena": EVENTS_DATASET[6].formLink,
-  "Photography": EVENTS_DATASET[7].formLink,
-  "Visual Echoes": EVENTS_DATASET[7].formLink,
-  "SharkTank": EVENTS_DATASET[9].formLink,
-  "Generative Media": EVENTS_DATASET[9].formLink,
-  "PromptVerse": EVENTS_DATASET[10].formLink,
-  "Blind Coding": EVENTS_DATASET[10].formLink,
-  "Food Fest": EVENTS_DATASET[11].formLink,
-  "Circuit Design": EVENTS_DATASET[11].formLink,
-  "CodeFusion": EVENTS_DATASET[12].formLink,
-  "Tech Model Expo": EVENTS_DATASET[12].formLink,
-  "DeathRace": EVENTS_DATASET[14].formLink,
-  "Robo Soccer": EVENTS_DATASET[15].formLink,
-  "RoboSoccer": EVENTS_DATASET[15].formLink,
-  "DroneCompetition": EVENTS_DATASET[16].formLink,
-  "Sustainibility": EVENTS_DATASET[17].formLink,
-  "PhysioX": EVENTS_DATASET[18].formLink,
-  "Physio x": EVENTS_DATASET[18].formLink,
-  "Cysec": EVENTS_DATASET[19].formLink,
-  "CySEC": EVENTS_DATASET[19].formLink,
-  "CYSEC": EVENTS_DATASET[19].formLink,
-  "CulturalEvening": EVENTS_DATASET[20].formLink,
-  "CULTURAL Evening": EVENTS_DATASET[20].formLink,
-  "Cultural Evening": EVENTS_DATASET[20].formLink,
-  "Agomoni": EVENTS_DATASET[20].formLink,
-  "agomoni": EVENTS_DATASET[20].formLink,
-  "AGOMONI": EVENTS_DATASET[20].formLink,
+  "RoboWar": findLink('Robo War'),
+  "Robo Mania": findLink('Robo War'),
+  "RoboMania": findLink('Robo War'),
+  "Pragati 2.0": findLink('PRAGATI 2.0'),
+  "Physio Event": findLink('PRAGATI 2.0'),
+  "Hackathon": findLink('Hack Pulse'),
+  "Hackathon (24hr)": findLink('Hack Pulse'),
+  "24Hr Hackathon": findLink('Hack Pulse'),
+  "Esports": findLink('Esports Championship'),
+  "Esports Arena": findLink('Esports Championship'),
+  "Photography": findLink('Visual Echos'),
+  "Visual Echoes": findLink('Visual Echos'),
+  "SharkTank": findLink("Dragon's Den"),
+  "Shark Tank": findLink("Dragon's Den"),
+  "Dragon's Den": findLink("Dragon's Den"),
+  "Dragons Den": findLink("Dragon's Den"),
+  "Generative Media": findLink("Dragon's Den"),
+  "PromptVerse": findLink('Prompt Verse'),
+  "Blind Coding": findLink('Prompt Verse'),
+  "Food Fest": findLink('Campus Zaika'),
+  "Food Festival": findLink('Campus Zaika'),
+  "Campus Zaika": findLink('Campus Zaika'),
+  "CampusZaika": findLink('Campus Zaika'),
+  "Circuit Design": findLink('Campus Zaika'),
+  "CodeFusion": findLink('Code Fusion'),
+  "Tech Model Expo": findLink('Code Fusion'),
+  "DeathRace": findLink('Death Race'),
+  "Robo Soccer": findLink('Robosoccer'),
+  "RoboSoccer": findLink('Robosoccer'),
+  "DroneCompetition": findLink('Drone Competition'),
+  "Sustainibility": findLink('Sustainability'),
+  "PhysioX": findLink('Physio X'),
+  "Physio x": findLink('Physio X'),
+  "Cysec": findLink('CySec'),
+  "CySEC": findLink('CySec'),
+  "CYSEC": findLink('CySec'),
+  "CulturalEvening": findLink('Agomoni'),
+  "CULTURAL Evening": findLink('Agomoni'),
+  "Cultural Evening": findLink('Agomoni'),
+  "Agomoni": findLink('Agomoni'),
+  "agomoni": findLink('Agomoni'),
+  "AGOMONI": findLink('Agomoni'),
 
   // Last Card / Finale Sanctuary
   "last_card": LAST_CARD_FORM_LINK,

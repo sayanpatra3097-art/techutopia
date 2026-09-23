@@ -3691,7 +3691,7 @@
 .constellation-dimension {
   position: relative;
   min-height: 100vh;
-  padding-top: clamp(4rem, 6.5vh, 5.2rem);
+  padding-top: clamp(6.2rem, 9.8vh, 7.8rem);
   padding-bottom: 1rem;
   background: transparent;
   overflow: visible;
@@ -4231,12 +4231,12 @@
 /* ═══ DIMENSION 05: 3D PHOTO GLOBE ═══ */
 .photo-globe-dimension {
   position: relative;
-  min-height: clamp(920px, 122vh, 1320px);
+  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   max-width: 100vw;
   background: #000000;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -4316,15 +4316,17 @@
   z-index: 10;
   max-width: 100vw !important;
   width: 100% !important;
+  height: 100vh;
   min-height: 100vh;
-  padding: clamp(7.4rem, 13.5vh, 9.2rem) 0 0 !important;
+  padding: clamp(6.8rem, 11vh, 8.4rem) 0 0 !important;
   margin: 0 auto !important;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
-/* Heading: explicitly above gradient with untouched navbar spacing */
+/* Heading: explicitly below navbar with clean breathing room */
 .photo-globe__header-block {
   position: relative;
   top: auto;
@@ -4334,8 +4336,9 @@
   width: min(92vw, 840px);
   text-align: center;
   pointer-events: auto;
-  margin: 0 auto clamp(2.8rem, 5.5vh, 3.8rem);
+  margin: clamp(0.5rem, 1.2vh, 1.2rem) auto clamp(0.4rem, 1vh, 0.8rem);
   padding: 0 1rem;
+  flex-shrink: 0;
 }
 
 .photo-globe__subtitle {
@@ -4343,11 +4346,12 @@
   margin: 0 auto;
   color: #fde68a;
   text-shadow: 0 0 12px rgba(255, 170, 0, 0.5);
+  font-size: clamp(0.78rem, 1.2vw, 0.92rem);
 }
 
 .photo-globe__title {
   font-family: 'Bleeding Cowboys', var(--font-nosifer), serif !important;
-  font-size: clamp(1.85rem, 4.2vw, 3rem);
+  font-size: clamp(1.7rem, 3.8vw, 2.7rem);
   font-weight: 400;
   text-align: center;
   color: #ffffff !important;
@@ -4357,7 +4361,7 @@
   background-clip: unset !important;
   text-shadow: 0 0 20px rgba(255, 154, 0, 0.7), 0 0 45px rgba(220, 38, 38, 0.45);
   letter-spacing: 0.12em;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
   text-transform: uppercase;
 }
 
@@ -4366,8 +4370,9 @@
   position: relative;
   width: 100%;
   max-width: 100vw;
-  height: clamp(720px, 88vh, 1040px);
-  min-height: 580px;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -5429,10 +5434,13 @@
   animation: dimensionPageFade 0.4s ease-out;
 }
 .dimension-page-view--hero,
-.dimension-page-view--events,
-.dimension-page-view--globe {
+.dimension-page-view--events {
   padding-bottom: 0 !important;
   animation: none;
+}
+.dimension-page-view--globe {
+  padding-bottom: 0 !important;
+  animation: dimensionPageFade 0.4s ease-out;
 }
 
 @keyframes dimensionPageFade {

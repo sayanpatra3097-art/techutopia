@@ -104,13 +104,13 @@ const constellationDays = {
       labelPos: 'right',
       color: '#ff9a00',
       time: '12:00 PM - 08:00 PM',
-      title: 'FOOD FESTIVAL & ALCHEMY',
+      title: 'CAMPUS ZAIKA & ALCHEMY',
       desc: 'Gastronomic culinary stalls, fast-eating showdowns, and mocktail alchemy.',
       venue: 'Food Court Promenade, UEM Jaipur',
       category: 'Culinary & Fun',
       rank: 'OPEN CELEBRATION',
       starName: 'Omicron Eridani (Beid)',
-      eventName: 'Food Festival'
+      eventName: 'Campus Zaika'
     },
     {
       id: 'd1-6',
@@ -301,13 +301,13 @@ const constellationDays = {
       labelPos: 'top',
       color: '#fcd34d',
       time: '02:00 PM - 05:30 PM',
-      title: 'SHARK TANK ARENA',
+      title: "DRAGON'S DEN ARENA",
       desc: 'High-stakes startup pitch arena directly to industry venture capitalists.',
       venue: 'Auditorium Hall B & Innovation Stage',
       category: 'Startup & Pitch',
       rank: 'S-RANK VENTURE',
       starName: 'Sceptrum',
-      eventName: 'Shark Tank'
+      eventName: "Dragon's Den"
     },
     {
       id: 'd2-9',
