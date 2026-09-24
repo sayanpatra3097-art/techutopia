@@ -42,6 +42,11 @@ const eridanusTrajectory = rawEridanusTrajectory.map(pt => ({
 }))
 
 // Authentic Anime Constellation Timeline for TechUtopia '26 mapped onto Eridanus the River
+const getCleanEventTitle = (item) => {
+  const raw = item?.title || item?.eventName || ''
+  return raw.split(':')[0].trim()
+}
+
 const rawConstellationDays = {
   'DAY 01': [
     {
@@ -51,7 +56,7 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'LAUNCHPAD: TECH EXPO',
+      title: 'LAUNCHPAD',
       desc: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
       venue: 'Exhibition Center, Main Foyer',
       category: 'Project Expo',
@@ -66,7 +71,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#ffb703',
       time: 'Time : TBD',
-      title: 'ROBO WAR: COLISEUM',
+      title: 'ROBO WAR',
       desc: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
       venue: 'Mechanical Arena, Workshop Block',
       category: 'Robotics',
@@ -81,7 +86,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#f59e0b',
       time: 'Time : TBD',
-      title: 'PHYSIO X: AGILITY',
+      title: 'PHYSIO X',
       desc: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
       venue: 'Physiotherapy Clinical Arena',
       category: 'Health Sciences',
@@ -96,7 +101,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#fde68a',
       time: 'Time : TBD',
-      title: 'HACK PULSE: 24HR SPRINT',
+      title: 'HACK PULSE',
       desc: 'The flagship 24-hour hackathon of TechUtopia! Code through the midnight hour.',
       venue: 'Innovation Hub & Sandbox Lab',
       category: 'Hackathon',
@@ -111,7 +116,7 @@ const rawConstellationDays = {
       labelPos: 'right',
       color: '#ff9a00',
       time: 'Time : TBD',
-      title: 'CAMPUS ZAIKA & ALCHEMY',
+      title: 'CAMPUS ZAIKA',
       desc: 'Gastronomic culinary stalls, fast-eating showdowns, and mocktail alchemy.',
       venue: 'Food Court Promenade, UEM Jaipur',
       category: 'Culinary & Fun',
@@ -126,7 +131,7 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'GRAVITY ZONE: ZERO-G',
+      title: 'GRAVITY ZONE',
       desc: 'Defy terrestrial physics! Teams build aerodynamic launchers and rockets.',
       venue: 'Central University Grounds, UEM Jaipur',
       category: 'Physics & Fun',
@@ -141,7 +146,7 @@ const rawConstellationDays = {
       labelPos: 'left',
       color: '#ffb703',
       time: 'Time : TBD',
-      title: 'DEATH RACE: RC CLASH',
+      title: 'DEATH RACE',
       desc: 'High-velocity RC car sprint across lethal obstacle tracks and sharp chicanes.',
       venue: 'Outdoor Grand Arena & Dirt Track',
       category: 'RC Racing',
@@ -156,7 +161,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#e65100',
       time: 'Time : TBD',
-      title: 'BYTE BATTLE: TECH EXPO',
+      title: 'BYTE BATTLE',
       desc: 'Interactive working models of smart city infrastructures, robotics grids, and clean energy.',
       venue: 'Main Foyer & Exhibition Hall A',
       category: 'Hardware & Science',
@@ -171,7 +176,7 @@ const rawConstellationDays = {
       labelPos: 'left',
       color: '#fcd34d',
       time: 'Time : TBD',
-      title: 'DRONE AIR MATRIX',
+      title: 'DRONE COMPETITION',
       desc: 'Pilots navigate quadcopters through an illuminated obstacle matrix in 3D airspace.',
       venue: 'Open Sky Amphitheatre Arena',
       category: 'Aeronautics & FPV',
@@ -218,7 +223,7 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'SUSTAINABILITY FORUM',
+      title: 'SUSTAINABILITY',
       desc: 'Present breakthrough technologies for renewable energy, water recycling, and carbon capture.',
       venue: 'Eco-Innovation Concourse, Block 2',
       category: 'CleanTech & Green',
@@ -233,7 +238,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#ffb703',
       time: 'Time : TBD',
-      title: 'PRAGATI 2.0: BIOMECHANICS',
+      title: 'PRAGATI 2.0',
       desc: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
       venue: 'Physiotherapy & Health Sciences Wing',
       category: 'Healthcare & Wellness',
@@ -248,7 +253,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#f59e0b',
       time: 'Time : TBD',
-      title: 'PROMPT VERSE: TRIAL',
+      title: 'PROMPT VERSE',
       desc: 'Screen-off coding challenge where contestants type algorithms with monitors off.',
       venue: 'Computing Lab 4, UEM Jaipur',
       category: 'Mystery & Skill',
@@ -263,7 +268,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#fde68a',
       time: 'Time : TBD',
-      title: 'ROBOSOCCER: MECHA',
+      title: 'ROBOSOCCER',
       desc: 'Deploy custom-engineered manual or autonomous rovers in magnetic turf arena.',
       venue: 'Robotics Arena, Workshop Ground',
       category: 'Robotics & Sports',
@@ -278,7 +283,7 @@ const rawConstellationDays = {
       labelPos: 'right',
       color: '#ff9a00',
       time: 'Time : TBD',
-      title: 'TECHVENTURE: ARENA',
+      title: 'TECHVENTURE',
       desc: 'Shark Tank style startup battleground pitching to angel investors.',
       venue: 'Auditorium Hall B, UEM Jaipur',
       category: 'Startup & Business',
@@ -293,7 +298,7 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'CYSEC: CYBER WARFARE',
+      title: 'CYSEC',
       desc: 'Live jeopardy-style ethical hacking battle! Penetrate server clusters and decrypt payloads.',
       venue: 'Cyber Defense Command Lab 1',
       category: 'Cybersecurity & CTF',
@@ -323,7 +328,7 @@ const rawConstellationDays = {
       labelPos: 'top',
       color: '#fcd34d',
       time: 'Time : TBD',
-      title: "DRAGON'S DEN ARENA",
+      title: "DRAGON'S DEN",
       desc: 'High-stakes startup pitch arena directly to industry venture capitalists.',
       venue: 'Auditorium Hall B & Innovation Stage',
       category: 'Startup & Pitch',
@@ -338,7 +343,7 @@ const rawConstellationDays = {
       labelPos: 'left',
       color: '#f59e0b',
       time: 'Time : TBD',
-      title: 'HACKATHON FINALE PITCH',
+      title: 'HACKATHON FINALE',
       desc: 'Finalist squads present live working deployments before senior architects.',
       venue: 'Innovation Hub & Sandbox Lab',
       category: 'Hackathon Final',
@@ -368,7 +373,7 @@ const rawConstellationDays = {
       labelPos: 'left',
       color: '#ec4899',
       time: 'Time : TBD',
-      title: 'AGOMONI: STARLIGHT GALA',
+      title: 'AGOMONI',
       desc: 'Celebrity live music concert, theatrical dance ensembles, and DJ festival night.',
       venue: 'Main University Stadium Open Grounds',
       category: 'Music & Cultural Fest',
@@ -1206,14 +1211,14 @@ export default function StarConstellation() {
 
                   {/* Clean text in white with NO background rectangle */}
                   <div className="constellation__star-text-block">
-                    <div className="constellation__star-title">{star.title || star.eventName}</div>
+                    <div className="constellation__star-title">{getCleanEventTitle(star)}</div>
                     <div className="constellation__star-time">{star.time}</div>
                   </div>
 
                   {/* Details card revealed immediately on cursor hover without tapping. ONLY Event Name, Time, and Venue */}
                   {isHovered && (
                     <div className="constellation__hover-card" role="tooltip">
-                      <div className="constellation__hover-title">{star.title || star.eventName}</div>
+                      <div className="constellation__hover-title">{getCleanEventTitle(star)}</div>
                       <div className="constellation__hover-row">
                         <span className="constellation__hover-icon">⏱</span>
                         <span className="constellation__hover-time">{star.time}</span>
@@ -1256,7 +1261,7 @@ export default function StarConstellation() {
 
                     {/* Clean minimal details: ONLY Event Name, Time, and Venue with NO background rectangle */}
                     <div className="constellation__mobile-details">
-                      <h3 className="constellation__mobile-title">{event.title || event.eventName}</h3>
+                      <h3 className="constellation__mobile-title">{getCleanEventTitle(event)}</h3>
                       <div className="constellation__mobile-meta-row">
                         <span className="meta-icon">⏱</span>
                         <span>{event.time}</span>

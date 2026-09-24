@@ -38,8 +38,8 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const curActiveIdx = useRef(-1)
   const curNextIdx = useRef(-1)
 
-  // Target Fest Date for Countdown: October 6 – 7, 2026
-  const targetDate = new Date('2026-10-06T09:00:00')
+  // Target Fest Date for Countdown: October 5 – 6, 2026
+  const targetDate = new Date('2026-10-05T09:00:00')
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -241,7 +241,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
         letterContentRef.current.style.transform = `translateY(${(1 - contentOpacity) * 18}px)`
       }
       if (dockTextRef.current) {
-        dockTextRef.current.textContent = currentRoll < 0.95 ? '• SCROLL TO REVEAL' : 'OCTOBER 6–7, 2026'
+        dockTextRef.current.textContent = currentRoll < 0.95 ? '• SCROLL TO REVEAL' : 'OCTOBER 5–6, 2026'
       }
     }
 
