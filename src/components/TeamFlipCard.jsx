@@ -1,4 +1,7 @@
+import { useState } from 'react'
+
 export default function TeamFlipCard({ member }) {
+  const [imgError, setImgError] = useState(false)
   const email = member.email || member.socials?.email || `${member.name.toLowerCase().replace(/\s+/g, '')}@techfest.org`
   const phone = member.phone || member.socials?.phone || '+91 97022 76874'
   const cleanPhone = phone.replace(/[^+\d]/g, '')
@@ -6,6 +9,10 @@ export default function TeamFlipCard({ member }) {
   // Only LinkedIn and Instagram as requested
   const linkedin = member.linkedin || member.socials?.linkedin || ''
   const instagram = member.instagram || member.socials?.instagram || ''
+
+  const initials = member.name
+    ? member.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
+    : 'TU'
 
   return (
     <div className="cyber-team-card-wrap">
@@ -26,12 +33,17 @@ export default function TeamFlipCard({ member }) {
 
         {/* Center Photo Area with Warm Dark Ember / Obsidian Backdrop (No Blue) */}
         <div className="cyber-team-card__photo-wrap">
-          <img
-            src={member.avatar}
-            alt={member.name}
-            className="cyber-team-card__photo"
-            loading="lazy"
-          />
+          {member.avatar && !imgError ? (
+            <img
+              src={member.avatar}
+              alt={member.name}
+              className="cyber-team-card__photo"
+              loading="lazy"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="cyber-team-card__blank-avatar" aria-hidden="true" />
+          )}
 
           {/* Left and Right Mecha Side Notches */}
           <div className="cyber-team-card__side-fin cyber-team-card__side-fin--left" aria-hidden="true">

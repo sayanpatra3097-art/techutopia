@@ -14,6 +14,7 @@ import SponsorsPage from './components/SponsorsPage'
 import FaqPage from './components/FaqPage'
 import CustomCursor from './components/CustomCursor'
 import { preloadSecondaryAssets, preloadHistoryAssets } from './utils/preloadAssets'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 const DIMENSION_PAGES = [
@@ -245,6 +246,7 @@ function App() {
             </button>
           </nav>
         )}
+        <Analytics />
       </div>
     </>
   )

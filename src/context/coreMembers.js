@@ -62,6 +62,86 @@ export const CORE_MEMBERS = [
       linkedin: 'https://www.linkedin.com/in/sayan-patra-582b80378?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       instagram: 'https://www.instagram.com/s4ysayan?stkn=MTkwdGkyeXJhMmFm'
     }
+  },
+  {
+    id: 2,
+    name: 'Harsh Raj',
+    role: 'Core Organizing Committee',
+    email: 'harshraj@techfest.org',
+    phone: '+91 97022 76874',
+    linkedin: '',
+    instagram: '',
+    avatar: '',
+    socials: {
+      email: 'harshraj@techfest.org',
+      phone: '+91 97022 76874',
+      linkedin: '',
+      instagram: ''
+    }
+  },
+  {
+    id: 3,
+    name: 'Adrija Dutta',
+    role: 'Core Organizing Committee',
+    email: 'adrijadutta@techfest.org',
+    phone: '+91 97022 76874',
+    linkedin: '',
+    instagram: '',
+    avatar: '',
+    socials: {
+      email: 'adrijadutta@techfest.org',
+      phone: '+91 97022 76874',
+      linkedin: '',
+      instagram: ''
+    }
+  },
+  {
+    id: 4,
+    name: 'Anup Mazumdar',
+    role: 'Core Organizing Committee',
+    email: 'anupmazumdar@techfest.org',
+    phone: '+91 97022 76874',
+    linkedin: '',
+    instagram: '',
+    avatar: '',
+    socials: {
+      email: 'anupmazumdar@techfest.org',
+      phone: '+91 97022 76874',
+      linkedin: '',
+      instagram: ''
+    }
+  },
+  {
+    id: 5,
+    name: 'Abhishek Lama',
+    role: 'Core Organizing Committee',
+    email: 'abhisheklama@techfest.org',
+    phone: '+91 97022 76874',
+    linkedin: '',
+    instagram: '',
+    avatar: '',
+    socials: {
+      email: 'abhisheklama@techfest.org',
+      phone: '+91 97022 76874',
+      linkedin: '',
+      instagram: ''
+    }
+  },
+  {
+    id: 6,
+    name: 'Neilkshitij Ray',
+    role: 'Core Organizing Committee',
+    email: 'neilkshitijray@techfest.org',
+    phone: '+91 97022 76874',
+    linkedin: '',
+    instagram: '',
+    avatar: '',
+    socials: {
+      email: 'neilkshitijray@techfest.org',
+      phone: '+91 97022 76874',
+      linkedin: '',
+      instagram: ''
+    }
   }
 ]
 

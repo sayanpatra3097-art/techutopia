@@ -2528,19 +2528,26 @@
   justify-content: center;
   align-items: center;
   z-index: 25;
+  pointer-events: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* Interior Building emerging behind the central gate */
 .events-outro-portal-inside {
   position: absolute;
   inset: 0;
-  background-size: 100% 100%;
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   will-change: transform, opacity;
   transform-origin: center center;
   pointer-events: none;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .events-outro-bg {
@@ -2552,9 +2559,12 @@
   will-change: transform, opacity;
   /* Pure zoom anchored center-gate, NO translateY upwards */
   transform-origin: 50% 51%;
-  transition: transform 0.05s ease-out;
   pointer-events: none;
   z-index: 2;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .events-outro-ambient {
@@ -2564,7 +2574,10 @@
               linear-gradient(180deg, rgba(20, 7, 3, 0.75) 0%, rgba(20, 7, 3, 0.12) 45%, rgba(16, 5, 2, 0.9) 100%);
   pointer-events: none;
   z-index: 2;
-  transition: opacity 0.2s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .events-outro-content {
@@ -2573,8 +2586,12 @@
   text-align: center;
   max-width: 860px;
   padding: 0 1.5rem;
-  will-change: opacity;
-  transition: opacity 0.15s ease-out;
+  will-change: opacity, transform;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .events-outro-badge {
@@ -2683,7 +2700,7 @@
   height: 100%;
   background: linear-gradient(90deg, #dc2626, #f59e0b);
   box-shadow: 0 0 15px #ff9a00;
-  transition: width 0.1s linear;
+  will-change: width;
 }
 
 /* Quick enter button on outro */
@@ -2702,6 +2719,7 @@
   padding: 8px 18px;
   border-radius: 20px;
   cursor: pointer;
+  pointer-events: auto;
   box-shadow: 0 4px 18px rgba(220, 38, 38, 0.4);
   transition: all 0.25s ease;
   backdrop-filter: blur(8px);
@@ -3620,7 +3638,7 @@
 /* ════════════ RESPONSIVE ADAPTATIONS (MOBILE & TABLET) ════════════ */
 @media (max-width: 860px) {
   .events-outro-track {
-    height: 125vh;
+    height: 190vh;
   }
 
   .techfest-corridor-hud {
@@ -3638,7 +3656,14 @@
   }
 
   .techfest-corridor-track {
-    min-height: 8500px;
+    min-height: 4000px;
+    touch-action: pan-y;
+  }
+
+  .techfest-3d-viewport,
+  .techfest-camera-wrapper,
+  .techfest-scene-wrapper {
+    touch-action: pan-y;
   }
 
   .techfest-exhibit-mount {
@@ -3654,6 +3679,18 @@
   .techfest-card-body {
     background: rgba(24, 11, 5, 0.96);
     border-width: 1px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 12px var(--accent-color, rgba(255, 154, 0, 0.3));
+    transition: border-color 0.2s ease !important;
+  }
+
+  .techfest-card-image {
+    transition: none !important;
+  }
+
+  .techfest-card-caption {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: linear-gradient(180deg, rgba(16, 6, 2, 0.96) 0%, rgba(18, 7, 3, 0.88) 100%) !important;
   }
 
   .techfest-card-image-wrap {
@@ -4973,6 +5010,49 @@
 
 .cyber-team-card-wrap:hover .cyber-team-card__photo {
   transform: scale(1.04);
+}
+
+.cyber-team-card__blank-avatar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.cyber-team-card__fallback-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: radial-gradient(circle at 50% 40%, rgba(245, 158, 11, 0.16) 0%, rgba(20, 6, 2, 0.95) 70%, #0a0301 100%);
+  position: relative;
+  z-index: 1;
+  padding-bottom: 2rem;
+}
+
+.cyber-fallback-avatar__initials {
+  font-family: 'Cinzel Decorative', 'Orbitron', serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #fbbf24;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 0 40px rgba(245, 158, 11, 0.3);
+}
+
+.cyber-fallback-avatar__tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #ff9a00;
+  background: rgba(255, 154, 0, 0.12);
+  border: 1px solid rgba(255, 154, 0, 0.35);
+  border-radius: 999px;
+  padding: 0.2rem 0.8rem;
+  text-transform: uppercase;
 }
 
 /* Mecha Side Fin Notches on the Photo Sides */
