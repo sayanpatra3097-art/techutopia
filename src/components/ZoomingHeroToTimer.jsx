@@ -526,9 +526,6 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                     <h2 className="anime-timer__headline anime-glow-text">
                       CHRONICLES OF TECHUTOPIA ’26
                     </h2>
-                    <p className="anime-timer__subline anime-quote-subline">
-                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'}, {timeLeft.hours} {timeLeft.hours === 1 ? 'Hour' : 'Hours'}, {timeLeft.minutes} {timeLeft.minutes === 1 ? 'Minute' : 'Minutes'}, and {timeLeft.seconds} {timeLeft.seconds === 1 ? 'Second' : 'Seconds'} until October 5th, 2026
-                    </p>
                   </div>
 
                   {/* Authentic Anime Ofuda (お札) Talisman Countdown Cards */}
