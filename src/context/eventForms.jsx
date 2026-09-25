@@ -8,32 +8,32 @@ import { createContext, useContext } from 'react'
 // ══════════════════════════════════════════════════════════════════════════════
 
 // ─── 1. EVENT ARTWORK IMPORTS (FROM ASSETS FOLDER) ────────────────────────────
-import art1 from '../assets/EVENTS/robo war.webp'
-import art2 from '../assets/EVENTS/gravity zone.webp'
+import art1 from '../assets/EVENTS/robo war (2).webp'
+import art2 from '../assets/EVENTS/Gravity Zone (1) (1).webp'
 import art3 from '../assets/EVENTS/pragati.webp'
-import art5 from '../assets/EVENTS/launchpad real.webp'
 import art6 from '../assets/EVENTS/hackpulse.webp'
-import art7 from '../assets/EVENTS/esportz final.webp'
-import art8 from '../assets/EVENTS/visual echoes.webp'
-import art9 from '../assets/EVENTS/bridge building.webp'
-import art10 from '../assets/EVENTS/launchpad.webp'
-import art11 from '../assets/EVENTS/PromptVerse.webp'
-import art12 from '../assets/EVENTS/food festival.webp'
-import art13 from '../assets/EVENTS/code fusion.webp'
-import art15 from '../assets/EVENTS/death race.webp'
-import art16 from '../assets/EVENTS/robo soccer.webp'
-import art17 from '../assets/EVENTS/drone compi (1).webp'
-import art18 from '../assets/EVENTS/sustanibility.webp'
-import art19 from '../assets/EVENTS/physio x.webp'
-import art20 from '../assets/EVENTS/CySec.webp'
-import art21 from '../assets/EVENTS/agomoni.webp'
+import art7 from '../assets/EVENTS/EsportZ.webp'
+import art8 from '../assets/EVENTS/visual echos.webp'
+import art9 from '../assets/EVENTS/bridge building (1).webp'
+import art10 from '../assets/EVENTS/tech venture.webp'
+import art11 from '../assets/EVENTS/prompt verse.webp'
+import art12 from '../assets/EVENTS/campus Zaika.webp'
+import art13 from '../assets/EVENTS/byte battle.webp'
+import art15 from '../assets/EVENTS/deathrace.webp'
+import art16 from '../assets/EVENTS/robosoccer.webp'
+import art17 from '../assets/EVENTS/drone comp (1).webp'
+import art18 from '../assets/EVENTS/sustainibility.webp'
+import art19 from '../assets/EVENTS/PhysioX.webp'
+import art20 from '../assets/EVENTS/pixel ki paheli.webp'
+import art21 from '../assets/EVENTS/fashion and cultural.webp'
+import art22 from '../assets/EVENTS/wall canvas (2).webp'
+import art23 from '../assets/EVENTS/agomoni.webp'
 
 // Export all event card images for direct access if needed
 export const EVENT_ASSETS = {
   art1,
   art2,
   art3,
-  art5,
   art6,
   art7,
   art8,
@@ -49,8 +49,11 @@ export const EVENT_ASSETS = {
   art19,
   art20,
   art21,
-  agomoni: art21,
-  artAgomoni: art21
+  art22,
+  art23,
+  wallCanvas: art22,
+  agomoni: art23,
+  artAgomoni: art23
 }
 
 // ─── 2. DEFAULT & SPECIAL FORM LINKS ─────────────────────────────────────────
@@ -113,24 +116,7 @@ export const EVENTS_DATASET = [
     prize: '₹30,000 + Clinical Kits',
     team: 'Solo / Duo'
   },
-  {
-    id: 4,
-    title: 'Launchpad',
-    rank: 'A-RANK INNOVATION',
-    threat: 'A-TIER',
-    element: 'COSMIC',
-    category: 'Project Expo',
-    icon: '🚀',
-    color: '#ea580c',
-    image: art5,
-    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
-    description: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
-    date: 'Day 1 • 10:00 AM - 4:00 PM',
-    venue: 'Exhibition Center, Main Foyer',
-    prize: '₹45,000 + Research Grants',
-    team: 'Team of 2-4'
-  },
+
   {
     id: 5,
     title: 'Hack Pulse',
@@ -159,7 +145,7 @@ export const EVENTS_DATASET = [
     icon: '🎮',
     color: '#ef4444',
     image: art7,
-    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    formLink: "https://uemj-gaming-club.vercel.app/",
     snippet: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     description: 'High-octane BGMI, Valorant, and EA FC tournament on the stage with live commentary.',
     date: 'Day 1 - Day 2 • Tournament Brackets',
@@ -205,7 +191,7 @@ export const EVENTS_DATASET = [
   },
   {
     id: 9,
-    title: "Dragon's Den",
+    title: 'Startup Expo',
     rank: 'S-RANK VENTURE',
     threat: 'VENTURE',
     element: 'CAPITAL',
@@ -367,12 +353,12 @@ export const EVENTS_DATASET = [
   },
   {
     id: 18,
-    title: 'CySec',
+    title: 'Pixel Ki Paheli',
     rank: 'CYBER CIPHER',
     threat: 'DARK-TIER',
     element: 'SHADOW',
     category: 'Cybersecurity & CTF',
-    icon: '🛡️',
+    icon: '🧩',
     color: '#8b5cf6',
     image: art20,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
@@ -385,21 +371,57 @@ export const EVENTS_DATASET = [
   },
   {
     id: 19,
-    title: 'Agomoni',
+    title: 'Wall Canvas',
+    rank: 'A-RANK CREATIVE',
+    threat: 'A-TIER',
+    element: 'CHROMA',
+    category: 'Creative Arts & Design',
+    icon: '🎨',
+    color: '#06b6d4',
+    image: art22,
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    snippet: 'Live graffiti mural painting and wall art canvas showcase celebrating vibrant urban anime aesthetics.',
+    description: 'Live graffiti mural painting and wall art canvas showcase celebrating vibrant urban anime aesthetics.',
+    date: 'Day 1 - Day 2 • 10:00 AM - 4:00 PM',
+    venue: 'Open Air Amphitheatre & Art Promenade',
+    prize: '₹35,000 + Golden Brush Trophy',
+    team: 'Team of 2-4 / Solo'
+  },
+  {
+    id: 20,
+    title: 'Fashion Carnival & Cultural Evening',
     rank: 'STARLIGHT GALA',
     threat: 'CELEBRATION',
     element: 'AURA',
-    category: 'Music & Cultural Fest',
+    category: 'Fashion & Cultural Fest',
     icon: '🎭',
     color: '#ec4899',
     image: art21,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Celebrity live music concert, theatrical dance ensembles, and DJ night.',
-    description: 'Celebrity live music concert, theatrical dance ensembles, and DJ night.',
+    snippet: 'Celebrity live music concert, theatrical dance ensembles, and grand fashion runway night.',
+    description: 'Celebrity live music concert, theatrical dance ensembles, and grand fashion runway night.',
     date: 'Day 2 • 7:00 PM - 10:30 PM (Grand Night)',
     venue: 'Main University Stadium Open Grounds',
     prize: 'Grand Night Passes + All-Star Badges',
     team: 'Open Festival Gala'
+  },
+  {
+    id: 21,
+    title: 'Agomoni',
+    rank: 'CELESTIAL DIVINE',
+    threat: 'SACRED-TIER',
+    element: 'DIVINE',
+    category: 'Cultural & Performing Arts',
+    icon: '🪔',
+    color: '#dc2626',
+    image: art23,
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    snippet: 'Welcoming Maa Durga — Showcase your talents in Music, Dance, Singing, Recitation, Acting, and Creative Performances.',
+    description: 'Welcoming Maa Durga — Showcase your talents in Music, Dance, Singing, Recitation, Acting, and Creative Performances.',
+    date: 'Day 2 • 6th October 2026',
+    venue: 'UEM Jaipur Campus',
+    prize: 'Agomoni Selection Badges & Honors',
+    team: 'Solo / Group Selection'
   }
 ]
 
@@ -429,13 +451,22 @@ export const EVENT_FORM_LINKS = {
   "24Hr Hackathon": findLink('Hack Pulse'),
   "Esports": findLink('Esports Championship'),
   "Esports Arena": findLink('Esports Championship'),
+  "Esportz": findLink('Esports Championship'),
+  "EsportZ": findLink('Esports Championship'),
+  "esportz": findLink('Esports Championship'),
   "Photography": findLink('Visual Echos'),
   "Visual Echoes": findLink('Visual Echos'),
-  "SharkTank": findLink("Dragon's Den"),
-  "Shark Tank": findLink("Dragon's Den"),
-  "Dragon's Den": findLink("Dragon's Den"),
-  "Dragons Den": findLink("Dragon's Den"),
-  "Generative Media": findLink("Dragon's Den"),
+  "Launchpad": DEFAULT_FORM_LINK,
+  "Startup Expo": findLink('Startup Expo'),
+  "StartupExpo": findLink('Startup Expo'),
+  "startup expo": findLink('Startup Expo'),
+  "SharkTank": findLink('Startup Expo'),
+  "Shark Tank": findLink('Startup Expo'),
+  "Dragon's Den": findLink('Startup Expo'),
+  "Dragons Den": findLink('Startup Expo'),
+  "Tech Venture": findLink('Startup Expo'),
+  "TechVenture": findLink('Startup Expo'),
+  "Generative Media": findLink('Startup Expo'),
   "PromptVerse": findLink('Prompt Verse'),
   "Blind Coding": findLink('Prompt Verse'),
   "Food Fest": findLink('Campus Zaika'),
@@ -456,15 +487,26 @@ export const EVENT_FORM_LINKS = {
   "Sustainibility": findLink('Sustainability'),
   "PhysioX": findLink('Physio X'),
   "Physio x": findLink('Physio X'),
-  "Cysec": findLink('CySec'),
-  "CySEC": findLink('CySec'),
-  "CYSEC": findLink('CySec'),
-  "CulturalEvening": findLink('Agomoni'),
-  "CULTURAL Evening": findLink('Agomoni'),
-  "Cultural Evening": findLink('Agomoni'),
+  "Cysec": findLink('Pixel Ki Paheli'),
+  "CySEC": findLink('Pixel Ki Paheli'),
+  "CYSEC": findLink('Pixel Ki Paheli'),
+  "CySec": findLink('Pixel Ki Paheli'),
+  "Pixel Ki Paheli": findLink('Pixel Ki Paheli'),
+  "pixel ki paheli": findLink('Pixel Ki Paheli'),
+  "PixelKiPaheli": findLink('Pixel Ki Paheli'),
+  "Wall Canvas": findLink('Wall Canvas'),
+  "wall canvas": findLink('Wall Canvas'),
+  "WallCanvas": findLink('Wall Canvas'),
+  "Fashion Carnival & Cultural Evening": findLink('Fashion Carnival & Cultural Evening'),
+  "Fashion Carnival": findLink('Fashion Carnival & Cultural Evening'),
+  "CulturalEvening": findLink('Fashion Carnival & Cultural Evening'),
+  "CULTURAL Evening": findLink('Fashion Carnival & Cultural Evening'),
+  "Cultural Evening": findLink('Fashion Carnival & Cultural Evening'),
   "Agomoni": findLink('Agomoni'),
   "agomoni": findLink('Agomoni'),
   "AGOMONI": findLink('Agomoni'),
+  "Agomani": findLink('Agomoni'),
+  "Shubho Agomoni": findLink('Agomoni'),
 
   // Last Card / Finale Sanctuary
   "last_card": LAST_CARD_FORM_LINK,

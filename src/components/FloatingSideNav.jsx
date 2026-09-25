@@ -84,41 +84,8 @@ const historyMilestones = [
   }
 ]
 
-const sponsorTiers = [
-  {
-    tier: 'TITLE GUILD PATRON',
-    color: '#fbbf24',
-    name: 'Apex Cyber Dynamics Corp',
-    tagline: 'Leading Cloud AI & Scalable Infrastructure',
-    perk: 'Exclusive Naming Rights & Grand Arena Sponsor'
-  },
-  {
-    tier: 'POWERED BY GUILD',
-    color: '#f97316',
-    name: 'Hyperion Mecha Labs & Gaming',
-    tagline: 'High-Performance Robotics & Esports Ecosystems',
-    perk: 'Robo War Arena & Esports Coliseum Partner'
-  },
-  {
-    tier: 'ASSOCIATE GUILD PARTNERS',
-    color: '#fde68a',
-    partners: [
-      { name: 'Quantum Coders Guild', type: 'Hackathon Track Partner' },
-      { name: 'Vertex BioTech Labs', type: 'Physio X Equipment Partner' },
-      { name: 'AeroDrone Dynamics', type: 'Aerial Drone Matrix Partner' },
-      { name: 'RedBull Energy Guild', type: 'Official Energy & Fuel Sponsor' }
-    ]
-  },
-  {
-    tier: 'MEDIA & ECOSYSTEM PARTNERS',
-    color: '#ffffff',
-    partners: [
-      { name: 'Campus Chronicle India', type: 'Student Outreach Network' },
-      { name: 'AnimeVerse Jaipur', type: 'Cosplay & Cultural Media Partner' },
-      { name: 'HackerEarth Community', type: 'Coding Verification Partner' }
-    ]
-  }
-]
+// ─── SPONSORS DATA (Keep empty until confirmed) ───
+const sponsorTiers = []
 
 const faqItems = [
   {
@@ -137,10 +104,7 @@ const faqItems = [
     q: 'Is accommodation provided for outside participants?',
     a: 'Yes, comfortable campus hostel accommodation is available on advance reservation for outstation participants traveling from outside Jaipur.'
   },
-  {
-    q: 'What is the bounty pool and certification details?',
-    a: 'The total bounty pool exceeds ₹5,00,000 in cash prizes, trophies, and premium sponsor goodies. All registered attendees receive verified digital participation certificates.'
-  },
+
   {
     q: 'What are the team size rules for Hack Pulse & Robo War?',
     a: 'Hack Pulse allows teams of 2 to 4 developers. Robo War accommodates teams of up to 4 pit crew members. Solo events like Visual Echos and Gaming allow individual entries.'
@@ -343,29 +307,68 @@ export default function FloatingSideNav({ onOpenHistory, onOpenSponsors, onOpenF
                   </p>
 
                   <div className="sponsors-showcase">
-                    {sponsorTiers.map((tier, idx) => (
-                      <div key={idx} className="sponsor-tier-card" style={{ '--tier-color': tier.color }}>
-                        <div className="sponsor-tier-header">
-                          <span className="sponsor-tier-pill">{tier.tier}</span>
+                    {sponsorTiers.length > 0 ? (
+                      sponsorTiers.map((tier, idx) => (
+                        <div key={idx} className="sponsor-tier-card" style={{ '--tier-color': tier.color }}>
+                          <div className="sponsor-tier-header">
+                            <span className="sponsor-tier-pill">{tier.tier}</span>
+                          </div>
+                          {tier.name ? (
+                            <div className="sponsor-title-sponsor">
+                              <h3 className="sponsor-corp-name">{tier.name}</h3>
+                              <p className="sponsor-corp-tagline">{tier.tagline}</p>
+                              <span className="sponsor-corp-perk">★ {tier.perk}</span>
+                            </div>
+                          ) : (
+                            <div className="sponsor-partners-grid">
+                              {tier.partners.map((p, pIdx) => (
+                                <div key={pIdx} className="sponsor-partner-chip">
+                                  <span className="partner-name">{p.name}</span>
+                                  <span className="partner-type">{p.type}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
-                        {tier.name ? (
-                          <div className="sponsor-title-sponsor">
-                            <h3 className="sponsor-corp-name">{tier.name}</h3>
-                            <p className="sponsor-corp-tagline">{tier.tagline}</p>
-                            <span className="sponsor-corp-perk">★ {tier.perk}</span>
-                          </div>
-                        ) : (
-                          <div className="sponsor-partners-grid">
-                            {tier.partners.map((p, pIdx) => (
-                              <div key={pIdx} className="sponsor-partner-chip">
-                                <span className="partner-name">{p.name}</span>
-                                <span className="partner-type">{p.type}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                      ))
+                    ) : (
+                      <div
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.03)',
+                          border: '1.5px dashed rgba(251, 191, 36, 0.35)',
+                          borderRadius: '16px',
+                          padding: '3rem 1.5rem',
+                          textAlign: 'center',
+                          margin: '1.5rem 0',
+                          backdropFilter: 'blur(10px)'
+                        }}
+                      >
+                        <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>⛩️</div>
+                        <h3
+                          style={{
+                            fontFamily: "'Cinzel', serif, var(--font-display)",
+                            fontSize: '1.25rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.05em',
+                            color: '#ffffff',
+                            marginBottom: '0.6rem'
+                          }}
+                        >
+                          OFFICIAL SPONSORS ANNOUNCING SOON
+                        </h3>
+                        <p
+                          style={{
+                            color: '#94a3b8',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.6,
+                            maxWidth: '480px',
+                            margin: '0 auto'
+                          }}
+                        >
+                          TechUtopia ’26 partnership tiers are currently being finalized. Stay tuned for the unveiling of our official guild patrons and corporate titans.
+                        </p>
                       </div>
-                    ))}
+                    )}
                   </div>
 
                   {/* Sponsor CTA */}

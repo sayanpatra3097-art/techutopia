@@ -59,12 +59,7 @@ const FAQ_DATA = [
     question: 'Is accommodation and food available for outstation participants?',
     answer: 'Yes! Safe, comfortable campus hostel accommodation and meal packages are available for outstation participants traveling from outside Jaipur upon advance booking during registration verification.'
   },
-  {
-    id: 9,
-    category: 'prizes',
-    question: 'What is the bounty pool and certification structure?',
-    answer: 'The cumulative bounty pool exceeds ₹5,00,000 including direct cash prizes, hardware development kits, trophies, and premium sponsor vouchers. All officially registered participants receive verified digital merit/participation credentials.'
-  },
+
   {
     id: 10,
     category: 'prizes',

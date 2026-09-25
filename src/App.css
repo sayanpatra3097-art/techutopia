@@ -1761,11 +1761,13 @@
 .anime-timer__talisman-unit,
 .anime-ofuda-unit {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: clamp(0.72rem, 1.35vw, 0.96rem);
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   color: #ffd580;
   margin-top: 0.4rem;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .anime-ofuda-mana-bar {
@@ -5830,11 +5832,12 @@
     color: #ffffff;
   }
   .anime-timer__talisman-unit {
-    font-size: 0.95rem;
+    font-size: clamp(0.58rem, 2.2vw, 0.78rem);
     font-weight: 800;
     color: #ffd580;
     margin-top: 0.35rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
   }
   .anime-timer__talisman-top-knot {
     width: 16px;

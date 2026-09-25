@@ -768,7 +768,11 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                     className="btn btn--primary centered-dossier__cta-btn"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <span>⚡ REGISTER VIA GOOGLE FORM ↗</span>
+                    <span>
+                      ⚡ {getEventFormLink(activeOpenedEvent)?.includes('forms.gle') || getEventFormLink(activeOpenedEvent)?.includes('docs.google.com')
+                        ? 'REGISTER VIA GOOGLE FORM ↗'
+                        : 'REGISTER / VISIT PORTAL ↗'}
+                    </span>
                   </a>
                 </div>
               </div>

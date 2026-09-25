@@ -56,13 +56,13 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'LAUNCHPAD',
-      desc: 'Grand tech project exhibition showcasing IoT, renewable energy, and AI inventions.',
-      venue: 'Exhibition Center, Main Foyer',
-      category: 'Project Expo',
-      rank: 'A-RANK INNOVATION',
+      title: 'WALL CANVAS',
+      desc: 'Live graffiti mural painting and wall art canvas showcase celebrating vibrant urban anime aesthetics.',
+      venue: 'Open Air Amphitheatre & Art Promenade',
+      category: 'Creative Arts & Design',
+      rank: 'A-RANK CREATIVE',
       starName: 'Beta Eridani (Cursa)',
-      eventName: 'Launchpad'
+      eventName: 'Wall Canvas'
     },
     {
       id: 'd1-2',
@@ -283,13 +283,13 @@ const rawConstellationDays = {
       labelPos: 'right',
       color: '#ff9a00',
       time: 'Time : TBD',
-      title: 'TECHVENTURE',
+      title: 'STARTUP EXPO',
       desc: 'Shark Tank style startup battleground pitching to angel investors.',
       venue: 'Auditorium Hall B, UEM Jaipur',
       category: 'Startup & Business',
       rank: 'S-RANK SUMMON',
       starName: 'Omicron Eridani (Beid)',
-      eventName: 'TechVenture'
+      eventName: 'Startup Expo'
     },
     {
       id: 'd2-6',
@@ -298,13 +298,13 @@ const rawConstellationDays = {
       labelPos: 'bottom',
       color: '#fbbf24',
       time: 'Time : TBD',
-      title: 'CYSEC',
+      title: 'PIXEL KI PAHELI',
       desc: 'Live jeopardy-style ethical hacking battle! Penetrate server clusters and decrypt payloads.',
       venue: 'Cyber Defense Command Lab 1',
       category: 'Cybersecurity & CTF',
       rank: 'CYBER CIPHER',
       starName: 'Omicron2 Eridani (Keid)',
-      eventName: 'CySec'
+      eventName: 'Pixel Ki Paheli'
     },
     {
       id: 'd2-7',

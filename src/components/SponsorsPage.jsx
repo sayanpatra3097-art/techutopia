@@ -8,55 +8,12 @@ const SPONSOR_METRICS = [
   { value: '100K+', label: 'DIGITAL IMPRESSIONS' }
 ]
 
-const TITLE_PATRON = {
-  tier: 'TITLE GUILD PATRON',
-  name: 'Apex Cyber Dynamics Corp',
-  tagline: 'Leading Cloud AI & Autonomous Cyber Infrastructure',
-  perk: 'Exclusive Festival Naming Rights • Grand Keynote Arena • Direct Recruitment Fast-Track',
-  description: 'Pioneering generative machine intelligence and high-throughput computational architectures powering next-generation smart ecosystems globally.',
-  website: 'https://apexcyberdynamics.example.com',
-  badge: 'APEX TIER'
-}
-
-const POWERED_PATRON = {
-  tier: 'POWERED BY GUILD',
-  name: 'Hyperion Mecha Labs & Gaming',
-  tagline: 'Heavyweight Combat Robotics & Next-Gen Esports Arenas',
-  perk: 'Official Combat Arena Sponsor • LAN Championship Hardware Partner',
-  description: 'Building titanium-alloy combat chassis, autonomous sensor modules, and zero-latency esports gaming hardware for top global contenders.',
-  website: 'https://hyperionmecha.example.com',
-  badge: 'TITANIUM TIER'
-}
-
-const ASSOCIATE_PARTNERS = [
-  {
-    name: 'Quantum Coders Guild',
-    role: 'Hackathon Track Partner',
-    desc: 'Powering 24-hour non-stop developer track bounties with cloud credits & mentorship.'
-  },
-  {
-    name: 'Vertex BioTech Labs',
-    role: 'Physio X Biometrics Partner',
-    desc: 'Providing high-speed sensor grids and athletic telemetry for human performance trials.'
-  },
-  {
-    name: 'AeroDrone Dynamics',
-    role: 'Aerial Matrix Partner',
-    desc: 'Sponsoring custom FPV drone obstacle courses and flight avionics hardware.'
-  },
-  {
-    name: 'RedBull Energy Guild',
-    role: 'Official Fuel Partner',
-    desc: 'Powering 5,000+ sleepless hackers, roboticists, and gamers through 48 hours of battle.'
-  }
-]
-
-const MEDIA_ECOSYSTEM = [
-  { name: 'Campus Chronicle India', role: 'Student Outreach Network' },
-  { name: 'AnimeVerse Jaipur', role: 'Cosplay & Cultural Media Partner' },
-  { name: 'HackerEarth Community', role: 'Coding Verification Partner' },
-  { name: 'Unstop Official', role: 'Tournament Registration Portal' }
-]
+// ─── SPONSORS DATA (Leave empty until official partners are confirmed) ───
+// To add sponsors later, fill in these objects/arrays
+const TITLE_PATRON = null
+const POWERED_PATRON = null
+const ASSOCIATE_PARTNERS = []
+const MEDIA_ECOSYSTEM = []
 
 export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
   const canvasRef = useRef(null)
@@ -164,100 +121,146 @@ export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
           </div>
         </section>
 
-        {/* ─── TIER 1: TITLE GUILD PATRON ─── */}
-        <section className="sponsors-section-block">
-          <div className="sponsors-tier-heading">
-            <span className="sponsors-tier-line" />
-            <span className="sponsors-tier-title sponsors-tier-title--title">TITLE GUILD PATRON</span>
-            <span className="sponsors-tier-line" />
-          </div>
-
-          <div className="sponsors-title-card">
-            <div className="sponsors-title-card__inner">
-              <div className="sponsors-title-card__badge">{TITLE_PATRON.badge}</div>
-              <div className="sponsors-title-card__header">
-                <div>
-                  <h2 className="sponsors-title-name">{TITLE_PATRON.name}</h2>
-                  <p className="sponsors-title-tagline">{TITLE_PATRON.tagline}</p>
+        {/* ─── SPONSORS SHOWCASE / EMPTY ANNOUNCEMENT ─── */}
+        {TITLE_PATRON || POWERED_PATRON || ASSOCIATE_PARTNERS.length > 0 || MEDIA_ECOSYSTEM.length > 0 ? (
+          <>
+            {TITLE_PATRON && (
+              <section className="sponsors-section-block">
+                <div className="sponsors-tier-heading">
+                  <span className="sponsors-tier-line" />
+                  <span className="sponsors-tier-title sponsors-tier-title--title">TITLE GUILD PATRON</span>
+                  <span className="sponsors-tier-line" />
                 </div>
-              </div>
+                <div className="sponsors-title-card">
+                  <div className="sponsors-title-card__inner">
+                    <div className="sponsors-title-card__badge">{TITLE_PATRON.badge}</div>
+                    <div className="sponsors-title-card__header">
+                      <div>
+                        <h2 className="sponsors-title-name">{TITLE_PATRON.name}</h2>
+                        <p className="sponsors-title-tagline">{TITLE_PATRON.tagline}</p>
+                      </div>
+                    </div>
+                    <p className="sponsors-title-desc">{TITLE_PATRON.description}</p>
+                    <div className="sponsors-title-perks">
+                      <span className="sponsors-perk-icon">⚡</span>
+                      <span className="sponsors-perk-text">{TITLE_PATRON.perk}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
-              <p className="sponsors-title-desc">{TITLE_PATRON.description}</p>
+            {POWERED_PATRON && (
+              <section className="sponsors-section-block">
+                <div className="sponsors-tier-heading">
+                  <span className="sponsors-tier-line" />
+                  <span className="sponsors-tier-title sponsors-tier-title--powered">POWERED BY GUILD</span>
+                  <span className="sponsors-tier-line" />
+                </div>
+                <div className="sponsors-powered-card">
+                  <div className="sponsors-powered-card__inner">
+                    <div className="sponsors-powered-card__badge">{POWERED_PATRON.badge}</div>
+                    <div className="sponsors-powered-card__header">
+                      <div>
+                        <h2 className="sponsors-powered-name">{POWERED_PATRON.name}</h2>
+                        <p className="sponsors-powered-tagline">{POWERED_PATRON.tagline}</p>
+                      </div>
+                    </div>
+                    <p className="sponsors-powered-desc">{POWERED_PATRON.description}</p>
+                    <div className="sponsors-powered-perks">
+                      <span className="sponsors-perk-icon">⚔</span>
+                      <span className="sponsors-perk-text">{POWERED_PATRON.perk}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
-              <div className="sponsors-title-perks">
-                <span className="sponsors-perk-icon">⚡</span>
-                <span className="sponsors-perk-text">{TITLE_PATRON.perk}</span>
+            {ASSOCIATE_PARTNERS.length > 0 && (
+              <section className="sponsors-section-block">
+                <div className="sponsors-tier-heading">
+                  <span className="sponsors-tier-line" />
+                  <span className="sponsors-tier-title">ASSOCIATE GUILD PARTNERS</span>
+                  <span className="sponsors-tier-line" />
+                </div>
+                <div className="sponsors-associate-grid">
+                  {ASSOCIATE_PARTNERS.map((p, idx) => (
+                    <div key={idx} className="sponsors-associate-card">
+                      <div className="sponsors-associate-header">
+                        <h3 className="sponsors-associate-name">{p.name}</h3>
+                        <span className="sponsors-associate-role">{p.role}</span>
+                      </div>
+                      <p className="sponsors-associate-desc">{p.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {MEDIA_ECOSYSTEM.length > 0 && (
+              <section className="sponsors-section-block">
+                <div className="sponsors-tier-heading">
+                  <span className="sponsors-tier-line" />
+                  <span className="sponsors-tier-title">MEDIA & OUTREACH NETWORK</span>
+                  <span className="sponsors-tier-line" />
+                </div>
+                <div className="sponsors-media-grid">
+                  {MEDIA_ECOSYSTEM.map((m, idx) => (
+                    <div key={idx} className="sponsors-media-card">
+                      <span className="sponsors-media-name">{m.name}</span>
+                      <span className="sponsors-media-role">{m.role}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
+        ) : (
+          <section className="sponsors-section-block">
+            <div
+              className="sponsors-empty-card"
+              style={{
+                background: 'rgba(20, 10, 5, 0.75)',
+                border: '1.5px dashed rgba(251, 191, 36, 0.45)',
+                borderRadius: '16px',
+                padding: '4rem 2rem',
+                textAlign: 'center',
+                maxWidth: '750px',
+                margin: '2rem auto',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)'
+              }}
+            >
+              <div style={{ fontSize: '3rem', marginBottom: '1.25rem', filter: 'drop-shadow(0 0 16px rgba(251, 191, 36, 0.6))' }}>
+                ⛩️
               </div>
+              <h2
+                style={{
+                  fontFamily: "'Cinzel', serif, var(--font-display)",
+                  fontSize: '1.8rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  color: '#ffffff',
+                  marginBottom: '0.85rem',
+                  textShadow: '0 0 20px rgba(251, 191, 36, 0.5)'
+                }}
+              >
+                OFFICIAL SPONSORS ANNOUNCING SOON
+              </h2>
+              <p
+                style={{
+                  color: 'rgba(255, 255, 255, 0.75)',
+                  fontSize: '1.05rem',
+                  lineHeight: 1.6,
+                  maxWidth: '540px',
+                  margin: '0 auto'
+                }}
+              >
+                The guild allies, corporate sponsors, and industry patrons for TechUtopia ’26 will be revealed soon.
+              </p>
             </div>
-          </div>
-        </section>
-
-        {/* ─── TIER 2: POWERED BY GUILD ─── */}
-        <section className="sponsors-section-block">
-          <div className="sponsors-tier-heading">
-            <span className="sponsors-tier-line" />
-            <span className="sponsors-tier-title sponsors-tier-title--powered">POWERED BY GUILD</span>
-            <span className="sponsors-tier-line" />
-          </div>
-
-          <div className="sponsors-powered-card">
-            <div className="sponsors-powered-card__inner">
-              <div className="sponsors-powered-card__badge">{POWERED_PATRON.badge}</div>
-              <div className="sponsors-powered-card__header">
-                <div>
-                  <h2 className="sponsors-powered-name">{POWERED_PATRON.name}</h2>
-                  <p className="sponsors-powered-tagline">{POWERED_PATRON.tagline}</p>
-                </div>
-              </div>
-
-              <p className="sponsors-powered-desc">{POWERED_PATRON.description}</p>
-
-              <div className="sponsors-powered-perks">
-                <span className="sponsors-perk-icon">⚔</span>
-                <span className="sponsors-perk-text">{POWERED_PATRON.perk}</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── TIER 3: ASSOCIATE GUILD PARTNERS ─── */}
-        <section className="sponsors-section-block">
-          <div className="sponsors-tier-heading">
-            <span className="sponsors-tier-line" />
-            <span className="sponsors-tier-title">ASSOCIATE GUILD PARTNERS</span>
-            <span className="sponsors-tier-line" />
-          </div>
-
-          <div className="sponsors-associate-grid">
-            {ASSOCIATE_PARTNERS.map((p, idx) => (
-              <div key={idx} className="sponsors-associate-card">
-                <div className="sponsors-associate-header">
-                  <h3 className="sponsors-associate-name">{p.name}</h3>
-                  <span className="sponsors-associate-role">{p.role}</span>
-                </div>
-                <p className="sponsors-associate-desc">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ─── TIER 4: MEDIA & ECOSYSTEM PARTNERS ─── */}
-        <section className="sponsors-section-block">
-          <div className="sponsors-tier-heading">
-            <span className="sponsors-tier-line" />
-            <span className="sponsors-tier-title">MEDIA & OUTREACH NETWORK</span>
-            <span className="sponsors-tier-line" />
-          </div>
-
-          <div className="sponsors-media-grid">
-            {MEDIA_ECOSYSTEM.map((m, idx) => (
-              <div key={idx} className="sponsors-media-card">
-                <span className="sponsors-media-name">{m.name}</span>
-                <span className="sponsors-media-role">{m.role}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ─── PARTNERSHIP CALL TO ACTION ─── */}
         <section className="sponsors-cta-box">

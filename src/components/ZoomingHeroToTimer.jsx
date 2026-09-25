@@ -38,15 +38,32 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   const curActiveIdx = useRef(-1)
   const curNextIdx = useRef(-1)
 
-  // Target Fest Date for Countdown: October 5 – 6, 2026
-  const targetDate = new Date('2026-10-05T09:00:00')
+  // Target Fest Date for Countdown: October 5, 2026 (00:00:00)
+  const calculateTimeLeft = () => {
+    const now = new Date()
+    // Exact target: October 5, 2026 (00:00:00 IST)
+    const targetDate = new Date(2026, 9, 5, 0, 0, 0)
+    let diff = targetDate.getTime() - now.getTime()
 
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  })
+    if (diff <= 0) {
+      // Dynamic fallback if date is past Oct 5, 2026
+      const currentYear = now.getFullYear()
+      let dynamicTarget = new Date(currentYear, 9, 5, 0, 0, 0)
+      if (now.getTime() >= dynamicTarget.getTime()) {
+        dynamicTarget = new Date(currentYear + 1, 9, 5, 0, 0, 0)
+      }
+      diff = dynamicTarget.getTime() - now.getTime()
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
+    const minutes = Math.floor((diff / (1000 * 60)) % 60)
+    const seconds = Math.floor((diff / 1000) % 60)
+
+    return { days, hours, minutes, seconds }
+  }
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft)
 
   // Pre-decode all anime images into GPU texture memory on mount for silky-smooth 120fps zoom
   useEffect(() => {
@@ -61,20 +78,7 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
 
   useEffect(() => {
     const updateCountdown = () => {
-      const now = new Date()
-      const diff = targetDate - now
-
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-        return
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
-      const minutes = Math.floor((diff / 1000 / 60) % 60)
-      const seconds = Math.floor((diff / 1000) % 60)
-
-      setTimeLeft({ days, hours, minutes, seconds })
+      setTimeLeft(calculateTimeLeft())
     }
 
     updateCountdown()
@@ -275,10 +279,10 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
   }
 
   const clockItems = [
-    { value: pad(timeLeft.days), label: 'DAYS' },
-    { value: pad(timeLeft.hours), label: 'HOURS' },
-    { value: pad(timeLeft.minutes), label: 'MINS' },
-    { value: pad(timeLeft.seconds), label: 'SECS' }
+    { value: pad(timeLeft.days), label: timeLeft.days === 1 ? 'DAY' : 'DAYS' },
+    { value: pad(timeLeft.hours), label: timeLeft.hours === 1 ? 'HOUR' : 'HOURS' },
+    { value: pad(timeLeft.minutes), label: timeLeft.minutes === 1 ? 'MINUTE' : 'MINUTES' },
+    { value: pad(timeLeft.seconds), label: timeLeft.seconds === 1 ? 'SECOND' : 'SECONDS' }
   ]
 
   return (
@@ -522,6 +526,9 @@ export default function ZoomingHeroToTimer({ isUnlocked, onExploreMore }) {
                     <h2 className="anime-timer__headline anime-glow-text">
                       CHRONICLES OF TECHUTOPIA ’26
                     </h2>
+                    <p className="anime-timer__subline anime-quote-subline">
+                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'}, {timeLeft.hours} {timeLeft.hours === 1 ? 'Hour' : 'Hours'}, {timeLeft.minutes} {timeLeft.minutes === 1 ? 'Minute' : 'Minutes'}, and {timeLeft.seconds} {timeLeft.seconds === 1 ? 'Second' : 'Seconds'} until October 5th, 2026
+                    </p>
                   </div>
 
                   {/* Authentic Anime Ofuda (お札) Talisman Countdown Cards */}
