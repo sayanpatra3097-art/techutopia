@@ -1,0 +1,22 @@
+{
+  "name": "TechUtopia — UEM Jaipur Tech Fest",
+  "short_name": "TechUtopia",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#ff9a00",
+  "background_color": "#070302",
+  "display": "standalone",
+  "start_url": "/"
+}

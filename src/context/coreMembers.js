@@ -41,7 +41,6 @@ export const MEMBER_ASSETS = {
   memberImg11,
   memberImg12
 }
-
 /**
  * CORE TEAM MEMBERS LIST
  * Edit, add, or remove items here to update the Meet the Team cards.
@@ -68,7 +67,7 @@ export const CORE_MEMBERS = [
     name: 'Harsh Raj',
     role: 'Core Organizing Committee',
     email: 'harshraj@techfest.org',
-    phone: '+91 97022 76874',
+    phone: '+91 9430030103',
     linkedin: '',
     instagram: '',
     avatar: '',
