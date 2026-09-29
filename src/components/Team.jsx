@@ -27,7 +27,6 @@ export default function Team() {
             <h2 className="team-dimension__title">Meet the Team</h2>
             <span className="team-dimension__header-gem">◆◆</span>
           </div>
-          <div></div>
         </div>
 
         {/* Team Card Grid — Direct Details on Card, No Modal Tapping Needed, No Filters */}

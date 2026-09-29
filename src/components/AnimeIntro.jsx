@@ -162,7 +162,6 @@ export default function AnimeIntro({ onComplete }) {
 
         <div className="anime-intro__sub">
           <span className="anime-intro__sub-dot" />
-          <span>AWAKENING PROTOCOL • UEM JAIPUR</span>
         </div>
       </div>
     </div>

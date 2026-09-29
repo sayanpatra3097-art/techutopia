@@ -14,6 +14,11 @@
 
 // Photo Assets
 import memberImg1 from '../assets/members/sayan.webp'
+import memberImgHarsh from '../assets/members/Harsh Rathaur.webp'
+import memberImgAdrija from '../assets/members/Adrija Dutta.webp'
+import memberImgAnup from '../assets/members/Anup Mazumdar 1.webp'
+import memberImgLama from '../assets/members/Lama2.webp'
+import memberImgNeil from '../assets/members/neilkshitij.webp'
 import memberImg2 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (1).webp'
 import memberImg3 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (3).webp'
 import memberImg4 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (4).webp'
@@ -29,6 +34,11 @@ import memberImg12 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03
 // Export all photo assets so you can re-use them easily
 export const MEMBER_ASSETS = {
   memberImg1,
+  memberImgHarsh,
+  memberImgAdrija,
+  memberImgAnup,
+  memberImgLama,
+  memberImgNeil,
   memberImg2,
   memberImg3,
   memberImg4,
@@ -41,6 +51,7 @@ export const MEMBER_ASSETS = {
   memberImg11,
   memberImg12
 }
+
 /**
  * CORE TEAM MEMBERS LIST
  * Edit, add, or remove items here to update the Meet the Team cards.
@@ -70,7 +81,7 @@ export const CORE_MEMBERS = [
     phone: '+91 9430030103',
     linkedin: '',
     instagram: '',
-    avatar: '',
+    avatar: memberImgHarsh,
     socials: {
       email: 'harshraj@techfest.org',
       phone: '+91 97022 76874',
@@ -86,7 +97,7 @@ export const CORE_MEMBERS = [
     phone: '+91 97022 76874',
     linkedin: '',
     instagram: '',
-    avatar: '',
+    avatar: memberImgAdrija,
     socials: {
       email: 'adrijadutta@techfest.org',
       phone: '+91 97022 76874',
@@ -102,7 +113,7 @@ export const CORE_MEMBERS = [
     phone: '+91 97022 76874',
     linkedin: '',
     instagram: '',
-    avatar: '',
+    avatar: memberImgAnup,
     socials: {
       email: 'anupmazumdar@techfest.org',
       phone: '+91 97022 76874',
@@ -118,7 +129,7 @@ export const CORE_MEMBERS = [
     phone: '+91 97022 76874',
     linkedin: '',
     instagram: '',
-    avatar: '',
+    avatar: memberImgLama,
     socials: {
       email: 'abhisheklama@techfest.org',
       phone: '+91 97022 76874',
@@ -131,10 +142,10 @@ export const CORE_MEMBERS = [
     name: 'Neilkshitij Ray',
     role: 'Core Organizing Committee',
     email: 'neilkshitijray@techfest.org',
-    phone: '+91 97022 76874',
+    phone: '+91'6371168906'
     linkedin: '',
     instagram: '',
-    avatar: '',
+    avatar: memberImgNeil,
     socials: {
       email: 'neilkshitijray@techfest.org',
       phone: '+91 97022 76874',

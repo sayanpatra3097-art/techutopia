@@ -726,7 +726,7 @@ export default function Events({ onNext, onPrev, initialStage = 'outro' }) {
                   >
                     <div className="techfest-end-board__card">
                       <div className="end-board-badge">SANCTUM REVEAL COMPLETE</div>
-                      <h3 className="end-board-title">YOU HAVE EXPLORED ALL 14 QUESTS</h3>
+                      <h3 className="end-board-title">YOU HAVE EXPLORED ALL {exhibitsList.length} QUESTS</h3>
                       <p className="end-board-desc">
                         Prepare your party, assemble your squad, and register before the shrine seals.
                       </p>

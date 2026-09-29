@@ -28,6 +28,10 @@ import art20 from '../assets/EVENTS/pixel ki paheli.webp'
 import art21 from '../assets/EVENTS/fashion and cultural.webp'
 import art22 from '../assets/EVENTS/wall canvas (2).webp'
 import art23 from '../assets/EVENTS/agomoni.webp'
+import artEuphoria from '../assets/EVENTS/euphoria.webp'
+import artPov from '../assets/EVENTS/pov techutopia.webp'
+import artDance from '../assets/EVENTS/dance competition.webp'
+import artRampwalk from '../assets/EVENTS/ramp walk.webp'
 
 // Export all event card images for direct access if needed
 export const EVENT_ASSETS = {
@@ -53,7 +57,18 @@ export const EVENT_ASSETS = {
   art23,
   wallCanvas: art22,
   agomoni: art23,
-  artAgomoni: art23
+  artAgomoni: art23,
+  euphoria: artEuphoria,
+  artEuphoria,
+  pov: artPov,
+  povTechutopia: artPov,
+  artPov,
+  dance: artDance,
+  danceCompetition: artDance,
+  artDance,
+  rampwalk: artRampwalk,
+  rampWalk: artRampwalk,
+  artRampwalk
 }
 
 // ─── 2. DEFAULT & SPECIAL FORM LINKS ─────────────────────────────────────────
@@ -389,21 +404,21 @@ export const EVENTS_DATASET = [
   },
   {
     id: 20,
-    title: 'Fashion Carnival & Cultural Evening',
-    rank: 'STARLIGHT GALA',
-    threat: 'CELEBRATION',
-    element: 'AURA',
-    category: 'Fashion & Cultural Fest',
-    icon: '🎭',
-    color: '#ec4899',
-    image: art21,
+    title: 'Euphoria',
+    rank: 'HARMONIC MELODY',
+    threat: 'VOCAL-TIER',
+    element: 'SONIC AURA',
+    category: 'Annual Singing Competition',
+    icon: '🎤',
+    color: '#f59e0b',
+    image: artEuphoria,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Celebrity live music concert, theatrical dance ensembles, and grand fashion runway night.',
-    description: 'Celebrity live music concert, theatrical dance ensembles, and grand fashion runway night.',
-    date: 'Day 2 • 7:00 PM - 10:30 PM (Grand Night)',
-    venue: 'Main University Stadium Open Grounds',
-    prize: 'Grand Night Passes + All-Star Badges',
-    team: 'Open Festival Gala'
+    snippet: 'Where Talent Finds Its Melody — UEMJ Annual Singing Competition showcasing vocal mastery.',
+    description: 'Where Talent Finds Its Melody — Step into the spotlight at the UEMJ Annual Singing Competition. Showcase your vocal prowess across solo and duet performances in front of an enthusiastic audience and expert judges.',
+    date: '5th October, 2026',
+    venue: 'Ground Floor Stage, Academic Block I',
+    prize: 'Prestigious Trophies & Awards',
+    team: 'Solo / Duet Vocalists'
   },
   {
     id: 21,
@@ -422,6 +437,60 @@ export const EVENTS_DATASET = [
     venue: 'UEM Jaipur Campus',
     prize: 'Agomoni Selection Badges & Honors',
     team: 'Solo / Group Selection'
+  },
+  {
+    id: 22,
+    title: 'POV TechUtopia',
+    rank: 'S-RANK CHRONICLER',
+    threat: 'CREATIVE-TIER',
+    element: 'VISUAL AURA',
+    category: 'Cinematography & Reel Contest',
+    icon: '🎥',
+    color: '#06b6d4',
+    image: artPov,
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    snippet: 'Capture the festival through your lens — create dynamic reels, cinematic vlogs, and campus stories.',
+    description: 'Showcase your filmmaking and storytelling prowess. Capture the electric vibe, anime installations, and unforgettable moments of TechUtopia from your perspective.',
+    date: 'Day 1 - Day 2 • Festival Hours',
+    venue: 'UEM Jaipur Campus Grounds',
+    prize: '₹25,000 + Best Creator Trophy',
+    team: 'Solo / Duo Creators'
+  },
+  {
+    id: 23,
+    title: 'Dance Competition',
+    rank: 'A-RANK RHYTHM',
+    threat: 'S-TIER SHOWDOWN',
+    element: 'KINETIC FIRE',
+    category: 'Cultural Dance Competition',
+    icon: '💃',
+    color: '#e11d48',
+    image: artDance,
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    snippet: 'Move • Express • Inspire — Cultural Fest presents the grand dance battle for solo, duet, and group performers.',
+    description: 'Move • Express • Inspire — Cultural Fest presents the grand dance competition. Showcase your rhythm, expression, and passion across classical, contemporary, western, and fusion dance.',
+    date: '5th October, 2026',
+    venue: 'University of Engineering and Management, Jaipur',
+    prize: 'Championship Trophies & Recognition',
+    team: 'Solo / Duet / Group'
+  },
+  {
+    id: 24,
+    title: 'Rampwalk',
+    rank: 'COUTURE RUNWAY',
+    threat: 'GLAMOUR-TIER',
+    element: 'DIVINE COUTURE',
+    category: 'Ramp Walk Competition',
+    icon: '👑',
+    color: '#8b5cf6',
+    image: artRampwalk,
+    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
+    snippet: 'Cultural Diversity of India — "Unity in Diversity: A Walk Through Indian Traditions" couture runway.',
+    description: 'Different States, Same Heart, India — One Country, Many Cultures. Strut your style and grace in traditional and couture Indian attire celebrating the rich heritage of India.',
+    date: '5th October, 2026 (Monday)',
+    venue: 'UEM Jaipur Campus',
+    prize: 'Best Model & Designer Trophies',
+    team: 'Solo Models / Fashion Teams'
   }
 ]
 
@@ -497,11 +566,34 @@ export const EVENT_FORM_LINKS = {
   "Wall Canvas": findLink('Wall Canvas'),
   "wall canvas": findLink('Wall Canvas'),
   "WallCanvas": findLink('Wall Canvas'),
-  "Fashion Carnival & Cultural Evening": findLink('Fashion Carnival & Cultural Evening'),
-  "Fashion Carnival": findLink('Fashion Carnival & Cultural Evening'),
-  "CulturalEvening": findLink('Fashion Carnival & Cultural Evening'),
-  "CULTURAL Evening": findLink('Fashion Carnival & Cultural Evening'),
-  "Cultural Evening": findLink('Fashion Carnival & Cultural Evening'),
+  "Fashion Carnival & Cultural Evening": findLink('Euphoria'),
+  "Fashion Carnival": findLink('Euphoria'),
+  "CulturalEvening": findLink('Euphoria'),
+  "CULTURAL Evening": findLink('Euphoria'),
+  "Cultural Evening": findLink('Euphoria'),
+  "Euphoria": findLink('Euphoria'),
+  "euphoria": findLink('Euphoria'),
+  "EUPHORIA": findLink('Euphoria'),
+  "Singing Competition": findLink('Euphoria'),
+  "singing competition": findLink('Euphoria'),
+  "Singing": findLink('Euphoria'),
+  "singing": findLink('Euphoria'),
+  "UEMJ Annual Singing Competition": findLink('Euphoria'),
+  "POV TechUtopia": findLink('POV TechUtopia'),
+  "pov techutopia": findLink('POV TechUtopia'),
+  "POV Techutopia": findLink('POV TechUtopia'),
+  "POV": findLink('POV TechUtopia'),
+  "pov": findLink('POV TechUtopia'),
+  "Dance Competition": findLink('Dance Competition'),
+  "dance competition": findLink('Dance Competition'),
+  "Dance": findLink('Dance Competition'),
+  "dance": findLink('Dance Competition'),
+  "Dance Battle": findLink('Dance Competition'),
+  "Rampwalk": findLink('Rampwalk'),
+  "rampwalk": findLink('Rampwalk'),
+  "Ramp Walk": findLink('Rampwalk'),
+  "ramp walk": findLink('Rampwalk'),
+  "Fashion Runway": findLink('Rampwalk'),
   "Agomoni": findLink('Agomoni'),
   "agomoni": findLink('Agomoni'),
   "AGOMONI": findLink('Agomoni'),
