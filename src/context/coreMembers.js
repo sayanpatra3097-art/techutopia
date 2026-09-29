@@ -84,7 +84,7 @@ export const CORE_MEMBERS = [
     avatar: memberImgHarsh,
     socials: {
       email: 'harshraj@techfest.org',
-      phone: '+91 97022 76874',
+      phone: '+91 9430030103',
       linkedin: '',
       instagram: ''
     }
@@ -142,13 +142,13 @@ export const CORE_MEMBERS = [
     name: 'Neilkshitij Ray',
     role: 'Core Organizing Committee',
     email: 'neilkshitijray@techfest.org',
-    phone: '+91'6371168906'
+    phone: '+91 6371168906',
     linkedin: '',
     instagram: '',
     avatar: memberImgNeil,
     socials: {
       email: 'neilkshitijray@techfest.org',
-      phone: '+91 97022 76874',
+      phone: '+91 6371168906',
       linkedin: '',
       instagram: ''
     }
