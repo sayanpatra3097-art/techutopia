@@ -180,13 +180,11 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
         {/* Right: Quick Register + Mobile Menu */}
         <div className="modern-navbar__right">
           <a
-            href={DEFAULT_FORM_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/login"
             className="modern-navbar__cta-btn"
-            title="Register for TechUtopia Events (Google Form)"
+            title="Login to TechUtopia"
           >
-            <span>REGISTER ↗</span>
+            <span>LOGIN ↗</span>
           </a>
 
           <button
@@ -220,14 +218,12 @@ export default function Navbar({ currentPage = 0, onNavigatePage }) {
 
         <div className="modern-navbar__drawer-footer">
           <a
-            href={DEFAULT_FORM_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/login"
             className="btn btn--primary"
             style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
             onClick={() => setMobileOpen(false)}
           >
-            REGISTER FOR EVENTS ↗
+            LOGIN ↗
           </a>
         </div>
       </div>
