@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment & Backend Secrets
+.env
+.env.*
+server/.env
+server/.env.*
+
+# Sensitive Student Logs & Credentials
+server/data/*.csv
+*.csv

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Alex Mercer",
+    "email": "alex.test@example.com",
+    "phone": "9876543210",
+    "college": "Tech Institute of Engineering"
+  },
+  {
+    "name": "Sarah Connor",
+    "email": "sarah.test@example.com",
+    "phone": "9812345678",
+    "college": "Heritage Institute of Technology"
+  }
+]
