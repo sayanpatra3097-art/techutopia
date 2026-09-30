@@ -10,20 +10,20 @@ import { createContext, useContext } from 'react'
 // ─── 1. EVENT ARTWORK IMPORTS (FROM ASSETS FOLDER) ────────────────────────────
 import art1 from '../assets/EVENTS/robo war (2).webp'
 import art2 from '../assets/EVENTS/Gravity Zone (1) (1).webp'
-import art3 from '../assets/EVENTS/pragati.webp'
+import art3 from '../assets/EVENTS/pragati 2.0.webp'
 import art6 from '../assets/EVENTS/hackpulse.webp'
 import art7 from '../assets/EVENTS/EsportZ.webp'
 import art8 from '../assets/EVENTS/visual echos.webp'
 import art9 from '../assets/EVENTS/bridge building (1).webp'
 import art10 from '../assets/EVENTS/tech venture.webp'
-import art11 from '../assets/EVENTS/prompt verse.webp'
+import art11 from '../assets/EVENTS/Prompt Verse Poster.webp'
 import art12 from '../assets/EVENTS/campus Zaika.webp'
 import art13 from '../assets/EVENTS/byte battle.webp'
 import art15 from '../assets/EVENTS/deathrace.webp'
 import art16 from '../assets/EVENTS/robosoccer.webp'
 import art17 from '../assets/EVENTS/drone comp (1).webp'
-import art18 from '../assets/EVENTS/sustainibility.webp'
-import art19 from '../assets/EVENTS/PhysioX.webp'
+import art18 from '../assets/EVENTS/W2W.webp'
+import art19 from '../assets/EVENTS/PhysioX (1).webp'
 import art20 from '../assets/EVENTS/pixel ki paheli.webp'
 import art21 from '../assets/EVENTS/fashion and cultural.webp'
 import art22 from '../assets/EVENTS/wall canvas (2).webp'
@@ -55,6 +55,14 @@ export const EVENT_ASSETS = {
   art21,
   art22,
   art23,
+  pragati: art3,
+  pragati2: art3,
+  promptVerse: art11,
+  wasteToWealth: art18,
+  w2w: art18,
+  sustainability: art18,
+  physioX: art19,
+  physio: art19,
   wallCanvas: art22,
   agomoni: art23,
   artAgomoni: art23,
@@ -117,19 +125,19 @@ export const EVENTS_DATASET = [
     id: 3,
     title: 'PRAGATI 2.0',
     rank: 'SPECIAL GUILD',
-    threat: 'BIO-RANK',
-    element: 'VITALITY',
-    category: 'Healthcare & Wellness',
-    icon: '🩺',
+    threat: 'SIH-TIER',
+    element: 'INNOVATION',
+    category: 'Smart India Hackathon',
+    icon: '💡',
     color: '#ffb703',
     image: art3,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
-    description: 'Biomechanics agility sprint, posture AI analysis, and ergonomic reflex testing.',
-    date: 'Day 2 • 10:00 AM - 1:00 PM',
-    venue: 'Physiotherapy & Health Sciences Wing',
-    prize: '₹30,000 + Clinical Kits',
-    team: 'Solo / Duo'
+    snippet: 'Smart India Hackathon 2026 — Igniting Ideas & Inspiring Innovation. Qualify for SIH.',
+    description: 'Smart India Hackathon 2026: Pragati 2.0 — Igniting Ideas & Inspiring Innovation. Jointly organized by IEEE Student Branch & IIEDC. Bring your laptop, chargers, and great enthusiasm to qualify for SIH.',
+    date: '05 October, 2026 • 9:00 AM - 5:00 PM',
+    venue: 'Main Building, Basement Seminar Hall, UEM Jaipur',
+    prize: '₹20,000 Cash Pool (1st: ₹10k, 2nd: ₹6k, 3rd: ₹4k) + SIH Qualification',
+    team: 'Team Hackathon'
   },
 
   {
@@ -228,16 +236,16 @@ export const EVENTS_DATASET = [
     rank: 'A-RANK CIPHER',
     threat: 'A-TIER',
     element: 'SHADOW',
-    category: 'Coding & Logic',
-    icon: '🕶️',
+    category: 'Gen AI & Prompt Engineering',
+    icon: '🤖',
     color: '#dc2626',
     image: art11,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
-    description: 'Screen-off algorithmic coding duels testing sheer syntax muscle memory.',
+    snippet: 'Competition using Gen AI tools — Ideate, prompt, create, repeat. Good prompts brighter tomorrows.',
+    description: 'PromptVerse: Competition using Gen AI tools presented by Techfest in association with TCDS, Synapse Club, and Codesta. Showcase your prompt craft, creativity, and AI engineering.',
     date: 'Day 1 • 4:00 PM - 6:30 PM',
     venue: 'Computer Science Lab 4',
-    prize: '₹25,000 + Mechanical Keyboards',
+    prize: '₹25,000 + Exciting Awards',
     team: 'Solo Hunter'
   },
   {
@@ -332,20 +340,20 @@ export const EVENTS_DATASET = [
   },
   {
     id: 16,
-    title: 'Sustainability',
+    title: 'Waste to Wealth',
     rank: 'GREEN TITAN',
     threat: 'ECO-TIER',
     element: 'TERRA',
-    category: 'CleanTech & Green Innovation',
+    category: 'CleanTech & Sustainability',
     icon: '🌱',
     color: '#22c55e',
     image: art18,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Innovative clean energy models, zero-waste tech, and eco-sustainable engineering.',
-    description: 'Innovative clean energy models, zero-waste tech, and eco-sustainable engineering.',
+    snippet: 'Waste to Wealth: Innovate the Discarded — Waste today, wealth tomorrow. Think, innovate, regenerate.',
+    description: 'Waste to Wealth (W2W): Innovate the Discarded — Transform agricultural residues, industrial effluents, urban waste, biochar, and microalgal bioproducts into sustainable solutions.',
     date: 'Day 2 • 10:00 AM - 2:00 PM',
     venue: 'Eco-Innovation Concourse, Block 2',
-    prize: '₹35,000 + Eco Innovation Grant',
+    prize: 'Cash Prizes + Winner & Runner-Up Trophies',
     team: 'Team of 2-4'
   },
   {
@@ -359,11 +367,11 @@ export const EVENTS_DATASET = [
     color: '#eab308',
     image: art19,
     formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
-    description: 'Advanced biomechanics testing, EMG signal analysis, and athletic speed trials.',
-    date: 'Day 1 • 11:30 AM - 3:00 PM',
+    snippet: "Physiotherapy Students' Hackathon — Move, Think, Heal, Innovate. Better Movement, Brighter Lives.",
+    description: "Physio X: Physiotherapy Students' Hackathon — Multi-stage clinical assessment, case solving, and final presentation. Win cash prizes, trophies, mementos, and certificates.",
+    date: 'Day 1 - Day 2 • Clinical Rounds',
     venue: 'Physiotherapy Clinical Arena',
-    prize: '₹30,000 + Diagnostic Medals',
+    prize: 'Cash Prizes + Winner & Runner-Up Trophies',
     team: 'Solo / Duo'
   },
   {
@@ -514,7 +522,10 @@ export const EVENT_FORM_LINKS = {
   "Robo Mania": findLink('Robo War'),
   "RoboMania": findLink('Robo War'),
   "Pragati 2.0": findLink('PRAGATI 2.0'),
-  "Physio Event": findLink('PRAGATI 2.0'),
+  "Pragati": findLink('PRAGATI 2.0'),
+  "Smart India Hackathon": findLink('PRAGATI 2.0'),
+  "SIH": findLink('PRAGATI 2.0'),
+  "Physio Event": findLink('Physio X'),
   "Hackathon": findLink('Hack Pulse'),
   "Hackathon (24hr)": findLink('Hack Pulse'),
   "24Hr Hackathon": findLink('Hack Pulse'),
@@ -553,7 +564,13 @@ export const EVENT_FORM_LINKS = {
   "Robo Soccer": findLink('Robosoccer'),
   "RoboSoccer": findLink('Robosoccer'),
   "DroneCompetition": findLink('Drone Competition'),
-  "Sustainibility": findLink('Sustainability'),
+  "Sustainability": findLink('Waste to Wealth'),
+  "Sustainibility": findLink('Waste to Wealth'),
+  "sustainability": findLink('Waste to Wealth'),
+  "Waste to Wealth": findLink('Waste to Wealth'),
+  "Waste To Wealth": findLink('Waste to Wealth'),
+  "W2W": findLink('Waste to Wealth'),
+  "w2w": findLink('Waste to Wealth'),
   "PhysioX": findLink('Physio X'),
   "Physio x": findLink('Physio X'),
   "Cysec": findLink('Pixel Ki Paheli'),
