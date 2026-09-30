@@ -8564,6 +8564,114 @@
   color: #fed7aa;
 }
 
+.sponsors-title-card__header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.sponsors-title-card__logo-wrap {
+  background: #ffffff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 191, 36, 0.25);
+  border: 1.5px solid rgba(251, 191, 36, 0.45);
+}
+
+.sponsors-title-card__logo {
+  height: 48px;
+  max-width: 220px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.sponsors-title-text-wrap {
+  flex: 1;
+  min-width: 240px;
+}
+
+.sponsors-title-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.sponsors-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1a0d02 !important;
+  font-family: 'Orbitron', var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(251, 191, 36, 0.4);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sponsors-visit-btn:hover {
+  background: linear-gradient(135deg, #fde68a, #fbbf24);
+  box-shadow: 0 6px 26px rgba(251, 191, 36, 0.7);
+  transform: translateY(-2px);
+  color: #000 !important;
+}
+
+.sponsor-modal-logo-wrap {
+  background: #ffffff;
+  padding: 8px 18px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.sponsor-modal-logo {
+  height: 36px;
+  max-width: 180px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.sponsor-modal-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Orbitron', var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fbbf24;
+  text-decoration: none;
+  padding: 6px 14px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sponsor-modal-visit-btn:hover {
+  background: rgba(251, 191, 36, 0.25);
+  color: #fff;
+  border-color: #fbbf24;
+}
+
 .sponsors-perk-icon {
   font-size: 1.1rem;
 }

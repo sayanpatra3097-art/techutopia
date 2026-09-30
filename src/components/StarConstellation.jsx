@@ -69,15 +69,15 @@ const rawConstellationDays = {
       x: 37,
       y: 8,
       labelPos: 'top',
-      color: '#ffb703',
+      color: '#ec4899',
       time: 'Time : TBD',
-      title: 'ROBO WAR',
-      desc: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
-      venue: 'Mechanical Arena, Workshop Block',
-      category: 'Robotics',
-      rank: 'S-RANK COLISEUM',
+      title: 'AD CREATION COMPETITION',
+      desc: 'Creative ad campaign designing, video commercials, and visual brand storytelling showcase.',
+      venue: 'Media Center / Central Hall, UEM Jaipur',
+      category: 'Media & Advertisement',
+      rank: 'CREATIVE APEX',
       starName: 'Gamma Eridani (Zaurak)',
-      eventName: 'Robo War'
+      eventName: 'Ad Creation Competition'
     },
     {
       id: 'd1-3',

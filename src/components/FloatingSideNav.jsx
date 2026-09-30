@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { preloadHistoryAssets } from '../utils/preloadAssets'
+import codeCraftersLogo from '../assets/sponsers/code crafters logo.webp'
 
 const navSections = [
   {
@@ -84,8 +85,18 @@ const historyMilestones = [
   }
 ]
 
-// ─── SPONSORS DATA (Keep empty until confirmed) ───
-const sponsorTiers = []
+// ─── SPONSORS DATA ───
+const sponsorTiers = [
+  {
+    tier: 'OFFICIAL PLATFORM & LEARNING PARTNER',
+    color: '#fbbf24',
+    name: 'CodeCrafters',
+    tagline: 'Build Redis, Git, and Docker from scratch • Master software craftsmanship',
+    perk: 'Interactive Developer Challenges & Exclusive Platform Access for TechUtopia Contenders',
+    logo: codeCraftersLogo,
+    website: 'https://codecrafters.io'
+  }
+]
 
 const faqItems = [
   {
@@ -315,9 +326,26 @@ export default function FloatingSideNav({ onOpenHistory, onOpenSponsors, onOpenF
                           </div>
                           {tier.name ? (
                             <div className="sponsor-title-sponsor">
+                              {tier.logo && (
+                                <div className="sponsor-modal-logo-wrap">
+                                  <img src={tier.logo} alt={tier.name} className="sponsor-modal-logo" />
+                                </div>
+                              )}
                               <h3 className="sponsor-corp-name">{tier.name}</h3>
                               <p className="sponsor-corp-tagline">{tier.tagline}</p>
                               <span className="sponsor-corp-perk">★ {tier.perk}</span>
+                              {tier.website && (
+                                <div style={{ marginTop: '12px' }}>
+                                  <a
+                                    href={tier.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="sponsor-modal-visit-btn"
+                                  >
+                                    Visit CodeCrafters ↗
+                                  </a>
+                                </div>
+                              )}
                             </div>
                           ) : (
                             <div className="sponsor-partners-grid">

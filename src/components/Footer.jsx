@@ -26,10 +26,6 @@ export default function Footer() {
                 <a href="mailto:techutopia@iem.edu.in" className="contact-val">techutopia@iem.edu.in</a>
               </li>
               <li className="footer__col-link">
-                <span className="contact-label">Student Convener:</span>{' '}
-                <a href="tel:+919123456789" className="contact-val">+91 91234 56789</a>
-              </li>
-              <li className="footer__col-link">
                 <span className="contact-label">UEM Jaipur Official:</span>{' '}
                 <a href="https://uem.edu.in/jaipur" target="_blank" rel="noopener noreferrer" className="contact-val">uem.edu.in/jaipur</a>
               </li>

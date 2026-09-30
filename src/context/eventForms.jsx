@@ -32,6 +32,7 @@ import artEuphoria from '../assets/EVENTS/euphoria.webp'
 import artPov from '../assets/EVENTS/pov techutopia.webp'
 import artDance from '../assets/EVENTS/dance competition.webp'
 import artRampwalk from '../assets/EVENTS/ramp walk.webp'
+import artAdCreation from '../assets/EVENTS/ad creation competition.webp'
 
 // Export all event card images for direct access if needed
 export const EVENT_ASSETS = {
@@ -76,7 +77,11 @@ export const EVENT_ASSETS = {
   artDance,
   rampwalk: artRampwalk,
   rampWalk: artRampwalk,
-  artRampwalk
+  artRampwalk,
+  adCreation: artAdCreation,
+  addCreation: artAdCreation,
+  adCreationCompetition: artAdCreation,
+  artAdCreation
 }
 
 // ─── 2. DEFAULT & SPECIAL FORM LINKS ─────────────────────────────────────────
@@ -85,24 +90,6 @@ export const LAST_CARD_FORM_LINK = "https://forms.gle/mLC9NQxHTFdsuCz9A"
 
 // ─── 3. COMPLETE EVENTS DATASET (DETAILS, ARTWORK & FORM MAPPINGS) ────────────
 export const EVENTS_DATASET = [
-  {
-    id: 1,
-    title: 'Robo War',
-    rank: 'S-RANK COLISEUM',
-    threat: 'S-TIER',
-    element: 'MECHA',
-    category: 'Robotics',
-    icon: '🤖',
-    color: '#ff4500',
-    image: art1,
-    formLink: "https://forms.gle/mLC9NQxHTFdsuCz9A",
-    snippet: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
-    description: 'Heavyweight combat bots and autonomous rovers clashing in the steel cage arena.',
-    date: 'Day 1 • 11:00 AM - 3:00 PM',
-    venue: 'Mechanical Arena, Workshop Block',
-    prize: '₹50,000 + Champion Trophy',
-    team: 'Team of 2-5'
-  },
   {
     id: 2,
     title: 'Gravity Zone',
@@ -499,6 +486,24 @@ export const EVENTS_DATASET = [
     venue: 'UEM Jaipur Campus',
     prize: 'Best Model & Designer Trophies',
     team: 'Solo Models / Fashion Teams'
+  },
+  {
+    id: 25,
+    title: 'Ad Creation Competition',
+    rank: 'CREATIVE APEX',
+    threat: 'CHROMA-TIER',
+    element: 'MEDIA AURA',
+    category: 'Media & Advertisement',
+    icon: '🎬',
+    color: '#ec4899',
+    image: artAdCreation,
+    formLink: DEFAULT_FORM_LINK,
+    snippet: 'Unleash your marketing genius and creative vision in designing impactful, original advertisements.',
+    description: 'Ad Creation Competition — Step into the director’s chair and craft compelling, creative ad campaigns. From quirky brand concepts to cinematic promotional videos and posters, showcase your advertising power.',
+    date: 'Day 1 - Day 2 • Festival Hours',
+    venue: 'Media Center / Central Hall, UEM Jaipur',
+    prize: '₹25,000 + Best Creator Trophy',
+    team: 'Solo / Duo / Squad'
   }
 ]
 
@@ -611,6 +616,16 @@ export const EVENT_FORM_LINKS = {
   "Ramp Walk": findLink('Rampwalk'),
   "ramp walk": findLink('Rampwalk'),
   "Fashion Runway": findLink('Rampwalk'),
+  "Ad Creation Competition": findLink('Ad Creation Competition'),
+  "ad creation competition": findLink('Ad Creation Competition'),
+  "Ad Creation": findLink('Ad Creation Competition'),
+  "ad creation": findLink('Ad Creation Competition'),
+  "Add Creation Competition": findLink('Ad Creation Competition'),
+  "add creation competition": findLink('Ad Creation Competition'),
+  "Add Creation": findLink('Ad Creation Competition'),
+  "add creation": findLink('Ad Creation Competition'),
+  "Ad-Creation": findLink('Ad Creation Competition'),
+  "Ad-Mad": findLink('Ad Creation Competition'),
   "Agomoni": findLink('Agomoni'),
   "agomoni": findLink('Agomoni'),
   "AGOMONI": findLink('Agomoni'),

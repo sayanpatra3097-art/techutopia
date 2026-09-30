@@ -19,6 +19,7 @@ import memberImgAdrija from '../assets/members/Adrija Dutta.webp'
 import memberImgAnup from '../assets/members/Anup Mazumdar 1.webp'
 import memberImgLama from '../assets/members/Lama2.webp'
 import memberImgNeil from '../assets/members/neilkshitij.webp'
+import memberImgManthan from '../assets/members/manthan.webp'
 import memberImg2 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (1).webp'
 import memberImg3 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (3).webp'
 import memberImg4 from '../assets/pastphotos/WhatsApp Image 2026-09-14 at 03.03.17 (4).webp'
@@ -39,6 +40,7 @@ export const MEMBER_ASSETS = {
   memberImgAnup,
   memberImgLama,
   memberImgNeil,
+  memberImgManthan,
   memberImg2,
   memberImg3,
   memberImg4,
@@ -62,13 +64,13 @@ export const CORE_MEMBERS = [
     name: 'Sayan Patra',
     role: 'Lead Web Developer',
     email: 'sayanpatra3097@gmail.com',
-    phone: '+91 9832403097',
+    phone: '',
     linkedin: 'https://www.linkedin.com/in/sayan-patra-582b80378?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     instagram: 'https://www.instagram.com/s4ysayan?stkn=MTkwdGkyeXJhMmFm',
     avatar: memberImg1,
     socials: {
       email: 'sayanpatra3097@gmail.com',
-      phone: '+91 9832403097',
+      phone: '',
       linkedin: 'https://www.linkedin.com/in/sayan-patra-582b80378?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       instagram: 'https://www.instagram.com/s4ysayan?stkn=MTkwdGkyeXJhMmFm'
     }
@@ -77,14 +79,14 @@ export const CORE_MEMBERS = [
     id: 2,
     name: 'Harsh Raj',
     role: 'Core Organizing Committee',
-    email: 'harshraj@techfest.org',
-    phone: '+91 9430030103',
+    email: 'harshrathaur0762@gmail.com',
+    phone: '',
     linkedin: '',
     instagram: '',
     avatar: memberImgHarsh,
     socials: {
-      email: 'harshraj@techfest.org',
-      phone: '+91 9430030103',
+      email: 'harshrathaur0762@gmail.com',
+      phone: '',
       linkedin: '',
       instagram: ''
     }
@@ -93,14 +95,14 @@ export const CORE_MEMBERS = [
     id: 3,
     name: 'Adrija Dutta',
     role: 'Core Organizing Committee',
-    email: 'adrijadutta@techfest.org',
-    phone: '+91 97022 76874',
+    email: 'adrijadutta390@gmail.com',
+    phone: '',
     linkedin: '',
     instagram: '',
     avatar: memberImgAdrija,
     socials: {
-      email: 'adrijadutta@techfest.org',
-      phone: '+91 97022 76874',
+      email: 'adrijadutta390@gmail.com',
+      phone: '',
       linkedin: '',
       instagram: ''
     }
@@ -110,13 +112,13 @@ export const CORE_MEMBERS = [
     name: 'Anup Mazumdar',
     role: 'Core Organizing Committee',
     email: 'anupmazumdar@techfest.org',
-    phone: '+91 97022 76874',
+    phone: '',
     linkedin: '',
     instagram: '',
     avatar: memberImgAnup,
     socials: {
       email: 'anupmazumdar@techfest.org',
-      phone: '+91 97022 76874',
+      phone: '',
       linkedin: '',
       instagram: ''
     }
@@ -126,13 +128,13 @@ export const CORE_MEMBERS = [
     name: 'Abhishek Lama',
     role: 'Core Organizing Committee',
     email: 'abhisheklama@techfest.org',
-    phone: '+91 97022 76874',
+    phone: '',
     linkedin: '',
     instagram: '',
     avatar: memberImgLama,
     socials: {
       email: 'abhisheklama@techfest.org',
-      phone: '+91 97022 76874',
+      phone: '',
       linkedin: '',
       instagram: ''
     }
@@ -142,15 +144,31 @@ export const CORE_MEMBERS = [
     name: 'Neilkshitij Ray',
     role: 'Core Organizing Committee',
     email: 'neilkshitijray@techfest.org',
-    phone: '+91 6371168906',
+    phone: '',
     linkedin: '',
     instagram: '',
     avatar: memberImgNeil,
     socials: {
       email: 'neilkshitijray@techfest.org',
-      phone: '+91 6371168906',
+      phone: '',
       linkedin: '',
       instagram: ''
+    }
+  },
+  {
+    id: 7,
+    name: 'Manthan Sinha',
+    role: 'Core Organizing Committee',
+    email: 'kanhaasinha9@gmail.com',
+    phone: '',
+    linkedin: 'https://www.linkedin.com/in/manthansinha7270?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+    instagram: 'https://www.instagram.com/manthann_13?stkn=M255eHQ1c2tscGY5',
+    avatar: memberImgManthan,
+    socials: {
+      email: 'kanhaasinha9@gmail.com',
+      phone: '',
+      linkedin: 'https://www.linkedin.com/in/manthansinha7270?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+      instagram: 'https://www.instagram.com/manthann_13?stkn=M255eHQ1c2tscGY5'
     }
   }
 ]

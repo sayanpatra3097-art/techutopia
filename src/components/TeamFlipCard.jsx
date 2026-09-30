@@ -3,8 +3,8 @@ import { useState } from 'react'
 export default function TeamFlipCard({ member }) {
   const [imgError, setImgError] = useState(false)
   const email = member.email || member.socials?.email || `${member.name.toLowerCase().replace(/\s+/g, '')}@techfest.org`
-  const phone = member.phone || member.socials?.phone || '+91 97022 76874'
-  const cleanPhone = phone.replace(/[^+\d]/g, '')
+  const phone = member.phone || member.socials?.phone || ''
+  const cleanPhone = phone ? phone.replace(/[^+\d]/g, '') : ''
 
   // Only LinkedIn and Instagram as requested
   const linkedin = member.linkedin || member.socials?.linkedin || ''
@@ -94,13 +94,15 @@ export default function TeamFlipCard({ member }) {
           >
             {email}
           </a>
-          <a
-            href={`tel:${cleanPhone}`}
-            className="cyber-plaque__phone"
-            title={`Call: ${phone}`}
-          >
-            {phone}
-          </a>
+          {phone && (
+            <a
+              href={`tel:${cleanPhone}`}
+              className="cyber-plaque__phone"
+              title={`Call: ${phone}`}
+            >
+              {phone}
+            </a>
+          )}
 
           {/* Only LinkedIn and Instagram Links */}
           <div className="cyber-plaque__socials">

@@ -1,16 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
 import sponsorsBg from '../assets/sponsors_bg.webp'
+import codeCraftersLogo from '../assets/sponsers/code crafters logo.webp'
 
-const SPONSOR_METRICS = [
-  { value: '₹5,00,000+', label: 'COMMITTED BOUNTY' },
-  { value: '5,000+', label: 'WARRIOR FOOTFALL' },
-  { value: '80+', label: 'TOP INSTITUTES' },
-  { value: '100K+', label: 'DIGITAL IMPRESSIONS' }
-]
 
-// ─── SPONSORS DATA (Leave empty until official partners are confirmed) ───
-// To add sponsors later, fill in these objects/arrays
-const TITLE_PATRON = null
+// ─── SPONSORS DATA ───
+const TITLE_PATRON = {
+  badge: 'OFFICIAL PLATFORM & LEARNING PATRON',
+  name: 'CodeCrafters',
+  tier: 'OFFICIAL GUILD PATRON',
+  tagline: 'Build Your Own Redis, Git, and Docker from Scratch • Master Software Craftsmanship',
+  description: 'CodeCrafters provides interactive, high-depth engineering tracks where developers master advanced systems programming by recreating real-world tools like Redis, Git, Docker, and SQLite from the ground up. Proudly empowering the hackers, builders, and developers of TechUtopia ’26.',
+  perk: 'Interactive Developer Challenges & Exclusive Platform Access for TechUtopia Contenders',
+  logo: codeCraftersLogo,
+  website: 'https://codecrafters.io'
+}
 const POWERED_PATRON = null
 const ASSOCIATE_PARTNERS = []
 const MEDIA_ECOSYSTEM = []
@@ -109,16 +112,6 @@ export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
           <p className="sponsors-subtitle">
             Powering Rajasthan’s most epic techno-cultural arena with technology, bounties, and infinite momentum.
           </p>
-
-          {/* Festival Metrics Counter */}
-          <div className="sponsors-metrics-grid">
-            {SPONSOR_METRICS.map((m, i) => (
-              <div key={i} className="sponsors-metric-card">
-                <span className="sponsors-metric-val">{m.value}</span>
-                <span className="sponsors-metric-lbl">{m.label}</span>
-              </div>
-            ))}
-          </div>
         </section>
 
         {/* ─── SPONSORS SHOWCASE / EMPTY ANNOUNCEMENT ─── */}
@@ -128,22 +121,44 @@ export default function SponsorsPage({ onBack, onOpenHistory, onOpenFaq }) {
               <section className="sponsors-section-block">
                 <div className="sponsors-tier-heading">
                   <span className="sponsors-tier-line" />
-                  <span className="sponsors-tier-title sponsors-tier-title--title">TITLE GUILD PATRON</span>
+                  <span className="sponsors-tier-title sponsors-tier-title--title">{TITLE_PATRON.tier || 'TITLE GUILD PATRON'}</span>
                   <span className="sponsors-tier-line" />
                 </div>
                 <div className="sponsors-title-card">
                   <div className="sponsors-title-card__inner">
                     <div className="sponsors-title-card__badge">{TITLE_PATRON.badge}</div>
                     <div className="sponsors-title-card__header">
-                      <div>
+                      {TITLE_PATRON.logo && (
+                        <div className="sponsors-title-card__logo-wrap">
+                          <img
+                            src={TITLE_PATRON.logo}
+                            alt={TITLE_PATRON.name}
+                            className="sponsors-title-card__logo"
+                            loading="eager"
+                          />
+                        </div>
+                      )}
+                      <div className="sponsors-title-text-wrap">
                         <h2 className="sponsors-title-name">{TITLE_PATRON.name}</h2>
                         <p className="sponsors-title-tagline">{TITLE_PATRON.tagline}</p>
                       </div>
                     </div>
                     <p className="sponsors-title-desc">{TITLE_PATRON.description}</p>
-                    <div className="sponsors-title-perks">
-                      <span className="sponsors-perk-icon">⚡</span>
-                      <span className="sponsors-perk-text">{TITLE_PATRON.perk}</span>
+                    <div className="sponsors-title-footer">
+                      <div className="sponsors-title-perks">
+                        <span className="sponsors-perk-icon">⚡</span>
+                        <span className="sponsors-perk-text">{TITLE_PATRON.perk}</span>
+                      </div>
+                      {TITLE_PATRON.website && (
+                        <a
+                          href={TITLE_PATRON.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="sponsors-visit-btn"
+                        >
+                          VISIT CODECRAFTERS ↗
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

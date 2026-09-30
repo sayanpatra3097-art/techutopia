@@ -11,6 +11,7 @@ import animeSkyBg from '../assets/anime_sky_bg.webp'
 import animeUniverseBg from '../assets/anime_universe_bg.webp'
 import coreTeamBg from '../assets/core_team.webp'
 import sponsorsBg from '../assets/sponsors_bg.webp'
+import codeCraftersLogo from '../assets/sponsers/code crafters logo.webp'
 import faqBg from '../assets/faq_bg.webp'
 import soloMonarchImg from '../assets/solo_monarch_globe.webp'
 import { EVENTS_DATASET } from '../context/eventForms'
@@ -63,6 +64,7 @@ export function preloadDimensionBackgrounds() {
     animeUniverseBg,
     coreTeamBg,
     sponsorsBg,
+    codeCraftersLogo,
     faqBg,
     soloMonarchImg
   ]
