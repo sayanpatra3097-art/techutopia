@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DATA_DIR = path.resolve(__dirname, '../../data');
+const DATA_DIR = process.env.NODE_ENV === 'production' || process.env.VERCEL ? '/tmp' : path.resolve(__dirname, '../../data');
 const CSV_FILE_PATH = path.join(DATA_DIR, 'students_database.csv');
 
 /**
