@@ -3,13 +3,13 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // Need to load env from parent directory if script run from root
-dotenv.config({ path: '../.env' }); 
+dotenv.config({ path: 'techutopia/.env' });
 
 async function test() {
   console.log('Sending test email...');
   const result = await sendAnnouncementEmail({
-    name: 'Shreyas Roy',
-    email: 'shreyasroy2023@gmail.com',
+    name: 'Snehal Sarkar',
+    email: 'snehalsarkar94@gmail.com',
     password: 'TEST_PASSWORD_123'
   });
   console.log('Result:', result);

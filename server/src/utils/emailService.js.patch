@@ -1,0 +1,40 @@
+--- server/src/utils/emailService.js
++++ server/src/utils/emailService.js
+@@ -239,2 +239,36 @@
+   }
+ }
++
++export async function sendReferralCodeEmail({ name, email, referralCode, referralPoints }) {
++  const fromEmail = process.env.FROM_EMAIL || 'TechUtopia <noreply@techutopia.in>';
++  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
++  const referralLink = `${frontendUrl}/signup?ref=${referralCode}`;
++  
++  const html = `
++    <p>Hi ${name},</p>
++    <p>Your TechUtopia referral code is:</p>
++    <p><strong>${referralCode}</strong></p>
++    <p>Share this code with your friends to invite them to TechUtopia.</p>
++    <p>Your referral link:</p>
++    <p><a href="${referralLink}">${referralLink}</a></p>
++    <p>Your current referral points:</p>
++    <p><strong>${referralPoints}</strong></p>
++    <p>Regards,<br>TechUtopia Team</p>
++  `;
++
++  try {
++    const { data, error } = await resend.emails.send({
++      from: fromEmail,
++      to: [email],
++      subject: 'Your TechUtopia Referral Code',
++      html
++    });
++
++    if (error) {
++      return { success: false, error: error.message || JSON.stringify(error) };
++    }
++    return { success: true, data };
++  } catch (error) {
++    console.error(`Failed to send referral code email to ${email}:`, error);
++    return { success: false, error: error.message };
++  }
++}

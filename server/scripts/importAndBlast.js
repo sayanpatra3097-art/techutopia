@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Readable } from 'stream';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import { google } from 'googleapis';
 import csvParser from 'csv-parser';
+import { Readable } from 'stream';
 import { prisma } from '../src/db.js';
 import { generateReferralCode, generateRandomPassword } from '../src/utils/helpers.js';
-import { sendAnnouncementEmail } from '../src/utils/emailService.js';
 import { syncStudentsToCSV, saveImportedCredentialsCSV } from '../src/utils/csvSync.js';
 
 dotenv.config();
@@ -15,192 +15,227 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.resolve(__dirname, '../data');
-const PROJECT_ROOT = path.resolve(__dirname, '../../');
+const SPREADSHEET_ID = '1p2WP3foWUSvGdOJcGJE1YAN4X69fu22xaYtHSHf3W9g';
+const CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv`;
 
-const EMAIL_SEND_DELAY_MS = 600;
+async function fetchGoogleSheetDataAPI() {
+  const apiKey = process.env.GOOGLE_SHEETS_API_KEY;
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  if (!apiKey && (!clientEmail || !privateKey)) {
+    console.log('[GoogleSheets] No API credentials found in .env. Attempting public CSV export download instead...');
+    return fetchGoogleSheetDataCSV();
+  }
+
+  let auth;
+  if (clientEmail && privateKey) {
+    auth = new google.auth.JWT(
+      clientEmail,
+      null,
+      privateKey.replace(/\\n/g, '\n'),
+      ['https://www.googleapis.com/auth/spreadsheets.readonly']
+    );
+  } else {
+    auth = apiKey;
+  }
+
+  const sheets = google.sheets({ version: 'v4', auth });
+  
+  console.log('[GoogleSheets] Fetching spreadsheet metadata...');
+  const meta = await sheets.spreadsheets.get({
+    spreadsheetId: SPREADSHEET_ID,
+  });
+  
+  const sheetName = meta.data.sheets[0].properties.title;
+  console.log(`[GoogleSheets] Worksheet detected: ${sheetName}`);
+  
+  console.log('[GoogleSheets] Fetching rows via API...');
+  const safeSheetName = sheetName.replace(/'/g, "''");
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: `'${safeSheetName}'!A:ZZ`,
+  });
+
+  return response.data.values;
 }
 
-/**
- * Extracts emails from a CSV stream
- */
-function extractEmailsFromStream(stream) {
+async function fetchGoogleSheetDataCSV() {
+  console.log(`[GoogleSheets] Downloading public CSV from: ${CSV_URL}`);
+  const response = await fetch(CSV_URL);
+  
+  if (!response.ok) {
+    throw new Error(`Public CSV download failed with HTTP ${response.status}: ${response.statusText}`);
+  }
+  
+  const text = await response.text();
+  const stream = Readable.from([text]);
+  
   return new Promise((resolve, reject) => {
-    const emailsSet = new Set();
-
+    const rows = [];
+    let headers = null;
     stream
       .pipe(csvParser())
-      .on('data', (row) => {
-        let email = (row['Email Address'] || '').trim().toLowerCase();
-        if (!email || !email.includes('@')) {
-          for (const [k, v] of Object.entries(row)) {
-            if (k.toLowerCase().includes('email') && v && v.includes('@')) {
-              email = v.trim().toLowerCase();
-              break;
-            }
-          }
-        }
-        if (email && email.includes('@')) {
-          emailsSet.add(email);
-        }
+      .on('headers', (h) => {
+        headers = h;
+        rows.push(h); // Add headers as first row to match API format
       })
-      .on('end', () => resolve(Array.from(emailsSet)))
+      .on('data', (row) => {
+        // Convert object back to array matching headers order
+        const rowArr = headers.map(h => row[h]);
+        rows.push(rowArr);
+      })
+      .on('end', () => resolve(rows))
       .on('error', (err) => reject(err));
   });
 }
 
-/**
- * Loads unique emails from Google Sheet (if online) or fallback local CSV
- */
-async function loadUniqueStudentEmails() {
-  const sheetUrl = process.env.GOOGLE_SHEET_URL;
+function normalizeEmail(email) {
+  return email ? email.toString().trim().toLowerCase() : null;
+}
 
-  if (sheetUrl) {
-    try {
-      console.log(`[Google Sheet] Fetching live data from:\n${sheetUrl}`);
-      const response = await fetch(sheetUrl);
-      if (response.ok) {
-        const text = await response.text();
-        const stream = Readable.from([text]);
-        const emails = await extractEmailsFromStream(stream);
-        console.log(`✅ Successfully fetched ${emails.length} unique emails directly from LIVE Google Sheet!`);
-        return emails;
-      }
-      console.warn(`⚠️ Google Sheet fetch returned status ${response.status}. Falling back to local CSV...`);
-    } catch (err) {
-      console.warn('⚠️ Google Sheet fetch failed. Falling back to local CSV. Error:', err.message);
+function findColumnIndex(headers, possibleNames) {
+  for (let i = 0; i < headers.length; i++) {
+    const h = (headers[i] || '').toString().trim().toLowerCase();
+    for (const name of possibleNames) {
+      if (h.includes(name)) return i;
+    }
+  }
+  return -1;
+}
+
+export async function runSync() {
+  console.log('[GoogleSheets] Starting sync');
+  const values = await fetchGoogleSheetDataAPI();
+  
+  if (!values || values.length === 0) {
+    throw new Error('No data found in spreadsheet.');
+  }
+
+  const headers = values[0];
+  console.log('[GoogleSheets] Header row detected');
+  
+  const emailCol = findColumnIndex(headers, ['email', 'email address']);
+  const nameCol = findColumnIndex(headers, ['name', 'full name']);
+  const collegeCol = findColumnIndex(headers, ['college', 'university', 'institute']);
+  const regIdCol = findColumnIndex(headers, ['registration id', 'student id', 'enrollment']);
+
+  if (emailCol === -1) {
+    throw new Error('Could not identify an email column in the spreadsheet.');
+  }
+
+  const records = [];
+  for (let i = 1; i < values.length; i++) {
+    const row = values[i];
+    const email = normalizeEmail(row[emailCol]);
+    if (email && email.includes('@')) {
+      records.push({
+        email,
+        name: nameCol !== -1 ? (row[nameCol] || '').toString().trim() : '',
+        college: collegeCol !== -1 ? (row[collegeCol] || '').toString().trim() : '',
+        regId: regIdCol !== -1 ? (row[regIdCol] || '').toString().trim() : ''
+      });
     }
   }
 
-  // Fallback to local CSV files
-  const gFormRootPath = path.join(PROJECT_ROOT, 'Event Registration_NEW (Responses) - Form Responses 1.csv');
-  const gFormDataPath = path.join(DATA_DIR, 'Event Registration_NEW (Responses) - Form Responses 1.csv');
-  const csvPath = fs.existsSync(gFormRootPath) ? gFormRootPath : (fs.existsSync(gFormDataPath) ? gFormDataPath : null);
+  console.log(`[GoogleSheets] Registration rows found: ${records.length}`);
 
-  if (csvPath) {
-    console.log(`[Local CSV] Reading from: ${csvPath}`);
-    const stream = fs.createReadStream(csvPath);
-    return await extractEmailsFromStream(stream);
-  }
-
-  return [];
-}
-
-async function main() {
-  console.log('====================================================');
-  console.log('🚀 TechUtopia Email & Temporary Password Importer');
-  console.log('====================================================\n');
-
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-
-  const uniqueEmails = await loadUniqueStudentEmails();
-
-  if (uniqueEmails.length === 0) {
-    console.error('❌ Could not find any registered student emails from Google Sheet or local CSV.');
-    process.exit(1);
-  }
-
-  console.log(`📊 Processing ${uniqueEmails.length} unique student emails.\n`);
-
+  let newRecords = 0;
+  let existingRecords = 0;
+  let duplicatesDetected = 0;
+  let errors = 0;
+  
+  const seenEmails = new Set();
   const credentialsLog = [];
-  let successfulSends = 0;
-  let failedSends = 0;
-  let skippedExisting = 0;
-  let createdCount = 0;
 
-  for (let i = 0; i < uniqueEmails.length; i++) {
-    const email = uniqueEmails[i];
-    console.log(`[${i + 1}/${uniqueEmails.length}] Processing: ${email}...`);
+  for (const record of records) {
+    if (seenEmails.has(record.email)) {
+      duplicatesDetected++;
+      continue;
+    }
+    seenEmails.add(record.email);
 
     try {
-      let user = await prisma.user.findUnique({ where: { email } });
-
-      if (user) {
-        console.log(`   ℹ️ Already exists in database (Referral Code: ${user.referralCode}, Points: ${user.referralPoints}).`);
-        skippedExisting++;
-        continue;
-      }
-
-      // 1. Generate temporary password & referral code
-      const tempPassword = generateRandomPassword();
-      const hashedPassword = await bcrypt.hash(tempPassword, 10);
-
-      let referralCode = generateReferralCode();
-      while (await prisma.user.findUnique({ where: { referralCode } })) {
-        referralCode = generateReferralCode();
-      }
-
-      // 2. Save in Neon PostgreSQL
-      user = await prisma.user.create({
-        data: {
-          email,
-          password: hashedPassword,
-          referralCode,
-          referralPoints: 0
-        }
-      });
-      createdCount++;
-      console.log(`   ✅ Created account with Referral Code: ${referralCode}`);
-
-      // 3. Dispatch announcement & credentials email via Resend
-      console.log(`   📧 Sending temporary password email to ${email}...`);
-      const emailResult = await sendAnnouncementEmail({
-        email,
-        password: tempPassword
+      const existingUser = await prisma.user.findUnique({
+        where: { email: record.email }
       });
 
-      if (emailResult.success) {
-        console.log(`   ✨ Email sent successfully! (ID: ${emailResult.data?.id || 'delivered'})`);
-        successfulSends++;
+      if (existingUser) {
+        existingRecords++;
       } else {
-        console.warn(`   ⚠️ Resend status: ${emailResult.error}`);
-        failedSends++;
+        const tempPassword = generateRandomPassword();
+        const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+        let referralCode = generateReferralCode();
+        while (await prisma.user.findUnique({ where: { referralCode } })) {
+          referralCode = generateReferralCode();
+        }
+
+        await prisma.user.create({
+          data: {
+            email: record.email,
+            name: record.name,
+            college: record.college,
+            password: hashedPassword,
+            referralCode,
+            referralPoints: 0,
+            mustChangePassword: true
+          }
+        });
+        
+        credentialsLog.push({
+          email: record.email,
+          password: tempPassword,
+          referralCode
+        });
+        
+        newRecords++;
       }
-
-      credentialsLog.push({
-        email,
-        password: tempPassword,
-        referralCode
-      });
-
-      await sleep(EMAIL_SEND_DELAY_MS);
     } catch (err) {
-      console.error(`   ❌ Error on ${email}:`, err.message);
-      failedSends++;
+      console.error(`[GoogleSheets] Error processing ${record.email}:`, err.message);
+      errors++;
     }
   }
 
-  // 4. Save plain temporary passwords to CSV for admin record
   if (credentialsLog.length > 0) {
-    const credsPath = await saveImportedCredentialsCSV(credentialsLog);
-    console.log(`\n💾 Saved plain credentials & passwords log to: ${credsPath}`);
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    await saveImportedCredentialsCSV(credentialsLog);
   }
 
-  // 5. Sync complete live database to CSV
   const allStudents = await prisma.user.findMany({ orderBy: { createdAt: 'desc' } });
-  const dbCsvPath = await syncStudentsToCSV(allStudents);
-  console.log(`💾 Live database synced to CSV: ${dbCsvPath}`);
+  await syncStudentsToCSV(allStudents);
 
-  console.log('\n====================================================');
-  console.log('🏁 Batch Processing Summary');
-  console.log('====================================================');
-  console.log(`Total Emails Found:    ${uniqueEmails.length}`);
-  console.log(`New Accounts Created:  ${createdCount}`);
-  console.log(`Already In Database:   ${skippedExisting}`);
-  console.log(`Emails Dispatched:     ${successfulSends}`);
-  console.log(`Emails Blocked/Wait:   ${failedSends}`);
-  console.log('====================================================\n');
+  console.log(`[GoogleSheets] Existing records: ${existingRecords}`);
+  console.log(`[GoogleSheets] New records: ${newRecords}`);
+  console.log(`[GoogleSheets] Duplicates detected: ${duplicatesDetected}`);
+  console.log(`[GoogleSheets] Sync completed`);
+
+  return {
+    newRecords,
+    existingRecords,
+    duplicatesDetected,
+    errors
+  };
 }
 
-main()
-  .catch((err) => {
-    console.error('Fatal error:', err);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runSync()
+    .then(result => {
+      console.log('\n====================================================');
+      console.log('Google Sheet Sync Complete');
+      console.log(`New registrations: ${result.newRecords}`);
+      console.log(`Existing registrations: ${result.existingRecords}`);
+      console.log(`Duplicates detected: ${result.duplicatesDetected}`);
+      console.log(`Errors: ${result.errors}`);
+      console.log('\nExisting users were preserved.');
+      console.log('====================================================\n');
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error('Sync failed with code 1:');
+      console.error(err.message);
+      process.exit(1);
+    });
+}
