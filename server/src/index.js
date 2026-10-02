@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: '*', // Allow frontend domain during development and production
+  origin: ['https://techutopia.in', 'http://localhost:5173'], // Restrict to production and local dev
   credentials: true
 }));
 app.use(express.json());
