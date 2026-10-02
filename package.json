@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "postinstall": "prisma generate --schema=server/prisma/schema.prisma"
+    "vercel-build": "prisma generate --schema=server/prisma/schema.prisma && vite build"
   },
   "dependencies": {
     "@prisma/client": "^7.10.0",
